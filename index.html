@@ -1,1 +1,476 @@
-Hello world
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Index</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #10172a;
+      --muted: #9fb0d0;
+      --fg: #e6edff;
+      --acc: #7aa2ff;
+      --acc2: #37d2a7;
+      --danger: #ff6b6b;
+      --card: #0f1528;
+      --border: #1d2742;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: radial-gradient(1200px 800px at 10% -10%, #1b2652 0%, transparent 46%),
+                 radial-gradient(1000px 600px at 110% -10%, #17334f 0%, transparent 45%),
+                 var(--bg);
+      color: var(--fg); font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    a { color: var(--acc); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      position: sticky; top: 0; z-index: 5; backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(16,23,42,0.9), rgba(16,23,42,0.6));
+      border-bottom: 1px solid var(--border);
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    .title { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--acc), var(--acc2));
+      display: grid; place-items: center; color: #0b1020; font-weight: 800; box-shadow: var(--shadow);
+    }
+
+    .controls { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; margin-top: 12px; }
+    .search { position: relative; }
+    .search input {
+      width: 100%; padding: 12px 14px 12px 38px; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--panel); color: var(--fg);
+    }
+    .search svg { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); opacity: .6; }
+
+    .pill {
+      border-radius: 999px; border: 1px solid var(--border); background: var(--panel);
+      color: var(--fg); padding: 10px 14px; display: inline-flex; gap: 8px; align-items: center; cursor: pointer;
+    }
+    .pill input { accent-color: var(--acc); }
+    .btn { border-radius: 10px; padding: 10px 14px; border: 1px solid var(--border); background: var(--panel); color: var(--fg); cursor: pointer; }
+    .btn:hover { border-color: #2a3a66; }
+
+    .crumbs { margin-top: 10px; color: var(--muted); font-size: 14px; white-space: nowrap; overflow: auto; }
+    .crumbs a { color: var(--fg); opacity: .9; }
+    .crumbs .sep { opacity: .4; margin: 0 6px; }
+
+    main { padding: 18px 16px 32px; }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th { text-align: left; font-weight: 600; color: var(--muted); background: rgba(0,0,0,0.15); }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    tbody tr:hover { background: rgba(122,162,255,0.08); }
+    .namecell { display: flex; align-items: center; gap: 10px; }
+    .fileicon, .foldericon { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; }
+    .foldericon { background: rgba(122,162,255,0.18); color: var(--acc); }
+    .fileicon { background: rgba(55,210,167,0.18); color: var(--acc2); }
+
+    .empty { padding: 28px; text-align: center; color: var(--muted); }
+
+    details.settings {
+      margin-top: 14px; border: 1px dashed var(--border); border-radius: var(--radius); padding: 8px 12px; background: rgba(0,0,0,0.1);
+    }
+    details.settings summary { cursor: pointer; color: var(--muted); }
+    .settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .settings-grid label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 6px; }
+    .settings-grid input { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--fg); }
+    .settings-actions { display: flex; gap: 10px; margin-top: 10px; }
+
+    footer { color: var(--muted); font-size: 13px; padding: 24px 16px 60px; text-align: center; }
+    code.kv { background: rgba(255,255,255,.06); padding: 2px 6px; border-radius: 6px; }
+
+    .tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
+    @media (max-width: 700px) { .controls { grid-template-columns: 1fr; } .settings-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="title">
+      <div class="logo">∑</div>
+      <div>
+        <div style="font-weight:700;font-size:18px">Verzeichnisindex</div>
+        <div style="color:var(--muted);font-size:13px">Listet Dateien & Ordner dieses Repos (Client‑Side, GitHub API)</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.6"/></svg>
+        <input id="search" placeholder="Suchen… (Name, Endung)" />
+      </div>
+      <label class="pill"><input type="checkbox" id="toggleHidden"> Versteckte Dateien anzeigen</label>
+      <button id="btnUp" class="btn" title="Eine Ebene nach oben">↑ Ebene</button>
+    </div>
+
+    <div class="crumbs" id="breadcrumbs"></div>
+
+    <details class="settings">
+      <summary>Erweitert: Repo/Branch/Prefix konfigurieren</summary>
+      <div class="settings-grid">
+        <div><label>Owner</label><input id="cfgOwner" placeholder="z. B. antaris"/></div>
+        <div><label>Repo</label><input id="cfgRepo" placeholder="z. B. mein-repo"/></div>
+        <div><label>Branch <span class="tag">auto</span></label><input id="cfgBranch" placeholder="gh-pages / main / master"/></div>
+        <div><label>Prefix im Repo (z. B. <code>docs</code>)</label><input id="cfgPrefix" placeholder="optional, ohne führenden /"/></div>
+        <div style="grid-column: 1 / -1"><label>GitHub Token (optional, erhöht Rate‑Limit)</label><input id="cfgToken" placeholder="ghp_… (lokal gespeichert)"/></div>
+      </div>
+      <div class="settings-actions">
+        <button class="btn" id="btnSave">Speichern</button>
+        <button class="btn" id="btnReset">Reset</button>
+      </div>
+      <div style="margin-top:10px;color:var(--muted);font-size:13px">Hinweis: Parameter können auch per Query‑String gesetzt werden: <code class="kv">?p=unter/ordner&owner=NAME&repo=REPO&branch=main&prefix=docs</code></div>
+    </details>
+  </div>
+</header>
+
+<main class="container">
+  <div class="panel">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Größe</th>
+          <th>Typ</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="3" class="empty">Lade…</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="error" class="empty" style="display:none;color:var(--danger)"></div>
+</main>
+
+<footer>
+  <div>Erstellt von <span style="opacity:.8">index.html</span>. Nutzt die GitHub REST API (<em>ohne</em> Server‑Code).<br/>Unauthentifiziertes Rate‑Limit: <strong>60</strong> Anfragen/Stunde/IP.</div>
+</footer>
+
+<script>
+(function(){
+  const qs = new URLSearchParams(location.search);
+  const $ = sel => document.querySelector(sel);
+  const tbody = $('#tbody');
+  const breadcrumbsEl = $('#breadcrumbs');
+  const searchInput = $('#search');
+  const toggleHidden = $('#toggleHidden');
+  const btnUp = $('#btnUp');
+
+  const store = {
+    get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
+    set(v){ localStorage.setItem('dirindex.cfg', JSON.stringify(v)); }
+  };
+
+  // Compute site base path (for building links)
+  function siteBase(){
+    const host = location.hostname;
+    const path = location.pathname;
+    if (/\.github\.io$/i.test(host)) {
+      const segs = path.split('/').filter(Boolean);
+      if (segs.length>0) return '/' + segs[0] + '/';
+    }
+    // custom domain or user root
+    return '/';
+  }
+
+  function currentFolderInSite(){
+    let p = location.pathname;
+    // strip base and trailing file name
+    const base = siteBase();
+    if (p.startsWith(base)) p = p.slice(base.length-1); // keep leading '/'
+    // remove index.html if present
+    p = p.replace(/index\.html?$/i, '');
+    // query override
+    const qp = qs.get('p');
+    if (qp) {
+      p = ('/' + qp).replace(/\/+/g,'/');
+      if (!p.endsWith('/')) p += '/';
+    }
+    return p;
+  }
+
+  // Attempt to infer owner/repo on *.github.io; otherwise use config
+  function inferOwnerRepo(cfg){
+    const host = location.hostname;
+    const path = location.pathname;
+    if (/\.github\.io$/i.test(host)) {
+      const owner = host.split('.')[0];
+      const segs = path.split('/').filter(Boolean);
+      const repo = segs.length>0 ? segs[0] : (owner + '.github.io');
+      return { owner, repo };
+    }
+    return { owner: cfg.owner, repo: cfg.repo };
+  }
+
+  // GitHub API helper
+  async function ghFetch(url, token){
+    const headers = {
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    const res = await fetch(url, { headers });
+    if (!res.ok) {
+      const text = await res.text().catch(()=>String(res.status));
+      const err = new Error(text||('HTTP '+res.status));
+      err.status = res.status; err.body = text; err.url = url; throw err;
+    }
+    return res.json();
+  }
+
+  function bytes(n){ if (n==null) return '—'; if (n<1024) return n+' B'; if (n<1024*1024) return (n/1024).toFixed(1)+' KB'; return (n/1024/1024).toFixed(2)+' MB'; }
+  function esc(s){ return s.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+  function joinUrl(...parts){ return parts.map((p,i)=> i===0? p.replace(/\/?$/,'') : p.replace(/^\/+/, '')).join('/'); }
+  function encodePath(p){ return p.split('/').map(encodeURIComponent).join('/'); }
+
+  function applySettingsToUI(cfg){
+    $('#cfgOwner').value = cfg.owner||'';
+    $('#cfgRepo').value = cfg.repo||'';
+    $('#cfgBranch').value = cfg.branch||'';
+    $('#cfgPrefix').value = cfg.prefix||'';
+    $('#cfgToken').value = cfg.token||'';
+  }
+
+  function readSettings(){
+    const saved = store.get();
+    const cfg = {
+      owner: qs.get('owner') || saved.owner || '',
+      repo: qs.get('repo') || saved.repo || '',
+      branch: qs.get('branch') || saved.branch || '',
+      prefix: (qs.get('prefix') || saved.prefix || '').replace(/^\/+|\/+$|^\.+/g,''),
+	token: qs.get('token') || saved.token || ''
+    };
+    applySettingsToUI(cfg);
+    return cfg;
+  }
+
+  function saveSettings(){
+    const cfg = {
+      owner: $('#cfgOwner').value.trim(),
+      repo: $('#cfgRepo').value.trim(),
+      branch: $('#cfgBranch').value.trim(),
+      prefix: $('#cfgPrefix').value.trim().replace(/^\/+|\/+$|^\.+/g,''),
+      token: $('#cfgToken').value.trim()
+    };
+    store.set(cfg);
+    return cfg;
+  }
+
+  function resetSettings(){ store.set({}); location.href = location.pathname; }
+
+  function setError(msg){
+    $('#error').style.display = 'block';
+    $('#error').textContent = msg;
+  }
+
+  function clearError(){ $('#error').style.display='none'; $('#error').textContent=''; }
+
+  function buildCrumbs(path){
+    const parts = path.split('/').filter(Boolean);
+    const acc = [];
+    const base = siteBase();
+    let html = '<a href="#" data-path="/">/</a>';
+    parts.forEach((p,i)=>{
+      acc.push(p);
+      html += '<span class="sep">›</span>' + `<a href="#" data-path="/${acc.join('/')}/">${esc(p)}</a>`;
+    });
+    breadcrumbsEl.innerHTML = html;
+    breadcrumbsEl.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', (e)=>{ e.preventDefault(); navigateTo(a.dataset.path); });
+    });
+  }
+
+  function linkFor(sitePath){
+    // Build a link relative to site base
+    const base = siteBase();
+    let href = joinUrl(base, sitePath);
+    if (!href.endsWith('/')) return href; // folder: we keep trailing/
+    return href;
+  }
+
+  function rowHtml(entry, siteRelPath){
+    const isDir = entry.type === 'dir';
+    const icon = isDir ? '<div class="foldericon">📁</div>' : '<div class="fileicon">📄</div>';
+    const name = esc(entry.name);
+    const size = isDir ? '—' : bytes(entry.size);
+    const type = isDir ? 'Ordner' : (entry.name.includes('.')? entry.name.split('.').pop().toLowerCase()+'‑Datei' : 'Datei');
+    if (isDir) {
+      return `<tr class="row dir" data-name="${esc(entry.name)}" data-path="${esc(siteRelPath)}"><td class="namecell">${icon}<a href="#" class="nav">${name}</a></td><td>${size}</td><td>${type}</td></tr>`;
+    } else {
+      const href = linkFor(siteRelPath);
+      return `<tr class="row file" data-name="${esc(entry.name)}"><td class="namecell">${icon}<a href="${href}">${name}</a></td><td>${size}</td><td>${type}</td></tr>`;
+    }
+  }
+
+  function filterAndRender(entries, path){
+    const showHidden = toggleHidden.checked;
+    const q = searchInput.value.toLowerCase().trim();
+    const filtered = entries.filter(e=>{
+      if (!showHidden && e.name.startsWith('.')) return false;
+      if (!q) return true;
+      return e.name.toLowerCase().includes(q);
+    });
+
+    // sort: dirs first, then files, alphabetically
+    filtered.sort((a,b)=>{
+      if (a.type!==b.type) return a.type==='dir' ? -1 : 1;
+      return a.name.localeCompare(b.name, undefined, {numeric:true, sensitivity:'base'});
+    });
+
+    if (filtered.length===0) {
+      tbody.innerHTML = '<tr><td colspan="3" class="empty">Nichts gefunden.</td></tr>';
+      return;
+    }
+
+    const sitePath = path.startsWith('/')? path : '/' + path;
+
+    tbody.innerHTML = filtered.map(e=>{
+      const itemSiteRel = joinUrl(sitePath, e.name) + (e.type==='dir' ? '/' : '');
+      return rowHtml(e, itemSiteRel);
+    }).join('');
+
+    tbody.querySelectorAll('tr.dir .nav').forEach(a=>{
+      a.addEventListener('click', (ev)=>{
+        ev.preventDefault();
+        const tr = a.closest('tr');
+        const p = tr.dataset.path;
+        navigateTo(p);
+      });
+    });
+  }
+
+  function pushHistory(path){
+    const url = new URL(location.href);
+    url.searchParams.set('p', path.replace(/^\/+|\/+$|\.+/g,''));
+    history.pushState({path}, '', url);
+  }
+
+  async function detectBranchAndPrefix(owner, repo, token, repoPath){
+    const branches = [qs.get('branch'), 'gh-pages','main','master'].filter(Boolean);
+    const prefixes = [qs.get('prefix'), readSettings().prefix || null, '', 'docs'].filter(v=> v!==undefined);
+
+    for (const br of branches){
+      for (const pref of prefixes){
+        try {
+          const tryPath = joinUrl(pref||'', repoPath||'');
+          const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodePath(tryPath)}?ref=${encodeURIComponent(br)}`;
+          await ghFetch(apiUrl, token);
+          return { branch: br, prefix: pref||'' };
+        } catch(e) { /* continue */ }
+      }
+    }
+    throw new Error('Branch/Prefix konnte nicht automatisch bestimmt werden. Bitte unter „Erweitert“ konfigurieren.');
+  }
+
+  let STATE = { owner:null, repo:null, branch:null, prefix:'', token:null, path:'/' };
+
+  async function load(path){
+    clearError();
+    tbody.innerHTML = '<tr><td colspan="3" class="empty">Lade…</td></tr>';
+
+    const cfg = readSettings();
+    const infer = inferOwnerRepo(cfg);
+    const owner = infer.owner; const repo = infer.repo;
+    if (!owner || !repo){
+      setError('Owner/Repo unbekannt. Auf *.github.io wird automatisch erkannt; sonst unter „Erweitert“ setzen.');
+      return;
+    }
+
+    let branch = cfg.branch; let prefix = cfg.prefix||''; const token = cfg.token||'';
+    const repoPath = joinUrl(prefix, path);
+
+    async function tryFetch(br, pref){
+      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodePath(joinUrl(pref, path))}?ref=${encodeURIComponent(br)}`;
+      return ghFetch(apiUrl, token);
+    }
+
+    let data = null; let used = {branch, prefix};
+
+    // Resolve branch/prefix if not set or failing
+    if (!branch){
+      try {
+        const det = await detectBranchAndPrefix(owner, repo, token, path);
+        branch = det.branch; prefix = det.prefix;
+        data = await tryFetch(branch, prefix);
+      } catch(e){ setError(e.message); return; }
+    } else {
+      try { data = await tryFetch(branch, prefix); }
+      catch(e){
+        // retry with common fallbacks
+        try {
+          const det = await detectBranchAndPrefix(owner, repo, token, path);
+          branch = det.branch; prefix = det.prefix; data = await tryFetch(branch, prefix);
+        } catch(e2){ setError('Fehler beim Laden: '+(e2.body||e2.message)); return; }
+      }
+    }
+
+    STATE = { owner, repo, branch, prefix, token, path };
+
+    buildCrumbs(path);
+
+    // Only keep files/dirs
+    const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
+    filterAndRender(entries, path);
+  }
+
+  function navigateTo(path){
+    if (!path.endsWith('/')) path += '/';
+    pushHistory(path.replace(/^\/+/,''));
+    load(path);
+  }
+
+  // UI events
+  searchInput.addEventListener('input', ()=>{
+    // Re-render using current entries already in DOM by reading row data? Simpler: reload current path (cheap single API call could be avoided)
+    // For simplicity, we cache last entries? We'll just filter DOM rows here for snappy UX.
+    const q = searchInput.value.toLowerCase().trim();
+    const showHidden = toggleHidden.checked;
+    const rows = Array.from(tbody.querySelectorAll('tr.row'));
+    let any=false;
+    rows.forEach(r=>{
+      const name = (r.dataset.name||'').toLowerCase();
+      const hidden = name.startsWith('.');
+      const match = !q || name.includes(q);
+      const vis = match && (showHidden || !hidden);
+      r.style.display = vis? '' : 'none';
+      if (vis) any=true;
+    });
+    if (!any){ tbody.innerHTML = '<tr><td colspan="3" class="empty">Nichts gefunden.</td></tr>'; }
+  });
+
+  toggleHidden.addEventListener('change', ()=>{
+    searchInput.dispatchEvent(new Event('input'));
+  });
+
+  btnUp.addEventListener('click', ()=>{
+    const p = STATE.path.replace(/\/+$/,'');
+    const up = p.substring(0, p.lastIndexOf('/')) || '/';
+    navigateTo(up);
+  });
+
+  $('#btnSave').addEventListener('click', ()=>{ saveSettings(); load(STATE.path||'/'); });
+  $('#btnReset').addEventListener('click', resetSettings);
+
+  window.addEventListener('popstate', (e)=>{
+    const p = (e.state && e.state.path) || currentFolderInSite();
+    load(p);
+  });
+
+  // Init
+  (async function init(){
+    applySettingsToUI(readSettings());
+    const initial = qs.get('p') ? ('/' + qs.get('p').replace(/^\/+|\.+/g,'')) : currentFolderInSite();
+    await load(initial);
+  })();
+
+})();
+</script>
+</body>
+</html>
