@@ -173,7 +173,7 @@
         <button class="btn" id="btnSave">Speichern</button>
         <button class="btn" id="btnReset">Reset</button>
       </div>
-      <div style="margin-top:10px;color:var(--muted);font-size:13px">Parameter auch per Query-String: <code class="kv">?p=unter/ordner&owner=NAME&repo=REPO&branch=main&prefix=docs</code></div>
+      <div style="margin-top:10px;color:var(--muted);font-size:13px">Query-String: <code class="kv">?p=unter/ordner&owner=NAME&repo=REPO&branch=main&prefix=docs</code></div>
     </details>
   </div>
 </header>
@@ -182,7 +182,11 @@
   <div class="panel">
     <table>
       <thead>
-        <tr><th>Name</th><th>Größe</th><th>Typ</th></tr>
+        <tr>
+          <th>Name</th>
+          <th>Größe</th>
+          <th>Typ</th>
+        </tr>
       </thead>
       <tbody id="tbody">
         <tr><td colspan="3" class="empty">Lade…</td></tr>
@@ -197,12 +201,11 @@
   </section>
 
   <div id="error" class="empty" style="display:none;color:var(--danger)"></div>
-
   <div class="diag" id="diag" style="display:none"></div>
 </main>
 
 <footer>
-  <div>Erstellt von <span style="opacity:.8">index.html</span>. Nutzt die GitHub REST API (<em>ohne</em> Server-Code).<br/>Unauthentifiziertes Rate-Limit: <strong>60</strong> Anfragen/Stunde/IP.</div>
+  <div>Erstellt von <span style="opacity:.8">index.html</span>. Nutzt die GitHub REST API (<em>ohne</em> Server-Code).<br/>Unauthentifiziertes Rate-Limit: <strong>60</strong> Anfragen/Stunde/IP (mit Token: 5 000/h).</div>
 </footer>
 
 <!-- Full-width gallery at the very bottom -->
@@ -282,10 +285,11 @@
   }
 
   // --- GitHub API helpers ---
-  async function ghFetch(url, token){
+  async function ghFetch(url, token, extraHeaders){
     const headers = {
       'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28'
+      'X-GitHub-Api-Version': '2022-11-28',
+      ...(extraHeaders||{})
     };
     if (token) headers['Authorization'] = 'Bearer ' + token;
     const res = await fetch(url, { headers });
@@ -303,6 +307,25 @@
   async function repoDefaultBranch(owner, repo, token){
     const info = await ghFetch(`https://api.github.com/repos/${owner}/${repo}`, token);
     return info && info.default_branch ? info.default_branch : 'main';
+  }
+
+  async function pagesSource(owner, repo, token){
+    // Liefert {branch, prefix} oder null, wenn nicht verfügbar
+    try {
+      const pg = await ghFetch(`https://api.github.com/repos/${owner}/${repo}/pages`, token);
+      // GitHub liefert z.B. { source: { branch: 'main', path: '/docs' } }
+      const src = pg && pg.source ? pg.source : null;
+      if (!src) return null;
+      const br = src.branch || null;
+      // Manche Antworten nutzen "path", ältere evtl. "directory"
+      const pth = (typeof src.path === 'string' ? src.path : (src.directory || '')) || '';
+      const prefix = pth.replace(/^\/+|\/+$/g,''); // '' oder 'docs'
+      return { branch: br, prefix };
+    } catch(e){
+      // 404 oder 403 → keine Seiten oder unzureichende Rechte; stilles Fallback
+      if (e.code === 'RATE_LIMIT') throw e;
+      return null;
+    }
   }
 
   function bytes(n){ if (n==null) return '—'; if (n<1024) return n+' B'; if (n<1024*1024) return (n/1024).toFixed(1)+' KB'; return (n/1024/1024).toFixed(2)+' MB'; }
@@ -325,7 +348,7 @@
       repo: qs.get('repo') || saved.repo || '',
       branch: qs.get('branch') || saved.branch || '',
       prefix: (qs.get('prefix') || saved.prefix || '').replace(/^\/+|\/+$|^\.+/g,''),
-      token: qs.get('token') || saved.token || ''
+      token: saved.token || '' // wichtig: kein Token per URL
     };
     applySettingsToUI(cfg);
     return cfg;
@@ -343,7 +366,11 @@
     return cfg;
   }
 
-  function resetSettings(){ store.set({}); localStorage.removeItem(cacheKey()); location.href = location.pathname; }
+  function resetSettings(){
+    store.set({});
+    localStorage.removeItem(cacheKey()); // detection cache löschen
+    location.href = location.pathname;
+  }
 
   function setError(msg){
     $('#error').style.display = 'block';
@@ -369,8 +396,8 @@
   function linkFor(sitePath){
     const base = siteBase();
     let href = joinUrl(base, sitePath);
-    if (!href.endsWith('/')) return href;
-    return href;
+    if (!href.endsWith('/')) return href; // Datei
+    return href; // Ordner (mit /)
   }
 
   function rowHtml(entry, siteRelPath){
@@ -429,30 +456,43 @@
   }
 
   const DETECT_CACHE_PREFIX = 'dirindex.detect:'; // key = dirindex.detect:owner/repo
-  function cacheKey(owner, repo){ 
-    const infer = owner && repo ? {owner, repo} : inferOwnerRepo(readSettings());
-    return `${DETECT_CACHE_PREFIX}${infer.owner}/${infer.repo}`;
+  function cacheKey(owner, repo){
+    const inf = owner && repo ? {owner, repo} : inferOwnerRepo(readSettings());
+    return `${DETECT_CACHE_PREFIX}${inf.owner}/${inf.repo}`;
   }
 
   async function detectBranchAndPrefix(owner, repo, token){
-    // Cache zuerst
+    // 1) Cache prüfen
     try {
       const cached = JSON.parse(localStorage.getItem(cacheKey(owner,repo)) || 'null');
-      if (cached && cached.branch) return cached; // {branch, prefix}
+      if (cached && cached.branch) return cached;
     } catch {}
 
-    const qsBranch = qs.get('branch');
-    const saved = readSettings();
+    // 2) GitHub Pages Konfiguration versuchen
+    const pg = await pagesSource(owner, repo, token).catch(e => { if (e.code==='RATE_LIMIT') throw e; return null; });
+    if (pg && pg.branch) {
+      // Verifizieren, dass der Prefix existiert (Root des Prefix)
+      const tryPath = (pg.prefix || '').replace(/^\/+|\/+$/g,'');
+      const apiUrlRoot = `https://api.github.com/repos/${owner}/${repo}/contents/${encodePath(tryPath)}?ref=${encodeURIComponent(pg.branch)}`;
+      try {
+        const res = await ghFetch(apiUrlRoot, token);
+        if (Array.isArray(res)) {
+          localStorage.setItem(cacheKey(owner,repo), JSON.stringify({ branch: pg.branch, prefix: tryPath }));
+          return { branch: pg.branch, prefix: tryPath };
+        }
+      } catch(e){
+        if (e.code === 'RATE_LIMIT') throw new Error('GitHub Rate-Limit erreicht. Unter „Erweitert“ ein Token (ghp_…) eintragen oder später erneut versuchen.');
+        // sonst weiter zu Fallbacks
+      }
+    }
+
+    // 3) Fallbacks mit Default-Branch
     const defBranch = await repoDefaultBranch(owner, repo, token).catch(()=>null);
-
     const branchCandidates = Array.from(new Set(
-      [qsBranch, saved.branch, 'gh-pages', defBranch, 'main', 'master'].filter(Boolean)
+      [ 'gh-pages', defBranch, 'main', 'master' ].filter(Boolean)
     ));
-    const prefixCandidates = Array.from(new Set(
-      [qs.get('prefix'), saved.prefix || null, '', 'docs', 'public'].filter(v => v !== undefined)
-    ));
+    const prefixCandidates = ['', 'docs']; // public ist selten tatsächlich Pages-Source
 
-    // Wichtig: immer am Repo-ROOT prüfen (nicht am aktuellen Unterordner)
     for (const br of branchCandidates){
       for (const pref of prefixCandidates){
         const tryPath = (pref || '').replace(/^\/+|\/+$/g,'');
@@ -468,10 +508,11 @@
           if (e.code === 'RATE_LIMIT') {
             throw new Error('GitHub Rate-Limit erreicht. Unter „Erweitert“ ein Token (ghp_…) eintragen oder später erneut versuchen.');
           }
-          // sonst weiterversuchen
+          // weiterprobieren
         }
       }
     }
+
     throw new Error('Branch/Prefix konnte nicht automatisch bestimmt werden. Bitte unter „Erweitert“ konfigurieren.');
   }
 
@@ -493,7 +534,7 @@
 
     let branch = cfg.branch; let prefix = cfg.prefix||''; const token = cfg.token||'';
 
-    // Prefill aus Cache
+    // Cache vorbefüllen
     if (!branch) {
       try {
         const cached = JSON.parse(localStorage.getItem(cacheKey(owner,repo)) || 'null');
@@ -683,6 +724,7 @@
     // Wenn owner/repo/branch/prefix geändert → Gallery neu aufbauen
     if (before.owner !== cfg.owner || before.repo !== cfg.repo || before.branch !== cfg.branch || before.prefix !== cfg.prefix) {
       GALLERY_BUILT = false;
+      localStorage.removeItem(cacheKey(cfg.owner, cfg.repo)); // Detection neu
     }
     load(STATE.path||'/');
   });
