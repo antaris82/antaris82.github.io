@@ -92,8 +92,7 @@
 
     /* README panel */
     .readme { margin-top: 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
-    .readme header { position: static; border: 0; background: rgba(255,255,255,0.03); }
-    .readme h3 { margin: 0; font-size: 16px; padding: 12px 14px; color: var(--muted); }
+    .readme h3 { margin: 0; font-size: 16px; padding: 12px 14px; color: var(--muted); background: rgba(255,255,255,0.03); }
     .readme textarea {
       width: 100%; border: 0; resize: vertical; min-height: 160px; max-height: 420px;
       padding: 12px 14px; background: transparent; color: var(--fg); line-height: 1.5; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
@@ -109,15 +108,13 @@
       position: relative;
     }
     .gallery-title { max-width: 1100px; margin: 0 auto 10px; padding: 0 16px; color: var(--muted); font-size: 14px; }
-    .gallery {
-      overflow: hidden;
-    }
+    .gallery { overflow: hidden; }
     .gallery-track {
       display: flex; gap: 10px; padding: 0 56px; /* space for arrows */
       scroll-behavior: smooth;
     }
     .gal-item {
-      flex: 0 0 calc((100vw - 112px - 40px) / 5); /* 5 items max visible, minus arrows+paddings */
+      flex: 0 0 calc((100vw - 112px - 40px) / 5); /* 5 items max visible */
       max-width: 320px;
       aspect-ratio: 16/9;
       border: 1px solid var(--border); border-radius: 12px; background: #0f1528;
@@ -134,12 +131,11 @@
     .gal-arrow:hover { border-color: #2a3a66; }
     .gal-arrow.left { left: 10px; }
     .gal-arrow.right { right: 10px; }
-    @media (max-width: 900px) {
-      .gal-item { flex-basis: calc((100vw - 112px - 40px) / 3); }
-    }
-    @media (max-width: 580px) {
-      .gal-item { flex-basis: calc((100vw - 112px - 40px) / 2); }
-    }
+    @media (max-width: 900px) { .gal-item { flex-basis: calc((100vw - 112px - 40px) / 3); } }
+    @media (max-width: 580px) { .gal-item { flex-basis: calc((100vw - 112px - 40px) / 2); } }
+
+    /* Diagnostics (optional) */
+    .diag { color: var(--muted); font-size: 12px; margin-top: 6px; }
   </style>
 </head>
 <body>
@@ -177,7 +173,7 @@
         <button class="btn" id="btnSave">Speichern</button>
         <button class="btn" id="btnReset">Reset</button>
       </div>
-      <div style="margin-top:10px;color:var(--muted);font-size:13px">Hinweis: Parameter können auch per Query-String gesetzt werden: <code class="kv">?p=unter/ordner&owner=NAME&repo=REPO&branch=main&prefix=docs</code></div>
+      <div style="margin-top:10px;color:var(--muted);font-size:13px">Parameter auch per Query-String: <code class="kv">?p=unter/ordner&owner=NAME&repo=REPO&branch=main&prefix=docs</code></div>
     </details>
   </div>
 </header>
@@ -186,11 +182,7 @@
   <div class="panel">
     <table>
       <thead>
-        <tr>
-          <th>Name</th>
-          <th>Größe</th>
-          <th>Typ</th>
-        </tr>
+        <tr><th>Name</th><th>Größe</th><th>Typ</th></tr>
       </thead>
       <tbody id="tbody">
         <tr><td colspan="3" class="empty">Lade…</td></tr>
@@ -205,6 +197,8 @@
   </section>
 
   <div id="error" class="empty" style="display:none;color:var(--danger)"></div>
+
+  <div class="diag" id="diag" style="display:none"></div>
 </main>
 
 <footer>
@@ -242,6 +236,8 @@
   const galPrev = $('#galPrev');
   const galNext = $('#galNext');
 
+  const diagEl = $('#diag');
+
   const IMG_EXT = /\.(png|jpe?g|gif|webp|svg)$/i;
   const README_RX = /^readme(?:\.[a-z0-9]+)?$/i;
 
@@ -263,7 +259,7 @@
   function currentFolderInSite(){
     let p = location.pathname;
     const base = siteBase();
-    if (p.startsWith(base)) p = p.slice(base.length-1);
+    if (p.startsWith(base)) p = p.slice(base.length-1); // keep leading '/'
     p = p.replace(/index\.html?$/i, '');
     const qp = qs.get('p');
     if (qp) {
@@ -285,6 +281,7 @@
     return { owner: cfg.owner, repo: cfg.repo };
   }
 
+  // --- GitHub API helpers ---
   async function ghFetch(url, token){
     const headers = {
       'Accept': 'application/vnd.github+json',
@@ -294,10 +291,18 @@
     const res = await fetch(url, { headers });
     if (!res.ok) {
       const text = await res.text().catch(()=>String(res.status));
-      const err = new Error(text||('HTTP '+res.status));
-      err.status = res.status; err.body = text; err.url = url; throw err;
+      const isRate = res.status === 403 && /rate limit/i.test(text);
+      const err = new Error(text || ('HTTP '+res.status));
+      err.status = res.status; err.body = text; err.url = url;
+      err.code = isRate ? 'RATE_LIMIT' : undefined;
+      throw err;
     }
     return res.json();
+  }
+
+  async function repoDefaultBranch(owner, repo, token){
+    const info = await ghFetch(`https://api.github.com/repos/${owner}/${repo}`, token);
+    return info && info.default_branch ? info.default_branch : 'main';
   }
 
   function bytes(n){ if (n==null) return '—'; if (n<1024) return n+' B'; if (n<1024*1024) return (n/1024).toFixed(1)+' KB'; return (n/1024/1024).toFixed(2)+' MB'; }
@@ -338,7 +343,7 @@
     return cfg;
   }
 
-  function resetSettings(){ store.set({}); location.href = location.pathname; }
+  function resetSettings(){ store.set({}); localStorage.removeItem(cacheKey()); location.href = location.pathname; }
 
   function setError(msg){
     $('#error').style.display = 'block';
@@ -423,18 +428,48 @@
     history.pushState({path}, '', url);
   }
 
-  async function detectBranchAndPrefix(owner, repo, token, repoPath){
-    const branches = [qs.get('branch'), 'gh-pages','main','master'].filter(Boolean);
-    const prefixes = [qs.get('prefix'), readSettings().prefix || null, '', 'docs'].filter(v=> v!==undefined);
+  const DETECT_CACHE_PREFIX = 'dirindex.detect:'; // key = dirindex.detect:owner/repo
+  function cacheKey(owner, repo){ 
+    const infer = owner && repo ? {owner, repo} : inferOwnerRepo(readSettings());
+    return `${DETECT_CACHE_PREFIX}${infer.owner}/${infer.repo}`;
+  }
 
-    for (const br of branches){
-      for (const pref of prefixes){
+  async function detectBranchAndPrefix(owner, repo, token){
+    // Cache zuerst
+    try {
+      const cached = JSON.parse(localStorage.getItem(cacheKey(owner,repo)) || 'null');
+      if (cached && cached.branch) return cached; // {branch, prefix}
+    } catch {}
+
+    const qsBranch = qs.get('branch');
+    const saved = readSettings();
+    const defBranch = await repoDefaultBranch(owner, repo, token).catch(()=>null);
+
+    const branchCandidates = Array.from(new Set(
+      [qsBranch, saved.branch, 'gh-pages', defBranch, 'main', 'master'].filter(Boolean)
+    ));
+    const prefixCandidates = Array.from(new Set(
+      [qs.get('prefix'), saved.prefix || null, '', 'docs', 'public'].filter(v => v !== undefined)
+    ));
+
+    // Wichtig: immer am Repo-ROOT prüfen (nicht am aktuellen Unterordner)
+    for (const br of branchCandidates){
+      for (const pref of prefixCandidates){
+        const tryPath = (pref || '').replace(/^\/+|\/+$/g,'');
+        const apiUrlRoot = `https://api.github.com/repos/${owner}/${repo}/contents/${encodePath(tryPath)}?ref=${encodeURIComponent(br)}`;
         try {
-          const tryPath = joinUrl(pref||'', repoPath||'');
-          const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodePath(tryPath)}?ref=${encodeURIComponent(br)}`;
-          await ghFetch(apiUrl, token);
-          return { branch: br, prefix: pref||'' };
-        } catch(e) { /* continue */ }
+          const res = await ghFetch(apiUrlRoot, token);
+          if (Array.isArray(res)) {
+            const found = { branch: br, prefix: tryPath };
+            try { localStorage.setItem(cacheKey(owner,repo), JSON.stringify(found)); } catch {}
+            return found;
+          }
+        } catch(e){
+          if (e.code === 'RATE_LIMIT') {
+            throw new Error('GitHub Rate-Limit erreicht. Unter „Erweitert“ ein Token (ghp_…) eintragen oder später erneut versuchen.');
+          }
+          // sonst weiterversuchen
+        }
       }
     }
     throw new Error('Branch/Prefix konnte nicht automatisch bestimmt werden. Bitte unter „Erweitert“ konfigurieren.');
@@ -457,24 +492,34 @@
     }
 
     let branch = cfg.branch; let prefix = cfg.prefix||''; const token = cfg.token||'';
-    async function tryFetch(br, pref){
-      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodePath(joinUrl(pref, path))}?ref=${encodeURIComponent(br)}`;
+
+    // Prefill aus Cache
+    if (!branch) {
+      try {
+        const cached = JSON.parse(localStorage.getItem(cacheKey(owner,repo)) || 'null');
+        if (cached) { branch = cached.branch || branch; prefix = (cached.prefix ?? prefix); }
+      } catch {}
+    }
+
+    async function tryFetch(br, pref, repoSubPath){
+      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodePath(joinUrl(pref, repoSubPath))}?ref=${encodeURIComponent(br)}`;
       return ghFetch(apiUrl, token);
     }
 
     let data = null;
+
     if (!branch){
       try {
-        const det = await detectBranchAndPrefix(owner, repo, token, path);
+        const det = await detectBranchAndPrefix(owner, repo, token);
         branch = det.branch; prefix = det.prefix;
-        data = await tryFetch(branch, prefix);
+        data = await tryFetch(branch, prefix, path);
       } catch(e){ setError(e.message); return; }
     } else {
-      try { data = await tryFetch(branch, prefix); }
+      try { data = await tryFetch(branch, prefix, path); }
       catch(e){
         try {
-          const det = await detectBranchAndPrefix(owner, repo, token, path);
-          branch = det.branch; prefix = det.prefix; data = await tryFetch(branch, prefix);
+          const det = await detectBranchAndPrefix(owner, repo, token);
+          branch = det.branch; prefix = det.prefix; data = await tryFetch(branch, prefix, path);
         } catch(e2){ setError('Fehler beim Laden: '+(e2.body||e2.message)); return; }
       }
     }
@@ -486,13 +531,16 @@
     const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
     filterAndRender(entries, path);
 
-    // After rendering table: show README if present in this folder
-    try { await loadReadmeIfAny(entries); } catch { /* ignore readme errors */ }
+    // README laden (falls vorhanden)
+    try { await loadReadmeIfAny(entries); } catch { /* ignore */ }
 
-    // Ensure gallery exists (built once per session/config)
+    // Galerie nur einmal pro Konfiguration aufbauen
     if (!GALLERY_BUILT) {
-      try { await buildGalleryGlobal(); } catch (e) { /* gallery is optional; fail quietly */ }
+      try { await buildGalleryGlobal(); } catch (e) { /* optional */ }
     }
+
+    // Diagnostics optional einblenden (Strg+D toggelt)
+    renderDiag();
   }
 
   function navigateTo(path){
@@ -512,7 +560,6 @@
     readmeTitle.textContent = `README – ${readme.name}`;
     readmeBox.value = 'Lade…';
     try {
-      // Prefer download_url for raw text
       const url = readme.download_url;
       const res = await fetch(url, { cache: 'no-store' });
       const text = await res.text();
@@ -522,10 +569,9 @@
     }
   }
 
-  // Gallery builder (global across repo/prefix)
+  // Gallery builder (global, über gesamtes Repo/Prefix)
   async function buildGalleryGlobal(){
     const { owner, repo, branch, prefix, token } = STATE;
-    // Try direct trees/{branch}?recursive=1; if it fails, resolve branch sha first
     let treeJson;
     async function fetchTreeWith(ref){
       const url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${encodeURIComponent(ref)}?recursive=1`;
@@ -534,7 +580,7 @@
     try {
       treeJson = await fetchTreeWith(branch);
     } catch {
-      // Resolve branch head sha
+      // Branch SHA auflösen
       const ref = await ghFetch(`https://api.github.com/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, token);
       const sha = (ref && ref.object && ref.object.sha) ? ref.object.sha : branch;
       treeJson = await fetchTreeWith(sha);
@@ -542,19 +588,18 @@
     const tree = (treeJson && treeJson.tree) || [];
     const pref = prefix ? prefix.replace(/\/+$/,'') + '/' : '';
 
-    // Collect images under (prefix)*
+    // Bilder unter prefix* sammeln
     const imgs = tree
       .filter(n => n.type === 'blob' && IMG_EXT.test(n.path) && (!prefix || n.path.startsWith(pref)))
       .map(n => {
-        const dirFull = n.path.replace(/\/[^\/]+$/,'');             // full path (with prefix)
+        const dirFull = n.path.replace(/\/[^\/]+$/,'');             // mit prefix
         const dirUnderPrefix = prefix
-          ? dirFull.startsWith(pref) ? dirFull.slice(pref.length) : dirFull
+          ? (dirFull.startsWith(pref) ? dirFull.slice(pref.length) : dirFull)
           : dirFull;
         const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${encodePath(n.path)}`;
         return { path: n.path, raw, dirFull, dirUnderPrefix };
       });
 
-    // Sort by path for determinism
     imgs.sort((a,b)=> a.path.localeCompare(b.path, undefined, {numeric:true, sensitivity:'base'}));
 
     GALLERY_ITEMS = imgs;
@@ -571,7 +616,7 @@
     galleryWrap.style.display = '';
 
     const frag = document.createDocumentFragment();
-    GALLERY_ITEMS.forEach((it, idx)=>{
+    GALLERY_ITEMS.forEach((it)=>{
       const item = document.createElement('div');
       item.className = 'gal-item';
       item.setAttribute('role','listitem');
@@ -584,23 +629,28 @@
       item.appendChild(img);
       item.addEventListener('click', ()=>{
         navigateTo(item.dataset.dir);
-        // optional: scroll to table
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
       frag.appendChild(item);
     });
     galleryTrack.appendChild(frag);
 
-    // Arrow handlers: scroll by one item width
+    // Scroll um eine Kartenbreite
     function oneItemWidth(){
       const first = galleryTrack.querySelector('.gal-item');
-      return first ? (first.getBoundingClientRect().width + 10 /*gap*/) : 200;
+      return first ? (first.getBoundingClientRect().width + 10) : 200;
     }
     galPrev.onclick = ()=> galleryTrack.scrollBy({ left: -oneItemWidth(), behavior: 'smooth' });
     galNext.onclick = ()=> galleryTrack.scrollBy({ left:  oneItemWidth(), behavior: 'smooth' });
   }
 
-  // UI events
+  function renderDiag(){
+    const {owner, repo, branch, prefix, path} = STATE;
+    const txt = `Kontext: ${owner||'?'}/${repo||'?'}@${branch||'?'}  |  prefix="${prefix||''}"  |  path="${path}"`;
+    diagEl.textContent = txt;
+  }
+
+  // --- UI events ---
   searchInput.addEventListener('input', ()=>{
     const q = searchInput.value.toLowerCase().trim();
     const showHidden = toggleHidden.checked;
@@ -627,12 +677,29 @@
     navigateTo(up);
   });
 
-  $('#btnSave').addEventListener('click', ()=>{ saveSettings(); GALLERY_BUILT=false; load(STATE.path||'/'); });
+  $('#btnSave').addEventListener('click', ()=>{
+    const before = STATE;
+    const cfg = saveSettings();
+    // Wenn owner/repo/branch/prefix geändert → Gallery neu aufbauen
+    if (before.owner !== cfg.owner || before.repo !== cfg.repo || before.branch !== cfg.branch || before.prefix !== cfg.prefix) {
+      GALLERY_BUILT = false;
+    }
+    load(STATE.path||'/');
+  });
+
   $('#btnReset').addEventListener('click', resetSettings);
 
   window.addEventListener('popstate', (e)=>{
     const p = (e.state && e.state.path) || currentFolderInSite();
     load(p);
+  });
+
+  // Diagnostics toggle (Strg+D)
+  window.addEventListener('keydown', (ev)=>{
+    if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === 'd'){
+      ev.preventDefault();
+      diagEl.style.display = (diagEl.style.display==='none') ? '' : 'none';
+    }
   });
 
   // Init
