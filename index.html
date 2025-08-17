@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Index</title>
 <style>
-:root{--bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;--danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);--radius:14px}
+:root{--bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;--danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);--radius:14px;--bgimg:none}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -17,6 +17,19 @@ body{
   color:var(--fg);
   font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
 }
+/* Foto-Hintergrund (falls gefunden) + dunkles Overlay für Lesbarkeit */
+body.with-photo{
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.55)),
+    var(--bgimg),
+    radial-gradient(1200px 800px at 10% -10%, #1b2652 0%, transparent 46%),
+    radial-gradient(1000px 600px at 110% -10%, #17334f 0%, transparent 45%);
+  background-color: var(--bg);
+  background-size: auto, cover, auto, auto;
+  background-position: center, center, 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+}
+
 a{color:var(--acc);text-decoration:none}
 a:hover{text-decoration:underline}
 header{position:sticky;top:0;z-index:5;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(16,23,42,.9),rgba(16,23,42,.6));border-bottom:1px solid var(--border)}
@@ -185,7 +198,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   const readmeWrap = $('#readmeWrap');
   const readmeContent = $('#readmeContent');
 
-  const IMAGE_EXT = /\.(png|jpe?g|gif|webp|svg)$/i;
+  const IMAGE_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
+  const BG_NAME_RE = /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 
   const store = {
     get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
@@ -205,7 +219,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   function currentFolderInSite(){
     let p = location.pathname;
     const base = siteBase();
-    if (p.startsWith(base)) p = p.slice(base.length - 1); // keep leading '/'
+    if (p.startsWith(base)) p = p.slice(base.length - 1);
     p = p.replace(/index\.html?$/i, '');
     const qp = qs.get('p');
     if (qp) {
@@ -234,10 +248,11 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     return (n/1024/1024).toFixed(2)+' MB';
   }
 
-  function esc(s){ return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;"," >":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+  }
 
   function linkify(escaped){
-    // simple URL-Erkennung
     return escaped.replace(/(https?:\/\/[^\s)]+)(?![^<]*>)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
   }
 
@@ -258,8 +273,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   function looksLikeGitHubToken(t){
     if (!t) return false;
     t = String(t).trim();
-    if (t.startsWith('github_pat_') && t.length >= 80) return true; // fine-grained
-    if (/^(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9_]{36,}$/.test(t)) return true; // classic
+    if (t.startsWith('github_pat_') && t.length >= 80) return true;
+    if (/^(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9_]{36,}$/.test(t)) return true;
     return false;
   }
 
@@ -384,7 +399,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     if (token){
       const r = await fetch(url, { headers: { ...base, Authorization: 'token ' + token } });
       if (r.ok) return r.json();
-      if ([401,403,404].includes(r.status)){ // evtl. Token-Problem → anonym (für public) versuchen
+      if ([401,403,404].includes(r.status)){
         const r2 = await fetch(url, { headers: base });
         if (r2.ok) return r2.json();
         const t2 = await r2.text().catch(()=>String(r2.status)); throw new Error(t2);
@@ -430,7 +445,39 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  // Galerie: wenige Bilder repo-weit einsammeln (flacher BFS)
+  // --- Hintergrund: background.xxx im Root (oder Prefix-Root) erkennen & setzen
+  async function findBackgroundUrl(owner, repo, branch, token, dirPath){
+    const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
+    const items = await ghFetch(url, token).catch(()=>[]);
+    if (!Array.isArray(items)) return null;
+    const hit = items.find(x => x.type==='file' && BG_NAME_RE.test(x.name));
+    if (!hit) return null;
+    return hit.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${hit.path}`;
+  }
+  let _bgApplied = false;
+  async function applyBackgroundFromRoot(owner, repo, branch, prefix, token){
+    if (_bgApplied) return;
+    let bg = await findBackgroundUrl(owner, repo, branch, token, '');
+    if (!bg && prefix) bg = await findBackgroundUrl(owner, repo, branch, token, prefix);
+    if (bg){
+      document.documentElement.style.setProperty('--bgimg', `url("${bg}")`);
+      document.body.classList.add('with-photo');
+      _bgApplied = true;
+    }else{
+      document.body.classList.remove('with-photo');
+    }
+  }
+
+  // Galerie: wenige Bilder repo-weit einsammeln (flacher BFS), background.xxx im Root/PREFIX ausschließen
+  function isBackgroundInRoot(repoPath, prefix){
+    // prüft, ob repoPath (z. B. "docs/background.jpg" oder "background.jpg") der Hintergrund ist
+    const px = String(prefix||'').replace(/^\/+|\/+$/g,'');      // "docs"
+    let rp = String(repoPath||'').replace(/^\/+|\/+$/g,'');      // "docs/background.jpg"
+    if (px && rp.startsWith(px + '/')) rp = rp.slice(px.length + 1); // → "background.jpg"
+    const base = rp.split('/').pop();                            // Dateiname
+    return BG_NAME_RE.test(base);
+  }
+
   async function collectImagesRepoWide({owner,repo,branch,prefix,path,token,limit=5,maxDirs=40}){
     const seen = new Set();
     const start = String(joinUrl(prefix||'', path||'/')).replace(/^\/+|\/+$/g,'');
@@ -461,6 +508,9 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
         if (it.type === 'dir'){
           queue.push(it.path);
         } else if (it.type === 'file' && IMAGE_EXT.test(it.name)){
+          // Hintergrunddatei im Root/PREFIX NICHT aufnehmen
+          if (isBackgroundInRoot(it.path, prefix)) continue;
+
           found.push({
             name: it.name,
             path: it.path,
@@ -515,9 +565,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }, { passive:true });
   }
 
-  // --- README laden/anzeigen (aus aktuellem Ordner) – robust und ohne F5 nötig
+  // --- README laden/anzeigen (aus aktuellem Ordner)
   async function findAndRenderReadme(entries, ctx){
-    // 1) Immer zuerst ausblenden & Placeholder setzen
     readmeWrap.style.display = 'none';
     readmeContent.innerHTML = '<span class="readme-muted">Lade README…</span>';
 
@@ -525,7 +574,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       const files = Array.isArray(entries) ? entries.filter(x=> x.type==='file') : [];
       if (!files.length){ readmeWrap.style.display='none'; return; }
 
-      // Kandidaten nach Priorität: .md, .markdown, .txt, sonst
       const weight = (name)=>{
         const n = name.toLowerCase();
         if (n === 'readme.md') return 0;
@@ -542,8 +590,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       const cand = candidates[0];
       if (!cand){ readmeWrap.style.display='none'; return; }
 
-      // 2) Direkt die file-API-URL verwenden (stabiler als Pfad zusammenbauen)
-      // cand.url ist z.B. .../repos/{o}/{r}/contents/{path}
       let apiUrl = cand.url || '';
       if (ctx.branch){
         apiUrl += (apiUrl.includes('?') ? '&' : '?') + 'ref=' + encodeURIComponent(ctx.branch);
@@ -553,7 +599,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
       if (!content){ readmeWrap.style.display='none'; return; }
 
-      // 3) Anzeigen
       readmeContent.innerHTML = linkify(esc(content));
       readmeWrap.style.display = '';
     } catch(_){
@@ -566,11 +611,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     const len = bin.length;
     const bytes = new Uint8Array(len);
     for (let i=0;i<len;i++) bytes[i]=bin.charCodeAt(i);
-    try{
-      return new TextDecoder('utf-8',{fatal:false}).decode(bytes);
-    }catch{
-      return Array.from(bytes).map(b=>String.fromCharCode(b)).join('');
-    }
+    try{ return new TextDecoder('utf-8',{fatal:false}).decode(bytes); }
+    catch{ return Array.from(bytes).map(b=>String.fromCharCode(b)).join(''); }
   }
 
   async function detectBranchAndPrefix(owner, repo, token, repoPath){
@@ -601,39 +643,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     throw new Error('Branch/Prefix konnte nicht automatisch bestimmt werden. Bitte unter „Erweitert“ konfigurieren.');
   }
 
-  // ---- Hintergrund: background.xxx im Repo-Root erkennen und setzen
-const BG_NAME_RE = /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
-
-async function findBackgroundUrl(owner, repo, branch, token, dirPath){
-  // listet ein Verzeichnis und sucht nach background.xxx
-  const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
-  const items = await ghFetch(url, token).catch(()=>[]);
-  if (!Array.isArray(items)) return null;
-  const hit = items.find(x => x.type==='file' && BG_NAME_RE.test(x.name));
-  if (!hit) return null;
-  // bevorzugt download_url, sonst Raw-URL bauen
-  return hit.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${hit.path}`;
-}
-
-// nur einmal anwenden (auch bei Navigation)
-let _bgApplied = false;
-async function applyBackgroundFromRoot(owner, repo, branch, prefix, token){
-  if (_bgApplied) return; // schon gesetzt
-  // 1) Repo-Root
-  let bg = await findBackgroundUrl(owner, repo, branch, token, '');
-  // 2) Falls gewünscht zusätzlich im Pages-Root (z. B. 'docs') schauen
-  if (!bg && prefix) bg = await findBackgroundUrl(owner, repo, branch, token, prefix);
-  if (bg){
-    document.documentElement.style.setProperty('--bgimg', `url("${bg}")`);
-    document.body.classList.add('with-photo');
-    _bgApplied = true;
-  } else {
-    // nichts gefunden → klassischer Hintergrund
-    document.body.classList.remove('with-photo');
-  }
-}
-
-  
   let STATE = { owner:null, repo:null, branch:null, prefix:'', token:null, path:'/' };
 
   async function load(path){
@@ -689,6 +698,8 @@ async function applyBackgroundFromRoot(owner, repo, branch, prefix, token){
     }
 
     STATE = { owner, repo, branch, prefix, token, path };
+
+    // Hintergrundfoto einmalig anwenden (sucht background.xxx im Root bzw. Prefix-Root)
     await applyBackgroundFromRoot(STATE.owner, STATE.repo, STATE.branch, STATE.prefix, STATE.token);
 
     buildCrumbs(path);
@@ -718,13 +729,13 @@ async function applyBackgroundFromRoot(owner, repo, branch, prefix, token){
       filterDOMRows();
     }
 
-    // README (robust, kein F5 nötig)
+    // README
     await findAndRenderReadme(entries, STATE);
 
     // Rate-Limits (Badge + Footer)
     await updateRateDisplays(STATE.token||'');
 
-    // Galerie (repo-weit, begrenzt)
+    // Galerie (repo-weit, background.xxx im Root/PREFIX ausgeschlossen)
     const galEmpty = document.getElementById('galEmpty');
     if (galEmpty){ galEmpty.textContent = 'Suche Bilder…'; }
     try{
@@ -740,13 +751,14 @@ async function applyBackgroundFromRoot(owner, repo, branch, prefix, token){
 
   function navigateTo(path){
     if (!path.endsWith('/')) path += '/';
-    pushHistory(path.replace(/^\/+/,'')); // keep relative spec in ?p=
+    pushHistory(path.replace(/^\/+/,'')); 
     load(path);
   }
 
   // UI events
-  searchInput.addEventListener('input', filterDOMRows);
-  toggleHidden.addEventListener('change', filterDOMRows);
+  const searchHandler = () => filterDOMRows();
+  searchInput.addEventListener('input', searchHandler);
+  toggleHidden.addEventListener('change', searchHandler);
 
   btnUp.addEventListener('click', ()=>{
     const trimmed = (STATE.path||'/').replace(/\/+$/,'');
