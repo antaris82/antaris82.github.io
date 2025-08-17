@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Index</title>
 <style>
-:root { --bg:#0b1020; --panel:#10172a; --muted:#9fb0d0; --fg:#e6edff; --acc:#7aa2ff; --acc2:#37d2a7; --danger:#ff6b6b; --card:#0f1528; --border:#1d2742; --shadow:0 10px 30px rgba(0,0,0,.35); --radius:14px }
-*{ box-sizing:border-box }
-html,body{ height:100% }
+:root{--bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;--danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);--radius:14px}
+*{box-sizing:border-box}
+html,body{height:100%}
 body{
   margin:0;
   background:
@@ -15,61 +15,65 @@ body{
     radial-gradient(1000px 600px at 110% -10%, #17334f 0%, transparent 45%),
     var(--bg);
   color:var(--fg);
-  font:15px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
 }
-a{ color:var(--acc); text-decoration:none }
-a:hover{ text-decoration:underline }
-header{ position:sticky; top:0; z-index:5; backdrop-filter:blur(8px); background:linear-gradient(180deg, rgba(16,23,42,.9), rgba(16,23,42,.6)); border-bottom:1px solid var(--border) }
-.container{ max-width:1100px; margin:0 auto; padding:16px }
-.title{ display:flex; align-items:center; gap:12px }
-.logo{ width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg, var(--acc), var(--acc2)); display:grid; place-items:center; color:#0b1020; font-weight:800; box-shadow:var(--shadow) }
-.controls{ display:grid; grid-template-columns: 1fr auto auto; gap:10px; margin-top:12px }
-.search{ position:relative }
-.search input{ width:100%; padding:12px 14px 12px 38px; border-radius:var(--radius); border:1px solid var(--border); background:var(--panel); color:var(--fg) }
-.search svg{ position:absolute; top:50%; left:12px; transform:translateY(-50%); opacity:.6 }
-.pill{ border-radius:999px; border:1px solid var(--border); background:var(--panel); color:var(--fg); padding:10px 14px; display:inline-flex; gap:8px; align-items:center; cursor:pointer }
-.pill input{ accent-color:var(--acc) }
-.btn{ border-radius:10px; padding:10px 14px; border:1px solid var(--border); background:var(--panel); color:var(--fg); cursor:pointer }
-.btn:hover{ border-color:#2a3a66 }
-.crumbs{ margin-top:10px; color:var(--muted); font-size:14px; white-space:nowrap; overflow:auto }
-.crumbs a{ color:var(--fg); opacity:.9 }
-.crumbs .sep{ opacity:.4; margin:0 6px }
-main{ padding:18px 16px 32px }
-.panel{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden }
-table{ width:100%; border-collapse:collapse }
-thead th{ text-align:left; font-weight:600; color:var(--muted); background:rgba(0,0,0,.15) }
-th,td{ padding:12px 14px; border-bottom:1px solid var(--border) }
-tbody tr:hover{ background:rgba(122,162,255,.08) }
-.namecell{ display:flex; align-items:center; gap:10px }
-.fileicon,.foldericon{ width:22px; height:22px; border-radius:6px; display:grid; place-items:center }
-.foldericon{ background:rgba(122,162,255,.18); color:var(--acc) }
-.fileicon{ background:rgba(55,210,167,.18); color:var(--acc2) }
-.empty{ padding:28px; text-align:center; color:var(--muted) }
-details.settings{ margin-top:14px; border:1px dashed var(--border); border-radius:var(--radius); padding:8px 12px; background:rgba(0,0,0,.1) }
-details.settings summary{ cursor:pointer; color:var(--muted) }
-.settings-grid{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px; margin-top:10px }
-.settings-grid label{ font-size:12px; color:var(--muted); display:block; margin-bottom:6px }
-.settings-grid input{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--fg) }
-.settings-actions{ display:flex; gap:10px; margin-top:10px }
-footer{ color:var(--muted); font-size:13px; padding:24px 16px 60px; text-align:center }
-code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
-.tag{ font-size:12px; padding:2px 8px; border-radius:999px; border:1px solid var(--border); color:var(--muted) }
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:5;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(16,23,42,.9),rgba(16,23,42,.6));border-bottom:1px solid var(--border)}
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.title{display:flex;align-items:center;gap:12px}
+.logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;color:#0b1020;font-weight:800;box-shadow:var(--shadow)}
+.controls{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin-top:12px}
+.search{position:relative}
+.search input{width:100%;padding:12px 14px 12px 38px;border-radius:var(--radius);border:1px solid var(--border);background:var(--panel);color:var(--fg)}
+.search svg{position:absolute;top:50%;left:12px;transform:translateY(-50%);opacity:.6}
+.pill{border-radius:999px;border:1px solid var(--border);background:var(--panel);color:var(--fg);padding:10px 14px;display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+.pill input{accent-color:var(--acc)}
+.btn{border-radius:10px;padding:10px 14px;border:1px solid var(--border);background:var(--panel);color:var(--fg);cursor:pointer}
+.btn:hover{border-color:#2a3a66}
+.crumbs{margin-top:10px;color:var(--muted);font-size:14px;white-space:nowrap;overflow:auto}
+.crumbs a{color:var(--fg);opacity:.9}
+.crumbs .sep{opacity:.4;margin:0 6px}
+main{padding:18px 16px 32px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font-weight:600;color:var(--muted);background:rgba(0,0,0,.15)}
+th,td{padding:12px 14px;border-bottom:1px solid var(--border)}
+tbody tr:hover{background:rgba(122,162,255,.08)}
+.namecell{display:flex;align-items:center;gap:10px}
+.fileicon,.foldericon{width:22px;height:22px;border-radius:6px;display:grid;place-items:center}
+.foldericon{background:rgba(122,162,255,.18);color:var(--acc)}
+.fileicon{background:rgba(55,210,167,.18);color:var(--acc2)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+details.settings{margin-top:14px;border:1px dashed var(--border);border-radius:var(--radius);padding:8px 12px;background:rgba(0,0,0,.1)}
+details.settings summary{cursor:pointer;color:var(--muted)}
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.settings-grid label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+.settings-grid input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--panel);color:var(--fg)}
+.settings-actions{display:flex;gap:10px;margin-top:10px}
+footer{color:var(--muted);font-size:13px;padding:24px 16px 60px;text-align:center}
+code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+@media (max-width:700px){.controls{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}}
 
-@media (max-width:700px){
-  .controls{ grid-template-columns:1fr }
-  .settings-grid{ grid-template-columns:1fr }
-}
+/* --- README Block --- */
+.readme-wrap{margin-top:18px}
+.readme-head{font-weight:600;margin:6px 0 8px}
+.readme-panel{border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);max-height:320px;overflow:auto;padding:14px}
+.readme-content{white-space:pre-wrap;word-wrap:break-word;font:13.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+.readme-content a{color:var(--acc)}
+.readme-muted{color:var(--muted);font-size:13px}
 
 /* --- Mini-Gallery --- */
-.gallery-wrap{ margin-top:18px }
-.gallery{ position:relative; border:1px solid var(--border); border-radius:var(--radius); background:var(--panel); padding:10px 36px }
-.gal-strip{ display:flex; gap:10px; overflow:hidden; scroll-behavior:smooth }
-.gal-item{ flex:0 0 auto; width:180px; border:1px solid var(--border); border-radius:12px; background:var(--card); text-align:center; cursor:pointer }
-.gal-item img{ display:block; width:100%; height:110px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px }
-.gal-caption{ font-size:12px; color:var(--muted); padding:6px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
-.gal-nav{ position:absolute; top:50%; transform:translateY(-50%); width:28px; height:28px; border:1px solid var(--border); background:var(--card); border-radius:50%; display:grid; place-items:center; cursor:pointer; user-select:none }
-.gal-prev{ left:6px } .gal-next{ right:6px }
-.gal-empty{ color:var(--muted); padding:10px 0; text-align:center }
+.gallery-wrap{margin-top:18px}
+.gallery{position:relative;border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);padding:10px 36px}
+.gal-strip{display:flex;gap:10px;overflow:hidden;scroll-behavior:smooth}
+.gal-item{flex:0 0 auto;width:180px;border:1px solid var(--border);border-radius:12px;background:var(--card);text-align:center;cursor:pointer}
+.gal-item img{display:block;width:100%;height:110px;object-fit:cover;border-top-left-radius:12px;border-top-right-radius:12px}
+.gal-caption{font-size:12px;color:var(--muted);padding:6px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gal-nav{position:absolute;top:50%;transform:translateY(-50%);width:28px;height:28px;border:1px solid var(--border);background:var(--card);border-radius:50%;display:grid;place-items:center;cursor:pointer;user-select:none}
+.gal-prev{left:6px}.gal-next{right:6px}
+.gal-empty{color:var(--muted);padding:10px 0;text-align:center}
 </style>
 </head>
 <body>
@@ -117,6 +121,7 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
 </header>
 
 <main class="container">
+  <!-- Dateien/Ordner -->
   <div class="panel">
     <table>
       <thead><tr><th>Name</th><th>Größe</th><th>Typ</th></tr></thead>
@@ -126,7 +131,15 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
     </table>
   </div>
 
-  <!-- Mini-Gallery + Rate-Limit -->
+  <!-- README-Block -->
+  <div class="readme-wrap" id="readmeWrap" style="display:none">
+    <div class="readme-head">README</div>
+    <div class="readme-panel">
+      <div class="readme-content" id="readmeContent"><span class="readme-muted">Lade README…</span></div>
+    </div>
+  </div>
+
+  <!-- Mini-Gallery + Rate-Limit Bubble -->
   <div class="gallery-wrap">
     <div style="display:flex;align-items:center;gap:8px;margin:6px 0 8px">
       <div style="font-weight:600">Gallery (bis 5 Bilder aus dem Repo)</div>
@@ -145,7 +158,13 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
 </main>
 
 <footer>
-  <div>Erstellt von <span style="opacity:.8">index.html</span>. Nutzt die GitHub REST API (<em>ohne</em> Server-Code).<br/>Unauthentifiziertes Rate-Limit: <strong>60</strong> Anfragen/Stunde/IP. Mit Token: <strong>5 000</strong>.</div>
+  <div>
+    Erstellt von <span style="opacity:.8">index.html</span>. Nutzt die GitHub REST API (<em>ohne</em> Server-Code).<br/>
+    Unauthentifiziertes Rate-Limit: <strong>60</strong> Anfragen/Stunde/IP. Mit Token: <strong>5 000</strong>.
+  </div>
+  <div style="margin-top:8px">
+    Gesamt: <strong id="rateTotal">–</strong> • Verbleibend: <strong id="rateRemain">–</strong>
+  </div>
 </footer>
 
 <script>
@@ -153,19 +172,20 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
   'use strict';
 
   // -------------------------------------------
-  // OPTION: niemals ein echtes Secret hier hardcoden!
-  // Nur für lokale Tests (localhost) denkbar:
-  const HARDCODED_TOKEN = ''; // ⚠️ leer lassen für Deploy
+  // ⚠️ Niemals echte Secrets hier hart verdrahten! (nur lokal denkbar)
+  const HARDCODED_TOKEN = ''; // leer lassen für Deploy
   function isLocalhost(){ return ['localhost','127.0.0.1','::1'].includes(location.hostname); }
   // -------------------------------------------
 
   const qs = new URLSearchParams(location.search);
-  const $ = sel => document.querySelector(sel);
+  const $ = s => document.querySelector(s);
   const tbody = $('#tbody');
   const breadcrumbsEl = $('#breadcrumbs');
   const searchInput = $('#search');
   const toggleHidden = $('#toggleHidden');
   const btnUp = $('#btnUp');
+  const readmeWrap = $('#readmeWrap');
+  const readmeContent = $('#readmeContent');
 
   const IMAGE_EXT = /\.(png|jpe?g|gif|webp|svg)$/i;
 
@@ -218,6 +238,11 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
 
   function esc(s){ return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
 
+  function linkify(escaped){
+    // sehr einfache URL-Erkennung
+    return escaped.replace(/(https?:\/\/[^\s)]+)(?![^<]*>)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
+
   function joinUrl(...parts){
     return parts.map((p,i)=> i===0? String(p).replace(/\/?$/,'') : String(p).replace(/^\/+/, '')).join('/');
   }
@@ -260,7 +285,7 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
       repo  : $('#cfgRepo').value.trim(),
       branch: $('#cfgBranch').value.trim(),
       prefix: $('#cfgPrefix').value.trim().replace(/^\/+|\/+$|^\.+/g,''),
-      token : rawToken // bewusst ohne strenge Blockade; Warnung unten per auth check
+      token : rawToken // optional; Validierung erfolgt bei Rate-Check
     };
     store.set(cfg);
     return cfg;
@@ -361,7 +386,7 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
     if (token){
       const r = await fetch(url, { headers: { ...base, Authorization: 'token ' + token } });
       if (r.ok) return r.json();
-      if ([401,403,404].includes(r.status)){ // Token ungültig / keine Rechte → anonym probieren (für public)
+      if ([401,403,404].includes(r.status)){ // evtl. Token-Problem → anonym für public probieren
         const r2 = await fetch(url, { headers: base });
         if (r2.ok) return r2.json();
         const t2 = await r2.text().catch(()=>String(r2.status)); throw new Error(t2);
@@ -373,26 +398,37 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
     return r.json();
   }
 
-  async function updateRateBubble(token){
+  async function updateRateDisplays(token){
     try{
       const headers = token ? { Authorization: 'token ' + token } : {};
       const r = await fetch('https://api.github.com/rate_limit',{headers});
       const j = await r.json();
       const core = j && j.resources && j.resources.core;
-      const el = document.getElementById('ratelimit');
+      const bubble = document.getElementById('ratelimit');
       const authInfo = document.getElementById('authInfo');
+      const ftTotal = document.getElementById('rateTotal');
+      const ftRemain = document.getElementById('rateRemain');
       if (core){
-        el.textContent = `${core.remaining}/${core.limit}`;
-        if (authInfo) authInfo.textContent = `Auth OK: ${core.remaining}/${core.limit}`;
+        const txt = `${core.remaining}/${core.limit}`;
+        if (bubble) bubble.textContent = txt;
+        if (authInfo) authInfo.textContent = `Auth OK: ${txt}`;
+        if (ftTotal) ftTotal.textContent = String(core.limit);
+        if (ftRemain) ftRemain.textContent = String(core.remaining);
       } else {
-        el.textContent = '–/–';
+        if (bubble) bubble.textContent = '–/–';
         if (authInfo) authInfo.textContent = 'Auth unbekannt';
+        if (ftTotal) ftTotal.textContent = '–';
+        if (ftRemain) ftRemain.textContent = '–';
       }
     }catch{
-      const el = document.getElementById('ratelimit');
+      const bubble = document.getElementById('ratelimit');
       const authInfo = document.getElementById('authInfo');
-      el.textContent = '–/–';
+      const ftTotal = document.getElementById('rateTotal');
+      const ftRemain = document.getElementById('rateRemain');
+      if (bubble) bubble.textContent = '–/–';
       if (authInfo) authInfo.textContent = 'Auth fehlgeschlagen';
+      if (ftTotal) ftTotal.textContent = '–';
+      if (ftRemain) ftRemain.textContent = '–';
     }
   }
 
@@ -475,15 +511,66 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
     document.getElementById('galPrev').onclick = ()=> strip.scrollBy({left:-220, behavior:'smooth'});
     document.getElementById('galNext').onclick = ()=> strip.scrollBy({left: 220, behavior:'smooth'});
 
-    // Pfeiltasten
     window.addEventListener('keydown', (ev)=>{
       if (ev.key === 'ArrowLeft') strip.scrollBy({left:-220, behavior:'smooth'});
       if (ev.key === 'ArrowRight') strip.scrollBy({left:220, behavior:'smooth'});
     }, { passive:true });
   }
 
+  // --- README laden/anzeigen (aus aktuellem Ordner)
+  async function findAndRenderReadme(entries, ctx){
+    try{
+      const files = Array.isArray(entries) ? entries.filter(x=> x.type==='file') : [];
+      const cand = files
+        .filter(f => /^readme(\.[\w.-]+)?$/i.test(f.name))
+        .sort((a,b)=>{
+          const pr = ext => ['.md','.markdown','.txt',''].indexOf(ext.toLowerCase());
+          const ext = n => {
+            const m = n.toLowerCase().match(/(\.[a-z0-9.-]+)$/i);
+            return m ? m[1] : '';
+          };
+          return pr(ext(a.name)) - pr(ext(b.name));
+        })[0];
+
+      if (!cand){
+        // keine README → Block ausblenden
+        readmeWrap.style.display = 'none';
+        return;
+      }
+
+      // Pfad im Repo: prefix + current path + Datei
+      const fullRepoPath = String(joinUrl(ctx.prefix||'', ctx.path||'/', cand.name)).replace(/^\/+|\/+$/g,'');
+      const url = apiContentsUrl(ctx.owner, ctx.repo, fullRepoPath, ctx.branch);
+      const obj = await ghFetch(url, ctx.token||''); // enthält .content (base64)
+      const content = (obj && obj.content && obj.encoding==='base64') ? decodeBase64Utf8(obj.content) : '';
+
+      if (!content){
+        readmeWrap.style.display = 'none';
+        return;
+      }
+
+      readmeContent.innerHTML = linkify(esc(content));
+      readmeWrap.style.display = '';
+    } catch(_){
+      readmeWrap.style.display = 'none';
+    }
+  }
+
+  function decodeBase64Utf8(b64){
+    // robustes base64->utf8 (ohne deprecated escape/unescape)
+    const bin = atob(b64.replace(/\s+/g,''));
+    const len = bin.length;
+    const bytes = new Uint8Array(len);
+    for (let i=0;i<len;i++) bytes[i]=bin.charCodeAt(i);
+    try{
+      return new TextDecoder('utf-8',{fatal:false}).decode(bytes);
+    }catch{
+      // Fallback latin1
+      return Array.from(bytes).map(b=>String.fromCharCode(b)).join('');
+    }
+  }
+
   async function detectBranchAndPrefix(owner, repo, token, repoPath){
-    // Default-Branch ohne Token holen (robuster)
     let defaultBranch = null;
     try {
       const meta = await ghFetch(`https://api.github.com/repos/${owner}/${repo}`, '');
@@ -569,19 +656,16 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
     buildCrumbs(path);
 
     const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
-    // Render table
-    const showHidden = toggleHidden.checked;
-    const q = searchInput.value.toLowerCase().trim();
-    const sitePath = path.startsWith('/')? path : '/' + path;
 
+    // Tabellen-Ansicht
     if (entries.length === 0){
       tbody.innerHTML = '<tr><td colspan="3" class="empty">Leer.</td></tr>';
     } else {
-      // sort & render
       entries.sort((a,b)=>{
         if (a.type!==b.type) return a.type==='dir' ? -1 : 1;
         return a.name.localeCompare(b.name, undefined, {numeric:true, sensitivity:'base'});
       });
+      const sitePath = path.startsWith('/')? path : '/' + path;
       tbody.innerHTML = entries.map(e=>{
         const itemSiteRel = joinUrl(sitePath, e.name) + (e.type==='dir' ? '/' : '');
         return rowHtml(e, itemSiteRel);
@@ -594,14 +678,16 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
           navigateTo(p);
         });
       });
-      // initial filter
       filterDOMRows();
     }
 
-    // Refresh Rate-Limit badge
-    await updateRateBubble(STATE.token||'');
+    // README laden/anzeigen (nur wenn vorhanden)
+    await findAndRenderReadme(entries, STATE);
 
-    // Build gallery (repo-wide, begrenzt)
+    // Rate-Limits (Bubble + Footer)
+    await updateRateDisplays(STATE.token||'');
+
+    // Gallery (repo-weit, begrenzt)
     const galEmpty = document.getElementById('galEmpty');
     if (galEmpty){ galEmpty.textContent = 'Suche Bilder…'; }
     try{
@@ -634,12 +720,11 @@ code.kv{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:6px }
 
   $('#btnSave').addEventListener('click', async ()=>{
     const cfg = saveSettings();
-    // kleiner Health-Check
     if (cfg.token && !looksLikeGitHubToken(cfg.token)) {
       const ai = document.getElementById('authInfo');
       if (ai) ai.textContent = 'Token-Format ungewöhnlich';
     }
-    await updateRateBubble(cfg.token||'');
+    await updateRateDisplays(cfg.token||'');
     load(STATE.path||'/');
   });
 
