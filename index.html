@@ -601,6 +601,39 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     throw new Error('Branch/Prefix konnte nicht automatisch bestimmt werden. Bitte unter „Erweitert“ konfigurieren.');
   }
 
+  // ---- Hintergrund: background.xxx im Repo-Root erkennen und setzen
+const BG_NAME_RE = /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
+
+async function findBackgroundUrl(owner, repo, branch, token, dirPath){
+  // listet ein Verzeichnis und sucht nach background.xxx
+  const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
+  const items = await ghFetch(url, token).catch(()=>[]);
+  if (!Array.isArray(items)) return null;
+  const hit = items.find(x => x.type==='file' && BG_NAME_RE.test(x.name));
+  if (!hit) return null;
+  // bevorzugt download_url, sonst Raw-URL bauen
+  return hit.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${hit.path}`;
+}
+
+// nur einmal anwenden (auch bei Navigation)
+let _bgApplied = false;
+async function applyBackgroundFromRoot(owner, repo, branch, prefix, token){
+  if (_bgApplied) return; // schon gesetzt
+  // 1) Repo-Root
+  let bg = await findBackgroundUrl(owner, repo, branch, token, '');
+  // 2) Falls gewünscht zusätzlich im Pages-Root (z. B. 'docs') schauen
+  if (!bg && prefix) bg = await findBackgroundUrl(owner, repo, branch, token, prefix);
+  if (bg){
+    document.documentElement.style.setProperty('--bgimg', `url("${bg}")`);
+    document.body.classList.add('with-photo');
+    _bgApplied = true;
+  } else {
+    // nichts gefunden → klassischer Hintergrund
+    document.body.classList.remove('with-photo');
+  }
+}
+
+  
   let STATE = { owner:null, repo:null, branch:null, prefix:'', token:null, path:'/' };
 
   async function load(path){
@@ -656,6 +689,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
 
     STATE = { owner, repo, branch, prefix, token, path };
+    await applyBackgroundFromRoot(STATE.owner, STATE.repo, STATE.branch, STATE.prefix, STATE.token);
+
     buildCrumbs(path);
 
     const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
