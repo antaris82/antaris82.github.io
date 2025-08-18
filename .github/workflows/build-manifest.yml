@@ -5,36 +5,62 @@ on:
     branches: [ main ]
   workflow_dispatch: {}
 
+permissions:
+  contents: write  # <-- wichtig: erlaubt Commit des Manifests
+
 jobs:
   manifest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create manifest.json (paths + sizes + sha)
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Liste aller Dateien (Blobs) im Repo mit Modus, Typ, SHA, Größe, Pfad
-          # Format: <mode> <type> <sha> <size>\t<path>
-          git ls-tree -r --long HEAD \
-          | awk '{
-              mode=$1; type=$2; sha=$3; size=$4;
-              # Pfad steht nach einem TAB
-              idx = index($0, "\t");
-              path = substr($0, idx+1);
-              # Escape von doppelten Anführungszeichen im Pfad
-              gsub(/\"/, "\\\"", path);
-              printf("{\"path\":\"%s\",\"sha\":\"%s\",\"size\":%s,\"type\":\"%s\",\"mode\":\"%s\"}\n", path, sha, size, type, mode);
-            }' \
-          | jq -s 'sort_by(.path)' > manifest.json
+      # Holt die komplette Baumstruktur per GitHub-API und erzeugt manifest.json ohne jq/awk
+      - name: Generate manifest.json via GitHub API
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const owner = context.repo.owner;
+            const repo  = context.repo.repo;
+
+            // Referenz: aktueller Commit auf dem Default-Branch (main)
+            // Alternative: explizit "heads/main"
+            const ref = process.env.GITHUB_SHA;
+
+            // Vollständiger Baum (rekursiv)
+            const treeResp = await github.rest.git.getTree({
+              owner, repo,
+              tree_sha: ref,
+              recursive: 'true'
+            });
+
+            const tree = treeResp.data.tree || [];
+
+            // Nur Dateien (blobs) mit Pfad, SHA, Größe, Modus
+            const blobs = tree
+              .filter(it => it.type === 'blob')
+              .map(it => ({
+                path: it.path,
+                sha:  it.sha,
+                size: it.size ?? 0,
+                type: 'blob',
+                mode: it.mode
+              }))
+              .sort((a,b) => a.path.localeCompare(b.path));
+
+            fs.writeFileSync('manifest.json', JSON.stringify(blobs, null, 2));
+            core.info(`Wrote manifest.json with ${blobs.length} entries.`);
 
       - name: Commit manifest if changed
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add manifest.json
-          git diff --cached --quiet || git commit -m "Update manifest [skip ci]"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "Update manifest [skip ci]"
+            git push
+          else
+            echo "No changes in manifest.json"
+          fi
