@@ -326,25 +326,56 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   }
 
   // Mathblöcke herauslösen (auch doppelt escapt), Code bleibt geschützt
-  function extractMathPlaceholders(md){
-    const code = protectMdCode(md);
-    const blocks = [];
-    const push = (m)=>{ blocks.push(m); return `__MATHBLOCK_${blocks.length-1}__`; };
+  // 🔒 Mathblöcke mit Markdown-neutralen Tokens ausklinken
+function extractMathPlaceholders(md){
+  const blocks = [];
 
-    // Reihenfolge wichtig
-    let s = code.md;
-    s = s.replace(/\$\$[\s\S]*?\$\$/g, push);
-    s = s.replace(/\\\\\[[\s\S]*?\\\\\]/g, push);
-    s = s.replace(/\\\[[\s\S]*?\\\]/g, push);
-    s = s.replace(/\\\\\([\s\S]*?\\\\\)/g, push);
-    s = s.replace(/\\\([\s\S]*?\\\)/g, push);
-    s = s.replace(/\\\\begin\{([\w*]+)\}[\s\S]*?\\\\end\{\1\}/g, push);
-    s = s.replace(/\\begin\{([\w*]+)\}[\s\S]*?\\end\{\1\}/g, push);
+  // Wir schützen zuerst Code (``` … ``` / ~~~ … ~~~ / `…`) vor Matches:
+  const code = protectMdCode(md);
+  let s = code.md;
 
-    // Code zurück, Math bleibt als Platzhalter
-    s = restoreMdCode(s, code.placeholders);
-    return { md: s, blocks };
+  const push = (m)=>{
+    // Private-Use-Zeichen U+E000 / U+E001 → von Markdown/HTML nicht angefasst
+    const tok = '\uE000MB' + blocks.length + '\uE001';
+    blocks.push(m);
+    return tok;
+  };
+
+  // Reihenfolge wichtig (auch doppelt escapt)
+  s = s.replace(/\$\$[\s\S]*?\$\$/g, push);
+  s = s.replace(/\\\\\[[\s\S]*?\\\\\]/g, push);
+  s = s.replace(/\\\[[\s\S]*?\\\]/g, push);
+  s = s.replace(/\\\\\([\s\S]*?\\\\\)/g, push);
+  s = s.replace(/\\\([\s\S]*?\\\)/g, push);
+  s = s.replace(/\\\\begin\{([\w*]+)\}[\s\S]*?\\\\end\{\1\}/g, push);
+  s = s.replace(/\\begin\{([\w*]+)\}[\s\S]*?\\end\{\1\}/g, push);
+
+  // Code wieder einsetzen, Math bleibt als Token
+  s = restoreMdCode(s, code.placeholders);
+  return { md: s, blocks };
+}
+
+// 🔁 Tokens im HTML zurück in echten TeX-Quelltext verwandeln
+function restoreMathPlaceholders(html, blocks){
+  function normalize(tex){
+    return tex
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/\\\\/g, '\\'); // doppelte Backslashes → einfache
   }
+  function escHtml(s){
+    return s
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;');
+  }
+
+  // U+E000MB<idx>U+E001 → originaler (normalisierter) TeX
+  return html.replace(/\uE000MB(\d+)\uE001/gu, (_,i)=>{
+    const tex = blocks[+i] || '';
+    return escHtml(normalize(tex));
+  });
+}
 
   // Platzhalter im HTML wieder einsetzen (mit Normalisierung)
   function restoreMathPlaceholders(html, blocks){
