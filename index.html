@@ -20,6 +20,9 @@
     .grid { display:grid; gap:8px; }
     .list { display:grid; grid-template-columns: 1fr auto auto; gap:6px 8px; align-items:center; }
     .list .head { color:var(--muted); font-weight:600; }
+    .meta-chip { background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:10px 12px; }
+    .meta-chip .title { font-weight:600; margin-bottom:6px; }
+    .meta-chip .excerpt { white-space:pre-wrap; max-height:160px; overflow:auto; }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
     .muted { color:var(--muted); }
     .readme { max-height:280px; overflow:auto; background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:12px; white-space:pre-wrap; }
@@ -43,6 +46,17 @@
   </header>
 
   <main>
+     <section class="card grid" id="idxStatusCard">
+      <div class="flex" style="justify-content:space-between;">
+        <strong>Stand der Indizierung</strong>
+        <span class="muted">Automatisch aus <code>manifest.json</code></span>
+      </div>
+      <div class="flex" style="gap:16px; flex-wrap:wrap;">
+        <div><span class="muted">Letzte Aktualisierung:</span> <span id="manifestUpdatedAt" class="mono">–</span></div>
+        <div><span class="muted">Gesamtdateien:</span> <span id="manifestTotalFiles" class="mono">–</span></div>
+      </div>
+    </section>
+    
     <section class="card grid">
       <div class="flex" style="justify-content:space-between;">
         <strong>README</strong>
@@ -56,6 +70,10 @@
         <strong>Dateien & Ordner</strong>
         <span id="cwdLabel" class="muted mono">/</span>
       </div>
+      
+      <!-- NEU: kompakter Meta-Block im Ordner -->
+      <div id="folderMeta" class="grid"></div>
+      
       <div class="list" id="listing">
         <div class="head">Pfad/Name</div>
         <div class="head">Typ</div>
@@ -123,6 +141,47 @@
       return t ? { "Authorization": "Bearer " + t } : {};
     }
 
+     // Manifest-Header (Last-Modified) holen
+    async function getManifestHeaders() {
+      const res = await fetch("/manifest.json", { method:"GET", cache:"no-store" });
+      if (!res.ok) return null;
+      return {
+        lastModified: res.headers.get("last-modified") || null,
+        contentLength: res.headers.get("content-length") || null
+      };
+    }
+
+    // Dateiname im aktuellen Ordner finden
+    function findFileInFolder(manifest, folderPath, names) {
+      const prefix = folderPath ? (folderPath + "/") : "";
+      // exakte Treffer im Ordner (nicht rekursiv)
+      const candidates = manifest
+        .filter(x => x.path.startsWith(prefix))
+        .map(x => ({ ...x, rest: x.path.slice(prefix.length) }))
+        .filter(x => x.rest.length > 0 && !x.rest.includes("/")); // direkte Kinder
+
+      for (const n of names) {
+        const hit = candidates.find(x => x.rest.toLowerCase() === n.toLowerCase());
+        if (hit) return hit;
+      }
+      return null;
+    }
+
+    // Rohtext einer Repo-Datei holen (Raw)
+    async function fetchRawText(path) {
+      const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${path}`;
+      const r = await fetch(rawUrl, { headers: { ...authHeaders() }, cache: "no-store" });
+      if (!r.ok) throw new Error("Raw fetch failed " + r.status);
+      return await r.text();
+    }
+
+    // Exzerpt (sauber) bauen
+    function buildExcerpt(txt, maxLen=400) {
+      const clean = txt.replace(/\r/g,"").trim();
+      if (clean.length <= maxLen) return clean;
+      return clean.slice(0, maxLen).trim() + " …";
+    }
+    
     function navigateTo(path) {
       const params = new URLSearchParams(location.search);
       if (urlToken && !params.get("token")) params.set("token", urlToken);
@@ -217,6 +276,67 @@
       const dirs = Array.from(dirsSet).sort();
 
       // UI leeren (bis auf Kopfzeile)
+            // Meta-Block (README + LICENSE) direkt über der Liste
+      const folderMetaEl = document.getElementById("folderMeta");
+      folderMetaEl.innerHTML = ""; // leeren
+
+      (async () => {
+        const prefixPath = cwd || ""; // aktueller Ordner
+        // Kandidaten
+        const readmeNames  = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
+        const licenseNames = ["LICENSE","LICENSE.md","LICENSE.txt","License","COPYING","COPYING.txt"];
+
+        // README suchen
+        const readmeEntry = findFileInFolder(manifest, prefixPath, readmeNames);
+        if (readmeEntry) {
+          try {
+            const readmeTxt = await fetchRawText(readmeEntry.path);
+            const readmeEx  = buildExcerpt(readmeTxt, 600);
+            const readmeUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${readmeEntry.path}`;
+            const chip = document.createElement("div");
+            chip.className = "meta-chip";
+            chip.innerHTML = `
+              <div class="title">README <a href="${readmeUrl}" target="_blank" rel="noopener" class="mono">(${readmeEntry.rest || readmeEntry.path})</a></div>
+              <div class="excerpt mono">${readmeEx.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
+            `;
+            folderMetaEl.appendChild(chip);
+          } catch (e) {
+            const chip = document.createElement("div");
+            chip.className = "meta-chip";
+            chip.innerHTML = `<div class="title">README</div><div class="excerpt">Konnte nicht geladen werden: ${e.message}</div>`;
+            folderMetaEl.appendChild(chip);
+          }
+        }
+
+        // LICENSE suchen
+        const licEntry = findFileInFolder(manifest, prefixPath, licenseNames);
+        if (licEntry) {
+          try {
+            const licTxt = await fetchRawText(licEntry.path);
+            const licEx  = buildExcerpt(licTxt, 400);
+            const licUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${licEntry.path}`;
+            const chip = document.createElement("div");
+            chip.className = "meta-chip";
+            chip.innerHTML = `
+              <div class="title">Lizenz <a href="${licUrl}" target="_blank" rel="noopener" class="mono">(${licEntry.rest || licEntry.path})</a></div>
+              <div class="excerpt mono">${licEx.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
+            `;
+            folderMetaEl.appendChild(chip);
+          } catch (e) {
+            const chip = document.createElement("div");
+            chip.className = "meta-chip";
+            chip.innerHTML = `<div class="title">Lizenz</div><div class="excerpt">Konnte nicht geladen werden: ${e.message}</div>`;
+            folderMetaEl.appendChild(chip);
+          }
+        }
+
+        // Falls weder README noch LICENSE existiert, dezent text anzeigen
+        if (!readmeEntry && !licEntry) {
+          folderMetaEl.innerHTML = `<div class="muted">Kein README/Lizenz im aktuellen Ordner gefunden.</div>`;
+        }
+      })();
+
+      
       listingEl.innerHTML = `
         <div class="head">Pfad/Name</div>
         <div class="head">Typ</div>
@@ -305,6 +425,20 @@
           return;
         }
       }
+            // Statuskarte: Timestamp + Anzahl
+      try {
+        const hdr = await getManifestHeaders();
+        if (hdr && hdr.lastModified) {
+          const dt = new Date(hdr.lastModified);
+          document.getElementById("manifestUpdatedAt").textContent = dt.toLocaleString();
+        } else {
+          document.getElementById("manifestUpdatedAt").textContent = "–";
+        }
+      } catch { /* ignore */ }
+
+      const totalFiles = manifest.filter(x => x.type === "blob").length;
+      document.getElementById("manifestTotalFiles").textContent = String(totalFiles);
+
 
       await loadReadme(manifest);
       renderFolder(manifest);
