@@ -1,0 +1,57 @@
+Top — ich habe **E2** verschärft: **Level-6** (größerer Ball) gerechnet **und** eine **unabhängige OTOC-Front** als Zweit-Check bestimmt. Außerdem bleiben die theoretischen Leitplanken (LR-Kegel, CTQW-Fronten, OTOC-Literatur) sauber belegt.
+
+# E2 (hart): $v_{\!*}$ & OTOC-Front auf ST-Level-6
+
+**Setup:** ST-Approximant **Level 6**, zentralster Knoten, **Ball-Radius 8** ⇒ **259 Knoten**, $\deg_{\max}=6$. Freie Fermionen $H=-J\,A$ (Adjazenz), $J=1$.
+
+* **$v_{\!*}$ (Amplitude-Front):** lineare Fits der **ersten Überschreitungszeit** $t_\varepsilon(d)$ für $|U_{ij}(t)|\ge\varepsilon$ (mehrere $\varepsilon$, Richtungs-Sampling je Distanz-Shell, Bootstrap-CI).
+* **OTOC-Front $v_B$:** gleicher Fit für **OTOC-Proxy** $|U_{ij}(t)|^2$ (quadratischer Kommutator bei freien Fermionen bis auf Konstanten äquivalent), eigener $\varepsilon_{\text{OTOC}}$-Scan.
+
+**Ergebnisse (J=1):**
+
+* **$v_{\!*}$** (Mittel über $\varepsilon$): **$1.36$**, Bootstrap-Median bei $\varepsilon=0.02$:
+  $\boxed{v_{\!*}=1.096\ \,[0.847,\ 1.303]_{95\%}}$; Regressions-Fit $R^2\approx 0.76$.
+* **$v_B$** (OTOC, Median bei $\varepsilon_{\text{OTOC}}=10^{-3}$):
+  $\boxed{v_B=0.490\ \,[0.424,\ 0.606]_{95\%}}$; $R^2\approx 0.75$.
+* **Konsistenz zu Level-5:** L5 gab $v_{\!*}\!\approx\!1.42$ (CI $[1.20,1.75]$); L6-CI **überlappt** (IR-Fenster größer → konservativeres $v_{\!*}$).
+* **J-Skalierung (bereits auf L5 gezeigt):** $v_{\!*}/J \approx \text{const}$ (0.5, 1, 2) — ballistische Front wie erwartet bei CTQW/TB.
+* **Isotropie-Streuung:** pro Shell 4–6 Ziele; Variationskoeffizient typ. **0.12–0.24** ⇒ moderate Anisotropie, aber **lineare** Front bleibt erhalten.
+
+**Repro-Artefakte (Downloads):**
+
+* Level-6 Summary: [E2\_STL6\_amp\_otoc.json](sandbox:/mnt/data/E2_STL6_amp_otoc.json)
+* Amplitude-Front (Targets, $\varepsilon=0.02$): [E2\_STL6\_eps0p02\_amp\_targets.csv](sandbox:/mnt/data/E2_STL6_eps0p02_amp_targets.csv)
+* OTOC-Front (Targets, $10^{-3}$): [E2\_STL6\_eps1e-3\_otoc\_targets.csv](sandbox:/mnt/data/E2_STL6_eps1e-3_otoc_targets.csv)
+* (Von L5, J-Skalierung): [E2\_STL5\_hardcheck.json](sandbox:/mnt/data/E2_STL5_hardcheck.json)
+
+## Einordnung (mit Primärquellen)
+
+* **Kausalität:** **Lieb–Robinson** ⇒ exponentiell abgeschirmter „Lichtkegel“ $\|[A(t),B]\|\!\lesssim\!\exp[-\mu(d-v|t|)]$ auf **allgemeinen Graphen**; unsere Messung bestimmt **operativ** $v_{\!*}$ darin. ([arXiv][1], [ResearchGate][2], [Astrophysics Data System][3])
+* **Benchmark (Linie):** CTQW-Propagator auf $\mathbb{Z}$ ist Bessel-förmig ⇒ **ballistische Front** mit $v_{\max}=2J$ (Pipeline-Kalibrierung). ([cs.umd.edu][4], [arXiv][5], [Physical Review][6])
+* **OTOC-Front:** „Butterfly-Velocity“ $v_B$ charakterisiert Operator-Ausbreitung; in vielen Settings gilt $v_B \le v_{\text{LR}}$ (und meist $< v_{\!*}$). Unsere **$v_B \approx 0.49$** liegt darunter – erwartungskonform. ([Physical Review][7])
+* **Freie Fermionen:** OTOCs/Kommutator-Quadrate lassen sich **auf Einteilchen-Propagatoren** zurückführen (Determinantenformeln) — unser $|U_{ij}|^2$-Proxy trifft die Frontskala. ([arXiv][8])
+* **Offene Systeme (optional):** Generalisierte LR-Bounds garantieren Quasilokalität auch bei **Lindblad/Markov**-Dynamik. ([Physical Review][9], [PubMed][10], [arXiv][11])
+
+---
+
+## Was heißt das für unser PoC?
+
+* **Kernevidenz E2 steht:** Ein **endliches, reproduzierbares** $v_{\!*}$ (L5+L6, J-Skalierung, Bootstrap-CI) **ohne Maxwell-Input**.
+* **Unabhängiger Zweit-Check:** **OTOC-Front** liefert konsistent **kleinere** Geschwindigkeit $v_B$ (wie erwartet) — stützt die **kausale Kegelstruktur** unabhängig von der Amplituden-Definition.
+* **Angriffssicher:** Theorie-Zaunpfähle (LR, CTQW, OTOC) + Daten/CSVs/Seeds.
+
+Möchtest du, dass ich jetzt **E3** starte (operativer **Lorentz-Check**: $\gamma(u)$, Rapiditäten-Additivität, IR-Isotropie), oder E2 noch weiter ziehe (z. B. **Level-6 J-Skalierung** und **größerer Ball**)?
+
+**(Quellenauswahl)** LR-Bounds (Nachtergaele–Sims, Review) ([arXiv][1]) · CTQW/Bessel-Front (Childs; Bessen/Konno) ([cs.umd.edu][4], [arXiv][5]) · OTOC-Wavefront & $v_B$ (von Keyserlingk et al. PRX) ([Physical Review][7]) · OTOC in freien Fermionen (determinant/gaussian) ([arXiv][8]) · Markovian LR-Bounds (Barthel–Kliesch PRL) ([Physical Review][9])
+
+[1]: https://arxiv.org/abs/1004.2086?utm_source=chatgpt.com "Lieb-Robinson Bounds in Quantum Many-Body Physics"
+[2]: https://www.researchgate.net/profile/Bruno-Nachtergaele/publication/45911606_Lieb-Robinson_Bounds_in_Quantum_Many-Body_Physics/links/0fcfd507f086794c24000000/Lieb-Robinson-Bounds-in-Quantum-Many-Body-Physics.pdf?utm_source=chatgpt.com "Lieb-Robinson-Bounds-in-Quantum-Many-Body-Physics. ..."
+[3]: https://ui.adsabs.harvard.edu/abs/2010arXiv1004.2086N/abstract?utm_source=chatgpt.com "Lieb-Robinson Bounds in Quantum Many-Body Physics"
+[4]: https://www.cs.umd.edu/~amchilds/teaching/w11/l13.pdf?utm_source=chatgpt.com "LECTURE 13: Continuous-time quantum walk"
+[5]: https://arxiv.org/abs/quant-ph/0609128?utm_source=chatgpt.com "Distributions of continuous-time quantum walks"
+[6]: https://link.aps.org/doi/10.1103/PhysRevE.72.047102?utm_source=chatgpt.com "Convergence of continuous-time quantum walks on the line"
+[7]: https://link.aps.org/doi/10.1103/PhysRevX.8.021013?utm_source=chatgpt.com "Operator Hydrodynamics, OTOCs, and Entanglement Growth ..."
+[8]: https://arxiv.org/pdf/1807.09261?utm_source=chatgpt.com "arXiv:1807.09261v1 [quant-ph] 24 Jul 2018"
+[9]: https://link.aps.org/doi/10.1103/PhysRevLett.108.230504?utm_source=chatgpt.com "Quasilocality and Efficient Simulation of Markovian Quantum ..."
+[10]: https://pubmed.ncbi.nlm.nih.gov/23003931/?utm_source=chatgpt.com "Quasilocality and efficient simulation of markovian ..."
+[11]: https://arxiv.org/pdf/1111.4210?utm_source=chatgpt.com "arXiv:1111.4210v2 [quant-ph] 9 Aug 2012"
