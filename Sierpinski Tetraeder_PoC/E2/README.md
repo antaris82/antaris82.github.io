@@ -21,12 +21,12 @@ Dieser Ordner bündelt den **Schritt E2** des ST-Graph‑PoC. Er enthält (i) da
 **Rahmen.** Lokal endliche Graphen mit beschränktem Grad; lokale bzw. exponentiell abfallende Wechselwirkungen.
 
 **Lieb–Robinson‑Bound.** Es existieren Konstanten \\(C,\\mu,v_{\\mathrm{LR}}>0\\) mit
-$$
+\\[
 \\bigl\\|[\\,\\alpha_t(A),\\,B\\,]\\bigr\\|
 \\;\\le\\;
 C\\,\\|A\\|\\,\\|B\\|\\,
 \\exp\\!\\bigl(-\\mu\\,\\bigl[d(X,Y)-v_{\\mathrm{LR}}\\,t\\bigr]\\bigr)
-$$
+\\]
 für lokalisierte Observablen \\(A\\in\\mathcal A_X\\), \\(B\\in\\mathcal A_Y\\) und Distanz \\(d(X,Y)\\).
 
 **Frontzeit (Untergrenze) bei Toleranz \\(\\varepsilon>0\\).** Für
