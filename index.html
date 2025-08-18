@@ -44,6 +44,7 @@
     .list .head { color:var(--muted); font-weight:600; }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
     .muted { color:var(--muted); }
+
     .readme { max-height:420px; overflow:auto; background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:16px; }
     .readme h1,.readme h2,.readme h3 { margin: 0.6em 0 0.4em; }
     .readme code { background:#0b1016; padding:0 .25em; border-radius:4px; }
@@ -97,28 +98,7 @@
   </header>
 
   <main class="wrap">
-    <!-- Stand der Indizierung -->
-    <section class="card grid" id="idxStatusCard">
-      <div class="flex" style="justify-content:space-between;">
-        <strong>Stand der Indizierung</strong>
-        <span class="muted">Automatisch aus <code>manifest.json</code></span>
-      </div>
-      <div class="flex" style="gap:16px; flex-wrap:wrap;">
-        <div><span class="muted">Letzte Aktualisierung:</span> <span id="manifestUpdatedAt" class="mono">–</span></div>
-        <div><span class="muted">Gesamtdateien:</span> <span id="manifestTotalFiles" class="mono">–</span></div>
-      </div>
-    </section>
-
-    <!-- README-Block -->
-    <section class="card grid">
-      <div class="flex" style="justify-content:space-between;">
-        <strong>README</strong>
-        <span class="muted">wird automatisch geladen, gerendert (Markdown + LaTeX)</span>
-      </div>
-      <div id="readme" class="readme">—</div>
-    </section>
-
-    <!-- Dateien & Ordner -->
+    <!-- 1) Dateien & Ordner -->
     <section class="card grid">
       <div class="flex" style="justify-content:space-between;">
         <strong>Dateien & Ordner</strong>
@@ -135,7 +115,16 @@
       </div>
     </section>
 
-    <!-- Galerie -->
+    <!-- 2) README -->
+    <section class="card grid">
+      <div class="flex" style="justify-content:space-between;">
+        <strong>README</strong>
+        <span class="muted">wird automatisch geladen, gerendert (Markdown + LaTeX)</span>
+      </div>
+      <div id="readme" class="readme">—</div>
+    </section>
+
+    <!-- 3) Galerie -->
     <section class="card grid">
       <div class="flex" style="justify-content:space-between;">
         <strong>Galerie</strong>
@@ -144,7 +133,19 @@
       <div class="gallery" id="gallery"></div>
     </section>
 
-    <!-- Lizenzhinweis -->
+    <!-- 4) Stand der Indizierung -->
+    <section class="card grid" id="idxStatusCard">
+      <div class="flex" style="justify-content:space-between;">
+        <strong>Stand der Indizierung</strong>
+        <span class="muted">Automatisch aus <code>manifest.json</code></span>
+      </div>
+      <div class="flex" style="gap:16px; flex-wrap:wrap;">
+        <div><span class="muted">Letzte Aktualisierung:</span> <span id="manifestUpdatedAt" class="mono">–</span></div>
+        <div><span class="muted">Gesamtdateien:</span> <span id="manifestTotalFiles" class="mono">–</span></div>
+      </div>
+    </section>
+
+    <!-- 5) Lizenzhinweis -->
     <section class="card license">
       <div><strong>Lizenz</strong></div>
       <div>Code: MIT License. Nicht-Code (z. B. PDFs, CSV/PNG): CC BY 4.0. © 2025 antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.</div>
@@ -188,8 +189,7 @@
     function humanBytes(n) {
       const units = ["B","KB","MB","GB","TB"];
       let i = 0, v = Number(n)||0;
-      while (v >= 1024 && i < units.length-1) { v /= 1024; i++;
-      }
+      while (v >= 1024 && i < units.length-1) { v /= 1024; i++; }
       return (Math.round(v*10)/10) + " " + units[i];
     }
 
@@ -287,15 +287,12 @@
         if (window.MathJax && MathJax.typesetPromise) {
           MathJax.typesetPromise([el]).then(() => resolve()).catch(() => resolve());
         } else {
-          // Falls MathJax noch nicht geladen ist, später nochmal versuchen
           let tries = 0;
           const t = setInterval(() => {
             if (window.MathJax && MathJax.typesetPromise) {
               clearInterval(t);
               MathJax.typesetPromise([el]).then(() => resolve()).catch(() => resolve());
-            } else if (++tries > 40) { // ~8s
-              clearInterval(t); resolve();
-            }
+            } else if (++tries > 40) { clearInterval(t); resolve(); }
           }, 200);
         }
       });
@@ -323,11 +320,9 @@
         if (!r.ok) throw new Error("READMERaw error " + r.status);
         const txt = await r.text();
 
-        // Markdown -> HTML, danach sicher sanitisieren
         const html = DOMPurify.sanitize(marked.parse(txt, { mangle: false, headerIds: true }));
         readmeEl.innerHTML = html;
 
-        // LaTeX (MathJax) auf README anwenden
         await typeset(readmeEl);
       } catch (e) {
         readmeEl.textContent = "README konnte nicht geladen/gerendert werden: " + e.message;
@@ -338,7 +333,7 @@
     function applyBackgroundFromManifest(manifest) {
       const bg = manifest.find(x => !x.path.includes("/") && /^background\.(png|jpg|jpeg|gif|webp|svg)$/i.test(x.path));
       if (!bg) return;
-      const url = `/${bg.path}`; // GH Pages Root
+      const url = `/${bg.path}`;
       document.body.style.backgroundImage = `linear-gradient(rgba(11,15,20,0.6), rgba(11,15,20,0.6)), url('${url}')`;
       document.body.classList.add("bg-on");
     }
@@ -360,7 +355,7 @@
       );
       const dirs = Array.from(dirsSet).sort();
 
-      // Kopf der Tabelle
+      // Kopf
       listingEl.innerHTML = `
         <div class="head">Pfad/Name</div>
         <div class="head">Typ</div>
@@ -420,7 +415,7 @@
         }
       })();
 
-      // Nach oben Link (per normalem href)
+      // Nach oben Link
       if (cwd) {
         const up = cwd.split("/").slice(0, -1).join("/");
         const row = document.createElement("div");
@@ -430,7 +425,7 @@
         listingEl.appendChild(row);
       }
 
-      // Ordner rendern (normale Links)
+      // Ordner rendern
       for (const d of dirs) {
         const rowName = document.createElement("div");
         rowName.className = "mono";
@@ -455,8 +450,8 @@
         rowName.innerHTML = `📄 <a href="${rawUrl}" target="_blank" rel="noopener">${name}</a>`;
         const rowType = document.createElement("div");
         rowType.textContent = "file";
-        const rowSize = document.createElement("div");
         rowType.className = "muted mono";
+        const rowSize = document.createElement("div");
         rowSize.textContent = humanBytes(f.size);
         rowSize.className = "muted mono";
         listingEl.appendChild(rowName);
