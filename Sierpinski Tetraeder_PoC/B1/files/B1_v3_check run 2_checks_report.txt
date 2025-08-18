@@ -1,9 +1,0 @@
-n=100, beta=3.0, env_evals=[0.0, 1.0]
-[Check1 α=0.00] symmetry=0.00e+00, λ_min=3.688e-16, ||L_A 1||=0.000e+00
-[Check1 α=0.25] symmetry=0.00e+00, λ_min=-4.018e-16, ||L_A 1||=1.882e-14
-[Check1 α=0.50] symmetry=0.00e+00, λ_min=3.199e-16, ||L_A 1||=1.333e-14
-[Check1 α=0.75] symmetry=0.00e+00, λ_min=1.687e-16, ||L_A 1||=5.167e-15
-[Check1 α=1.00] symmetry=0.00e+00, λ_min=-5.008e-17, ||L_A 1||=5.408e-16
-[Check2] ||Tr_E ρ_tot - ρ(L)||_F = 4.227e-16  (should be ~ 0)
-[Check3] |E + d/dβ log Z| = 1.197e-10
-[Check3] Var(L) (direct) = 9.693689e-02,  d2/dβ^2 log Z = 9.693688e-02
