@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>antaris' repository</title>
 
-<!-- Styles -->
 <style>
 :root{
   --bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;
@@ -25,7 +24,6 @@ body{
   color:var(--fg);
   font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
 }
-/* Foto-Hintergrund vollflächig */
 body.with-photo{
   background-image:
     linear-gradient(180deg, rgba(0,0,0,var(--overlay-alpha)), rgba(0,0,0,var(--overlay-alpha))),
@@ -150,11 +148,11 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .katex-display{ margin: .8em 0; }
 </style>
 
-<!-- Markdown Renderer + Sanitizer -->
+<!-- marked + DOMPurify -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js" defer></script>
 
-<!-- KaTeX (CSS + JS + Auto-render) -->
+<!-- KaTeX -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" defer></script>
@@ -205,7 +203,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 </header>
 
 <main class="container">
-  <!-- Dateien/Ordner -->
   <div class="panel">
     <table>
       <thead><tr><th>Name</th><th>Größe</th><th>Typ</th></tr></thead>
@@ -215,7 +212,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     </table>
   </div>
 
-  <!-- README-Block -->
   <div class="readme-wrap" id="readmeWrap" style="display:none">
     <div class="readme-head">README</div>
     <div class="readme-panel">
@@ -223,7 +219,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     </div>
   </div>
 
-  <!-- Gallery -->
   <div class="gallery-wrap">
     <div class="gal-head">
       <div style="font-weight:600">Bilder in diesem Ordner</div>
@@ -251,14 +246,11 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   </div>
 </footer>
 
-<!-- App-Script -->
 <script>
 (function(){
   'use strict';
 
   const HARDCODED_TOKEN = '';
-  function isLocalhost(){ return ['localhost','127.0.0.1','::1'].includes(location.hostname); }
-
   const qs = new URLSearchParams(location.search);
   const $ = s => document.querySelector(s);
   const tbody = $('#tbody');
@@ -275,65 +267,65 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   const GAL_PER_PAGE = 10;
   let GALLERY = { items: [], page: 1, pages: 1 };
 
-  /* ---------- KaTeX: robustes Rendering inkl. Doppel-Backslash-Fix ---------- */
-  const MATH = {
-    options: {
-      delimiters: [
-        { left: "$$", right: "$$", display: true },
-        { left: "\\[", right: "\\]", display: true },
-        { left: "\\(", right: "\\)", display: false },
-        { left: "\\begin{equation}", right: "\\end{equation}", display: true },
-        { left: "\\begin{align}", right: "\\end{align}", display: true },
-        { left: "\\begin{aligned}", right: "\\end{aligned}", display: true },
-        { left: "\\begin{gather}", right: "\\end{gather}", display: true },
-        { left: "\\begin{cases}", right: "\\end{cases}", display: true }
-      ],
-      ignoredTags: ['script','noscript','style','textarea','pre','code'],
-      throwOnError: false,
-      strict: "warn"
-    }
+  /* ===================== KaTeX: robustes Rendering ===================== */
+  const KATEX_OPTIONS = {
+    delimiters: [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false },
+      { left: "\\begin{equation}", right: "\\end{equation}", display: true },
+      { left: "\\begin{align}", right: "\\end{align}", display: true },
+      { left: "\\begin{aligned}", right: "\\end{aligned}", display: true },
+      { left: "\\begin{gather}", right: "\\end{gather}", display: true },
+      { left: "\\begin{cases}", right: "\\end{cases}", display: true }
+    ],
+    ignoredTags: ['script','noscript','style','textarea','pre','code'],
+    throwOnError: false,
+    strict: "warn"
   };
 
-  // Ersetzt in Textknoten NUR innerhalb von \\[...\\] / \\(...\\) die doppelten Backslashes zu einfachen,
-  // damit KaTeX gültiges LaTeX erhält. Code/Pre werden ausgelassen.
-  function normalizeDoublyEscapedMath(root){
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    const updates = [];
-    const isInCode = (node)=> node.parentElement && node.parentElement.closest('code,pre,script,style,textarea');
+  // 1) Platzhalter für <pre>/<code>, damit wir dort nichts verändern
+  function protectCodeBlocks(html){
+    const placeholders = [];
+    html = html.replace(/<(pre|code)\b[^>]*>[\s\S]*?<\/\1>/gi, (m)=>{
+      const token = `__CODEBLOCK_${placeholders.length}__`;
+      placeholders.push(m);
+      return token;
+    });
+    return { html, placeholders };
+  }
+  function restoreCodeBlocks(html, placeholders){
+    return html.replace(/__CODEBLOCK_(\d+)__/g, (_,i)=> placeholders[+i] ?? '');
+  }
 
-    while(true){
-      const n = walker.nextNode();
-      if(!n) break;
-      if (isInCode(n)) continue;
+  // 2) Nur innerhalb von \\[...\\], \\(...\\) und \\begin{X}...\\end{X} doppelte Backslashes → einfache
+  function unescapeDoublyEscapedLatexHTML(html){
+    const out = protectCodeBlocks(html);
+    let s = out.html;
 
-      const s = n.nodeValue;
-      if (!s || s.indexOf('\\\\') === -1) continue;
+    const fix = (m)=> m.replace(/\\\\/g,'\\'); // alle doppelten Backslashes in Match halbieren
 
-      // Muster für \\[ ... \\] und \\( ... \\)
-      let changed = s.replace(/\\\\\[((?:[\s\S]*?))\\\\\]/g, (_, inner)=>{
-        return '\\[' + inner.replace(/\\\\/g,'\\') + '\\]';
-      });
-      changed = changed.replace(/\\\\\(([\s\S]*?)\\\\\)/g, (_, inner)=>{
-        return '\\(' + inner.replace(/\\\\/g,'\\') + '\\)';
-      });
+    // Block/Inline-Delims
+    s = s.replace(/\\\\\[(?:[\s\S]*?)\\\\\]/g, fix);
+    s = s.replace(/\\\\\((?:[\s\S]*?)\\\\\)/g, fix);
 
-      if (changed !== s) updates.push([n, changed]);
-    }
-    updates.forEach(([node, val])=> node.nodeValue = val);
+    // Umgebungen (align, equation, ...), gleiche Umgebung am Ende referenziert
+    s = s.replace(/\\\\begin\{([\w*]+)\}([\s\S]*?)\\\\end\{\1\}/g, fix);
+
+    return restoreCodeBlocks(s, out.placeholders);
   }
 
   function renderMathNow(el){
-    if (window.renderMathInElement){
-      try { renderMathInElement(el, MATH.options); } catch(e){}
+    if (window.renderMathInElement) {
+      try { renderMathInElement(el, KATEX_OPTIONS); } catch(e){}
     } else {
-      // Fallback: warten bis KaTeX geladen ist
-      const once = ()=> {
-        try { renderMathInElement(el, MATH.options); } catch(e){}
-      };
-      window.addEventListener('load', once, { once:true });
+      // Fallback, wenn KaTeX noch lädt
+      window.addEventListener('load', ()=> {
+        try { renderMathInElement(el, KATEX_OPTIONS); } catch(e){}
+      }, { once:true });
     }
   }
-  /* ------------------------------------------------------------------------- */
+  /* ===================================================================== */
 
   const store = {
     get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
@@ -375,25 +367,10 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     return { owner: cfg.owner, repo: cfg.repo };
   }
 
-  function bytes(n){
-    if (n==null) return '—';
-    if (n<1024) return n+' B';
-    if (n<1024*1024) return (n/1024).toFixed(1)+' KB';
-    return (n/1024/1024).toFixed(2)+' MB';
-  }
-
-  function esc(s){
-    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
-  }
-
-  function linkify(escaped){
-    return escaped.replace(/(https?:\/\/[^\s)]+)(?![^<]*>)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
-  }
-
-  function joinUrl(...parts){
-    return parts.map((p,i)=> i===0? String(p).replace(/\/?$/,'') : String(p).replace(/^\/+/, '')).join('/');
-  }
-
+  function bytes(n){ if (n==null) return '—'; if (n<1024) return n+' B'; if (n<1024*1024) return (n/1024).toFixed(1)+' KB'; return (n/1024/1024).toFixed(2)+' MB'; }
+  function esc(s){ return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+  function linkify(escaped){ return escaped.replace(/(https?:\/\/[^\s)]+)(?![^<]*>)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>'); }
+  function joinUrl(...parts){ return parts.map((p,i)=> i===0? String(p).replace(/\/?$/,'') : String(p).replace(/^\/+/, '')).join('/'); }
   function encodePath(p){ return p.split('/').map(encodeURIComponent).join('/'); }
 
   function applySettingsToUI(cfg){
@@ -419,7 +396,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       repo  : qs.get('repo')   || saved.repo   || '',
       branch: qs.get('branch') || saved.branch || '',
       prefix: (qs.get('prefix') || saved.prefix || '').replace(/^\/+|\/+$|^\.+/g,''),
-      token : qs.get('token')  || saved.token  || (isLocalhost()? HARDCODED_TOKEN : '')
+      token : qs.get('token')  || saved.token  || ''
     };
     applySettingsToUI(cfg);
     return cfg;
@@ -437,8 +414,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     store.set(cfg);
     return cfg;
   }
-
-  function resetSettings(){ store.set({}); location.href = location.pathname; }
 
   function setError(msg){ const el=$('#error'); el.style.display='block'; el.textContent = msg; }
   function clearError(){ const el=$('#error'); el.style.display='none'; el.textContent=''; }
@@ -460,10 +435,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     });
   }
 
-  function linkFor(sitePath){
-    const base = siteBase();
-    return joinUrl(base, sitePath);
-  }
+  function siteLink(sitePath){ return joinUrl(siteBase(), sitePath); }
 
   function rowHtml(entry, siteRelPath){
     const isDir = entry.type === 'dir';
@@ -479,7 +451,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
           <td>${size}</td><td>${type}</td>
         </tr>`;
     } else {
-      const href = linkFor(siteRelPath);
+      const href = siteLink(siteRelPath);
       return `
         <tr class="row file" data-name="${name.toLowerCase()}">
           <td class="namecell">${icon}<a href="${href}">${name}</a></td>
@@ -528,18 +500,16 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
   async function ghFetch(url, token){
     const base = { 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' };
-    if (token){
-      const r = await fetch(url, { headers: { ...base, Authorization: 'token ' + token } });
-      if (r.ok) return r.json();
-      if ([401,403,404].includes(r.status)){
+    const headers = token ? { ...base, Authorization: 'token ' + token } : base;
+    const r = await fetch(url, { headers });
+    if (!r.ok){
+      // Bei Auth-Fehlern evtl. ohne Token probieren
+      if (token && [401,403,404].includes(r.status)){
         const r2 = await fetch(url, { headers: base });
         if (r2.ok) return r2.json();
-        const t2 = await r2.text().catch(()=>String(r2.status)); throw new Error(t2);
       }
       const t = await r.text().catch(()=>String(r.status)); throw new Error(t);
     }
-    const r = await fetch(url, { headers: base });
-    if (!r.ok){ const t = await r.text().catch(()=>String(r.status)); throw new Error(t); }
     return r.json();
   }
 
@@ -548,7 +518,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       const headers = token ? { Authorization: 'token ' + token } : {};
       const r = await fetch('https://api.github.com/rate_limit',{headers});
       const j = await r.json();
-      const core = j && j.resources && j.resources.core;
+      const core = j?.resources?.core;
       const authInfo = document.getElementById('authInfo');
       const ftTotal = document.getElementById('rateTotal');
       const ftRemain = document.getElementById('rateRemain');
@@ -571,7 +541,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  // Hintergrund (background.xxx) anwenden
   async function findBackgroundUrl(owner, repo, branch, token, dirPath){
     const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
     const items = await ghFetch(url, token).catch(()=>[]);
@@ -594,7 +563,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  /* ---------- Gallery (nur aktueller Ordner) ---------- */
   function rawUrl(owner, repo, branch, repoPath){
     const p = String(repoPath||'').replace(/^\/+/,'');
     return `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${p}`;
@@ -607,7 +575,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     return imgs.map(it => ({
       name: it.name,
       path: it.path,
-      siteHref: linkFor(joinUrl(STATE.path.startsWith('/')? STATE.path : '/' + STATE.path, it.name)),
+      siteHref: siteLink(joinUrl(STATE.path.startsWith('/')? STATE.path : '/' + STATE.path, it.name)),
       rawHref: rawUrl(STATE.owner, STATE.repo, STATE.branch, it.path)
     }));
   }
@@ -661,13 +629,12 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       nextBtn._bound = true;
     }
   }
-  /* ---------------------------------------------------- */
 
   async function detectBranchAndPrefix(owner, repo, token, repoPath){
     let defaultBranch = null;
     try {
       const meta = await ghFetch(`https://api.github.com/repos/${owner}/${repo}`, '');
-      defaultBranch = meta && meta.default_branch || null;
+      defaultBranch = meta?.default_branch || null;
     } catch(_) {}
     const branches = [...new Set([qs.get('branch'), readSettings().branch, defaultBranch, 'gh-pages','main','master'].filter(Boolean))];
     const prefixes = [...new Set([qs.get('prefix'), readSettings().prefix, '', 'docs'].filter(v=> v!==undefined))];
@@ -751,7 +718,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
     const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
 
-    // Tabelle
     if (entries.length === 0){
       tbody.innerHTML = '<tr><td colspan="3" class="empty">Leer.</td></tr>';
     } else {
@@ -774,13 +740,9 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       filterDOMRows();
     }
 
-    // README laden + rendern + LaTeX normalisieren + KaTeX
     await findAndRenderReadme(entries, STATE);
-
-    // Footer-Rate
     await updateRateDisplays(STATE.token||'');
 
-    // Gallery
     try{
       GALLERY.items = imagesFromEntries(entries);
       GALLERY.page = 1;
@@ -830,12 +792,12 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       const rawHtml = (window.marked ? marked.parse(content, {headerIds:true, mangle:false, breaks:true}) : linkify(esc(content)));
       const safeHtml = (window.DOMPurify ? DOMPurify.sanitize(rawHtml, {ADD_ATTR:['target','rel']}) : rawHtml);
 
-      readmeContent.innerHTML = safeHtml;
+      // HIER: doppelt escapte Math-Segmente im HTML reparieren
+      const normalized = unescapeDoublyEscapedLatexHTML(safeHtml);
+
+      readmeContent.innerHTML = normalized;
       rewriteReadmeRelativeLinks(cand.path, ctx);
       readmeWrap.style.display = '';
-
-      // WICHTIG: Doppelte Backslashes innerhalb von \\[...\\], \\(...\\) reduzieren
-      normalizeDoublyEscapedMath(readmeContent);
 
       // KaTeX rendern
       renderMathNow(readmeContent);
@@ -912,7 +874,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     load(STATE.path||'/');
   });
 
-  $('#btnReset').addEventListener('click', resetSettings);
+  $('#btnReset').addEventListener('click', ()=>{ store.set({}); location.href = location.pathname; });
 
   window.addEventListener('popstate', (e)=>{
     const p = (e.state && e.state.path) || currentFolderInSite();
