@@ -67,9 +67,8 @@ Die zugehörigen Reports `*_checks_report.txt` fassen die wichtigsten Messwerte 
 ## Mathematischer Kontext (Kurz)
 
 **Partial Trace** (Subsystem \(B\) wird getraced):
-//
-//
-\[\mathrm{Tr}_B(\rho_{AB}) \;=\; \sum_j \bigl(\mathbb{I}_A \otimes \langle j|\bigr)\,\rho_{AB}\,\bigl(\mathbb{I}_A \otimes |j\rangle\bigr).\]
+
+\\[\mathrm{Tr}_B(\rho_{AB}) \;=\; \sum_j \bigl(\mathbb{I}_A \otimes \langle j|\bigr)\,\rho_{AB}\,\bigl(\mathbb{I}_A \otimes |j\rangle\bigr).\]\
 /
 
 **Beispielhafte Observablen-Abbildung** über α:
