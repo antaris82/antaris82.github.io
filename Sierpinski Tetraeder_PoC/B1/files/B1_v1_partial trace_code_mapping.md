@@ -1,0 +1,115 @@
+# B1 → Code Mapping (auto-extracted)
+File: /mnt/data/st_2_partial trace on ST-Graph(1).py  (lines: 300)
+
+## Functions:
+- `build_graph_by_addresses(level: int)`
+- `L_A_alpha(alpha: float)`
+- `reduced_density_via_partial_trace(L, beta=BETA, env_evals=None)`
+- `energy_from_spectrum(evals, p)`
+- `entropy_from_p(p)`
+- `purity_from_p(p)`
+- `L_A_sub_alpha(alpha: float)`
+- `updA(i)`
+- `updO(i)`
+- `updG(i)`
+
+## Classes:
+
+## Selected settings/assignments:
+- `V0 = np.array([`
+- `V = np.array(sorted(set(pts)), dtype=float)`
+- `A = np.zeros((n,n), dtype=float)`
+- `L = np.diag(deg) - A`
+- `LEVEL_FINE = 4`
+- `V2 = V4[:, :2].copy()`
+- `C = np.zeros((c, n), dtype=float)`
+- `R = C.T`
+- `BETA = 3.0`
+- `Z = float(np.sum(w))`
+- `E_U = energy_from_spectrum(evals_U, p_U)`
+- `S_U = entropy_from_p(p_U)`
+- `P_U = purity_from_p(p_U)`
+- `N_SUB = 160`
+- `E = np.array(E_list); S = np.array(S_list); P = np.array(P_list)`
+
+## Keyword occurrences (line : code):
+-    2: # Sierpiński-Tetraeder (ST) – Level-4 Urgraph, Approximant-Verkleinerung,
+-    3: # realistische Dichtematrizen via Teilspur, Observablen, 4 GIFs
+-    5: # Anforderungen: numpy, matplotlib, Pillow (für GIF)
+-    6: # Keine externen Styles/Farben; nur Matplotlib-Default.
+-    9: import numpy as np
+-   10: import itertools, math, os
+-   11: import matplotlib.pyplot as plt
+-   12: from matplotlib.animation import FuncAnimation, PillowWriter
+-   13: from pathlib import Path
+-   16: # 0) Reproduzierbarkeit
+-   18: np.random.seed(7)
+-   21: # 1) Geometrie & Graph
+-   23: # Eckpunkte eines regulären Tetraeders (nur für IFS/Koordinaten)
+-   24: V0 = np.array([
+-   27:     [0.5, math.sqrt(3)/2, 0.0],
+-   28:     [0.5, math.sqrt(3)/6, math.sqrt(6)/3],
+-   31: def build_graph_by_addresses(level: int):
+-   33:     Robuste Konstruktion des Level-m ST-Graphs:
+-   34:     - Knoten = Vereinigung der Ecken aller Level-m-Tetraeder (per Adressliste)
+-   35:     - Kanten = 1-Skelette jeder Zelle (6 Kanten)
+-   38:     addresses = list(itertools.product(range(4), repeat=level))
+-   39:     for addr in addresses:
+-   40:         for j in range(4):
+-   41:             x = V0[j].copy()
+-   42:             for i in addr:
+-   44:             pts.append(tuple(np.round(x, 12)))
+-   45:     V = np.array(sorted(set(pts)), dtype=float)                 # Knoten
+-   46:     idx = {tuple(p): k for k,p in enumerate(V)}                # Punkt->Index
+-   48:     pairs = [(0,1),(0,2),(0,3),(1,2),(1,3),(2,3)]              # Kanten in einer Zelle
+-   49:     for addr in addresses:
+-   50:         verts = []
+-   51:         for j in range(4):
+-   52:             x = V0[j].copy()
+-   53:             for i in addr:
+-   55:             verts.append(tuple(np.round(x,12)))
+-   56:         ids = [idx[v] for v in verts]
+-   57:         for a,b in pairs:
+-   62:     A = np.zeros((n,n), dtype=float)
+-   63:     for i,j in edges:
+-   66:     L = np.diag(deg) - A                                       # kombinatorischer Laplace-Operator
+-   67:     return V, A, L
+-   69: # Level 4 Urgraph
+-   70: LEVEL_FINE = 4
+-   71: V4, A4, L4 = build_graph_by_addresses(LEVEL_FINE)
+-   73: V2 = V4[:, :2].copy()  # 2D-Projektion für Scatterplots
+-   76: # 2) Coarse-Graining (Lift von Level 0)
+-   78: V0_points, A0, L0 = build_graph_by_addresses(0)  # 4 Ecken (vollständig verbunden)
+-   79: # Cluster-Zuordnung: feiner Knoten -> nächster Eckpunkt
+-   80: assign = np.argmin(((V4[:,None,:]-V0_points[None,:,:])**2).sum(axis=2), axis=1)
+-   81: c = V0_points.shape[0]  # =4
+-   83: # Aggregationsmatrix C: coarse (4)  <- fine (n)   ;   Rekonstruktion R = C^T
+-   84: C = np.zeros((c, n), dtype=float)
+-   85: for k in range(c):
+-   86:     idxs = np.where(assign==k)[0]
+-   87:     C[k, idxs] = 1.0/len(idxs)
+-   88: R = C.T
+-   90: # Lift des Level-0-Operators in feinen Raum
+-   91: L_lift = R @ L0 @ C
+-   92: L_lift = 0.5*(L_lift + L_lift.T)  # numerisch symmetrieren
+-   94: def L_A_alpha(alpha: float):
+-   95:     """Stetige Verkleinerung: Approximant-Operator zwischen fein (L4) und gehoben grob (L_lift)."""
+-   96:     return (1.0-alpha)*L4 + alpha*L_lift
+-   99: # 3) Dichtematrizen via *expliziter* Teilspur (Kronecker-Summe)
+-  102: # ⇒ ρ_tot ∝ exp(-β H_total); ρ_red = Tr_env ρ_tot  ∝  exp(-β L)
+-  103: # Implementiert mit *expliziter Summation* über die Eigenwerte des Environments
+-  104: # (spart explizite Konstruktion von (n*d_env)×(n*d_env)-Matrizen, ist aber mathematisch äquivalent).
+-  106: BETA = 3.0
+-  108: def reduced_density_via_partial_trace(L, beta=BETA, env_evals=None):
+-  110:     Liefert ρ_red, Eigenwerte/-vektoren von L und die Populations p (thermisch).
+-  111:     env_evals: Eigenwerte von H_env (1D-Array), z.B. [0, Δ] oder [0,1,2] etc.
+-  114:         env_evals = np.array([0.0, 1.0])  # minimalistisches 2-Level-Environment
+-  115:     evals, evecs = np.linalg.eigh(L)                     # L = Q Λ Q^T
+-  116:     w_env = np.exp(-beta*env_evals)
+-  117:     Z_env = float(np.sum(w_env))                         # Tr e^{-β H_env}
+-  118:     w = np.exp(-beta*evals) * Z_env                      # Summe über Env-Zustände
+-  119:     Z = float(np.sum(w))                                 # Gesamtpartition (bis Norm)
+-  121:     rho = (evecs * p[None,:]) @ evecs.T                  # ρ = Q diag(p) Q^T
+-  122:     return rho, evals, p, evecs
+-  124: # Urgraph – reduzierte Dichte über Teilspur
+-  125: rho_U, evals_U, p_U, evecs_U = reduced_density_via_partial_trace(
