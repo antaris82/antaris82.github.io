@@ -44,7 +44,13 @@
     .list .head { color:var(--muted); font-weight:600; }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
     .muted { color:var(--muted); }
-    .readme { max-height:280px; overflow:auto; background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:12px; white-space:pre-wrap; }
+    .readme { max-height:420px; overflow:auto; background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:16px; }
+    .readme h1,.readme h2,.readme h3 { margin: 0.6em 0 0.4em; }
+    .readme code { background:#0b1016; padding:0 .25em; border-radius:4px; }
+    .readme pre { background:#0b1016; padding:10px; border-radius:8px; overflow:auto; }
+    .readme table { border-collapse:collapse; border:1px solid #26303c; }
+    .readme th,.readme td { border:1px solid #26303c; padding:6px 8px; }
+
     a { color:#9cc4ff; text-decoration:none; }
     a:hover { text-decoration:underline; }
     .gallery { display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:10px; }
@@ -56,6 +62,24 @@
     .meta-chip .title { font-weight:600; margin-bottom:6px; }
     .meta-chip .excerpt { white-space:pre-wrap; max-height:160px; overflow:auto; }
   </style>
+
+  <!-- Markdown (marked) & Sanitizer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+
+  <!-- MathJax v3: LaTeX (\(...\), \[...\]; $$...$$ als Fallback) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(','\\)']],
+        displayMath: [['\\[','\\]'], ['$$','$$']],
+        processEscapes: true,
+        tags: 'ams'
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
   <header>
@@ -89,9 +113,9 @@
     <section class="card grid">
       <div class="flex" style="justify-content:space-between;">
         <strong>README</strong>
-        <span class="muted">wird automatisch geladen, falls vorhanden</span>
+        <span class="muted">wird automatisch geladen, gerendert (Markdown + LaTeX)</span>
       </div>
-      <div id="readme" class="readme mono">—</div>
+      <div id="readme" class="readme">—</div>
     </section>
 
     <!-- Dateien & Ordner -->
@@ -164,7 +188,8 @@
     function humanBytes(n) {
       const units = ["B","KB","MB","GB","TB"];
       let i = 0, v = Number(n)||0;
-      while (v >= 1024 && i < units.length-1) { v /= 1024; i++; }
+      while (v >= 1024 && i < units.length-1) { v /= 1024; i++;
+      }
       return (Math.round(v*10)/10) + " " + units[i];
     }
 
@@ -256,7 +281,27 @@
       return acc.sort((a,b)=> a.path.localeCompare(b.path));
     }
 
-    // README laden
+    // MathJax Typeset Helper
+    function typeset(el) {
+      return new Promise((resolve) => {
+        if (window.MathJax && MathJax.typesetPromise) {
+          MathJax.typesetPromise([el]).then(() => resolve()).catch(() => resolve());
+        } else {
+          // Falls MathJax noch nicht geladen ist, später nochmal versuchen
+          let tries = 0;
+          const t = setInterval(() => {
+            if (window.MathJax && MathJax.typesetPromise) {
+              clearInterval(t);
+              MathJax.typesetPromise([el]).then(() => resolve()).catch(() => resolve());
+            } else if (++tries > 40) { // ~8s
+              clearInterval(t); resolve();
+            }
+          }, 200);
+        }
+      });
+    }
+
+    // README laden + Markdown + LaTeX rendern
     async function loadReadme(manifest) {
       const prefix = cwd ? (cwd + "/") : "";
       const candidates = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
@@ -268,15 +313,24 @@
           if (hit) { readmeEntry = hit; break; }
         }
       }
-      if (!readmeEntry) { readmeEl.textContent = "Kein README im aktuellen Ordner gefunden."; return; }
+      if (!readmeEntry) {
+        readmeEl.textContent = "Kein README im aktuellen Ordner gefunden.";
+        return;
+      }
       try {
         const raw = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${readmeEntry.path}`;
         const r = await fetch(raw, { headers: { ...authHeaders() }, cache: "no-store" });
         if (!r.ok) throw new Error("READMERaw error " + r.status);
-        let txt = await r.text();
-        readmeEl.textContent = txt;
+        const txt = await r.text();
+
+        // Markdown -> HTML, danach sicher sanitisieren
+        const html = DOMPurify.sanitize(marked.parse(txt, { mangle: false, headerIds: true }));
+        readmeEl.innerHTML = html;
+
+        // LaTeX (MathJax) auf README anwenden
+        await typeset(readmeEl);
       } catch (e) {
-        readmeEl.textContent = "README konnte nicht geladen werden: " + e.message;
+        readmeEl.textContent = "README konnte nicht geladen/gerendert werden: " + e.message;
       }
     }
 
@@ -401,8 +455,8 @@
         rowName.innerHTML = `📄 <a href="${rawUrl}" target="_blank" rel="noopener">${name}</a>`;
         const rowType = document.createElement("div");
         rowType.textContent = "file";
-        rowType.className = "muted mono";
         const rowSize = document.createElement("div");
+        rowType.className = "muted mono";
         rowSize.textContent = humanBytes(f.size);
         rowSize.className = "muted mono";
         listingEl.appendChild(rowName);
