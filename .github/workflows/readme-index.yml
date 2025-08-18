@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: generate-readmes
+      - name: generate readmes (root + changed folders)
         shell: bash
         run: |
           python - <<'PY'
@@ -45,16 +45,14 @@ jobs:
             "| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |\\n"
             "|---|---:|---|---|---|---|\\n"
             "<!-- dirindex:files:end -->\\n\\n"
-            "<!-- dirindex-json\\n"
-            "{\\n"
+            "<!-- dirindex-json\\n{\\n"
             '  "repo": "<owner>/<repo>",\\n'
             '  "path": "<ordner/pfad>",\\n'
             '  "title": "<TITEL DES ORDNERS/PROJEKTS>",\\n'
             '  "updated": "<YYYY-MM-DD>",\\n'
             '  "status": "draft",\\n'
             '  "tags": []\\n'
-            "}\\n"
-            "dirindex-json -->\\n"
+            "}\\ndirindex-json -->\\n"
           )
 
           def run(cmd):
@@ -75,6 +73,7 @@ jobs:
             return rows
 
           def render(template:str, meta:dict, files:list):
+            import re, json
             table_lines = ["| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |",
                            "|---|---:|---|---|---|---|"]
             for name,size,typ,role in files:
@@ -147,36 +146,35 @@ jobs:
                 dirs.add("" if rel=="." else (rel+"/" if not rel.endswith("/") else rel))
             return sorted(dirs)
 
-          def commit_all(msg:str):
-            try:
-              subprocess.run(["git","config","user.name","dirindex-bot"], check=False)
-              subprocess.run(["git","config","user.email","github-actions[bot]@users.noreply.github.com"], check=False)
-              subprocess.run(["git","add","-A"], check=False)
-              st = run(["git","status","--porcelain"]).stdout.strip()
-              if not st:
-                print("[info] nothing to commit")
-                return
-              subprocess.run(["git","commit","-m", msg], check=False)
-              pr = subprocess.run(["git","push"], check=False)
-              if pr.returncode != 0:
-                print("[warn] push failed (branch protection or token perms). Skipping.")
-            except Exception as e:
-              print(f"[warn] commit/push error: {e}")
-
-          # 1) bootstrap root readme once
+          # 1) einmalig Root
           wrote = False
           if not (ROOT/"README.md").exists():
             wrote = ensure_readme(ROOT) or wrote
-
-          # 2) generate for changed folders
+          # 2) geänderte Ordner
           for d in changed_dirs():
             folder = ROOT if d=="" else (ROOT/d.rstrip("/"))
             if folder.is_dir():
               wrote = ensure_readme(folder) or wrote
 
-          # 3) commit if anything changed (never fail the job)
-          if wrote:
-            commit_all("Auto: README updated")
+          # Sanity-Check ins Log:
+          p = ROOT/"README.md"
+          if p.exists():
+            print("\\n--- README.md (head) ---")
+            print("\\n".join(p.read_text(encoding="utf-8").splitlines()[:40]))
+            print("--- end ---\\n")
+          else:
+            print("[warn] README.md fehlt weiterhin")
 
+          # Änderungen im Arbeitsbaum anzeigen
+          st = run(["git","status","--porcelain"]).stdout.strip()
+          print("\\n[status]\\n"+(st or "(clean)"))
+
+          # Ende ohne Fehler; Commit übernimmt eigener Step
           sys.exit(0)
           PY
+
+      - name: commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto: README updated"
+          branch: main
