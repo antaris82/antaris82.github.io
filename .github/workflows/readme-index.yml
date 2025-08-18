@@ -25,8 +25,6 @@ jobs:
       - name: generate-readmes
         shell: bash
         run: |
-          set -e
-
           python - <<'PY'
           import subprocess, json, re, os, sys
           from pathlib import Path
@@ -34,27 +32,29 @@ jobs:
 
           ROOT = Path(".").resolve()
 
-          ROLE = {".py":"code",".ipynb":"notebook",".md":"doc",".txt":"doc",
-                  ".csv":"data",".tsv":"data",".json":"data",".parquet":"data",
-                  ".png":"image",".jpg":"image",".jpeg":"image",".webp":"image",".gif":"image",
-                  ".pdf":"doc"}
+          ROLE = {
+            ".py":"code",".ipynb":"notebook",".md":"doc",".txt":"doc",
+            ".csv":"data",".tsv":"data",".json":"data",".parquet":"data",
+            ".png":"image",".jpg":"image",".jpeg":"image",".webp":"image",".gif":"image",
+            ".pdf":"doc"
+          }
 
           TEMPLATE = (
-            "# <TITEL DES ORDNERS/PROJEKTS>\n\n"
-            "<!-- dirindex:files:start -->\n"
-            "| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |\n"
-            "|---|---:|---|---|---|---|\n"
-            "<!-- dirindex:files:end -->\n\n"
-            "<!-- dirindex-json\n"
-            "{\n"
-            '  "repo": "<owner>/<repo>",\n'
-            '  "path": "<ordner/pfad>",\n'
-            '  "title": "<TITEL DES ORDNERS/PROJEKTS>",\n'
-            '  "updated": "<YYYY-MM-DD>",\n'
-            '  "status": "draft",\n'
-            '  "tags": []\n'
-            "}\n"
-            "dirindex-json -->\n"
+            "# <TITEL DES ORDNERS/PROJEKTS>\\n\\n"
+            "<!-- dirindex:files:start -->\\n"
+            "| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |\\n"
+            "|---|---:|---|---|---|---|\\n"
+            "<!-- dirindex:files:end -->\\n\\n"
+            "<!-- dirindex-json\\n"
+            "{\\n"
+            '  "repo": "<owner>/<repo>",\\n'
+            '  "path": "<ordner/pfad>",\\n'
+            '  "title": "<TITEL DES ORDNERS/PROJEKTS>",\\n'
+            '  "updated": "<YYYY-MM-DD>",\\n'
+            '  "status": "draft",\\n'
+            '  "tags": []\\n'
+            "}\\n"
+            "dirindex-json -->\\n"
           )
 
           def run(cmd):
@@ -68,7 +68,8 @@ jobs:
           def scan_files(folder:Path):
             rows=[]
             for p in sorted(folder.iterdir(), key=lambda x:x.name.lower()):
-              if p.is_dir() or p.name.startswith("."): continue
+              if p.is_dir() or p.name.startswith("."): 
+                continue
               ext=p.suffix.lower()
               rows.append((p.name, human(p.stat().st_size), (ext[1:] if ext else "file"), ROLE.get(ext,"other")))
             return rows
@@ -78,7 +79,7 @@ jobs:
                            "|---|---:|---|---|---|---|"]
             for name,size,typ,role in files:
               table_lines.append(f"| {name} | {size} | {typ} | {role} |  |  |")
-            table = "\n".join(table_lines)
+            table = "\\n".join(table_lines)
             t = template
             rep = {
               "<TITEL DES ORDNERS/PROJEKTS>": meta.get("title",""),
@@ -88,9 +89,9 @@ jobs:
             }
             for k,v in rep.items(): t = t.replace(k,v)
             t = re.sub(r"<!-- dirindex:files:start -->.*?<!-- dirindex:files:end -->",
-                       "<!-- dirindex:files:start -->\n"+table+"\n<!-- dirindex:files:end -->", t, flags=re.S)
-            t = re.sub(r"(<!-- dirindex-json\n)(.*?)(\ndirindex-json -->)",
-                       r"\1"+json.dumps({
+                       "<!-- dirindex:files:start -->\\n"+table+"\\n<!-- dirindex:files:end -->", t, flags=re.S)
+            t = re.sub(r"(<!-- dirindex-json\\n)(.*?)(\\ndirindex-json -->)",
+                       r"\\1"+json.dumps({
                          "repo": meta.get("repo",""),
                          "path": meta.get("path",""),
                          "title": meta.get("title",""),
@@ -98,20 +99,8 @@ jobs:
                          "status": meta.get("status","draft"),
                          "tags": meta.get("tags",[]),
                          "files": [{"name": f[0], "role": f[3], "desc":"", "tags": []} for f in files]
-                       }, ensure_ascii=False, indent=2)+r"\3", t, flags=re.S)
+                       }, ensure_ascii=False, indent=2)+r"\\3", t, flags=re.S)
             return t
-
-          def commit_all(msg:str):
-            subprocess.run(["git","config","user.name","dirindex-bot"], check=False)
-            subprocess.run(["git","config","user.email","github-actions[bot]@users.noreply.github.com"], check=False)
-            subprocess.run(["git","add","-A"], check=False)
-            st = run(["git","status","--porcelain"]).stdout.strip()
-            if not st:
-              print("[info] nothing to commit")
-              return
-            subprocess.run(["git","commit","-m", msg], check=True)
-            subprocess.run(["git","push"], check=True)
-            print("[info] pushed")
 
           def ensure_readme(folder:Path):
             rel = folder.relative_to(ROOT).as_posix()
@@ -142,19 +131,13 @@ jobs:
             print(f"[write] README.md updated: {rel or '/'}")
             return True
 
-          # 1) Bootstrap Root-README einmalig
-          root_readme = ROOT/"README.md"
-          wrote = False
-          if not root_readme.exists():
-            wrote = ensure_readme(ROOT)
-
-          # 2) Geänderte Ordner gegenüber main ermitteln
           def changed_dirs():
             ref = "origin/main"
             cp = run(["git","rev-parse","--verify", ref])
             base = ref if cp.returncode==0 else "main"
             diff = run(["git","diff","--name-only", f"{base}...HEAD"])
-            if diff.returncode != 0: return []
+            if diff.returncode != 0: 
+              return []
             paths = [p for p in diff.stdout.splitlines() if p.strip()]
             dirs = set()
             for p in paths:
@@ -164,13 +147,36 @@ jobs:
                 dirs.add("" if rel=="." else (rel+"/" if not rel.endswith("/") else rel))
             return sorted(dirs)
 
-          dirs = changed_dirs()
-          for d in dirs:
+          def commit_all(msg:str):
+            try:
+              subprocess.run(["git","config","user.name","dirindex-bot"], check=False)
+              subprocess.run(["git","config","user.email","github-actions[bot]@users.noreply.github.com"], check=False)
+              subprocess.run(["git","add","-A"], check=False)
+              st = run(["git","status","--porcelain"]).stdout.strip()
+              if not st:
+                print("[info] nothing to commit")
+                return
+              subprocess.run(["git","commit","-m", msg], check=False)
+              pr = subprocess.run(["git","push"], check=False)
+              if pr.returncode != 0:
+                print("[warn] push failed (branch protection or token perms). Skipping.")
+            except Exception as e:
+              print(f"[warn] commit/push error: {e}")
+
+          # 1) bootstrap root readme once
+          wrote = False
+          if not (ROOT/"README.md").exists():
+            wrote = ensure_readme(ROOT) or wrote
+
+          # 2) generate for changed folders
+          for d in changed_dirs():
             folder = ROOT if d=="" else (ROOT/d.rstrip("/"))
-            if folder.is_dir() and folder.exists():
+            if folder.is_dir():
               wrote = ensure_readme(folder) or wrote
 
+          # 3) commit if anything changed (never fail the job)
           if wrote:
             commit_all("Auto: README updated")
 
+          sys.exit(0)
           PY
