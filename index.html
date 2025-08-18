@@ -9,7 +9,7 @@
   --bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;
   --danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);
   --radius:14px;--bgimg:none;
-  /* Neu: Overlay-Intensität & vertikale Abstände */
+  /* Overlay-Intensität & vertikale Abstände */
   --overlay-alpha: .30;
   --space: 32px;
 }
@@ -24,7 +24,7 @@ body{
   color:var(--fg);
   font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
 }
-/* Foto-Hintergrund über gesamte Breite/Höhe, weniger Abdunklung */
+/* Foto-Hintergrund über gesamte Breite/Höhe, moderates Abdunkeln */
 body.with-photo{
   background-image:
     linear-gradient(180deg, rgba(0,0,0,var(--overlay-alpha)), rgba(0,0,0,var(--overlay-alpha))),
@@ -32,15 +32,14 @@ body.with-photo{
     radial-gradient(1200px 800px at 10% -10%, #1b2652 0%, transparent 46%),
     radial-gradient(1000px 600px at 110% -10%, #17334f 0%, transparent 45%);
   background-color: var(--bg);
-  background-size: auto, cover, auto, auto; /* das Bild füllt den Viewport */
+  background-size: auto, cover, auto, auto;
   background-position: center, center, 0 0, 0 0;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: scroll, fixed, scroll, scroll; /* Parallax-Effekt: Bild fixiert */
+  background-attachment: scroll, fixed, scroll, scroll;
 }
 
 a{color:var(--acc);text-decoration:none}
 a:hover{text-decoration:underline}
-/* Header minimal transparenter, damit mehr Hintergrund sichtbar ist */
 header{
   position:sticky;top:0;z-index:5;backdrop-filter:blur(8px);
   background:linear-gradient(180deg,rgba(16,23,42,.72),rgba(16,23,42,.38));
@@ -60,9 +59,9 @@ header{
 .crumbs{margin-top:10px;color:var(--muted);font-size:14px;white-space:nowrap;overflow:auto}
 .crumbs a{color:var(--fg);opacity:.9}
 .crumbs .sep{opacity:.4;margin:0 6px}
-main{padding:26px 16px 48px} /* mehr Luft nach oben/unten */
+main{padding:26px 16px 48px}
 .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-/* Neu: größere Blockabstände, damit mehr Hintergrund sichtbar ist */
+/* größere Blockabstände */
 .panel, .readme-wrap, .gallery-wrap, details.settings { margin-top: var(--space); }
 
 table{width:100%;border-collapse:collapse}
@@ -85,8 +84,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .tag{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
 @media (max-width:700px){.controls{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}}
 
-/* README-Block */
-.readme-wrap{}
+/* README-Block (Markdown gerendert) */
 .readme-head{font-weight:600;margin:6px 0 8px}
 .readme-panel{border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);max-height:420px;overflow:auto;padding:14px}
 .readme-content{font:14px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
@@ -100,16 +98,54 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .readme-content th,.readme-content td{border:1px solid var(--border);padding:6px 8px}
 .readme-muted{color:var(--muted);font-size:13px}
 
-/* Gallery */
-.gallery-wrap{}
-.gallery{position:relative;border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);padding:10px 36px}
-.gal-strip{display:flex;gap:10px;overflow:hidden;scroll-behavior:smooth}
-.gal-item{flex:0 0 auto;width:180px;border:1px solid var(--border);border-radius:12px;background:var(--card);text-align:center;cursor:pointer}
-.gal-item img{display:block;width:100%;height:110px;object-fit:cover;border-top-left-radius:12px;border-top-right-radius:12px}
-.gal-caption{font-size:12px;color:var(--muted);padding:6px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gal-nav{position:absolute;top:50%;transform:translateY(-50%);width:28px;height:28px;border:1px solid var(--border);background:var(--card);border-radius:50%;display:grid;place-items:center;cursor:pointer;user-select:none}
-.gal-prev{left:6px}.gal-next{right:6px}
-.gal-empty{color:var(--muted);padding:10px 0;text-align:center}
+/* === Gallery (paginated 2x5 grid, nur aktueller Ordner) === */
+.gallery-wrap{ margin-top: var(--space); }
+.gal-head{ display:flex;align-items:center;justify-content:space-between; margin:-4px 0 10px 0;color:var(--muted);font-size:13px }
+.gallery{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--panel);
+  padding:16px 56px; /* Platz für Pfeile */
+  min-height: 210px;
+}
+.gal-grid{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  grid-auto-rows: 1fr;
+  gap:12px;
+}
+.gal-item{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.gal-thumb{ width:100%; aspect-ratio: 16/10; object-fit:cover; display:block; }
+.gal-caption{ font-size:12px;color:var(--muted); padding:6px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.gal-empty{ color:var(--muted); padding:10px 0; text-align:center; }
+.gal-page{ font-size:12px;color:var(--muted) }
+
+.gal-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:44px;height:44px; border-radius:50%;
+  display:grid; place-items:center; user-select:none; cursor:pointer;
+  background:rgba(0,0,0,.55);
+  border:2px solid rgba(255,255,255,.9);
+  color:#fff; font-size:22px; font-weight:800; line-height:1;
+  box-shadow:0 6px 18px rgba(0,0,0,.45);
+}
+.gal-nav:hover{ filter:brightness(1.15) }
+.gal-prev{ left:8px } .gal-next{ right:8px }
+.gal-nav:disabled{ opacity:.4; cursor:default; }
+
+@media (max-width:900px){
+  .gal-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width:560px){
+  .gal-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
 </style>
 </head>
 <body>
@@ -157,6 +193,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 </header>
 
 <main class="container">
+  <!-- Dateien/Ordner -->
   <div class="panel">
     <table>
       <thead><tr><th>Name</th><th>Größe</th><th>Typ</th></tr></thead>
@@ -166,6 +203,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     </table>
   </div>
 
+  <!-- README-Block -->
   <div class="readme-wrap" id="readmeWrap" style="display:none">
     <div class="readme-head">README</div>
     <div class="readme-panel">
@@ -173,17 +211,18 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     </div>
   </div>
 
+  <!-- Gallery (nur aktueller Ordner, 2x5, Paginierung) -->
   <div class="gallery-wrap">
-    <div style="display:flex;align-items:center;gap:8px;margin:6px 0 8px">
-      <div style="font-weight:600">Gallery (bis 5 Bilder aus dem Repo)</div>
-      <div id="ratelimit" class="tag" title="GitHub Rate Limit">–/–</div>
+    <div class="gal-head">
+      <div style="font-weight:600">Bilder in diesem Ordner</div>
+      <div class="gal-page" id="galPageInfo">–</div>
     </div>
     <div class="gallery">
-      <button class="gal-nav gal-prev" id="galPrev" aria-label="Zurück">‹</button>
-      <div class="gal-strip" id="galStrip">
+      <button class="gal-nav gal-prev" id="galPrev" aria-label="Vorherige Seite">‹</button>
+      <div class="gal-grid" id="galGrid">
         <div class="gal-empty" id="galEmpty">Suche Bilder…</div>
       </div>
-      <button class="gal-nav gal-next" id="galNext" aria-label="Weiter">›</button>
+      <button class="gal-nav gal-next" id="galNext" aria-label="Nächste Seite">›</button>
     </div>
   </div>
 
@@ -200,6 +239,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   </div>
 </footer>
 
+<!-- Markdown Renderer + Sanitizer -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
 
@@ -207,7 +247,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 (function(){
   'use strict';
 
-  const HARDCODED_TOKEN = '';
+  // ⚠️ Niemals echte Secrets hier hart verdrahten!
+  const HARDCODED_TOKEN = ''; // leer lassen für Deploy
   function isLocalhost(){ return ['localhost','127.0.0.1','::1'].includes(location.hostname); }
 
   const qs = new URLSearchParams(location.search);
@@ -222,6 +263,10 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
   const IMAGE_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
   const BG_NAME_RE = /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
+
+  // Gallery Settings & State
+  const GAL_PER_PAGE = 10; // 2 Reihen * 5 Spalten
+  let GALLERY = { items: [], page: 1, pages: 1 };
 
   const store = {
     get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
@@ -271,7 +316,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   }
 
   function esc(s){
-    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;","<":">","\"":"&quot;","'":"&#39;"}[c]));
   }
 
   function linkify(escaped){
@@ -337,7 +382,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     let html = '<a href="#" data-path="/">/</a>';
     parts.forEach(p=>{
       acc.push(p);
-      html += '<span class="sep">›</span>' + `<a href="#" data-path="/${acc.join('/')}/">${esc(p)}</a>`;
+      html += '<span class="sep">›</span>' + `<a href="#" data-path="/${acc.join('/')}/">${p.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</a>`;
     });
     breadcrumbsEl.innerHTML = html;
     breadcrumbsEl.querySelectorAll('a').forEach(a=>{
@@ -356,20 +401,20 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   function rowHtml(entry, siteRelPath){
     const isDir = entry.type === 'dir';
     const icon = isDir ? '<div class="foldericon">📁</div>' : '<div class="fileicon">📄</div>';
-    const name = esc(entry.name);
+    const name = entry.name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const size = isDir ? '—' : bytes(entry.size);
     const type = isDir ? 'Ordner' : (entry.name.includes('.')? entry.name.split('.').pop().toLowerCase()+'-Datei' : 'Datei');
 
     if (isDir) {
       return `
-        <tr class="row dir" data-name="${esc(entry.name)}" data-path="${esc(siteRelPath)}">
+        <tr class="row dir" data-name="${name.toLowerCase()}" data-path="${siteRelPath}">
           <td class="namecell">${icon}<a href="#" class="nav">${name}</a></td>
           <td>${size}</td><td>${type}</td>
         </tr>`;
     } else {
       const href = linkFor(siteRelPath);
       return `
-        <tr class="row file" data-name="${esc(entry.name)}">
+        <tr class="row file" data-name="${name.toLowerCase()}">
           <td class="namecell">${icon}<a href="${href}">${name}</a></td>
           <td>${size}</td><td>${type}</td>
         </tr>`;
@@ -377,8 +422,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   }
 
   function filterDOMRows(){
-    const q = searchInput.value.toLowerCase().trim();
-    const showHidden = toggleHidden.checked;
+    const q = (searchInput.value||'').toLowerCase().trim();
+    const showHidden = !!toggleHidden.checked;
     const rows = Array.from(tbody.querySelectorAll('tr.row'));
     let any=false;
     rows.forEach(r=>{
@@ -408,6 +453,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     history.pushState({path}, '', url);
   }
 
+  // --- GitHub API helpers
   function apiContentsUrl(owner, repo, path, ref){
     const cleaned = String(path||'').replace(/^\/+|\/+$/g,'');
     const suffix = cleaned ? '/' + cleaned.split('/').map(encodeURIComponent).join('/') : '';
@@ -437,39 +483,34 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       const r = await fetch('https://api.github.com/rate_limit',{headers});
       const j = await r.json();
       const core = j && j.resources && j.resources.core;
-      const bubble = document.getElementById('ratelimit');
       const authInfo = document.getElementById('authInfo');
       const ftTotal = document.getElementById('rateTotal');
       const ftRemain = document.getElementById('rateRemain');
       if (core){
-        const txt = `${core.remaining}/${core.limit}`;
-        if (bubble) bubble.textContent = txt;
-        if (authInfo) authInfo.textContent = `Auth OK: ${txt}`;
+        if (authInfo) authInfo.textContent = `Auth OK: ${core.remaining}/${core.limit}`;
         if (ftTotal) ftTotal.textContent = String(core.limit);
         if (ftRemain) ftRemain.textContent = String(core.remaining);
       } else {
-        if (bubble) bubble.textContent = '–/–';
         if (authInfo) authInfo.textContent = 'Auth unbekannt';
         if (ftTotal) ftTotal.textContent = '–';
         if (ftRemain) ftRemain.textContent = '–';
       }
     }catch{
-      const bubble = document.getElementById('ratelimit');
       const authInfo = document.getElementById('authInfo');
       const ftTotal = document.getElementById('rateTotal');
       const ftRemain = document.getElementById('rateRemain');
-      if (bubble) bubble.textContent = '–/–';
       if (authInfo) authInfo.textContent = 'Auth fehlgeschlagen';
       if (ftTotal) ftTotal.textContent = '–';
       if (ftRemain) ftRemain.textContent = '–';
     }
   }
 
+  // Hintergrund suchen & setzen (background.xxx im Root oder Prefix-Root)
   async function findBackgroundUrl(owner, repo, branch, token, dirPath){
     const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
     const items = await ghFetch(url, token).catch(()=>[]);
     if (!Array.isArray(items)) return null;
-    const hit = items.find(x => x.type==='file' && /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i.test(x.name));
+    const hit = items.find(x => x.type==='file' && BG_NAME_RE.test(x.name));
     if (!hit) return null;
     return hit.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${hit.path}`;
   }
@@ -487,181 +528,75 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  function isBackgroundInRoot(repoPath, prefix){
-    const px = String(prefix||'').replace(/^\/+|\/+$/g,'');
-    let rp = String(repoPath||'').replace(/^\/+|\/+$/g,'');
-    if (px && rp.startsWith(px + '/')) rp = rp.slice(px.length + 1);
-    const base = rp.split('/').pop();
-    return /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i.test(base);
-  }
-
-  async function collectImagesRepoWide({owner,repo,branch,prefix,path,token,limit=5,maxDirs=40}){
-    const seen = new Set();
-    const start = String(joinUrl(prefix||'', path||'/')).replace(/^\/+|\/+$/g,'');
-    const queue = [ start ];
-    const found = [];
-
-    async function listDir(dir){
-      const url = apiContentsUrl(owner, repo, dir, branch);
-      return ghFetch(url, token).catch(()=>[]);
-    }
-
-    function repoPathToSiteFolder(repoPath, prefix){
-      const px = String(prefix||'').replace(/^\/+|\/+$/g,'');
-      let rp = String(repoPath||'').replace(/^\/+|\/+$/g,'');
-      if (px && rp.startsWith(px + '/')) rp = rp.slice(px.length + 1);
-      const folder = rp.split('/').slice(0,-1).join('/');
-      return '/' + (folder ? folder + '/' : '');
-    }
-
-    while(queue.length && found.length < limit && seen.size < maxDirs){
-      const dir = queue.shift();
-      if (seen.has(dir)) continue;
-      seen.add(dir);
-      const items = await listDir(dir);
-      if (!Array.isArray(items)) continue;
-
-      for (const it of items){
-        if (it.type === 'dir'){
-          queue.push(it.path);
-        } else if (it.type === 'file' && IMAGE_EXT.test(it.name)){
-          if (isBackgroundInRoot(it.path, prefix)) continue;
-          found.push({
-            name: it.name,
-            path: it.path,
-            folderSite: repoPathToSiteFolder(it.path, prefix),
-            download_url: it.download_url || null
-          });
-          if (found.length >= limit) break;
-        }
-      }
-    }
-    return found;
-  }
-
+  // === Gallery (nur aus aktuellem Verzeichnis) ===
   function rawUrl(owner, repo, branch, repoPath){
     const p = String(repoPath||'').replace(/^\/+/,'');
     return `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${p}`;
   }
 
-  function renderGallery(items, ctx){
-    const strip = document.getElementById('galStrip');
-    const empty = document.getElementById('galEmpty');
+  // Bilder aus den API-Einträgen ziehen (alphabetisch), background.xxx ausschließen
+  function imagesFromEntries(entries){
+    const files = (entries||[]).filter(x => x.type === 'file');
+    let imgs = files.filter(f => IMAGE_EXT.test(f.name) && !BG_NAME_RE.test(f.name));
+    imgs.sort((a,b)=> a.name.localeCompare(b.name, undefined, {numeric:true, sensitivity:'base'}));
+    return imgs.map(it => ({
+      name: it.name,
+      path: it.path,         // repo-path
+      siteHref: linkFor(joinUrl(STATE.path.startsWith('/')? STATE.path : '/' + STATE.path, it.name)),
+      rawHref: rawUrl(STATE.owner, STATE.repo, STATE.branch, it.path)
+    }));
+  }
 
-    if (!items || items.length===0){
-      strip.innerHTML = '';
-      if (empty){ empty.textContent = 'Keine Bilder gefunden.'; empty.style.display='block'; }
+  // Eine Gallery-Seite rendern
+  function renderGalleryPage(){
+    const grid = document.getElementById('galGrid');
+    const empty = document.getElementById('galEmpty');
+    const pageInfo = document.getElementById('galPageInfo');
+    const prevBtn = document.getElementById('galPrev');
+    const nextBtn = document.getElementById('galNext');
+
+    if (!GALLERY.items.length){
+      if (grid) grid.innerHTML = '';
+      if (empty){ empty.textContent = 'Keine Bilder im Ordner.'; empty.style.display='block'; }
+      if (pageInfo) pageInfo.textContent = '–';
+      if (prevBtn) prevBtn.disabled = true;
+      if (nextBtn) nextBtn.disabled = true;
       return;
     }
-    if (empty) empty.style.display='none';
 
-    strip.innerHTML = items.map(it=>{
-      const src = it.download_url || rawUrl(ctx.owner, ctx.repo, ctx.branch, it.path);
-      const title = it.name;
-      return `<a class="gal-item" data-folder="${esc(it.folderSite)}" title="${esc(title)}">
-                <img loading="lazy" src="${src}" alt="${esc(title)}"/>
-                <div class="gal-caption">${esc(title)}</div>
-              </a>`;
-    }).join('');
+    const total = GALLERY.items.length;
+    GALLERY.pages = Math.max(1, Math.ceil(total / GAL_PER_PAGE));
+    GALLERY.page = Math.min(Math.max(1, GALLERY.page), GALLERY.pages);
 
-    strip.querySelectorAll('.gal-item').forEach(el=>{
-      el.addEventListener('click', ()=>{
-        const folder = el.dataset.folder || '/';
-        navigateTo(folder);
-      });
-    });
+    const start = (GALLERY.page - 1) * GAL_PER_PAGE;
+    const slice = GALLERY.items.slice(start, start + GAL_PER_PAGE);
 
-    document.getElementById('galPrev').onclick = ()=> strip.scrollBy({left:-220, behavior:'smooth'});
-    document.getElementById('galNext').onclick = ()=> strip.scrollBy({left: 220, behavior:'smooth'});
+    if (empty) empty.style.display = 'none';
 
-    window.addEventListener('keydown', (ev)=>{
-      if (ev.key === 'ArrowLeft') strip.scrollBy({left:-220, behavior:'smooth'});
-      if (ev.key === 'ArrowRight') strip.scrollBy({left:220, behavior:'smooth'});
-    }, { passive:true });
+    grid.innerHTML = slice.map(it => `
+      <a class="gal-item" href="${it.siteHref}" title="${it.name.replace(/&/g,'&amp;').replace(/</g,'&lt;')}">
+        <img class="gal-thumb" loading="lazy" src="${it.rawHref}" alt="${it.name.replace(/&/g,'&amp;').replace(/</g,'&lt;')}"/>
+        <div class="gal-caption">${it.name.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</div>
+      </a>
+    `).join('');
+
+    if (pageInfo) pageInfo.textContent = `Seite ${GALLERY.page} / ${GALLERY.pages} • ${total} Bild${total===1?'':'er'}`;
+    if (prevBtn){ prevBtn.disabled = (GALLERY.page <= 1); }
+    if (nextBtn){ nextBtn.disabled = (GALLERY.page >= GALLERY.pages); }
   }
 
-  async function findAndRenderReadme(entries, ctx){
-    readmeWrap.style.display = 'none';
-    readmeContent.innerHTML = '<span class="readme-muted">Lade README…</span>';
-
-    try{
-      const files = Array.isArray(entries) ? entries.filter(x=> x.type==='file') : [];
-      if (!files.length){ readmeWrap.style.display='none'; return; }
-
-      const weight = (name)=>{
-        const n = name.toLowerCase();
-        if (n === 'readme.md') return 0;
-        if (n.endsWith('.md')) return 1;
-        if (n.endsWith('.markdown')) return 2;
-        if (n.endsWith('.txt')) return 3;
-        return 4;
-      };
-
-      const candidates = files
-        .filter(f => /^readme(\.[\w.-]+)?$/i.test(f.name))
-        .sort((a,b)=> weight(a.name) - weight(b.name));
-
-      const cand = candidates[0];
-      if (!cand){ readmeWrap.style.display='none'; return; }
-
-      let apiUrl = cand.url || '';
-      if (ctx.branch){
-        apiUrl += (apiUrl.includes('?') ? '&' : '?') + 'ref=' + encodeURIComponent(ctx.branch);
-      }
-      const obj = await ghFetch(apiUrl, ctx.token||'');
-      const content = (obj && obj.content && obj.encoding==='base64') ? decodeBase64Utf8(obj.content) : '';
-
-      if (!content){ readmeWrap.style.display='none'; return; }
-
-      const rawHtml = window.marked ? marked.parse(content, {headerIds:true, mangle:false, breaks:true}) : linkify(esc(content));
-      const safeHtml = window.DOMPurify ? DOMPurify.sanitize(rawHtml, {ADD_ATTR:['target','rel']}) : rawHtml;
-
-      readmeContent.innerHTML = safeHtml;
-      rewriteReadmeRelativeLinks(cand.path, ctx);
-      readmeWrap.style.display = '';
-    } catch(_){
-      readmeWrap.style.display = 'none';
+  // Buttons binden (einmalig)
+  function bindGalleryNav(){
+    const prevBtn = document.getElementById('galPrev');
+    const nextBtn = document.getElementById('galNext');
+    if (prevBtn && !prevBtn._bound){
+      prevBtn.addEventListener('click', ()=>{ GALLERY.page = Math.max(1, GALLERY.page - 1); renderGalleryPage(); });
+      prevBtn._bound = true;
     }
-  }
-
-  function decodeBase64Utf8(b64){
-    const bin = atob(b64.replace(/\s+/g,''));
-    const len = bin.length;
-    const bytes = new Uint8Array(len);
-    for (let i=0;i<len;i++) bytes[i]=bin.charCodeAt(i);
-    try{ return new TextDecoder('utf-8',{fatal:false}).decode(bytes); }
-    catch{ return Array.from(bytes).map(b=>String.fromCharCode(b)).join(''); }
-  }
-
-  function rewriteReadmeRelativeLinks(readmeRepoPath, ctx){
-    const baseDir = String(readmeRepoPath||'').split('/').slice(0,-1).join('/');
-
-    const isAbs = (u)=> /^(?:[a-z]+:)?\/\//i.test(u) || u.startsWith('#') || u.startsWith('mailto:');
-
-    readmeContent.querySelectorAll('img').forEach(img=>{
-      const src = img.getAttribute('src') || '';
-      if (!isAbs(src)){
-        const repoPath = joinUrl(baseDir, src);
-        img.src = rawUrl(ctx.owner, ctx.repo, ctx.branch, repoPath);
-      }
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.style.maxWidth = '100%';
-      img.style.height = 'auto';
-    });
-
-    readmeContent.querySelectorAll('a').forEach(a=>{
-      const href = a.getAttribute('href') || '';
-      if (!href) return;
-      if (isAbs(href)){
-        a.target = '_blank'; a.rel = 'noopener';
-      } else if (href.startsWith('#')){
-      } else {
-        const repoPath = joinUrl(baseDir, href);
-        a.target = '_blank'; a.rel = 'noopener';
-        a.href = `https://github.com/${ctx.owner}/${ctx.repo}/blob/${encodeURIComponent(ctx.branch)}/${encodePath(repoPath)}`;
-      }
-    });
+    if (nextBtn && !nextBtn._bound){
+      nextBtn.addEventListener('click', ()=>{ GALLERY.page = Math.min(GALLERY.pages, GALLERY.page + 1); renderGalleryPage(); });
+      nextBtn._bound = true;
+    }
   }
 
   async function detectBranchAndPrefix(owner, repo, token, repoPath){
@@ -670,7 +605,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       const meta = await ghFetch(`https://api.github.com/repos/${owner}/${repo}`, '');
       defaultBranch = meta && meta.default_branch || null;
     } catch(_) {}
-
     const branches = [...new Set([qs.get('branch'), readSettings().branch, defaultBranch, 'gh-pages','main','master'].filter(Boolean))];
     const prefixes = [...new Set([qs.get('prefix'), readSettings().prefix, '', 'docs'].filter(v=> v!==undefined))];
 
@@ -748,12 +682,14 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
     STATE = { owner, repo, branch, prefix, token, path };
 
+    // Hintergrundfoto (background.xxx) einmalig aus Root/Prefix-Root anwenden
     await applyBackgroundFromRoot(STATE.owner, STATE.repo, STATE.branch, STATE.prefix, STATE.token);
 
     buildCrumbs(path);
 
     const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
 
+    // Tabelle
     if (entries.length === 0){
       tbody.innerHTML = '<tr><td colspan="3" class="empty">Leer.</td></tr>';
     } else {
@@ -776,63 +712,70 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       filterDOMRows();
     }
 
+    // README (Markdown)
     await findAndRenderReadme(entries, STATE);
+
+    // Rate-Limits (Footer)
     await updateRateDisplays(STATE.token||'');
 
-    const galEmpty = document.getElementById('galEmpty');
-    if (galEmpty){ galEmpty.textContent = 'Suche Bilder…'; }
+    // === Gallery aus aktuellem Ordner (alphabetisch, paginiert) ===
     try{
-      const imgs = await collectImagesRepoWide({
-        owner: STATE.owner, repo: STATE.repo, branch: STATE.branch,
-        prefix: STATE.prefix, path: '/', token: STATE.token, limit: 5, maxDirs: 40
-      });
-      renderGallery(imgs, STATE);
-    } catch(_) {
-      renderGallery([], STATE);
+      GALLERY.items = imagesFromEntries(entries);
+      GALLERY.page = 1;
+      bindGalleryNav();
+      renderGalleryPage();
+    } catch(_){
+      const grid = document.getElementById('galGrid');
+      const empty = document.getElementById('galEmpty');
+      if (grid) grid.innerHTML = '';
+      if (empty){ empty.textContent = 'Fehler beim Laden der Bilder.'; empty.style.display='block'; }
     }
   }
 
-  function navigateTo(path){
-    if (!path.endsWith('/')) path += '/';
-    pushHistory(path.replace(/^\/+/,'')); 
-    load(path);
+  // README laden/anzeigen (Markdown rendern)
+  async function findAndRenderReadme(entries, ctx){
+    readmeWrap.style.display = 'none';
+    readmeContent.innerHTML = '<span class="readme-muted">Lade README…</span>';
+
+    try{
+      const files = Array.isArray(entries) ? entries.filter(x=> x.type==='file') : [];
+      if (!files.length){ readmeWrap.style.display='none'; return; }
+
+      const weight = (name)=>{
+        const n = name.toLowerCase();
+        if (n === 'readme.md') return 0;
+        if (n.endsWith('.md')) return 1;
+        if (n.endsWith('.markdown')) return 2;
+        if (n.endsWith('.txt')) return 3;
+        return 4;
+      };
+
+      const candidates = files
+        .filter(f => /^readme(\.[\w.-]+)?$/i.test(f.name))
+        .sort((a,b)=> weight(a.name) - weight(b.name));
+
+      const cand = candidates[0];
+      if (!cand){ readmeWrap.style.display='none'; return; }
+
+      let apiUrl = cand.url || '';
+      if (ctx.branch){
+        apiUrl += (apiUrl.includes('?') ? '&' : '?') + 'ref=' + encodeURIComponent(ctx.branch);
+      }
+      const obj = await ghFetch(apiUrl, ctx.token||'');
+      const content = (obj && obj.content && obj.encoding==='base64') ? decodeBase64Utf8(obj.content) : '';
+
+      if (!content){ readmeWrap.style.display='none'; return; }
+
+      const rawHtml = window.marked ? marked.parse(content, {headerIds:true, mangle:false, breaks:true}) : linkify(content.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])));
+      const safeHtml = window.DOMPurify ? DOMPurify.sanitize(rawHtml, {ADD_ATTR:['target','rel']}) : rawHtml;
+
+      readmeContent.innerHTML = safeHtml;
+      rewriteReadmeRelativeLinks(cand.path, ctx);
+      readmeWrap.style.display = '';
+    } catch(_){
+      readmeWrap.style.display = 'none';
+    }
   }
 
-  const searchHandler = () => filterDOMRows();
-  searchInput.addEventListener('input', searchHandler);
-  toggleHidden.addEventListener('change', searchHandler);
-
-  btnUp.addEventListener('click', ()=>{
-    const trimmed = (STATE.path||'/').replace(/\/+$/,'');
-    const idx = trimmed.lastIndexOf('/');
-    const up = idx>0 ? trimmed.slice(0, idx) + '/' : '/';
-    navigateTo(up);
-  });
-
-  $('#btnSave').addEventListener('click', async ()=>{
-    const cfg = saveSettings();
-    if (cfg.token && !looksLikeGitHubToken(cfg.token)) {
-      const ai = document.getElementById('authInfo');
-      if (ai) ai.textContent = 'Token-Format ungewöhnlich';
-    }
-    await updateRateDisplays(cfg.token||'');
-    load(STATE.path||'/');
-  });
-
-  $('#btnReset').addEventListener('click', resetSettings);
-
-  window.addEventListener('popstate', (e)=>{
-    const p = (e.state && e.state.path) || currentFolderInSite();
-    load(p);
-  });
-
-  (async function init(){
-    applySettingsToUI(readSettings());
-    const initial = qs.get('p') ? ('/' + qs.get('p').replace(/^\/+|\.+/g,'')) : currentFolderInSite();
-    await load(initial);
-  })();
-
-})();
-</script>
-</body>
-</html>
+  function decodeBase64Utf8(b64){
+    c
