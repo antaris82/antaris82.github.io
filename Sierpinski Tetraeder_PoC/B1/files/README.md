@@ -48,7 +48,7 @@ python "B1_v4_check run 3_make_two_tables.py"
 
 ## Datenformate
 
-### α‑Observablen (CSV)
+### \(\alpha\)‑Observablen (CSV)
 
 Die beiden Dateien
 - `B1_v2_check run 1_alpha_observables.csv`
@@ -68,14 +68,15 @@ Die zugehörigen Reports `*_checks_report.txt` fassen die wichtigsten Messwerte 
 
 **Partial Trace** (Subsystem \(B\) wird getraced):
 
-\\[\mathrm{Tr}_B(\rho_{AB}) \;=\; \sum_j \bigl(\mathbb{I}_A \otimes \langle j|\bigr)\,\rho_{AB}\,\bigl(\mathbb{I}_A \otimes |j\rangle\bigr).\\]
-/
+\[
+\mathrm{Tr}_B(\rho_{AB}) \;=\; \sum_j \bigl(\mathbb{I}_A \otimes \langle j|\bigr)\,\rho_{AB}\,\bigl(\mathbb{I}_A \otimes |j\rangle\bigr).
+\]
+
 
 **Beispielhafte Observablen-Abbildung** über α:
-//
-//
+
 \[\alpha \;\mapsto\; \mathcal{O}(\alpha)\;=\;\Big(S(\rho_A),\;\mathrm{Tr}(\rho_A^2),\;\dots\Big).\]
-/
+
 
 **Lieb–Robinson‑artige Schranke** (Motivation für effektive Kegel/Kausalität auf Gittern/Netzwerken):
 //
