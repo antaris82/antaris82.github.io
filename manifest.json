@@ -8,8 +8,8 @@
   },
   {
     "path": ".github/workflows/readme-index.yml",
-    "sha": "59813fe7738c98c083c5bd33c4da0ac49d96b25e",
-    "size": 7376,
+    "sha": "ca212a68db30ba8e19f3e67b3d26c43d499cc390",
+    "size": 7127,
     "type": "blob",
     "mode": "100644"
   },
@@ -50,7 +50,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "2227c5b10ab22c5e829e9d4bd345b76604d14495",
+    "sha": "c50a09d49b69efff7eb66d233d929dafe2e99a1f",
     "size": 18058,
     "type": "blob",
     "mode": "100644"
