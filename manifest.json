@@ -7,6 +7,13 @@
     "mode": "100644"
   },
   {
+    "path": ".github/workflows/readme-index.yml",
+    "sha": "82ad852313abbe55d8cb7839c08cf332cf071e34",
+    "size": 941,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "background.png",
     "sha": "e138af865f091ccaeb89e1b4039a5ac6db34902e",
     "size": 677287,
@@ -29,8 +36,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "1b1bd56dee855061941a97065e5d7a47b725b4a2",
-    "size": 15955,
+    "sha": "f9f57c13b9d920c9405faf339f492b4c9e64422a",
+    "size": 17551,
     "type": "blob",
     "mode": "100644"
   },
