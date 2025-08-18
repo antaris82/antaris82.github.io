@@ -11,7 +11,6 @@
   --bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;
   --danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);
   --radius:14px;--bgimg:none;
-  /* Overlay-Intensität & vertikale Abstände */
   --overlay-alpha:.30;
   --space:32px;
 }
@@ -26,7 +25,7 @@ body{
   color:var(--fg);
   font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
 }
-/* Foto-Hintergrund über gesamte Breite/Höhe, moderates Abdunkeln */
+/* Foto-Hintergrund vollflächig */
 body.with-photo{
   background-image:
     linear-gradient(180deg, rgba(0,0,0,var(--overlay-alpha)), rgba(0,0,0,var(--overlay-alpha))),
@@ -63,7 +62,6 @@ header{
 .crumbs .sep{opacity:.4;margin:0 6px}
 main{padding:26px 16px 48px}
 .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-/* größere Blockabstände */
 .panel, .readme-wrap, .gallery-wrap, details.settings { margin-top: var(--space); }
 
 table{width:100%;border-collapse:collapse}
@@ -86,7 +84,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .tag{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
 @media (max-width:700px){.controls{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}}
 
-/* README-Block (Markdown gerendert) */
+/* README-Block */
 .readme-head{font-weight:600;margin:6px 0 8px}
 .readme-panel{border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);max-height:420px;overflow:auto;padding:14px}
 .readme-content{font:14px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
@@ -100,7 +98,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .readme-content th,.readme-content td{border:1px solid var(--border);padding:6px 8px}
 .readme-muted{color:var(--muted);font-size:13px}
 
-/* === Gallery (paginated 2x5 grid, nur aktueller Ordner) === */
+/* === Gallery (2x5, Paginierung, aktueller Ordner) === */
 .gallery-wrap{ margin-top: var(--space); }
 .gal-head{ display:flex;align-items:center;justify-content:space-between; margin:-4px 0 10px 0;color:var(--muted);font-size:13px }
 .gallery{
@@ -108,7 +106,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   border:1px solid var(--border);
   border-radius:var(--radius);
   background:var(--panel);
-  padding:16px 56px; /* Platz für Pfeile */
+  padding:16px 56px;
   min-height:210px;
 }
 .gal-grid{
@@ -128,7 +126,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .gal-caption{ font-size:12px;color:var(--muted); padding:6px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .gal-empty{ color:var(--muted); padding:10px 0; text-align:center; }
 .gal-page{ font-size:12px;color:var(--muted) }
-
 .gal-nav{
   position:absolute; top:50%; transform:translateY(-50%);
   width:44px;height:44px; border-radius:50%;
@@ -149,7 +146,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   .gal-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 
-/* KaTeX kleine Optikjustierung */
+/* KaTeX Optik */
 .katex-display{ margin: .8em 0; }
 </style>
 
@@ -226,7 +223,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     </div>
   </div>
 
-  <!-- Gallery (nur aktueller Ordner, 2x5, Paginierung) -->
+  <!-- Gallery -->
   <div class="gallery-wrap">
     <div class="gal-head">
       <div style="font-weight:600">Bilder in diesem Ordner</div>
@@ -259,8 +256,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 (function(){
   'use strict';
 
-  // ⚠️ Niemals echte Secrets hier hart verdrahten!
-  const HARDCODED_TOKEN = ''; // leer lassen für Deploy
+  const HARDCODED_TOKEN = '';
   function isLocalhost(){ return ['localhost','127.0.0.1','::1'].includes(location.hostname); }
 
   const qs = new URLSearchParams(location.search);
@@ -276,40 +272,68 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   const IMAGE_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
   const BG_NAME_RE = /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 
-  // Gallery Settings & State
-  const GAL_PER_PAGE = 10; // 2 Reihen * 5 Spalten
+  const GAL_PER_PAGE = 10;
   let GALLERY = { items: [], page: 1, pages: 1 };
 
-  // KaTeX: Render-Queue, damit es auch funktioniert, wenn KaTeX noch lädt
+  /* ---------- KaTeX: robustes Rendering inkl. Doppel-Backslash-Fix ---------- */
   const MATH = {
-    queue: [],
     options: {
       delimiters: [
         { left: "$$", right: "$$", display: true },
         { left: "\\[", right: "\\]", display: true },
-        { left: "$",  right: "$",  display: false },
-        { left: "\\(", right: "\\)", display: false }
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\begin{equation}", right: "\\end{equation}", display: true },
+        { left: "\\begin{align}", right: "\\end{align}", display: true },
+        { left: "\\begin{aligned}", right: "\\end{aligned}", display: true },
+        { left: "\\begin{gather}", right: "\\end{gather}", display: true },
+        { left: "\\begin{cases}", right: "\\end{cases}", display: true }
       ],
       ignoredTags: ['script','noscript','style','textarea','pre','code'],
       throwOnError: false,
       strict: "warn"
     }
   };
-  function flushMathIfReady(){
-    if (!window.renderMathInElement) return false;
-    while (MATH.queue.length){
-      const el = MATH.queue.shift();
+
+  // Ersetzt in Textknoten NUR innerhalb von \\[...\\] / \\(...\\) die doppelten Backslashes zu einfachen,
+  // damit KaTeX gültiges LaTeX erhält. Code/Pre werden ausgelassen.
+  function normalizeDoublyEscapedMath(root){
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const updates = [];
+    const isInCode = (node)=> node.parentElement && node.parentElement.closest('code,pre,script,style,textarea');
+
+    while(true){
+      const n = walker.nextNode();
+      if(!n) break;
+      if (isInCode(n)) continue;
+
+      const s = n.nodeValue;
+      if (!s || s.indexOf('\\\\') === -1) continue;
+
+      // Muster für \\[ ... \\] und \\( ... \\)
+      let changed = s.replace(/\\\\\[((?:[\s\S]*?))\\\\\]/g, (_, inner)=>{
+        return '\\[' + inner.replace(/\\\\/g,'\\') + '\\]';
+      });
+      changed = changed.replace(/\\\\\(([\s\S]*?)\\\\\)/g, (_, inner)=>{
+        return '\\(' + inner.replace(/\\\\/g,'\\') + '\\)';
+      });
+
+      if (changed !== s) updates.push([n, changed]);
+    }
+    updates.forEach(([node, val])=> node.nodeValue = val);
+  }
+
+  function renderMathNow(el){
+    if (window.renderMathInElement){
       try { renderMathInElement(el, MATH.options); } catch(e){}
-    }
-    return true;
-  }
-  function requestMathRender(el){
-    MATH.queue.push(el);
-    if (!flushMathIfReady()){
-      // Spätestens beim Fenster-"load" steht KaTeX i.d.R. bereit
-      window.addEventListener('load', flushMathIfReady, { once:true });
+    } else {
+      // Fallback: warten bis KaTeX geladen ist
+      const once = ()=> {
+        try { renderMathInElement(el, MATH.options); } catch(e){}
+      };
+      window.addEventListener('load', once, { once:true });
     }
   }
+  /* ------------------------------------------------------------------------- */
 
   const store = {
     get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
@@ -334,7 +358,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     const qp = qs.get('p');
     if (qp) {
       p = ('/' + qp).replace(/\/+/g,'/');
-      if (!p.endswith && !p.endsWith){} // noop for older browsers
       if (!p.endsWith('/')) p += '/';
     }
     return p;
@@ -497,7 +520,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     history.pushState({path}, '', url);
   }
 
-  // --- GitHub API helpers
   function apiContentsUrl(owner, repo, path, ref){
     const cleaned = String(path||'').replace(/^\/+|\/+$/g,'');
     const suffix = cleaned ? '/' + cleaned.split('/').map(encodeURIComponent).join('/') : '';
@@ -549,7 +571,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  // Hintergrund suchen & setzen (background.xxx im Root oder Prefix-Root)
+  // Hintergrund (background.xxx) anwenden
   async function findBackgroundUrl(owner, repo, branch, token, dirPath){
     const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
     const items = await ghFetch(url, token).catch(()=>[]);
@@ -572,26 +594,24 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  // === Gallery (nur aus aktuellem Verzeichnis) ===
+  /* ---------- Gallery (nur aktueller Ordner) ---------- */
   function rawUrl(owner, repo, branch, repoPath){
     const p = String(repoPath||'').replace(/^\/+/,'');
     return `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${p}`;
   }
 
-  // Bilder aus den API-Einträgen ziehen (alphabetisch), background.xxx ausschließen
   function imagesFromEntries(entries){
     const files = (entries||[]).filter(x => x.type === 'file');
     let imgs = files.filter(f => IMAGE_EXT.test(f.name) && !BG_NAME_RE.test(f.name));
     imgs.sort((a,b)=> a.name.localeCompare(b.name, undefined, {numeric:true, sensitivity:'base'}));
     return imgs.map(it => ({
       name: it.name,
-      path: it.path,         // repo-path
+      path: it.path,
       siteHref: linkFor(joinUrl(STATE.path.startsWith('/')? STATE.path : '/' + STATE.path, it.name)),
       rawHref: rawUrl(STATE.owner, STATE.repo, STATE.branch, it.path)
     }));
   }
 
-  // Eine Gallery-Seite rendern
   function renderGalleryPage(){
     const grid = document.getElementById('galGrid');
     const empty = document.getElementById('galEmpty');
@@ -629,7 +649,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     if (nextBtn){ nextBtn.disabled = (GALLERY.page >= GALLERY.pages); }
   }
 
-  // Buttons binden (einmalig)
   function bindGalleryNav(){
     const prevBtn = document.getElementById('galPrev');
     const nextBtn = document.getElementById('galNext');
@@ -642,6 +661,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       nextBtn._bound = true;
     }
   }
+  /* ---------------------------------------------------- */
 
   async function detectBranchAndPrefix(owner, repo, token, repoPath){
     let defaultBranch = null;
@@ -726,9 +746,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
     STATE = { owner, repo, branch, prefix, token, path };
 
-    // Hintergrundfoto (background.xxx) einmalig aus Root/Prefix-Root anwenden
     await applyBackgroundFromRoot(STATE.owner, STATE.repo, STATE.branch, STATE.prefix, STATE.token);
-
     buildCrumbs(path);
 
     const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
@@ -756,13 +774,13 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       filterDOMRows();
     }
 
-    // README (Markdown)
+    // README laden + rendern + LaTeX normalisieren + KaTeX
     await findAndRenderReadme(entries, STATE);
 
-    // Rate-Limits (Footer)
+    // Footer-Rate
     await updateRateDisplays(STATE.token||'');
 
-    // === Gallery aus aktuellem Ordner (alphabetisch, paginiert) ===
+    // Gallery
     try{
       GALLERY.items = imagesFromEntries(entries);
       GALLERY.page = 1;
@@ -776,7 +794,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  // README laden/anzeigen (Markdown rendern + KaTeX)
   async function findAndRenderReadme(entries, ctx){
     readmeWrap.style.display = 'none';
     readmeContent.innerHTML = '<span class="readme-muted">Lade README…</span>';
@@ -817,8 +834,11 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       rewriteReadmeRelativeLinks(cand.path, ctx);
       readmeWrap.style.display = '';
 
-      // → KaTeX Render anfordern (robust, falls KaTeX noch lädt)
-      requestMathRender(readmeContent);
+      // WICHTIG: Doppelte Backslashes innerhalb von \\[...\\], \\(...\\) reduzieren
+      normalizeDoublyEscapedMath(readmeContent);
+
+      // KaTeX rendern
+      renderMathNow(readmeContent);
 
     } catch(_){
       readmeWrap.style.display = 'none';
@@ -834,13 +854,11 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     catch{ return Array.from(bytes).map(b=>String.fromCharCode(b)).join(''); }
   }
 
-  // Relative Pfade in README (Bilder/Links) korrekt auflösen
   function rewriteReadmeRelativeLinks(readmeRepoPath, ctx){
     const baseDir = String(readmeRepoPath||'').split('/').slice(0,-1).join('/');
 
     const isAbs = (u)=> /^(?:[a-z]+:)?\/\//i.test(u) || u.startsWith('#') || u.startsWith('mailto:');
 
-    // Bilder → RAW URL
     readmeContent.querySelectorAll('img').forEach(img=>{
       const src = img.getAttribute('src') || '';
       if (!isAbs(src)){
@@ -853,14 +871,12 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       img.style.height = 'auto';
     });
 
-    // Links: externe → _blank; relative → GitHub-Blob-Link
     readmeContent.querySelectorAll('a').forEach(a=>{
       const href = a.getAttribute('href') || '';
       if (!href) return;
       if (isAbs(href)){
         a.target = '_blank'; a.rel = 'noopener';
       } else if (href.startsWith('#')){
-        // interne Anker unverändert
       } else {
         const repoPath = joinUrl(baseDir, href);
         a.target = '_blank'; a.rel = 'noopener';
@@ -875,7 +891,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     load(path);
   }
 
-  // UI events
   const searchHandler = () => filterDOMRows();
   searchInput.addEventListener('input', searchHandler);
   toggleHidden.addEventListener('change', searchHandler);
@@ -904,10 +919,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     load(p);
   });
 
-  // Buttons der Gallery binden
   bindGalleryNav();
 
-  // Init
   (async function init(){
     applySettingsToUI(readSettings());
     const initial = qs.get('p') ? ('/' + qs.get('p').replace(/^\/+|\.+/g,'')) : currentFolderInSite();
