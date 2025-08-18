@@ -29,8 +29,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "7de0df1ba3f52ee44da525f50c3d7315c1af3ddb",
-    "size": 15776,
+    "sha": "1b1bd56dee855061941a97065e5d7a47b725b4a2",
+    "size": 15955,
     "type": "blob",
     "mode": "100644"
   },
@@ -84,9 +84,65 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/levels_observables.csv",
+    "sha": "205b2499d8eb163936611034683252ef40696b09",
+    "size": 233,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/levels_S_MI.png",
+    "sha": "f105037fec9ebeb42b695c341640147e311e165b",
+    "size": 69043,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/pairs_observables_exclusive.csv",
+    "sha": "1b7012efd4925a0ae9811f38b247692c7339d020",
+    "size": 218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/A1/files/README.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/regions_observables_exclusive.csv",
+    "sha": "56908a0caa7fd14a8c2a92ef0b410371183fc872",
+    "size": 272,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/ST_rotating_forever.gif",
+    "sha": "b4717f82b627668826cda8a66f59883792336abe",
+    "size": 512943,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/ST.py",
+    "sha": "ae6bf9e4a458abdf69102889006cad8f3b4004df",
+    "size": 17304,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/static_colored_obs_exclusive_rotate.gif",
+    "sha": "8176cfcbe34dc6764762b3700b62615a42802697",
+    "size": 539542,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/static_colored_obs_exclusive-scaled.png",
+    "sha": "3d73a408569b8c4efe217f6697ed621ccc6f132b",
+    "size": 178356,
     "type": "blob",
     "mode": "100644"
   },
