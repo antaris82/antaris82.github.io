@@ -778,4 +778,95 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   }
 
   function decodeBase64Utf8(b64){
-    c
+    const bin = atob(b64.replace(/\s+/g,''));
+    const len = bin.length;
+    const bytes = new Uint8Array(len);
+    for (let i=0;i<len;i++) bytes[i]=bin.charCodeAt(i);
+    try{ return new TextDecoder('utf-8',{fatal:false}).decode(bytes); }
+    catch{ return Array.from(bytes).map(b=>String.fromCharCode(b)).join(''); }
+  }
+
+  // Relative Pfade in README (Bilder/Links) korrekt auflösen
+  function rewriteReadmeRelativeLinks(readmeRepoPath, ctx){
+    const baseDir = String(readmeRepoPath||'').split('/').slice(0,-1).join('/');
+
+    const isAbs = (u)=> /^(?:[a-z]+:)?\/\//i.test(u) || u.startsWith('#') || u.startsWith('mailto:');
+
+    // Bilder → RAW URL
+    readmeContent.querySelectorAll('img').forEach(img=>{
+      const src = img.getAttribute('src') || '';
+      if (!isAbs(src)){
+        const repoPath = joinUrl(baseDir, src);
+        img.src = `https://raw.githubusercontent.com/${ctx.owner}/${ctx.repo}/${encodeURIComponent(ctx.branch)}/${repoPath.replace(/^\/+/,'')}`;
+      }
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+    });
+
+    // Links: externe → _blank; relative → GitHub-Blob-Link
+    readmeContent.querySelectorAll('a').forEach(a=>{
+      const href = a.getAttribute('href') || '';
+      if (!href) return;
+      if (isAbs(href)){
+        a.target = '_blank'; a.rel = 'noopener';
+      } else if (href.startsWith('#')){
+        // interne Anker unverändert
+      } else {
+        const repoPath = joinUrl(baseDir, href);
+        a.target = '_blank'; a.rel = 'noopener';
+        a.href = `https://github.com/${ctx.owner}/${ctx.repo}/blob/${encodeURIComponent(ctx.branch)}/${encodePath(repoPath)}`;
+      }
+    });
+  }
+
+  function navigateTo(path){
+    if (!path.endsWith('/')) path += '/';
+    pushHistory(path.replace(/^\/+/,'')); 
+    load(path);
+  }
+
+  // UI events
+  const searchHandler = () => filterDOMRows();
+  searchInput.addEventListener('input', searchHandler);
+  toggleHidden.addEventListener('change', searchHandler);
+
+  btnUp.addEventListener('click', ()=>{
+    const trimmed = (STATE.path||'/').replace(/\/+$/,'');
+    const idx = trimmed.lastIndexOf('/');
+    const up = idx>0 ? trimmed.slice(0, idx) + '/' : '/';
+    navigateTo(up);
+  });
+
+  $('#btnSave').addEventListener('click', async ()=>{
+    const cfg = saveSettings();
+    if (cfg.token && !looksLikeGitHubToken(cfg.token)) {
+      const ai = document.getElementById('authInfo');
+      if (ai) ai.textContent = 'Token-Format ungewöhnlich';
+    }
+    await updateRateDisplays(cfg.token||'');
+    load(STATE.path||'/');
+  });
+
+  $('#btnReset').addEventListener('click', resetSettings);
+
+  window.addEventListener('popstate', (e)=>{
+    const p = (e.state && e.state.path) || currentFolderInSite();
+    load(p);
+  });
+
+  // Buttons der Gallery binden
+  bindGalleryNav();
+
+  // Init
+  (async function init(){
+    applySettingsToUI(readSettings());
+    const initial = qs.get('p') ? ('/' + qs.get('p').replace(/^\/+|\.+/g,'')) : currentFolderInSite();
+    await load(initial);
+  })();
+
+})();
+</script>
+</body>
+</html>
