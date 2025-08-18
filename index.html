@@ -4,21 +4,19 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>antaris' repository</title>
+
+<!-- Styles -->
 <style>
 :root{
   --bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;
   --danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);
   --radius:14px;--bgimg:none;
   /* Overlay-Intensität & vertikale Abstände */
-  --overlay-alpha: .30;
-  --space: 32px;
+  --overlay-alpha:.30;
+  --space:32px;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-
 body{
   margin:0;
   background:
@@ -111,7 +109,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   border-radius:var(--radius);
   background:var(--panel);
   padding:16px 56px; /* Platz für Pfeile */
-  min-height: 210px;
+  min-height:210px;
 }
 .gal-grid{
   display:grid;
@@ -150,8 +148,21 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 @media (max-width:560px){
   .gal-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
+
+/* KaTeX kleine Optikjustierung */
+.katex-display{ margin: .8em 0; }
 </style>
+
+<!-- Markdown Renderer + Sanitizer -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js" defer></script>
+
+<!-- KaTeX (CSS + JS + Auto-render) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" defer></script>
 </head>
+
 <body>
 <header>
   <div class="container">
@@ -235,7 +246,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
 <footer>
   <div>
-    Erstellt von <b>antaris82</b> - Copyright 2025 — Code: MIT; Daten & Abbildungen & Texte: CC BY 4.0.
     Erstellt von <span style="opacity:.8">index.html</span>. Nutzt die GitHub REST API (<em>ohne</em> Server-Code).<br/>
     Unauthentifiziertes Rate-Limit: <strong>60</strong> Anfragen/Stunde/IP. Mit Token: <strong>5 000</strong>.
   </div>
@@ -244,10 +254,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   </div>
 </footer>
 
-<!-- Markdown Renderer + Sanitizer -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
-
+<!-- App-Script -->
 <script>
 (function(){
   'use strict';
@@ -273,6 +280,37 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   const GAL_PER_PAGE = 10; // 2 Reihen * 5 Spalten
   let GALLERY = { items: [], page: 1, pages: 1 };
 
+  // KaTeX: Render-Queue, damit es auch funktioniert, wenn KaTeX noch lädt
+  const MATH = {
+    queue: [],
+    options: {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "$",  right: "$",  display: false },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      ignoredTags: ['script','noscript','style','textarea','pre','code'],
+      throwOnError: false,
+      strict: "warn"
+    }
+  };
+  function flushMathIfReady(){
+    if (!window.renderMathInElement) return false;
+    while (MATH.queue.length){
+      const el = MATH.queue.shift();
+      try { renderMathInElement(el, MATH.options); } catch(e){}
+    }
+    return true;
+  }
+  function requestMathRender(el){
+    MATH.queue.push(el);
+    if (!flushMathIfReady()){
+      // Spätestens beim Fenster-"load" steht KaTeX i.d.R. bereit
+      window.addEventListener('load', flushMathIfReady, { once:true });
+    }
+  }
+
   const store = {
     get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
     set(v){ localStorage.setItem('dirindex.cfg', JSON.stringify(v)); }
@@ -296,6 +334,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     const qp = qs.get('p');
     if (qp) {
       p = ('/' + qp).replace(/\/+/g,'/');
+      if (!p.endswith && !p.endsWith){} // noop for older browsers
       if (!p.endsWith('/')) p += '/';
     }
     return p;
@@ -321,7 +360,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   }
 
   function esc(s){
-    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;","<":">","\"":"&quot;","'":"&#39;"}[c]));
+    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
   }
 
   function linkify(escaped){
@@ -387,7 +426,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     let html = '<a href="#" data-path="/">/</a>';
     parts.forEach(p=>{
       acc.push(p);
-      html += '<span class="sep">›</span>' + `<a href="#" data-path="/${acc.join('/')}/">${p.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</a>`;
+      html += '<span class="sep">›</span>' + `<a href="#" data-path="/${acc.join('/')}/">${esc(p)}</a>`;
     });
     breadcrumbsEl.innerHTML = html;
     breadcrumbsEl.querySelectorAll('a').forEach(a=>{
@@ -406,13 +445,13 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   function rowHtml(entry, siteRelPath){
     const isDir = entry.type === 'dir';
     const icon = isDir ? '<div class="foldericon">📁</div>' : '<div class="fileicon">📄</div>';
-    const name = entry.name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const name = esc(entry.name);
     const size = isDir ? '—' : bytes(entry.size);
     const type = isDir ? 'Ordner' : (entry.name.includes('.')? entry.name.split('.').pop().toLowerCase()+'-Datei' : 'Datei');
 
     if (isDir) {
       return `
-        <tr class="row dir" data-name="${name.toLowerCase()}" data-path="${siteRelPath}">
+        <tr class="row dir" data-name="${name.toLowerCase()}" data-path="${esc(siteRelPath)}">
           <td class="namecell">${icon}<a href="#" class="nav">${name}</a></td>
           <td>${size}</td><td>${type}</td>
         </tr>`;
@@ -579,9 +618,9 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     if (empty) empty.style.display = 'none';
 
     grid.innerHTML = slice.map(it => `
-      <a class="gal-item" href="${it.siteHref}" title="${it.name.replace(/&/g,'&amp;').replace(/</g,'&lt;')}">
-        <img class="gal-thumb" loading="lazy" src="${it.rawHref}" alt="${it.name.replace(/&/g,'&amp;').replace(/</g,'&lt;')}"/>
-        <div class="gal-caption">${it.name.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</div>
+      <a class="gal-item" href="${it.siteHref}" title="${esc(it.name)}">
+        <img class="gal-thumb" loading="lazy" src="${it.rawHref}" alt="${esc(it.name)}"/>
+        <div class="gal-caption">${esc(it.name)}</div>
       </a>
     `).join('');
 
@@ -737,7 +776,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  // README laden/anzeigen (Markdown rendern)
+  // README laden/anzeigen (Markdown rendern + KaTeX)
   async function findAndRenderReadme(entries, ctx){
     readmeWrap.style.display = 'none';
     readmeContent.innerHTML = '<span class="readme-muted">Lade README…</span>';
@@ -771,26 +810,15 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
       if (!content){ readmeWrap.style.display='none'; return; }
 
-      const rawHtml = window.marked ? marked.parse(content, {headerIds:true, mangle:false, breaks:true}) : linkify(content.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])));
-      const safeHtml = window.DOMPurify ? DOMPurify.sanitize(rawHtml, {ADD_ATTR:['target','rel']}) : rawHtml;
+      const rawHtml = (window.marked ? marked.parse(content, {headerIds:true, mangle:false, breaks:true}) : linkify(esc(content)));
+      const safeHtml = (window.DOMPurify ? DOMPurify.sanitize(rawHtml, {ADD_ATTR:['target','rel']}) : rawHtml);
 
       readmeContent.innerHTML = safeHtml;
       rewriteReadmeRelativeLinks(cand.path, ctx);
       readmeWrap.style.display = '';
-      // LaTeX-Math im README rendern (KaTeX auto-render)
-if (window.renderMathInElement) {
-  renderMathInElement(readmeContent, {
-    delimiters: [
-      { left: "$$", right: "$$", display: true },
-      { left: "\\[", right: "\\]", display: true },
-      { left: "$",  right: "$",  display: false },
-      { left: "\\(", right: "\\)", display: false }
-    ],
-    ignoredTags: ['script','noscript','style','textarea','pre','code'],
-    throwOnError: false,   // zeigt Fehler als Text statt zu brechen
-    strict: "warn"
-  });
-}
+
+      // → KaTeX Render anfordern (robust, falls KaTeX noch lädt)
+      requestMathRender(readmeContent);
 
     } catch(_){
       readmeWrap.style.display = 'none';
