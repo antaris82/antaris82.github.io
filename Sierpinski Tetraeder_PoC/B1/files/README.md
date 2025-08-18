@@ -82,7 +82,9 @@ Die zugehörigen Reports `*_checks_report.txt` fassen die wichtigsten Messwerte 
 
 **Lieb–Robinson‑artige Schranke** (Motivation für effektive Kegel/Kausalität auf Gittern/Netzwerken):
 
-\[\bigl\|[\alpha_t(A),B]\bigr\| \;\le\; C\,\|A\|\,\|B\|\,\exp\!\Big(-\mu\,\big[d(X,Y)-v_{\mathrm{LR}}\,t\big]\Big).\]
+\\[
+\bigl\|[\alpha_t(A),B]\bigr\| \;\le\; C\,\|A\|\,\|B\|\,\exp\!\Big(-\mu\,\big[d(X,Y)-v_{\mathrm{LR}}\,t\big]\Big).
+\\]
 
 
 Diese Größen dienen als **konsistente, nicht‑klassische Diagnostik** der Dynamik und der Reduktionen auf dem ST‑Graph.
