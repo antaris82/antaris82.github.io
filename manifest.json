@@ -28,6 +28,13 @@
     "mode": "100644"
   },
   {
+    "path": "dirindex.meta.schema.json",
+    "sha": "ef143f32923a74b5acd08e6c3561315d082426fc",
+    "size": 1035,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "index.html",
     "sha": "a776f68eaa00c16b7d62ff0e14d8a22f6805c035",
     "size": 23066,
@@ -36,8 +43,29 @@
   },
   {
     "path": "manifest.json",
-    "sha": "bed2af7e33642ca9ce0d6fce3dda357abefd316b",
-    "size": 17723,
+    "sha": "bb480aec2682e34b7520e6393add807ffeb9c630",
+    "size": 17578,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "readme_autogen.py",
+    "sha": "3be35d64f5ba355e8f55cb4bd9ad50306b6ac8f8",
+    "size": 13887,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "README_GUIDE.md",
+    "sha": "f23c104061337edc02abdfc606942f99720bc463",
+    "size": 1341,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "README_TEMPLATE.md",
+    "sha": "ca01afe29bd920367357441981844345fe7ca00d",
+    "size": 2806,
     "type": "blob",
     "mode": "100644"
   },
@@ -80,6 +108,13 @@
     "path": "Sierpinski Tetraeder_partial trace/st_2_static_density_urgraph.gif",
     "sha": "c16da4b0cf5342dd1da987472a769bb938b29cd2",
     "size": 205049,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/A1_ST-Graph_oC.pdf",
+    "sha": "afbb7bc31ab932f581c95527ef30f574d065cdb4",
+    "size": 411767,
     "type": "blob",
     "mode": "100644"
   },
@@ -155,15 +190,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/B1/B1_summary.pdf",
-    "sha": "e3c087a30a0e3068323f2042cf289f08d2acb2f0",
-    "size": 150175,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/B1/B1_v4_check run 3_formal_ST.pdf",
-    "sha": "5249e7d19343cb1134a5545af30fa08716e54248",
-    "size": 216086,
+    "sha": "28c687fbc0bb4f71506dfb54dc97532d93541f19",
+    "size": 149904,
     "type": "blob",
     "mode": "100644"
   },
@@ -210,51 +238,23 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v2_check run 1_alpha_observables.csv",
+    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v2_check_alpha_observables.csv",
     "sha": "2ee73a29f1560ad5f4df6fe0976a46f9f400862c",
     "size": 324,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v2_check run 1_checks_report.txt",
+    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v2_check_checks_report.txt",
     "sha": "15212da114146ea6394d90ace8f47f7faf6b7690",
     "size": 585,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v2_check run 1.py",
+    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v2_check.py",
     "sha": "8dabc14368b4efa6d469d50e9c381c06ca3b53f9",
     "size": 6027,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v3_check run 2_alpha_observables.csv",
-    "sha": "2ee73a29f1560ad5f4df6fe0976a46f9f400862c",
-    "size": 324,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v3_check run 2_checks_report.txt",
-    "sha": "15212da114146ea6394d90ace8f47f7faf6b7690",
-    "size": 585,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v3_check run 2_checks.py",
-    "sha": "8dabc14368b4efa6d469d50e9c381c06ca3b53f9",
-    "size": 6027,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/B1/files/B1_v4_check run 3_make_two_tables.py",
-    "sha": "ef4eaa0751deb23d1287f6fd83f87c10315bec04",
-    "size": 5761,
     "type": "blob",
     "mode": "100644"
   },
@@ -451,6 +451,27 @@
     "path": "Sierpinski Tetraeder_PoC/E2/README.md",
     "sha": "a5e400bc6126e10b7e489848f1c42f3b54fc0078",
     "size": 5059,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E3/E3_full_proof.pdf",
+    "sha": "658c3a371cef2fb6e8499b06d53da8368069606a",
+    "size": 189220,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E3/E3_kinematics.pdf",
+    "sha": "24d2b552520af6fa34c9afc3bfe52031c5c805fc",
+    "size": 202995,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E3/E3_summary.pdf",
+    "sha": "dc84f12c7fce45e7c1bbd834f766dc03d657f557",
+    "size": 137564,
     "type": "blob",
     "mode": "100644"
   },
