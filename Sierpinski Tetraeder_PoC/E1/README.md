@@ -1,87 +1,933 @@
-# Create README for E1 folder and save for download
-readme_e1 = """# E1 — Proof-of-Concept (PoC) für den ST-Graph
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>antaris' repository</title>
 
-Dieser Ordner enthält **E1** des ST-Graph‑PoC und umfasst ausschließlich das Beweis‑PDF **`E1_proof.pdf`**.
-Der Schritt **E1** verifiziert die **Bühne** (Mathematik/Analysis) auf dem Sierpiński‑Tetraeder (ST): Existenz von
-Resistance‑/Dirichlet‑Form \\((\\mathcal E,\\mathcal F)\\), des selbstadjungierten Laplace‑Operators \\(-\\Delta\\) und eines stetigen
-Heat‑Kernels \\(p_t(x,y)\\); ferner sub‑gaußsche Heat‑Kernel‑Schranken bzgl. der Widerstandsmetrik sowie explizite Exponenten
-(\\(d_w, d_s\\)) für ST.
+<!-- Styles -->
+<style>
+:root{
+  --bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;
+  --danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius:14px;--bgimg:none;
+  --overlay-alpha:.30;
+  --space:32px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 800px at 10% -10%, #1b2652 0%, transparent 46%),
+    radial-gradient(1000px 600px at 110% -10%, #17334f 0%, transparent 45%),
+    var(--bg);
+  color:var(--fg);
+  font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+}
+/* Foto-Hintergrund vollflächig */
+body.with-photo{
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,var(--overlay-alpha)), rgba(0,0,0,var(--overlay-alpha))),
+    var(--bgimg),
+    radial-gradient(1200px 800px at 10% -10%, #1b2652 0%, transparent 46%),
+    radial-gradient(1000px 600px at 110% -10%, #17334f 0%, transparent 45%);
+  background-color: var(--bg);
+  background-size: auto, cover, auto, auto;
+  background-position: center, center, 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, fixed, scroll, scroll;
+}
 
-- 📄 **Beweis:** [`E1_proof.pdf`](./E1_proof.pdf)
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+header{
+  position:sticky;top:0;z-index:5;backdrop-filter:blur(8px);
+  background:linear-gradient(180deg,rgba(16,23,42,.72),rgba(16,23,42,.38));
+  border-bottom:1px solid var(--border)
+}
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.title{display:flex;align-items:center;gap:12px}
+.logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;color:#0b1020;font-weight:800;box-shadow:var(--shadow)}
+.controls{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin-top:12px}
+.search{position:relative}
+.search input{width:100%;padding:12px 14px 12px 38px;border-radius:var(--radius);border:1px solid var(--border);background:var(--panel);color:var(--fg)}
+.search svg{position:absolute;top:50%;left:12px;transform:translateY(-50%);opacity:.6}
+.pill{border-radius:999px;border:1px solid var(--border);background:var(--panel);color:var(--fg);padding:10px 14px;display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+.pill input{accent-color:var(--acc)}
+.btn{border-radius:10px;padding:10px 14px;border:1px solid var(--border);background:var(--panel);color:var(--fg);cursor:pointer}
+.btn:hover{border-color:#2a3a66}
+.crumbs{margin-top:10px;color:var(--muted);font-size:14px;white-space:nowrap;overflow:auto}
+.crumbs a{color:var(--fg);opacity:.9}
+.crumbs .sep{opacity:.4;margin:0 6px}
+main{padding:26px 16px 48px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.panel, .readme-wrap, .gallery-wrap, details.settings { margin-top: var(--space); }
 
----
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font-weight:600;color:var(--muted);background:rgba(0,0,0,.15)}
+th,td{padding:12px 14px;border-bottom:1px solid var(--border)}
+tbody tr:hover{background:rgba(122,162,255,.08)}
+.namecell{display:flex;align-items:center;gap:10px}
+.fileicon,.foldericon{width:22px;height:22px;border-radius:6px;display:grid;place-items:center}
+.foldericon{background:rgba(122,162,255,.18);color:var(--acc)}
+.fileicon{background:rgba(55,210,167,.18);color:var(--acc2)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+details.settings{border:1px dashed var(--border);border-radius:var(--radius);padding:8px 12px;background:rgba(0,0,0,.1)}
+details.settings summary{cursor:pointer;color:var(--muted)}
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.settings-grid label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+.settings-grid input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--panel);color:var(--fg)}
+.settings-actions{display:flex;gap:10px;margin-top:10px}
+footer{color:var(--muted);font-size:13px;padding:24px 16px 60px;text-align:center}
+code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+@media (max-width:700px){.controls{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}}
 
-## Kurzüberblick (Kernaussagen)
+/* README-Block */
+.readme-head{font-weight:600;margin:6px 0 8px}
+.readme-panel{border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);max-height:420px;overflow:auto;padding:14px}
+.readme-content{font:14px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
+.readme-content h1,.readme-content h2,.readme-content h3{margin:12px 0 8px}
+.readme-content p{margin:8px 0}
+.readme-content pre{background:rgba(255,255,255,.06);padding:10px;border-radius:10px;overflow:auto}
+.readme-content code{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New";background:rgba(255,255,255,.06);padding:0 4px;border-radius:6px}
+.readme-content pre code{background:none;padding:0}
+.readme-content blockquote{border-left:3px solid var(--border);padding-left:10px;color:var(--muted);margin:8px 0}
+.readme-content table{border-collapse:collapse;width:100%;margin:10px 0}
+.readme-content th,.readme-content td{border:1px solid var(--border);padding:6px 8px}
+.readme-muted{color:var(--muted);font-size:13px}
 
-- **Existenz:** Auf ST existieren (bis auf Zeitskalierung eindeutig) eine lokale, reguläre **Resistance‑/Dirichlet‑Form** \\((\\mathcal E,\\mathcal F)\\),
-  der zugehörige **selbstadjungierte Laplace‑Operator** \\(-\\Delta\\) sowie ein **(streng positiver) stetiger Heat‑Kernel** \\(p_t(x,y)\\).
+/* === Gallery (2x5, Paginierung, aktueller Ordner) === */
+.gallery-wrap{ margin-top: var(--space); }
+.gal-head{ display:flex;align-items:center;justify-content:space-between; margin:-4px 0 10px 0;color:var(--muted);font-size:13px }
+.gallery{
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--panel);
+  padding:16px 56px;
+  min-height:210px;
+}
+.gal-grid{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  grid-auto-rows: 1fr;
+  gap:12px;
+}
+.gal-item{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.gal-thumb{ width:100%; aspect-ratio: 16/10; object-fit:cover; display:block; }
+.gal-caption{ font-size:12px;color:var(--muted); padding:6px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.gal-empty{ color:var(--muted); padding:10px 0; text-align:center; }
+.gal-page{ font-size:12px;color:var(--muted) }
+.gal-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:44px;height:44px; border-radius:50%;
+  display:grid; place-items:center; user-select:none; cursor:pointer;
+  background:rgba(0,0,0,.55);
+  border:2px solid rgba(255,255,255,.9);
+  color:#fff; font-size:22px; font-weight:800; line-height:1;
+  box-shadow:0 6px 18px rgba(0,0,0,.45);
+}
+.gal-nav:hover{ filter:brightness(1.15) }
+.gal-prev{ left:8px } .gal-next{ right:8px }
+.gal-nav:disabled{ opacity:.4; cursor:default; }
 
-- **Sub‑gaußsche Schranken:** Relativ zur **Widerstandsmetrik** \\(R\\) gelten **zweiseitige sub‑gaußsche Bounds** mit **Walk‑Dimension**
-  \\(d_w>2\\):
-  \\[
-  c_1\\, t^{-d_s/2} \\exp\\!\\Big(-c_2\\,\\Big(\\tfrac{R(x,y)^{d_w}}{t}\\Big)^{\\!\\frac{1}{d_w-1}}\\Big)
-  \\;\\le\\; p_t(x,y) \\;\\le\\;
-  c_3\\, t^{-d_s/2} \\exp\\!\\Big(-c_4\\,\\Big(\\tfrac{R(x,y)^{d_w}}{t}\\Big)^{\\!\\frac{1}{d_w-1}}\\Big).
-  \\]
+@media (max-width:900px){
+  .gal-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width:560px){
+  .gal-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
 
-- **Exponenten auf ST:** Für das Sierpiński‑Tetraeder (Sierpiński‑Simplex mit \\(d=3\\)) gilt
-  \\[
-  d_w = \\frac{\\ln 6}{\\ln 2},\\qquad
-  d_s = \\frac{2\\,\\ln 4}{\\ln 6} \\approx 1{.}5474,
-  \\]
-  woraus \\(p_t(x,x) \\asymp t^{-d_s/2}\\) für \\(t\\downarrow 0\\) folgt (bis auf **log‑periodische Modulationen**).
+/* KaTeX Optik */
+.katex-display{ margin: .8em 0; }
+</style>
 
----
+<!-- Markdown Renderer + Sanitizer -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js" defer></script>
 
-## Dateiübersicht
+<!-- KaTeX (CSS + JS + Auto-render) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" defer></script>
+</head>
 
-| Datei | Typ | Beschreibung |
-|---|---|---|
-| `E1_proof.pdf` | PDF | Vollständiges Beweis‑Dokument zu **E1** (Bühne verifiziert: Laplace‑Operator, Heat‑Kernel, spektrale Dimension auf ST). |
+<body>
+<header>
+  <div class="container">
+    <div class="title">
+      <div class="logo">∑</div>
+      <div>
+        <div style="font-weight:700;font-size:18px">antaris' repository</div>
+        <div style="color:var(--muted);font-size:13px">Listet Dateien &amp; Ordner dieses Repos (Client-Side, GitHub API)</div>
+      </div>
+    </div>
 
-**PDF‑Inhalt (Struktur):**
-1. **Voraussetzungen und Definitionen** (pcf‑Set, harmonische Struktur, Widerstandsmetrik, Walk‑ & spektrale Dimension).  
-2. **Existenz von \\((\\mathcal E,\\mathcal F)\\), \\(-\\Delta\\) und \\(p_t\\) auf ST** (Kigami‑Theorie, Markov‑Prozess, Stetigkeit/Positivität).  
-3. **Sub‑gaußsche Heat‑Kernel‑Abschätzungen & \\(d_w\\)** (VD/Poincaré/Ketten‑Bedingungen; Charakterisierung der Schranken).  
-4. **Sierpiński‑Simplex: \\(d_w\\) und \\(d_s\\) explizit; Spezialisierung auf ST** (Formeln für \\(d\\)-Simplexe; Einsetzen von \\(d=3\\)).  
-5. **Schluss** (Robustheit der Bühne; Unabhängigkeit von numerischen Experimenten).
+    <div class="controls">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.6"/></svg>
+        <input id="search" placeholder="Suchen… (Name, Endung)" />
+      </div>
+      <label class="pill"><input type="checkbox" id="toggleHidden"> Versteckte Dateien anzeigen</label>
+      <button id="btnUp" class="btn" title="Eine Ebene nach oben">↑ Ebene</button>
+    </div>
 
----
+    <div class="crumbs" id="breadcrumbs"></div>
 
-## Nutzung
+    <details class="settings">
+      <summary>Erweitert: Repo/Branch/Prefix konfigurieren</summary>
+      <div class="settings-grid">
+        <div><label>Owner</label><input id="cfgOwner" placeholder="z. B. antaris"/></div>
+        <div><label>Repo</label><input id="cfgRepo" placeholder="z. B. mein-repo"/></div>
+        <div><label>Branch <span class="tag">auto</span></label><input id="cfgBranch" placeholder="gh-pages / main / master"/></div>
+        <div><label>Prefix im Repo (z. B. <code>docs</code>)</label><input id="cfgPrefix" placeholder="optional, ohne führenden /"/></div>
+        <div style="grid-column:1 / -1"><label>GitHub Token (optional, erhöht Rate-Limit)</label><input id="cfgToken" type="password" placeholder="github_pat_… / ghp_…"/></div>
+      </div>
+      <div class="settings-actions">
+        <button class="btn" id="btnSave">Speichern</button>
+        <button class="btn" id="btnReset">Reset</button>
+        <span id="authInfo" class="tag" title="Authentifizierung / Rate-Limit">–</span>
+      </div>
+      <div style="margin-top:10px;color:var(--muted);font-size:13px">
+        Hinweis: Parameter können auch per Query-String gesetzt werden:
+        <code class="kv">?p=unter/ordner&owner=NAME&repo=REPO&branch=main&prefix=docs</code>
+      </div>
+    </details>
+  </div>
+</header>
 
-- Dieses Verzeichnis dient der **Dokumentation des Beweises**. Zur numerischen Verifikation/Simulation siehe die
-  weiteren PoC‑Schritte (z. B. `E2/`).
+<main class="container">
+  <!-- Dateien/Ordner -->
+  <div class="panel">
+    <table>
+      <thead><tr><th>Name</th><th>Größe</th><th>Typ</th></tr></thead>
+      <tbody id="tbody">
+        <tr><td colspan="3" class="empty">Lade…</td></tr>
+      </tbody>
+    </table>
+  </div>
 
----
+  <!-- README-Block -->
+  <div class="readme-wrap" id="readmeWrap" style="display:none">
+    <div class="readme-head">README</div>
+    <div class="readme-panel">
+      <div class="readme-content" id="readmeContent"><span class="readme-muted">Lade README…</span></div>
+    </div>
+  </div>
 
-## Lizenz
+  <!-- Gallery -->
+  <div class="gallery-wrap">
+    <div class="gal-head">
+      <div style="font-weight:600">Bilder in diesem Ordner</div>
+      <div class="gal-page" id="galPageInfo">–</div>
+    </div>
+    <div class="gallery">
+      <button class="gal-nav gal-prev" id="galPrev" aria-label="Vorherige Seite">‹</button>
+      <div class="gal-grid" id="galGrid">
+        <div class="gal-empty" id="galEmpty">Suche Bilder…</div>
+      </div>
+      <button class="gal-nav gal-next" id="galNext" aria-label="Nächste Seite">›</button>
+    </div>
+  </div>
 
-Da dieser Ordner ausschließlich **Nicht‑Code** enthält, gilt für den Inhalt **Creative Commons Attribution 4.0 International (CC BY 4.0)**.  
-Das erlaubt **freie Nutzung**, **Weitergabe** und **Bearbeitung**, erfordert aber **Namensnennung** des Urhebers.
+  <div id="error" class="empty" style="display:none;color:var(--danger)"></div>
+</main>
 
-> **Lizenzhinweis für dieses Verzeichnis:**  
-> © 2025 antaris — **`E1_proof.pdf` unter CC BY 4.0**.  
-> *(Sollte künftig Code ergänzt werden, empfehlen wir dafür zusätzlich die **MIT‑Lizenz**.)*
+<footer>
+  <div>
+    Erstellt von <span style="opacity:.8">index.html</span>. Nutzt die GitHub REST API (<em>ohne</em> Server-Code).<br/>
+    Unauthentifiziertes Rate-Limit: <strong>60</strong> Anfragen/Stunde/IP. Mit Token: <strong>5 000</strong>.
+  </div>
+  <div style="margin-top:8px">
+    Gesamt: <strong id="rateTotal">–</strong> • Verbleibend: <strong id="rateRemain">–</strong>
+  </div>
+</footer>
 
----
+<!-- App-Script -->
+<script>
+(function(){
+  'use strict';
 
-## Zitation
+  const HARDCODED_TOKEN = '';
+  function isLocalhost(){ return ['localhost','127.0.0.1','::1'].includes(location.hostname); }
 
-Bitte zitiere wie folgt:
-> antaris (2025): *E1 — Bühne verifiziert: Laplace‑Operator, Heat‑Kernel und spektrale Dimension auf dem Sierpiński‑Tetraeder*.  
-> GitHub‑Repo `antaris82.github.io`, Ordner `Sierpinski Tetraeder_PoC/E1/`. **Lizenz:** CC BY 4.0.
+  const qs = new URLSearchParams(location.search);
+  const $ = s => document.querySelector(s);
+  const tbody = $('#tbody');
+  const breadcrumbsEl = $('#breadcrumbs');
+  const searchInput = $('#search');
+  const toggleHidden = $('#toggleHidden');
+  const btnUp = $('#btnUp');
+  const readmeWrap = $('#readmeWrap');
+  const readmeContent = $('#readmeContent');
 
-(Optional kann im Repo‑Root eine `CITATION.cff` gepflegt werden, damit GitHub die Zitation automatisch anzeigt.)
+  const IMAGE_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
+  const BG_NAME_RE = /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 
----
+  const GAL_PER_PAGE = 10;
+  let GALLERY = { items: [], page: 1, pages: 1 };
 
-## Kontakt
+  /* ---------- KaTeX: robustes Rendering inkl. Doppel-Backslash-Fix ---------- */
+  const MATH = {
+    options: {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\begin{equation}", right: "\\end{equation}", display: true },
+        { left: "\\begin{align}", right: "\\end{align}", display: true },
+        { left: "\\begin{aligned}", right: "\\end{aligned}", display: true },
+        { left: "\\begin{gather}", right: "\\end{gather}", display: true },
+        { left: "\\begin{cases}", right: "\\end{cases}", display: true }
+      ],
+      ignoredTags: ['script','noscript','style','textarea','pre','code'],
+      throwOnError: false,
+      strict: "warn"
+    }
+  };
 
-Maintainer: **@antaris** — Feedback/Fragen bitte als GitHub‑Issue einreichen.
-"""
-out_path = "/mnt/data/README_E1.md"
-with open(out_path, "w", encoding="utf-8") as f:
-    f.write(readme_e1)
-out_path
+  // Ersetzt in Textknoten NUR innerhalb von \\[...\\] / \\(...\\) die doppelten Backslashes zu einfachen,
+  // damit KaTeX gültiges LaTeX erhält. Code/Pre werden ausgelassen.
+  function normalizeDoublyEscapedMath(root){
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const updates = [];
+    const isInCode = (node)=> node.parentElement && node.parentElement.closest('code,pre,script,style,textarea');
 
+    while(true){
+      const n = walker.nextNode();
+      if(!n) break;
+      if (isInCode(n)) continue;
+
+      const s = n.nodeValue;
+      if (!s || s.indexOf('\\\\') === -1) continue;
+
+      // Muster für \\[ ... \\] und \\( ... \\)
+      let changed = s.replace(/\\\\\[((?:[\s\S]*?))\\\\\]/g, (_, inner)=>{
+        return '\\[' + inner.replace(/\\\\/g,'\\') + '\\]';
+      });
+      changed = changed.replace(/\\\\\(([\s\S]*?)\\\\\)/g, (_, inner)=>{
+        return '\\(' + inner.replace(/\\\\/g,'\\') + '\\)';
+      });
+
+      if (changed !== s) updates.push([n, changed]);
+    }
+    updates.forEach(([node, val])=> node.nodeValue = val);
+  }
+
+  function renderMathNow(el){
+    if (window.renderMathInElement){
+      try { renderMathInElement(el, MATH.options); } catch(e){}
+    } else {
+      // Fallback: warten bis KaTeX geladen ist
+      const once = ()=> {
+        try { renderMathInElement(el, MATH.options); } catch(e){}
+      };
+      window.addEventListener('load', once, { once:true });
+    }
+  }
+  /* ------------------------------------------------------------------------- */
+
+  const store = {
+    get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
+    set(v){ localStorage.setItem('dirindex.cfg', JSON.stringify(v)); }
+  };
+
+  function siteBase(){
+    const host = location.hostname;
+    const path = location.pathname;
+    if (/\.github\.io$/i.test(host)) {
+      const segs = path.split('/').filter(Boolean);
+      if (segs.length>0) return '/' + segs[0] + '/';
+    }
+    return '/';
+  }
+
+  function currentFolderInSite(){
+    let p = location.pathname;
+    const base = siteBase();
+    if (p.startsWith(base)) p = p.slice(base.length - 1);
+    p = p.replace(/index\.html?$/i, '');
+    const qp = qs.get('p');
+    if (qp) {
+      p = ('/' + qp).replace(/\/+/g,'/');
+      if (!p.endsWith('/')) p += '/';
+    }
+    return p;
+  }
+
+  function inferOwnerRepo(cfg){
+    const host = location.hostname;
+    const path = location.pathname;
+    if (/\.github\.io$/i.test(host)) {
+      const owner = host.split('.')[0];
+      const segs = path.split('/').filter(Boolean);
+      const repo = segs.length>0 ? segs[0] : (owner + '.github.io');
+      return { owner, repo };
+    }
+    return { owner: cfg.owner, repo: cfg.repo };
+  }
+
+  function bytes(n){
+    if (n==null) return '—';
+    if (n<1024) return n+' B';
+    if (n<1024*1024) return (n/1024).toFixed(1)+' KB';
+    return (n/1024/1024).toFixed(2)+' MB';
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+  }
+
+  function linkify(escaped){
+    return escaped.replace(/(https?:\/\/[^\s)]+)(?![^<]*>)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  function joinUrl(...parts){
+    return parts.map((p,i)=> i===0? String(p).replace(/\/?$/,'') : String(p).replace(/^\/+/, '')).join('/');
+  }
+
+  function encodePath(p){ return p.split('/').map(encodeURIComponent).join('/'); }
+
+  function applySettingsToUI(cfg){
+    $('#cfgOwner').value = cfg.owner||'';
+    $('#cfgRepo').value = cfg.repo||'';
+    $('#cfgBranch').value = cfg.branch||'';
+    $('#cfgPrefix').value = cfg.prefix||'';
+    $('#cfgToken').value  = cfg.token||'';
+  }
+
+  function looksLikeGitHubToken(t){
+    if (!t) return false;
+    t = String(t).trim();
+    if (t.startsWith('github_pat_') && t.length >= 80) return true;
+    if (/^(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9_]{36,}$/.test(t)) return true;
+    return false;
+  }
+
+  function readSettings(){
+    const saved = store.get();
+    const cfg = {
+      owner : qs.get('owner')  || saved.owner  || '',
+      repo  : qs.get('repo')   || saved.repo   || '',
+      branch: qs.get('branch') || saved.branch || '',
+      prefix: (qs.get('prefix') || saved.prefix || '').replace(/^\/+|\/+$|^\.+/g,''),
+      token : qs.get('token')  || saved.token  || (isLocalhost()? HARDCODED_TOKEN : '')
+    };
+    applySettingsToUI(cfg);
+    return cfg;
+  }
+
+  function saveSettings(){
+    const rawToken = $('#cfgToken').value.trim();
+    const cfg = {
+      owner : $('#cfgOwner').value.trim(),
+      repo  : $('#cfgRepo').value.trim(),
+      branch: $('#cfgBranch').value.trim(),
+      prefix: $('#cfgPrefix').value.trim().replace(/^\/+|\/+$|^\.+/g,''),
+      token : rawToken
+    };
+    store.set(cfg);
+    return cfg;
+  }
+
+  function resetSettings(){ store.set({}); location.href = location.pathname; }
+
+  function setError(msg){ const el=$('#error'); el.style.display='block'; el.textContent = msg; }
+  function clearError(){ const el=$('#error'); el.style.display='none'; el.textContent=''; }
+
+  function buildCrumbs(path){
+    const parts = path.split('/').filter(Boolean);
+    const acc = [];
+    let html = '<a href="#" data-path="/">/</a>';
+    parts.forEach(p=>{
+      acc.push(p);
+      html += '<span class="sep">›</span>' + `<a href="#" data-path="/${acc.join('/')}/">${esc(p)}</a>`;
+    });
+    breadcrumbsEl.innerHTML = html;
+    breadcrumbsEl.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        navigateTo(a.dataset.path);
+      });
+    });
+  }
+
+  function linkFor(sitePath){
+    const base = siteBase();
+    return joinUrl(base, sitePath);
+  }
+
+  function rowHtml(entry, siteRelPath){
+    const isDir = entry.type === 'dir';
+    const icon = isDir ? '<div class="foldericon">📁</div>' : '<div class="fileicon">📄</div>';
+    const name = esc(entry.name);
+    const size = isDir ? '—' : bytes(entry.size);
+    const type = isDir ? 'Ordner' : (entry.name.includes('.')? entry.name.split('.').pop().toLowerCase()+'-Datei' : 'Datei');
+
+    if (isDir) {
+      return `
+        <tr class="row dir" data-name="${name.toLowerCase()}" data-path="${esc(siteRelPath)}">
+          <td class="namecell">${icon}<a href="#" class="nav">${name}</a></td>
+          <td>${size}</td><td>${type}</td>
+        </tr>`;
+    } else {
+      const href = linkFor(siteRelPath);
+      return `
+        <tr class="row file" data-name="${name.toLowerCase()}">
+          <td class="namecell">${icon}<a href="${href}">${name}</a></td>
+          <td>${size}</td><td>${type}</td>
+        </tr>`;
+    }
+  }
+
+  function filterDOMRows(){
+    const q = (searchInput.value||'').toLowerCase().trim();
+    const showHidden = !!toggleHidden.checked;
+    const rows = Array.from(tbody.querySelectorAll('tr.row'));
+    let any=false;
+    rows.forEach(r=>{
+      const name = (r.dataset.name||'').toLowerCase();
+      const hidden = name.startsWith('.');
+      const match = !q || name.includes(q);
+      const vis = match && (showHidden || !hidden);
+      r.style.display = vis? '' : 'none';
+      if (vis) any=true;
+    });
+    const nores = document.getElementById('noresults');
+    if (!any){
+      if (!nores){
+        const tr = document.createElement('tr');
+        tr.id = 'noresults';
+        tr.innerHTML = '<td colspan="3" class="empty">Nichts gefunden.</td>';
+        tbody.appendChild(tr);
+      }
+    } else {
+      if (nores) nores.remove();
+    }
+  }
+
+  function pushHistory(path){
+    const url = new URL(location.href);
+    url.searchParams.set('p', path.replace(/^\/+|\/+$|\.+/g,''));
+    history.pushState({path}, '', url);
+  }
+
+  function apiContentsUrl(owner, repo, path, ref){
+    const cleaned = String(path||'').replace(/^\/+|\/+$/g,'');
+    const suffix = cleaned ? '/' + cleaned.split('/').map(encodeURIComponent).join('/') : '';
+    return `https://api.github.com/repos/${owner}/${repo}/contents${suffix}?ref=${encodeURIComponent(ref)}`;
+  }
+
+  async function ghFetch(url, token){
+    const base = { 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' };
+    if (token){
+      const r = await fetch(url, { headers: { ...base, Authorization: 'token ' + token } });
+      if (r.ok) return r.json();
+      if ([401,403,404].includes(r.status)){
+        const r2 = await fetch(url, { headers: base });
+        if (r2.ok) return r2.json();
+        const t2 = await r2.text().catch(()=>String(r2.status)); throw new Error(t2);
+      }
+      const t = await r.text().catch(()=>String(r.status)); throw new Error(t);
+    }
+    const r = await fetch(url, { headers: base });
+    if (!r.ok){ const t = await r.text().catch(()=>String(r.status)); throw new Error(t); }
+    return r.json();
+  }
+
+  async function updateRateDisplays(token){
+    try{
+      const headers = token ? { Authorization: 'token ' + token } : {};
+      const r = await fetch('https://api.github.com/rate_limit',{headers});
+      const j = await r.json();
+      const core = j && j.resources && j.resources.core;
+      const authInfo = document.getElementById('authInfo');
+      const ftTotal = document.getElementById('rateTotal');
+      const ftRemain = document.getElementById('rateRemain');
+      if (core){
+        if (authInfo) authInfo.textContent = `Auth OK: ${core.remaining}/${core.limit}`;
+        if (ftTotal) ftTotal.textContent = String(core.limit);
+        if (ftRemain) ftRemain.textContent = String(core.remaining);
+      } else {
+        if (authInfo) authInfo.textContent = 'Auth unbekannt';
+        if (ftTotal) ftTotal.textContent = '–';
+        if (ftRemain) ftRemain.textContent = '–';
+      }
+    }catch{
+      const authInfo = document.getElementById('authInfo');
+      const ftTotal = document.getElementById('rateTotal');
+      const ftRemain = document.getElementById('rateRemain');
+      if (authInfo) authInfo.textContent = 'Auth fehlgeschlagen';
+      if (ftTotal) ftTotal.textContent = '–';
+      if (ftRemain) ftRemain.textContent = '–';
+    }
+  }
+
+  // Hintergrund (background.xxx) anwenden
+  async function findBackgroundUrl(owner, repo, branch, token, dirPath){
+    const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
+    const items = await ghFetch(url, token).catch(()=>[]);
+    if (!Array.isArray(items)) return null;
+    const hit = items.find(x => x.type==='file' && BG_NAME_RE.test(x.name));
+    if (!hit) return null;
+    return hit.download_url || `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${hit.path}`;
+  }
+  let _bgApplied = false;
+  async function applyBackgroundFromRoot(owner, repo, branch, prefix, token){
+    if (_bgApplied) return;
+    let bg = await findBackgroundUrl(owner, repo, branch, token, '');
+    if (!bg && prefix) bg = await findBackgroundUrl(owner, repo, branch, token, prefix);
+    if (bg){
+      document.documentElement.style.setProperty('--bgimg', `url("${bg}")`);
+      document.body.classList.add('with-photo');
+      _bgApplied = true;
+    }else{
+      document.body.classList.remove('with-photo');
+    }
+  }
+
+  /* ---------- Gallery (nur aktueller Ordner) ---------- */
+  function rawUrl(owner, repo, branch, repoPath){
+    const p = String(repoPath||'').replace(/^\/+/,'');
+    return `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${p}`;
+  }
+
+  function imagesFromEntries(entries){
+    const files = (entries||[]).filter(x => x.type === 'file');
+    let imgs = files.filter(f => IMAGE_EXT.test(f.name) && !BG_NAME_RE.test(f.name));
+    imgs.sort((a,b)=> a.name.localeCompare(b.name, undefined, {numeric:true, sensitivity:'base'}));
+    return imgs.map(it => ({
+      name: it.name,
+      path: it.path,
+      siteHref: linkFor(joinUrl(STATE.path.startsWith('/')? STATE.path : '/' + STATE.path, it.name)),
+      rawHref: rawUrl(STATE.owner, STATE.repo, STATE.branch, it.path)
+    }));
+  }
+
+  function renderGalleryPage(){
+    const grid = document.getElementById('galGrid');
+    const empty = document.getElementById('galEmpty');
+    const pageInfo = document.getElementById('galPageInfo');
+    const prevBtn = document.getElementById('galPrev');
+    const nextBtn = document.getElementById('galNext');
+
+    if (!GALLERY.items.length){
+      if (grid) grid.innerHTML = '';
+      if (empty){ empty.textContent = 'Keine Bilder im Ordner.'; empty.style.display='block'; }
+      if (pageInfo) pageInfo.textContent = '–';
+      if (prevBtn) prevBtn.disabled = true;
+      if (nextBtn) nextBtn.disabled = true;
+      return;
+    }
+
+    const total = GALLERY.items.length;
+    GALLERY.pages = Math.max(1, Math.ceil(total / GAL_PER_PAGE));
+    GALLERY.page = Math.min(Math.max(1, GALLERY.page), GALLERY.pages);
+
+    const start = (GALLERY.page - 1) * GAL_PER_PAGE;
+    const slice = GALLERY.items.slice(start, start + GAL_PER_PAGE);
+
+    if (empty) empty.style.display = 'none';
+
+    grid.innerHTML = slice.map(it => `
+      <a class="gal-item" href="${it.siteHref}" title="${esc(it.name)}">
+        <img class="gal-thumb" loading="lazy" src="${it.rawHref}" alt="${esc(it.name)}"/>
+        <div class="gal-caption">${esc(it.name)}</div>
+      </a>
+    `).join('');
+
+    if (pageInfo) pageInfo.textContent = `Seite ${GALLERY.page} / ${GALLERY.pages} • ${total} Bild${total===1?'':'er'}`;
+    if (prevBtn){ prevBtn.disabled = (GALLERY.page <= 1); }
+    if (nextBtn){ nextBtn.disabled = (GALLERY.page >= GALLERY.pages); }
+  }
+
+  function bindGalleryNav(){
+    const prevBtn = document.getElementById('galPrev');
+    const nextBtn = document.getElementById('galNext');
+    if (prevBtn && !prevBtn._bound){
+      prevBtn.addEventListener('click', ()=>{ GALLERY.page = Math.max(1, GALLERY.page - 1); renderGalleryPage(); });
+      prevBtn._bound = true;
+    }
+    if (nextBtn && !nextBtn._bound){
+      nextBtn.addEventListener('click', ()=>{ GALLERY.page = Math.min(GALLERY.pages, GALLERY.page + 1); renderGalleryPage(); });
+      nextBtn._bound = true;
+    }
+  }
+  /* ---------------------------------------------------- */
+
+  async function detectBranchAndPrefix(owner, repo, token, repoPath){
+    let defaultBranch = null;
+    try {
+      const meta = await ghFetch(`https://api.github.com/repos/${owner}/${repo}`, '');
+      defaultBranch = meta && meta.default_branch || null;
+    } catch(_) {}
+    const branches = [...new Set([qs.get('branch'), readSettings().branch, defaultBranch, 'gh-pages','main','master'].filter(Boolean))];
+    const prefixes = [...new Set([qs.get('prefix'), readSettings().prefix, '', 'docs'].filter(v=> v!==undefined))];
+
+    const tryOnce = async (br, pref, useToken) => {
+      const tryPath = String(joinUrl(pref||'', repoPath||'')).replace(/^\/+|\/+$/g,'');
+      const url = apiContentsUrl(owner, repo, tryPath, br);
+      return ghFetch(url, useToken ? token : '');
+    };
+
+    for (const br of branches){
+      for (const pref of prefixes){
+        try { await tryOnce(br, pref, false); return { branch: br, prefix: pref||'' }; }
+        catch(e1){
+          try { await tryOnce(br, pref, !!token); return { branch: br, prefix: pref||'' }; }
+          catch(e2){ /* continue */ }
+        }
+      }
+    }
+    throw new Error('Branch/Prefix konnte nicht automatisch bestimmt werden. Bitte unter „Erweitert“ konfigurieren.');
+  }
+
+  let STATE = { owner:null, repo:null, branch:null, prefix:'', token:null, path:'/' };
+
+  async function load(path){
+    clearError();
+    tbody.innerHTML = '<tr><td colspan="3" class="empty">Lade…</td></tr>';
+
+    const cfg = readSettings();
+    const infer = inferOwnerRepo(cfg);
+    const owner = infer.owner;
+    const repo = infer.repo;
+
+    if (!owner || !repo){
+      setError('Owner/Repo unbekannt. Auf *.github.io wird automatisch erkannt; sonst unter „Erweitert“ setzen.');
+      return;
+    }
+
+    let branch = cfg.branch;
+    let prefix = cfg.prefix||'';
+    const token = cfg.token||'';
+
+    async function tryFetch(br, pref){
+      const fullPath = String(joinUrl(pref, path)).replace(/^\/+|\/+$/g,'');
+      const apiUrl = apiContentsUrl(owner, repo, fullPath, br);
+      return ghFetch(apiUrl, token);
+    }
+
+    let data = null;
+
+    if (!branch){
+      try {
+        const det = await detectBranchAndPrefix(owner, repo, token, path);
+        branch = det.branch;
+        prefix = det.prefix;
+        data = await tryFetch(branch, prefix);
+      } catch(e){
+        setError(e.message);
+        return;
+      }
+    } else {
+      try {
+        data = await tryFetch(branch, prefix);
+      } catch(e){
+        try {
+          const det = await detectBranchAndPrefix(owner, repo, token, path);
+          branch = det.branch;
+          prefix = det.prefix;
+          data = await tryFetch(branch, prefix);
+        } catch(e2){
+          setError('Fehler beim Laden: '+(e2.body||e2.message));
+          return;
+        }
+      }
+    }
+
+    STATE = { owner, repo, branch, prefix, token, path };
+
+    await applyBackgroundFromRoot(STATE.owner, STATE.repo, STATE.branch, STATE.prefix, STATE.token);
+    buildCrumbs(path);
+
+    const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
+
+    // Tabelle
+    if (entries.length === 0){
+      tbody.innerHTML = '<tr><td colspan="3" class="empty">Leer.</td></tr>';
+    } else {
+      entries.sort((a,b)=>{
+        if (a.type!==b.type) return a.type==='dir' ? -1 : 1;
+        return a.name.localeCompare(b.name, undefined, {numeric:true, sensitivity:'base'});
+      });
+      const sitePath = path.startsWith('/')? path : '/' + path;
+      tbody.innerHTML = entries.map(e=>{
+        const itemSiteRel = joinUrl(sitePath, e.name) + (e.type==='dir' ? '/' : '');
+        return rowHtml(e, itemSiteRel);
+      }).join('');
+      tbody.querySelectorAll('tr.dir .nav').forEach(a=>{
+        a.addEventListener('click', (ev)=>{
+          ev.preventDefault();
+          const tr = a.closest('tr');
+          navigateTo(tr.dataset.path);
+        });
+      });
+      filterDOMRows();
+    }
+
+    // README laden + rendern + LaTeX normalisieren + KaTeX
+    await findAndRenderReadme(entries, STATE);
+
+    // Footer-Rate
+    await updateRateDisplays(STATE.token||'');
+
+    // Gallery
+    try{
+      GALLERY.items = imagesFromEntries(entries);
+      GALLERY.page = 1;
+      bindGalleryNav();
+      renderGalleryPage();
+    } catch(_){
+      const grid = document.getElementById('galGrid');
+      const empty = document.getElementById('galEmpty');
+      if (grid) grid.innerHTML = '';
+      if (empty){ empty.textContent = 'Fehler beim Laden der Bilder.'; empty.style.display='block'; }
+    }
+  }
+
+  async function findAndRenderReadme(entries, ctx){
+    readmeWrap.style.display = 'none';
+    readmeContent.innerHTML = '<span class="readme-muted">Lade README…</span>';
+
+    try{
+      const files = Array.isArray(entries) ? entries.filter(x=> x.type==='file') : [];
+      if (!files.length){ readmeWrap.style.display='none'; return; }
+
+      const weight = (name)=>{
+        const n = name.toLowerCase();
+        if (n === 'readme.md') return 0;
+        if (n.endsWith('.md')) return 1;
+        if (n.endsWith('.markdown')) return 2;
+        if (n.endsWith('.txt')) return 3;
+        return 4;
+      };
+
+      const candidates = files
+        .filter(f => /^readme(\.[\w.-]+)?$/i.test(f.name))
+        .sort((a,b)=> weight(a.name) - weight(b.name));
+
+      const cand = candidates[0];
+      if (!cand){ readmeWrap.style.display='none'; return; }
+
+      let apiUrl = cand.url || '';
+      if (ctx.branch){
+        apiUrl += (apiUrl.includes('?') ? '&' : '?') + 'ref=' + encodeURIComponent(ctx.branch);
+      }
+      const obj = await ghFetch(apiUrl, ctx.token||'');
+      const content = (obj && obj.content && obj.encoding==='base64') ? decodeBase64Utf8(obj.content) : '';
+
+      if (!content){ readmeWrap.style.display='none'; return; }
+
+      const rawHtml = (window.marked ? marked.parse(content, {headerIds:true, mangle:false, breaks:true}) : linkify(esc(content)));
+      const safeHtml = (window.DOMPurify ? DOMPurify.sanitize(rawHtml, {ADD_ATTR:['target','rel']}) : rawHtml);
+
+      readmeContent.innerHTML = safeHtml;
+      rewriteReadmeRelativeLinks(cand.path, ctx);
+      readmeWrap.style.display = '';
+
+      // WICHTIG: Doppelte Backslashes innerhalb von \\[...\\], \\(...\\) reduzieren
+      normalizeDoublyEscapedMath(readmeContent);
+
+      // KaTeX rendern
+      renderMathNow(readmeContent);
+
+    } catch(_){
+      readmeWrap.style.display = 'none';
+    }
+  }
+
+  function decodeBase64Utf8(b64){
+    const bin = atob(b64.replace(/\s+/g,''));
+    const len = bin.length;
+    const bytes = new Uint8Array(len);
+    for (let i=0;i<len;i++) bytes[i]=bin.charCodeAt(i);
+    try{ return new TextDecoder('utf-8',{fatal:false}).decode(bytes); }
+    catch{ return Array.from(bytes).map(b=>String.fromCharCode(b)).join(''); }
+  }
+
+  function rewriteReadmeRelativeLinks(readmeRepoPath, ctx){
+    const baseDir = String(readmeRepoPath||'').split('/').slice(0,-1).join('/');
+
+    const isAbs = (u)=> /^(?:[a-z]+:)?\/\//i.test(u) || u.startsWith('#') || u.startsWith('mailto:');
+
+    readmeContent.querySelectorAll('img').forEach(img=>{
+      const src = img.getAttribute('src') || '';
+      if (!isAbs(src)){
+        const repoPath = joinUrl(baseDir, src);
+        img.src = `https://raw.githubusercontent.com/${ctx.owner}/${ctx.repo}/${encodeURIComponent(ctx.branch)}/${repoPath.replace(/^\/+/,'')}`;
+      }
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+    });
+
+    readmeContent.querySelectorAll('a').forEach(a=>{
+      const href = a.getAttribute('href') || '';
+      if (!href) return;
+      if (isAbs(href)){
+        a.target = '_blank'; a.rel = 'noopener';
+      } else if (href.startsWith('#')){
+      } else {
+        const repoPath = joinUrl(baseDir, href);
+        a.target = '_blank'; a.rel = 'noopener';
+        a.href = `https://github.com/${ctx.owner}/${ctx.repo}/blob/${encodeURIComponent(ctx.branch)}/${encodePath(repoPath)}`;
+      }
+    });
+  }
+
+  function navigateTo(path){
+    if (!path.endsWith('/')) path += '/';
+    pushHistory(path.replace(/^\/+/,'')); 
+    load(path);
+  }
+
+  const searchHandler = () => filterDOMRows();
+  searchInput.addEventListener('input', searchHandler);
+  toggleHidden.addEventListener('change', searchHandler);
+
+  btnUp.addEventListener('click', ()=>{
+    const trimmed = (STATE.path||'/').replace(/\/+$/,'');
+    const idx = trimmed.lastIndexOf('/');
+    const up = idx>0 ? trimmed.slice(0, idx) + '/' : '/';
+    navigateTo(up);
+  });
+
+  $('#btnSave').addEventListener('click', async ()=>{
+    const cfg = saveSettings();
+    if (cfg.token && !looksLikeGitHubToken(cfg.token)) {
+      const ai = document.getElementById('authInfo');
+      if (ai) ai.textContent = 'Token-Format ungewöhnlich';
+    }
+    await updateRateDisplays(cfg.token||'');
+    load(STATE.path||'/');
+  });
+
+  $('#btnReset').addEventListener('click', resetSettings);
+
+  window.addEventListener('popstate', (e)=>{
+    const p = (e.state && e.state.path) || currentFolderInSite();
+    load(p);
+  });
+
+  bindGalleryNav();
+
+  (async function init(){
+    applySettingsToUI(readSettings());
+    const initial = qs.get('p') ? ('/' + qs.get('p').replace(/^\/+|\.+/g,'')) : currentFolderInSite();
+    await load(initial);
+  })();
+
+})();
+</script>
+</body>
+</html>
