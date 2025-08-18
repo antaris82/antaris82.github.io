@@ -24,6 +24,7 @@ body{
   color:var(--fg);
   font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
 }
+/* Vollflächiges Foto mit Overlay */
 body.with-photo{
   background-image:
     linear-gradient(180deg, rgba(0,0,0,var(--overlay-alpha)), rgba(0,0,0,var(--overlay-alpha))),
@@ -60,6 +61,7 @@ header{
 .crumbs .sep{opacity:.4;margin:0 6px}
 main{padding:26px 16px 48px}
 .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+/* größere Blockabstände */
 .panel, .readme-wrap, .gallery-wrap, details.settings { margin-top: var(--space); }
 
 table{width:100%;border-collapse:collapse}
@@ -96,7 +98,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .readme-content th,.readme-content td{border:1px solid var(--border);padding:6px 8px}
 .readme-muted{color:var(--muted);font-size:13px}
 
-/* === Gallery (2x5, Paginierung, aktueller Ordner) === */
+/* Gallery (2x5) */
 .gallery-wrap{ margin-top: var(--space); }
 .gal-head{ display:flex;align-items:center;justify-content:space-between; margin:-4px 0 10px 0;color:var(--muted);font-size:13px }
 .gallery{
@@ -107,19 +109,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   padding:16px 56px;
   min-height:210px;
 }
-.gal-grid{
-  display:grid;
-  grid-template-columns: repeat(5, minmax(0,1fr));
-  grid-auto-rows: 1fr;
-  gap:12px;
-}
-.gal-item{
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--card);
-  overflow:hidden;
-  display:flex;flex-direction:column;
-}
+.gal-grid{ display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); grid-auto-rows: 1fr; gap:12px; }
+.gal-item{ border:1px solid var(--border); border-radius:12px; background:var(--card); overflow:hidden; display:flex;flex-direction:column; }
 .gal-thumb{ width:100%; aspect-ratio: 16/10; object-fit:cover; display:block; }
 .gal-caption{ font-size:12px;color:var(--muted); padding:6px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .gal-empty{ color:var(--muted); padding:10px 0; text-align:center; }
@@ -137,15 +128,11 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .gal-prev{ left:8px } .gal-next{ right:8px }
 .gal-nav:disabled{ opacity:.4; cursor:default; }
 
-@media (max-width:900px){
-  .gal-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
-}
-@media (max-width:560px){
-  .gal-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
+@media (max-width:900px){ .gal-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+@media (max-width:560px){ .gal-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
 
-/* KaTeX Optik */
-.katex-display{ margin: .8em 0; }
+/* KaTeX Look */
+.katex-display{ margin:.8em 0; }
 </style>
 
 <!-- marked + DOMPurify -->
@@ -203,6 +190,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 </header>
 
 <main class="container">
+  <!-- Dateien/Ordner -->
   <div class="panel">
     <table>
       <thead><tr><th>Name</th><th>Größe</th><th>Typ</th></tr></thead>
@@ -212,6 +200,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     </table>
   </div>
 
+  <!-- README-Block -->
   <div class="readme-wrap" id="readmeWrap" style="display:none">
     <div class="readme-head">README</div>
     <div class="readme-panel">
@@ -219,6 +208,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     </div>
   </div>
 
+  <!-- Gallery -->
   <div class="gallery-wrap">
     <div class="gal-head">
       <div style="font-weight:600">Bilder in diesem Ordner</div>
@@ -267,7 +257,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   const GAL_PER_PAGE = 10;
   let GALLERY = { items: [], page: 1, pages: 1 };
 
-  /* ===================== KaTeX: robustes Rendering ===================== */
+  /* ===================== KaTeX: robust über mehrere Zeilen ===================== */
   const KATEX_OPTIONS = {
     delimiters: [
       { left: "$$", right: "$$", display: true },
@@ -284,48 +274,50 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     strict: "warn"
   };
 
-  // 1) Platzhalter für <pre>/<code>, damit wir dort nichts verändern
   function protectCodeBlocks(html){
     const placeholders = [];
-    html = html.replace(/<(pre|code)\b[^>]*>[\s\S]*?<\/\1>/gi, (m)=>{
+    const safe = html.replace(/<(pre|code)\b[^>]*>[\s\S]*?<\/\1>/gi, (m)=>{
       const token = `__CODEBLOCK_${placeholders.length}__`;
       placeholders.push(m);
       return token;
     });
-    return { html, placeholders };
+    return { html: safe, placeholders };
   }
   function restoreCodeBlocks(html, placeholders){
     return html.replace(/__CODEBLOCK_(\d+)__/g, (_,i)=> placeholders[+i] ?? '');
   }
 
-  // 2) Nur innerhalb von \\[...\\], \\(...\\) und \\begin{X}...\\end{X} doppelte Backslashes → einfache
-  function unescapeDoublyEscapedLatexHTML(html){
-    const out = protectCodeBlocks(html);
-    let s = out.html;
+  // Normalisiert NUR in Math-Segmenten: <br> → \n, &nbsp; → ' ', \\ → \
+  function normalizeMathSegmentsHTML(html){
+    const { html: h0, placeholders } = protectCodeBlocks(html);
+    let s = h0;
 
-    const fix = (m)=> m.replace(/\\\\/g,'\\'); // alle doppelten Backslashes in Match halbieren
+    const clean = (body) => body
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/\\\\/g, '\\');
 
-    // Block/Inline-Delims
-    s = s.replace(/\\\\\[(?:[\s\S]*?)\\\\\]/g, fix);
-    s = s.replace(/\\\\\((?:[\s\S]*?)\\\\\)/g, fix);
+    // \[ ... \]  und \\[ ... \\]
+    s = s.replace(/([\\]{1,2}\[)([\s\S]*?)([\\]{1,2}\])/g, (_,l,body,r)=> '\\[' + clean(body) + '\\]');
+    // \( ... \)  und \\( ... \\)
+    s = s.replace(/([\\]{1,2}\()([\s\S]*?)([\\]{1,2}\))/g, (_,l,body,r)=> '\\(' + clean(body) + '\\)');
+    // \begin{env} ... \end{env}  (auch doppelt escaped)
+    s = s.replace(/([\\]{1,2}begin\{([\w*]+)\})([\s\S]*?)([\\]{1,2}end\{\2\})/g,
+      (_,beg,env,body,end)=> '\\begin{' + env + '}' + clean(body) + '\\end{' + env + '}');
+    // $$ ... $$
+    s = s.replace(/\$\$([\s\S]*?)\$\$/g, (_,body)=> '$$' + clean(body) + '$$');
 
-    // Umgebungen (align, equation, ...), gleiche Umgebung am Ende referenziert
-    s = s.replace(/\\\\begin\{([\w*]+)\}([\s\S]*?)\\\\end\{\1\}/g, fix);
-
-    return restoreCodeBlocks(s, out.placeholders);
+    return restoreCodeBlocks(s, placeholders);
   }
 
   function renderMathNow(el){
     if (window.renderMathInElement) {
       try { renderMathInElement(el, KATEX_OPTIONS); } catch(e){}
     } else {
-      // Fallback, wenn KaTeX noch lädt
-      window.addEventListener('load', ()=> {
-        try { renderMathInElement(el, KATEX_OPTIONS); } catch(e){}
-      }, { once:true });
+      window.addEventListener('load', ()=>{ try { renderMathInElement(el, KATEX_OPTIONS); } catch(e){} }, { once:true });
     }
   }
-  /* ===================================================================== */
+  /* ============================================================================ */
 
   const store = {
     get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
@@ -341,7 +333,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
     return '/';
   }
-
   function currentFolderInSite(){
     let p = location.pathname;
     const base = siteBase();
@@ -354,7 +345,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
     return p;
   }
-
   function inferOwnerRepo(cfg){
     const host = location.hostname;
     const path = location.pathname;
@@ -401,7 +391,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     applySettingsToUI(cfg);
     return cfg;
   }
-
   function saveSettings(){
     const rawToken = $('#cfgToken').value.trim();
     const cfg = {
@@ -503,7 +492,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     const headers = token ? { ...base, Authorization: 'token ' + token } : base;
     const r = await fetch(url, { headers });
     if (!r.ok){
-      // Bei Auth-Fehlern evtl. ohne Token probieren
       if (token && [401,403,404].includes(r.status)){
         const r2 = await fetch(url, { headers: base });
         if (r2.ok) return r2.json();
@@ -541,6 +529,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
+  // Hintergrund aus background.xxx im Root / Prefix
   async function findBackgroundUrl(owner, repo, branch, token, dirPath){
     const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
     const items = await ghFetch(url, token).catch(()=>[]);
@@ -563,11 +552,11 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
+  /* ---------------- Gallery (nur aktueller Ordner) ---------------- */
   function rawUrl(owner, repo, branch, repoPath){
     const p = String(repoPath||'').replace(/^\/+/,'');
     return `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${p}`;
   }
-
   function imagesFromEntries(entries){
     const files = (entries||[]).filter(x => x.type === 'file');
     let imgs = files.filter(f => IMAGE_EXT.test(f.name) && !BG_NAME_RE.test(f.name));
@@ -579,7 +568,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       rawHref: rawUrl(STATE.owner, STATE.repo, STATE.branch, it.path)
     }));
   }
-
   function renderGalleryPage(){
     const grid = document.getElementById('galGrid');
     const empty = document.getElementById('galEmpty');
@@ -616,7 +604,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     if (prevBtn){ prevBtn.disabled = (GALLERY.page <= 1); }
     if (nextBtn){ nextBtn.disabled = (GALLERY.page >= GALLERY.pages); }
   }
-
   function bindGalleryNav(){
     const prevBtn = document.getElementById('galPrev');
     const nextBtn = document.getElementById('galNext');
@@ -629,6 +616,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       nextBtn._bound = true;
     }
   }
+  /* ----------------------------------------------------------------- */
 
   async function detectBranchAndPrefix(owner, repo, token, repoPath){
     let defaultBranch = null;
@@ -718,6 +706,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
     const entries = Array.isArray(data)? data.filter(x=> x.type==='file'||x.type==='dir') : [];
 
+    // Tabelle
     if (entries.length === 0){
       tbody.innerHTML = '<tr><td colspan="3" class="empty">Leer.</td></tr>';
     } else {
@@ -740,9 +729,13 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       filterDOMRows();
     }
 
+    // README (Markdown → sanitize → Math normalisieren → KaTeX)
     await findAndRenderReadme(entries, STATE);
+
+    // Rate-Limits (Footer)
     await updateRateDisplays(STATE.token||'');
 
+    // Gallery
     try{
       GALLERY.items = imagesFromEntries(entries);
       GALLERY.page = 1;
@@ -789,11 +782,15 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
       if (!content){ readmeWrap.style.display='none'; return; }
 
-      const rawHtml = (window.marked ? marked.parse(content, {headerIds:true, mangle:false, breaks:true}) : linkify(esc(content)));
+      // ⚠️ Kein <br> aus einfachen Zeilenumbrüchen (wichtig für Math über mehrere Zeilen)
+      const rawHtml = (window.marked
+        ? marked.parse(content, { headerIds:true, mangle:false, breaks:false }) // << breaks:false
+        : linkify(esc(content))
+      );
       const safeHtml = (window.DOMPurify ? DOMPurify.sanitize(rawHtml, {ADD_ATTR:['target','rel']}) : rawHtml);
 
-      // HIER: doppelt escapte Math-Segmente im HTML reparieren
-      const normalized = unescapeDoublyEscapedLatexHTML(safeHtml);
+      // Math-Segmente so umformen, dass sie zusammenhängend sind
+      const normalized = normalizeMathSegmentsHTML(safeHtml);
 
       readmeContent.innerHTML = normalized;
       rewriteReadmeRelativeLinks(cand.path, ctx);
@@ -816,6 +813,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     catch{ return Array.from(bytes).map(b=>String.fromCharCode(b)).join(''); }
   }
 
+  // Relative Pfade in README (Bilder/Links) korrekt auflösen
   function rewriteReadmeRelativeLinks(readmeRepoPath, ctx){
     const baseDir = String(readmeRepoPath||'').split('/').slice(0,-1).join('/');
 
@@ -839,6 +837,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       if (isAbs(href)){
         a.target = '_blank'; a.rel = 'noopener';
       } else if (href.startsWith('#')){
+        // interne Anker unverändert
       } else {
         const repoPath = joinUrl(baseDir, href);
         a.target = '_blank'; a.rel = 'noopener';
