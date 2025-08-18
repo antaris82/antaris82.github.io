@@ -10,8 +10,8 @@
   --bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;
   --danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);
   --radius:14px;--bgimg:none;
-  --overlay-alpha:.30;
-  --space:32px;
+  --overlay-alpha:.30;   /* Intensität der Abdunkelung über dem Hintergrundbild */
+  --space:32px;          /* vertikale Blockabstände */
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -98,7 +98,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .readme-content th,.readme-content td{border:1px solid var(--border);padding:6px 8px}
 .readme-muted{color:var(--muted);font-size:13px}
 
-/* Gallery (2x5) */
+/* === Gallery (2×5, Paginierung, aktueller Ordner) === */
 .gallery-wrap{ margin-top: var(--space); }
 .gal-head{ display:flex;align-items:center;justify-content:space-between; margin:-4px 0 10px 0;color:var(--muted);font-size:13px }
 .gallery{
@@ -106,15 +106,27 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   border:1px solid var(--border);
   border-radius:var(--radius);
   background:var(--panel);
-  padding:16px 56px;
+  padding:16px 56px; /* Platz für Pfeile */
   min-height:210px;
 }
-.gal-grid{ display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); grid-auto-rows: 1fr; gap:12px; }
-.gal-item{ border:1px solid var(--border); border-radius:12px; background:var(--card); overflow:hidden; display:flex;flex-direction:column; }
+.gal-grid{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  grid-auto-rows: 1fr;
+  gap:12px;
+}
+.gal-item{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
 .gal-thumb{ width:100%; aspect-ratio: 16/10; object-fit:cover; display:block; }
 .gal-caption{ font-size:12px;color:var(--muted); padding:6px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .gal-empty{ color:var(--muted); padding:10px 0; text-align:center; }
 .gal-page{ font-size:12px;color:var(--muted) }
+
 .gal-nav{
   position:absolute; top:50%; transform:translateY(-50%);
   width:44px;height:44px; border-radius:50%;
@@ -128,10 +140,14 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 .gal-prev{ left:8px } .gal-next{ right:8px }
 .gal-nav:disabled{ opacity:.4; cursor:default; }
 
-@media (max-width:900px){ .gal-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
-@media (max-width:560px){ .gal-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width:900px){
+  .gal-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width:560px){
+  .gal-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
 
-/* KaTeX Look */
+/* KaTeX Optik */
 .katex-display{ margin:.8em 0; }
 </style>
 
@@ -240,7 +256,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 (function(){
   'use strict';
 
-  const HARDCODED_TOKEN = '';
+  const HARDCODED_TOKEN = ''; // leer lassen
   const qs = new URLSearchParams(location.search);
   const $ = s => document.querySelector(s);
   const tbody = $('#tbody');
@@ -254,10 +270,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   const IMAGE_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
   const BG_NAME_RE = /^background\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 
-  const GAL_PER_PAGE = 10;
-  let GALLERY = { items: [], page: 1, pages: 1 };
-
-  /* ===================== KaTeX: robust über mehrere Zeilen ===================== */
+  /* ===================== KaTeX ===================== */
   const KATEX_OPTIONS = {
     delimiters: [
       { left: "$$", right: "$$", display: true },
@@ -273,43 +286,6 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     throwOnError: false,
     strict: "warn"
   };
-
-  function protectCodeBlocks(html){
-    const placeholders = [];
-    const safe = html.replace(/<(pre|code)\b[^>]*>[\s\S]*?<\/\1>/gi, (m)=>{
-      const token = `__CODEBLOCK_${placeholders.length}__`;
-      placeholders.push(m);
-      return token;
-    });
-    return { html: safe, placeholders };
-  }
-  function restoreCodeBlocks(html, placeholders){
-    return html.replace(/__CODEBLOCK_(\d+)__/g, (_,i)=> placeholders[+i] ?? '');
-  }
-
-  // Normalisiert NUR in Math-Segmenten: <br> → \n, &nbsp; → ' ', \\ → \
-  function normalizeMathSegmentsHTML(html){
-    const { html: h0, placeholders } = protectCodeBlocks(html);
-    let s = h0;
-
-    const clean = (body) => body
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/&nbsp;/gi, ' ')
-      .replace(/\\\\/g, '\\');
-
-    // \[ ... \]  und \\[ ... \\]
-    s = s.replace(/([\\]{1,2}\[)([\s\S]*?)([\\]{1,2}\])/g, (_,l,body,r)=> '\\[' + clean(body) + '\\]');
-    // \( ... \)  und \\( ... \\)
-    s = s.replace(/([\\]{1,2}\()([\s\S]*?)([\\]{1,2}\))/g, (_,l,body,r)=> '\\(' + clean(body) + '\\)');
-    // \begin{env} ... \end{env}  (auch doppelt escaped)
-    s = s.replace(/([\\]{1,2}begin\{([\w*]+)\})([\s\S]*?)([\\]{1,2}end\{\2\})/g,
-      (_,beg,env,body,end)=> '\\begin{' + env + '}' + clean(body) + '\\end{' + env + '}');
-    // $$ ... $$
-    s = s.replace(/\$\$([\s\S]*?)\$\$/g, (_,body)=> '$$' + clean(body) + '$$');
-
-    return restoreCodeBlocks(s, placeholders);
-  }
-
   function renderMathNow(el){
     if (window.renderMathInElement) {
       try { renderMathInElement(el, KATEX_OPTIONS); } catch(e){}
@@ -317,7 +293,76 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       window.addEventListener('load', ()=>{ try { renderMathInElement(el, KATEX_OPTIONS); } catch(e){} }, { once:true });
     }
   }
-  /* ============================================================================ */
+  /* ================================================= */
+
+  /* ========= README-Erkennung inkl. README(1).md ==== */
+  function readmeWeight(name){
+    const n = name.toLowerCase();
+    if (n === 'readme.md') return 0;
+    if (/^readme(?:[\W_].*)?\.md$/.test(n)) return 1;        // README(1).md, README-de.md, …
+    if (n === 'readme.markdown') return 2;
+    if (/^readme(?:[\W_].*)?\.markdown$/.test(n)) return 3;
+    if (n === 'readme.txt') return 4;
+    if (/^readme(?:[\W_].*)?\.txt$/.test(n)) return 5;
+    if (/\.(md|markdown)$/.test(n)) return 6;
+    if (/\.txt$/.test(n)) return 7;
+    return 99;
+  }
+  /* ================================================== */
+
+  /* === Math vor Markdown schützen & danach einsetzen === */
+
+  // Markdown-Code schützen (fenced ```/~~~ und Inline `...`)
+  function protectMdCode(md){
+    const placeholders = [];
+    const push = (m)=>{ const tok = `__MD_CODE_${placeholders.length}__`; placeholders.push(m); return tok; };
+    md = md.replace(/```[\s\S]*?```/g, push);
+    md = md.replace(/~~~[\s\S]*?~~~/g, push);
+    md = md.replace(/`[^`]*`/g, push);
+    return { md, placeholders };
+  }
+  function restoreMdCode(md, placeholders){
+    return md.replace(/__MD_CODE_(\d+)__/g, (_,i)=> placeholders[+i] ?? '');
+  }
+
+  // Mathblöcke herauslösen (auch doppelt escapt), Code bleibt geschützt
+  function extractMathPlaceholders(md){
+    const code = protectMdCode(md);
+    const blocks = [];
+    const push = (m)=>{ blocks.push(m); return `__MATHBLOCK_${blocks.length-1}__`; };
+
+    // Reihenfolge wichtig
+    let s = code.md;
+    s = s.replace(/\$\$[\s\S]*?\$\$/g, push);
+    s = s.replace(/\\\\\[[\s\S]*?\\\\\]/g, push);
+    s = s.replace(/\\\[[\s\S]*?\\\]/g, push);
+    s = s.replace(/\\\\\([\s\S]*?\\\\\)/g, push);
+    s = s.replace(/\\\([\s\S]*?\\\)/g, push);
+    s = s.replace(/\\\\begin\{([\w*]+)\}[\s\S]*?\\\\end\{\1\}/g, push);
+    s = s.replace(/\\begin\{([\w*]+)\}[\s\S]*?\\end\{\1\}/g, push);
+
+    // Code zurück, Math bleibt als Platzhalter
+    s = restoreMdCode(s, code.placeholders);
+    return { md: s, blocks };
+  }
+
+  // Platzhalter im HTML wieder einsetzen (mit Normalisierung)
+  function restoreMathPlaceholders(html, blocks){
+    function normalize(tex){
+      return tex
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/\\\\/g, '\\'); // doppelte Backslashes → einfache
+    }
+    function escHtml(s){
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+    return html.replace(/__MATHBLOCK_(\d+)__/g, (_,i)=>{
+      const tex = blocks[+i] || '';
+      return escHtml(normalize(tex));
+    });
+  }
+  /* ===================================================== */
 
   const store = {
     get(){ try { return JSON.parse(localStorage.getItem('dirindex.cfg')||'{}'); } catch { return {}; } },
@@ -333,6 +378,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
     return '/';
   }
+
   function currentFolderInSite(){
     let p = location.pathname;
     const base = siteBase();
@@ -345,6 +391,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
     return p;
   }
+
   function inferOwnerRepo(cfg){
     const host = location.hostname;
     const path = location.pathname;
@@ -357,10 +404,25 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     return { owner: cfg.owner, repo: cfg.repo };
   }
 
-  function bytes(n){ if (n==null) return '—'; if (n<1024) return n+' B'; if (n<1024*1024) return (n/1024).toFixed(1)+' KB'; return (n/1024/1024).toFixed(2)+' MB'; }
-  function esc(s){ return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
-  function linkify(escaped){ return escaped.replace(/(https?:\/\/[^\s)]+)(?![^<]*>)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>'); }
-  function joinUrl(...parts){ return parts.map((p,i)=> i===0? String(p).replace(/\/?$/,'') : String(p).replace(/^\/+/, '')).join('/'); }
+  function bytes(n){
+    if (n==null) return '—';
+    if (n<1024) return n+' B';
+    if (n<1024*1024) return (n/1024).toFixed(1)+' KB';
+    return (n/1024/1024).toFixed(2)+' MB';
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+  }
+
+  function linkify(escaped){
+    return escaped.replace(/(https?:\/\/[^\s)]+)(?![^<]*>)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  function joinUrl(...parts){
+    return parts.map((p,i)=> i===0? String(p).replace(/\/?$/,'') : String(p).replace(/^\/+/, '')).join('/');
+  }
+
   function encodePath(p){ return p.split('/').map(encodeURIComponent).join('/'); }
 
   function applySettingsToUI(cfg){
@@ -391,6 +453,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     applySettingsToUI(cfg);
     return cfg;
   }
+
   function saveSettings(){
     const rawToken = $('#cfgToken').value.trim();
     const cfg = {
@@ -403,6 +466,8 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     store.set(cfg);
     return cfg;
   }
+
+  function resetSettings(){ store.set({}); location.href = location.pathname; }
 
   function setError(msg){ const el=$('#error'); el.style.display='block'; el.textContent = msg; }
   function clearError(){ const el=$('#error'); el.style.display='none'; el.textContent=''; }
@@ -481,6 +546,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     history.pushState({path}, '', url);
   }
 
+  /* --- GitHub API helpers --- */
   function apiContentsUrl(owner, repo, path, ref){
     const cleaned = String(path||'').replace(/^\/+|\/+$/g,'');
     const suffix = cleaned ? '/' + cleaned.split('/').map(encodeURIComponent).join('/') : '';
@@ -529,7 +595,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     }
   }
 
-  // Hintergrund aus background.xxx im Root / Prefix
+  // Hintergrund (background.xxx) anwenden
   async function findBackgroundUrl(owner, repo, branch, token, dirPath){
     const url = apiContentsUrl(owner, repo, String(dirPath||'').replace(/^\/+|\/+$/g,''), branch);
     const items = await ghFetch(url, token).catch(()=>[]);
@@ -553,6 +619,9 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   }
 
   /* ---------------- Gallery (nur aktueller Ordner) ---------------- */
+  const GAL_PER_PAGE = 10;
+  let GALLERY = { items: [], page: 1, pages: 1 };
+
   function rawUrl(owner, repo, branch, repoPath){
     const p = String(repoPath||'').replace(/^\/+/,'');
     return `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${p}`;
@@ -729,7 +798,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       filterDOMRows();
     }
 
-    // README (Markdown → sanitize → Math normalisieren → KaTeX)
+    // README (Markdown → sanitize → Math zurücksetzen → KaTeX)
     await findAndRenderReadme(entries, STATE);
 
     // Rate-Limits (Footer)
@@ -757,18 +826,9 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
       const files = Array.isArray(entries) ? entries.filter(x=> x.type==='file') : [];
       if (!files.length){ readmeWrap.style.display='none'; return; }
 
-      const weight = (name)=>{
-        const n = name.toLowerCase();
-        if (n === 'readme.md') return 0;
-        if (n.endsWith('.md')) return 1;
-        if (n.endsWith('.markdown')) return 2;
-        if (n.endsWith('.txt')) return 3;
-        return 4;
-      };
-
       const candidates = files
-        .filter(f => /^readme(\.[\w.-]+)?$/i.test(f.name))
-        .sort((a,b)=> weight(a.name) - weight(b.name));
+        .filter(f => /\.(md|markdown|txt)$/i.test(f.name))
+        .sort((a,b)=> readmeWeight(a.name) - readmeWeight(b.name));
 
       const cand = candidates[0];
       if (!cand){ readmeWrap.style.display='none'; return; }
@@ -782,21 +842,27 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
 
       if (!content){ readmeWrap.style.display='none'; return; }
 
-      // ⚠️ Kein <br> aus einfachen Zeilenumbrüchen (wichtig für Math über mehrere Zeilen)
-      const rawHtml = (window.marked
-        ? marked.parse(content, { headerIds:true, mangle:false, breaks:false }) // << breaks:false
-        : linkify(esc(content))
-      );
-      const safeHtml = (window.DOMPurify ? DOMPurify.sanitize(rawHtml, {ADD_ATTR:['target','rel']}) : rawHtml);
+      // 1) Math-Segmente als Platzhalter ausklinken (vor Markdown!)
+      const { md: mdProtected, blocks: mathBlocks } = extractMathPlaceholders(content);
 
-      // Math-Segmente so umformen, dass sie zusammenhängend sind
-      const normalized = normalizeMathSegmentsHTML(safeHtml);
+      // 2) Markdown → HTML (keine <br> aus einfachen \n, wichtig für mehrzeilige Math)
+      const rawHtml = window.marked
+        ? marked.parse(mdProtected, { headerIds:true, mangle:false, breaks:false })
+        : linkify(esc(mdProtected));
 
-      readmeContent.innerHTML = normalized;
+      // 3) Sanitizen
+      const safeHtml = window.DOMPurify
+        ? DOMPurify.sanitize(rawHtml, { ADD_ATTR:['target','rel'] })
+        : rawHtml;
+
+      // 4) Math zurück in das HTML (mit Normalisierung von \\ und <br>)
+      const withMath = restoreMathPlaceholders(safeHtml, mathBlocks);
+
+      readmeContent.innerHTML = withMath;
       rewriteReadmeRelativeLinks(cand.path, ctx);
       readmeWrap.style.display = '';
 
-      // KaTeX rendern
+      // 5) KaTeX rendern
       renderMathNow(readmeContent);
 
     } catch(_){
@@ -852,6 +918,7 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     load(path);
   }
 
+  // UI events
   const searchHandler = () => filterDOMRows();
   searchInput.addEventListener('input', searchHandler);
   toggleHidden.addEventListener('change', searchHandler);
@@ -873,15 +940,17 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
     load(STATE.path||'/');
   });
 
-  $('#btnReset').addEventListener('click', ()=>{ store.set({}); location.href = location.pathname; });
+  $('#btnReset').addEventListener('click', resetSettings);
 
   window.addEventListener('popstate', (e)=>{
     const p = (e.state && e.state.path) || currentFolderInSite();
     load(p);
   });
 
+  // Buttons der Gallery binden & init
   bindGalleryNav();
 
+  // Start
   (async function init(){
     applySettingsToUI(readSettings());
     const initial = qs.get('p') ? ('/' + qs.get('p').replace(/^\/+|\.+/g,'')) : currentFolderInSite();
