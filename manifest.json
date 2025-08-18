@@ -29,7 +29,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "e0286356a0c912424ab041cdbe6046793536ad97",
+    "sha": "7de0df1ba3f52ee44da525f50c3d7315c1af3ddb",
     "size": 15776,
     "type": "blob",
     "mode": "100644"
@@ -80,6 +80,13 @@
     "path": "Sierpinski Tetraeder_partial trace/st_2_static_density_urgraph.gif",
     "sha": "c16da4b0cf5342dd1da987472a769bb938b29cd2",
     "size": 205049,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/files/README.md",
+    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+    "size": 1,
     "type": "blob",
     "mode": "100644"
   },
