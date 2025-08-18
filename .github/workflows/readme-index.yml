@@ -3,259 +3,174 @@ name: readme-autogen-main
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
   workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: readme-autogen-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   readme_autogen:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: setup-python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: prepare assets
+      - name: generate-readmes
         shell: bash
         run: |
-          set -euo pipefail
+          set -e
 
-          # write generator script (vendored)
-          cat > readme_autogen.py <<'PY'
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-from __future__ import annotations
-import argparse, os, sys, subprocess, json, re
-from pathlib import Path
-from datetime import date
+          python - <<'PY'
+          import subprocess, json, re, os, sys
+          from pathlib import Path
+          from datetime import date
 
-ROLE_GUESS = {
-  ".py":"code",".ipynb":"notebook",".md":"doc",".txt":"doc",
-  ".csv":"data",".tsv":"data",".json":"data",".parquet":"data",
-  ".png":"image",".jpg":"image",".jpeg":"image",".webp":"image",".gif":"image",
-  ".pdf":"doc"
-}
+          ROOT = Path(".").resolve()
 
-DEFAULT_TEMPLATE = """# <TITEL DES ORDNERS/PROJEKTS>
+          ROLE = {".py":"code",".ipynb":"notebook",".md":"doc",".txt":"doc",
+                  ".csv":"data",".tsv":"data",".json":"data",".parquet":"data",
+                  ".png":"image",".jpg":"image",".jpeg":"image",".webp":"image",".gif":"image",
+                  ".pdf":"doc"}
 
-<!-- dirindex:files:start -->
-| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |
-|---|---:|---|---|---|---|
-<!-- dirindex:files:end -->
+          TEMPLATE = (
+            "# <TITEL DES ORDNERS/PROJEKTS>\n\n"
+            "<!-- dirindex:files:start -->\n"
+            "| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |\n"
+            "|---|---:|---|---|---|---|\n"
+            "<!-- dirindex:files:end -->\n\n"
+            "<!-- dirindex-json\n"
+            "{\n"
+            '  "repo": "<owner>/<repo>",\n'
+            '  "path": "<ordner/pfad>",\n'
+            '  "title": "<TITEL DES ORDNERS/PROJEKTS>",\n'
+            '  "updated": "<YYYY-MM-DD>",\n'
+            '  "status": "draft",\n'
+            '  "tags": []\n'
+            "}\n"
+            "dirindex-json -->\n"
+          )
 
-<!-- dirindex-json
-{
-  "repo": "<owner>/<repo>",
-  "path": "<ordner/pfad>",
-  "title": "<TITEL DES ORDNERS/PROJEKTS>",
-  "updated": "<YYYY-MM-DD>",
-  "status": "draft",
-  "tags": []
-}
-dirindex-json -->
-"""
+          def run(cmd):
+            return subprocess.run(cmd, text=True, capture_output=True)
 
-def human_size(n:int)->str:
-    if n<1024: return f"{n} B"
-    if n<1024**2: return f"{n/1024:.1f} KB"
-    return f"{n/1024**2:.2f} MB"
+          def human(n:int)->str:
+            if n<1024: return f"{n} B"
+            if n<1024**2: return f"{n/1024:.1f} KB"
+            return f"{n/1024**2:.2f} MB"
 
-def scan_files(folder:Path)->list[dict]:
-    out=[]
-    for p in sorted(folder.iterdir(), key=lambda x:x.name.lower()):
-        if p.name.startswith("."): continue
-        if p.is_dir(): continue
-        ext=p.suffix.lower()
-        role=ROLE_GUESS.get(ext,"other")
-        out.append({"name":p.name,"size_h":human_size(p.stat().st_size),"type":ext[1:] if ext else "file","role":role})
-    return out
+          def scan_files(folder:Path):
+            rows=[]
+            for p in sorted(folder.iterdir(), key=lambda x:x.name.lower()):
+              if p.is_dir() or p.name.startswith("."): continue
+              ext=p.suffix.lower()
+              rows.append((p.name, human(p.stat().st_size), (ext[1:] if ext else "file"), ROLE.get(ext,"other")))
+            return rows
 
-def fill_table(files, files_meta):
-    lines=["| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |","|---|---:|---|---|---|---|"]
-    for f in files:
-        m=files_meta.get(f["name"],{})
-        lines.append(f"| {f['name']} | {f['size_h']} | {f['type']} | {m.get('role',f['role'])} | {m.get('desc','')} | {','.join(m.get('tags',[]))} |")
-    return "\n".join(lines)
+          def render(template:str, meta:dict, files:list):
+            table_lines = ["| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |",
+                           "|---|---:|---|---|---|---|"]
+            for name,size,typ,role in files:
+              table_lines.append(f"| {name} | {size} | {typ} | {role} |  |  |")
+            table = "\n".join(table_lines)
+            t = template
+            rep = {
+              "<TITEL DES ORDNERS/PROJEKTS>": meta.get("title",""),
+              "<owner>/<repo>": meta.get("repo",""),
+              "<ordner/pfad>": meta.get("path",""),
+              "<YYYY-MM-DD>": meta.get("updated", date.today().isoformat()),
+            }
+            for k,v in rep.items(): t = t.replace(k,v)
+            t = re.sub(r"<!-- dirindex:files:start -->.*?<!-- dirindex:files:end -->",
+                       "<!-- dirindex:files:start -->\n"+table+"\n<!-- dirindex:files:end -->", t, flags=re.S)
+            t = re.sub(r"(<!-- dirindex-json\n)(.*?)(\ndirindex-json -->)",
+                       r"\1"+json.dumps({
+                         "repo": meta.get("repo",""),
+                         "path": meta.get("path",""),
+                         "title": meta.get("title",""),
+                         "updated": meta.get("updated", date.today().isoformat()),
+                         "status": meta.get("status","draft"),
+                         "tags": meta.get("tags",[]),
+                         "files": [{"name": f[0], "role": f[3], "desc":"", "tags": []} for f in files]
+                       }, ensure_ascii=False, indent=2)+r"\3", t, flags=re.S)
+            return t
 
-def render_readme(template, meta, files, files_meta):
-    t=template
-    today=date.today().isoformat()
-    for k,v in {
-      "<TITEL DES ORDNERS/PROJEKTS>": meta.get("title",""),
-      "<owner>/<repo>": meta.get("repo",""),
-      "<ordner/pfad>": meta.get("path",""),
-      "<YYYY-MM-DD>": meta.get("updated", today),
-      "<Lizenz>": meta.get("license","MIT")
-    }.items(): t=t.replace(k,v)
-    table=fill_table(files, files_meta)
-    t=re.sub(r"<!-- dirindex:files:start -->.*?<!-- dirindex:files:end -->",
-             "<!-- dirindex:files:start -->\n"+table+"\n<!-- dirindex:files:end -->", t, flags=re.S)
-    t=re.sub(r"(<!-- dirindex-json\n)(.*?)(\ndirindex-json -->)",
-             r"\1"+json.dumps({
-                 "repo": meta.get("repo",""),
-                 "path": meta.get("path",""),
-                 "title": meta.get("title",""),
-                 "updated": meta.get("updated", today),
-                 "status": meta.get("status","draft"),
-                 "tags": meta.get("tags",[]),
-                 "links": meta.get("links",{}),
-                 "files": [{"name":f["name"],
-                            "role": (files_meta.get(f["name"],{}).get("role",f["role"])),
-                            "desc": files_meta.get(f["name"],{}).get("desc",""),
-                            "tags": files_meta.get(f["name"],{}).get("tags",[])}
-                           for f in files]
-             }, ensure_ascii=False, indent=2)+r"\3", t, flags=re.S)
-    return t
+          def commit_all(msg:str):
+            subprocess.run(["git","config","user.name","dirindex-bot"], check=False)
+            subprocess.run(["git","config","user.email","github-actions[bot]@users.noreply.github.com"], check=False)
+            subprocess.run(["git","add","-A"], check=False)
+            st = run(["git","status","--porcelain"]).stdout.strip()
+            if not st:
+              print("[info] nothing to commit")
+              return
+            subprocess.run(["git","commit","-m", msg], check=True)
+            subprocess.run(["git","push"], check=True)
+            print("[info] pushed")
 
-def run(cmd, cwd=None):
-    return subprocess.run(cmd, cwd=str(cwd) if cwd else None, text=True, capture_output=True)
+          def ensure_readme(folder:Path):
+            rel = folder.relative_to(ROOT).as_posix()
+            meta_path = folder/"dirindex.meta.json"
+            readme_path = folder/"README.md"
 
-def git_changed_dirs(root:Path, base:str="main", head:str="HEAD")->list[str]:
-    try:
-        ref = f"origin/{base}"
-        # use ref if exists, else base
-        cp = run(["git","rev-parse","--verify", ref], cwd=root)
-        base_ref = ref if cp.returncode==0 else base
-        diff = run(["git","diff","--name-only", f"{base_ref}...{head}"], cwd=root)
-        if diff.returncode!=0: return []
-        paths=[p for p in diff.stdout.splitlines() if p.strip()]
-        dirs=set()
-        for p in paths:
-            rp = (root/p)
-            par = rp.parent
-            if rp.exists():
-                rel = par.relative_to(root).as_posix()
-                dirs.add("" if rel=="." else (rel if rel.endswith("/") else rel+"/"))
-        return sorted(dirs)
-    except Exception:
-        return []
+            if meta_path.exists():
+              try:
+                meta = json.loads(meta_path.read_text(encoding="utf-8"))
+              except Exception:
+                meta = {}
+            else:
+              repo = os.getenv("GITHUB_REPOSITORY","<owner>/<repo>")
+              path_field = "/" if rel=="." else rel
+              meta = {"repo": repo, "path": path_field, "title": folder.name,
+                      "updated": date.today().isoformat(), "status":"draft", "tags":[]}
+              meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+              print(f"[init] created dirindex.meta.json in {path_field}")
 
-def commit_all(root:Path, msg:str)->None:
-    subprocess.run(["git","config","user.name","dirindex-bot"], cwd=root, check=False)
-    subprocess.run(["git","config","user.email","github-actions[bot]@users.noreply.github.com"], cwd=root, check=False)
-    subprocess.run(["git","add","-A"], cwd=root, check=False)
-    st = run(["git","status","--porcelain"], cwd=root).stdout.strip()
-    if not st:
-        print("[info] nothing to commit")
-        return
-    subprocess.run(["git","commit","-m", msg], cwd=root, check=True)
-    subprocess.run(["git","push"], cwd=root, check=True)
-    print("[info] pushed")
+            files = scan_files(folder)
+            template_file = ROOT/"README_TEMPLATE.md"
+            tpl = template_file.read_text(encoding="utf-8") if template_file.exists() else TEMPLATE
+            out = render(tpl, meta, files)
+            old = readme_path.read_text(encoding="utf-8") if readme_path.exists() else None
+            if old == out:
+              print(f"[ok] no change: {rel or '/'}"); return False
+            readme_path.write_text(out, encoding="utf-8")
+            print(f"[write] README.md updated: {rel or '/'}")
+            return True
 
-def process_folder(root:Path, rel:str, template_path:Path)->bool:
-    folder=(root/rel).resolve()
-    if not folder.exists() or not folder.is_dir():
-        print(f"[skip] missing folder: {rel}"); return False
-    meta_path=folder/"dirindex.meta.json"
-    files_meta_path=folder/"files.meta.json"
-    readme_path=folder/"README.md"
-    if meta_path.exists():
-        try: meta=json.loads(meta_path.read_text(encoding="utf-8"))
-        except: meta={}
-    else:
-        repo=os.getenv("GITHUB_REPOSITORY","<owner>/<repo>")
-        rf = folder.relative_to(root).as_posix()
-        meta={"repo":repo,"path": ("/" if rf=="." else rf), "title":folder.name,
-              "updated": date.today().isoformat(), "status":"draft","tags":[]}
-        meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
-        print(f"[init] created dirindex.meta.json in {rel or '/'}")
-    files_meta={}
-    if files_meta_path.exists():
-        try: files_meta=json.loads(files_meta_path.read_text(encoding="utf-8"))
-        except Exception as e: print(f"[warn] files.meta.json: {e}")
-    template = DEFAULT_TEMPLATE
-    if template_path.exists():
-        try: template = template_path.read_text(encoding="utf-8")
-        except: pass
-    files = scan_files(folder)
-    out = render_readme(template, meta, files, files_meta)
-    old = readme_path.read_text(encoding="utf-8") if readme_path.exists() else None
-    if old == out:
-        print(f"[ok] no change: {rel or '/'}"); return False
-    readme_path.write_text(out, encoding="utf-8")
-    print(f"[write] README.md updated: {rel or '/'}")
-    return True
+          # 1) Bootstrap Root-README einmalig
+          root_readme = ROOT/"README.md"
+          wrote = False
+          if not root_readme.exists():
+            wrote = ensure_readme(ROOT)
 
-def main():
-    ap=argparse.ArgumentParser()
-    ap.add_argument("--root", default=".")
-    ap.add_argument("--folders", nargs="*", default=None)
-    ap.add_argument("--changed-only", dest="changed_only", action="store_true")
-    ap.add_argument("--max-folders", dest="max_folders", type=int, default=None)
-    ap.add_argument("--template", default="README_TEMPLATE.md")
-    ap.add_argument("--commit", action="store_true")
-    ap.add_argument("--base", default="main")
-    ap.add_argument("--head", default=None)
-    args=ap.parse_args()
+          # 2) Geänderte Ordner gegenüber main ermitteln
+          def changed_dirs():
+            ref = "origin/main"
+            cp = run(["git","rev-parse","--verify", ref])
+            base = ref if cp.returncode==0 else "main"
+            diff = run(["git","diff","--name-only", f"{base}...HEAD"])
+            if diff.returncode != 0: return []
+            paths = [p for p in diff.stdout.splitlines() if p.strip()]
+            dirs = set()
+            for p in paths:
+              rp = (ROOT/p)
+              if rp.exists():
+                rel = rp.parent.relative_to(ROOT).as_posix()
+                dirs.add("" if rel=="." else (rel+"/" if not rel.endswith("/") else rel))
+            return sorted(dirs)
 
-    root=Path(args.root).resolve()
-    template_path=(Path(args.template).resolve()
-                   if Path(args.template).is_file()
-                   else (root/args.template).resolve())
+          dirs = changed_dirs()
+          for d in dirs:
+            folder = ROOT if d=="" else (ROOT/d.rstrip("/"))
+            if folder.is_dir() and folder.exists():
+              wrote = ensure_readme(folder) or wrote
 
-    # candidate folders
-    if args.folders:
-        candidates=[c if c.endswith("/") else c+"/" for c in args.folders]
-    else:
-        candidates=[""]
-        for p in sorted(root.iterdir(), key=lambda x:x.name.lower()):
-            if p.is_dir() and p.name not in {".git",".github"} and not p.name.startswith("."):
-                candidates.append(p.relative_to(root).as_posix()+"/")
+          if wrote:
+            commit_all("Auto: README updated")
 
-    # changed-only filter
-    if args.changed_only:
-        changed=git_changed_dirs(root, base=args.base, head=args.head or "HEAD")
-        if changed: candidates=[c for c in candidates if c in changed]
-
-    # bootstrap: ensure root README once
-    if not (root/"README.md").exists() and "" not in candidates:
-        candidates=[""]+candidates
-
-    if args.max_folders: candidates=candidates[:args.max_folders]
-    print("[info] folders:", candidates or "—")
-
-    wrote_any=False
-    for rel in candidates:
-        wrote_any = process_folder(root, rel, template_path) or wrote_any
-
-    if args.commit:
-        commit_all(root, f"Auto: README updated ({len(candidates)} folders)")
-
-    return 0
-
-if __name__=="__main__":
-    sys.exit(main())
-PY
-          chmod +x readme_autogen.py
-
-          # optional template (not required, script has default)
-          if [ ! -f "README_TEMPLATE.md" ]; then
-            printf '# <TITEL DES ORDNERS/PROJEKTS>\n\n<!-- dirindex:files:start -->\n| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |\n|---|---:|---|---|---|---|\n<!-- dirindex:files:end -->\n\n<!-- dirindex-json\n{}\ndirindex-json -->\n' > README_TEMPLATE.md
-          fi
-
-      - name: bootstrap root readme if missing
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ ! -f "README.md" ]; then
-            python readme_autogen.py --root . --folders "" --commit
-          else
-            echo "root readme already exists"
-          fi
-
-      - name: generate changed folders
-        shell: bash
-        run: |
-          set -euo pipefail
-          python readme_autogen.py --root . --changed-only --base main --max-folders 50 --commit
+          PY
