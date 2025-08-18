@@ -34,15 +34,275 @@ jobs:
           python -m pip install --upgrade pip
           pip install rarfile || true
 
+      - name: Assets bereitstellen (Skript + Template)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Skript schreiben (vendored)
+          cat > readme_autogen.py <<'PY'
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+from __future__ import annotations
+import argparse, os, sys, subprocess, json, re, zipfile
+from pathlib import Path
+from datetime import date
+
+ROLE_GUESS = {
+    ".py":"code",".ipynb":"notebook",".md":"doc",".txt":"doc",
+    ".csv":"data",".tsv":"data",".json":"data",".parquet":"data",
+    ".png":"image",".jpg":"image",".jpeg":"image",".webp":"image",".gif":"image",
+    ".pdf":"doc"
+}
+
+DEFAULT_TEMPLATE = """# <TITEL DES ORDNERS/PROJEKTS>
+
+<!-- dirindex:files:start -->
+| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |
+|---|---:|---|---|---|---|
+<!-- dirindex:files:end -->
+
+<!-- dirindex-json
+{
+  "repo": "<owner>/<repo>",
+  "path": "<ordner/pfad>",
+  "title": "<TITEL DES ORDNERS/PROJEKTS>",
+  "updated": "<YYYY-MM-DD>",
+  "status": "draft",
+  "tags": []
+}
+dirindex-json -->
+"""
+
+def human_size(n:int)->str:
+    if n<1024: return f"{n} B"
+    if n<1024**2: return f"{n/1024:.1f} KB"
+    return f"{n/1024**2:.2f} MB"
+
+def scan_files(folder:Path)->list[dict]:
+    out=[]
+    for p in sorted(folder.iterdir(), key=lambda x:x.name.lower()):
+        if p.name.startswith("."): continue
+        if p.is_dir(): continue
+        ext=p.suffix.lower()
+        role=ROLE_GUESS.get(ext,"other")
+        out.append({"name":p.name,"size":p.stat().st_size,"size_h":human_size(p.stat().st_size),
+                    "type":ext[1:] if ext else "file","role":role})
+    return out
+
+def fill_table(files:list[dict], files_meta:dict)->str:
+    lines=["| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |",
+           "|---|---:|---|---|---|---|"]
+    for f in files:
+        m=files_meta.get(f["name"],{})
+        lines.append(f"| {f['name']} | {f['size_h']} | {f['type']} | {m.get('role',f['role'])} | {m.get('desc','')} | {','.join(m.get('tags',[]))} |")
+    return "\n".join(lines)
+
+def render_readme(template:str, meta:dict, files:list[dict], files_meta:dict)->str:
+    table=fill_table(files, files_meta)
+    t=template
+    today=date.today().isoformat()
+    for k,v in {
+        "<TITEL DES ORDNERS/PROJEKTS>": meta.get("title",""),
+        "<owner>/<repo>": meta.get("repo",""),
+        "<ordner/pfad>": meta.get("path",""),
+        "<YYYY-MM-DD>": meta.get("updated", today),
+        "<Lizenz>": meta.get("license","MIT")
+    }.items(): t=t.replace(k,v)
+    t=re.sub(r"<!-- dirindex:files:start -->.*?<!-- dirindex:files:end -->",
+             "<!-- dirindex:files:start -->\n"+table+"\n<!-- dirindex:files:end -->", t, flags=re.S)
+    t=re.sub(r"(<!-- dirindex-json\n)(.*?)(\ndirindex-json -->)",
+             r"\1"+json.dumps({
+                 "repo": meta.get("repo",""),
+                 "path": meta.get("path",""),
+                 "title": meta.get("title",""),
+                 "updated": meta.get("updated", today),
+                 "status": meta.get("status","draft"),
+                 "tags": meta.get("tags",[]),
+                 "links": meta.get("links",{}),
+                 "files": [{"name":f["name"],
+                            "role": (files_meta.get(f["name"],{}).get("role",f["role"])),
+                            "desc": files_meta.get(f["name"],{}).get("desc",""),
+                            "tags": files_meta.get(f["name"],{}).get("tags",[])}
+                           for f in files]
+             }, ensure_ascii=False, indent=2)+r"\3", t, flags=re.S)
+    return t
+
+def run(cmd:list[str], cwd:Path|None=None)->subprocess.CompletedProcess:
+    return subprocess.run(cmd, cwd=str(cwd) if cwd else None, text=True, capture_output=True)
+
+def git_changed_dirs(root:Path, base:str|None=None, head:str|None=None)->list[str]:
+    try:
+        head = head or "HEAD"
+        base = base or "main"
+        ref = f"origin/{base}"
+        cp = run(["git","rev-parse","--verify", ref], cwd=root)
+        diff_base = ref if cp.returncode==0 else base
+        cp = run(["git","diff","--name-only", f"{diff_base}...{head}"], cwd=root)
+        if cp.returncode != 0:
+            return []
+        paths=[p for p in cp.stdout.splitlines() if p.strip()]
+        dirs=set()
+        for p in paths:
+            par=(root/p).parent
+            if (root/p).exists():
+                rel = par.relative_to(root).as_posix()
+                if rel=="." or rel=="":
+                    dirs.add("")
+                else:
+                    dirs.add(rel if rel.endswith("/") else rel+"/")
+        return sorted(dirs)
+    except Exception:
+        return []
+
+def git_commit_all(root:Path, message:str)->bool:
+    try:
+        subprocess.run(["git","config","user.name","dirindex-bot"], cwd=root, check=False)
+        subprocess.run(["git","config","user.email","github-actions[bot]@users.noreply.github.com"], cwd=root, check=False)
+        subprocess.run(["git","add","-A"], cwd=root, check=False)
+        st = run(["git","status","--porcelain"], cwd=root).stdout.strip()
+        if not st: 
+            print("[info] Nichts zu committen.")
+            return False
+        subprocess.run(["git","commit","-m", message], cwd=root, check=True)
+        subprocess.run(["git","push"], cwd=root, check=True)
+        print("[info] Änderungen gepusht.")
+        return True
+    except Exception as e:
+        print(f"[warn] Commit/Push fehlgeschlagen: {e}")
+        return False
+
+def process_folder(root:Path, rel:str, template_path:Path, extract:bool=False, allow_rar:bool=False)->bool:
+    folder=(root/rel).resolve()
+    if not folder.exists() or not folder.is_dir():
+        print(f"[skip] Ordner existiert nicht: {rel}")
+        return False
+    meta_path=folder/"dirindex.meta.json"
+    files_meta_path=folder/"files.meta.json"
+    readme_path=folder/"README.md"
+
+    if meta_path.exists():
+        try: meta=json.loads(meta_path.read_text(encoding="utf-8"))
+        except: meta={}
+    else:
+        repo=os.getenv("GITHUB_REPOSITORY","<owner>/<repo>")
+        rf = folder.relative_to(root).as_posix()
+        meta={"repo":repo,"path": ("/" if rf=="." else rf), "title":folder.name,
+              "updated": date.today().isoformat(), "status":"draft","tags":[]}
+        meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"[init] dirindex.meta.json angelegt in {rel or '/'}")
+
+    files_meta={}
+    if files_meta_path.exists():
+        try: files_meta=json.loads(files_meta_path.read_text(encoding="utf-8"))
+        except Exception as e: print(f"[warn] files.meta.json defekt: {e}")
+
+    template = DEFAULT_TEMPLATE
+    if template_path.exists():
+        try: template = template_path.read_text(encoding="utf-8")
+        except: pass
+
+    files = scan_files(folder)
+    out = render_readme(template, meta, files, files_meta)
+    old = readme_path.read_text(encoding="utf-8") if readme_path.exists() else None
+    if old == out:
+        print(f"[ok] Keine Änderung: {rel or '/'}")
+        return False
+    readme_path.write_text(out, encoding="utf-8")
+    print(f"[write] README.md aktualisiert: {rel or '/'}")
+    return True
+
+def main():
+    ap=argparse.ArgumentParser(description="Automatisierte README-Generierung (ordnerweise)")
+    ap.add_argument("--root", default=".", help="Repo-Root")
+    ap.add_argument("--folders", nargs="*", default=None, help="konkrete Ordner (relativ)")
+    ap.add_argument("--changed-only", dest="changed_only", action="store_true", help="nur Ordner mit Änderungen")
+    ap.add_argument("--max-folders", dest="max_folders", type=int, default=None, help="Limit Ordneranzahl")
+    ap.add_argument("--template", default="README_TEMPLATE.md", help="Pfad zum Template")
+    ap.add_argument("--commit", action="store_true", help="Änderungen committen/pushen")
+    ap.add_argument("--base", default="main", help="Basis-Ref für Diff (default: main)")
+    ap.add_argument("--head", default=None, help="Head-Ref (default: HEAD)")
+    args=ap.parse_args()
+
+    root=Path(args.root).resolve()
+    template_path=(Path(args.template).resolve()
+                   if Path(args.template).is_file()
+                   else (root/args.template).resolve())
+
+    candidates=[]
+    if args.folders:
+        candidates=[c if c.endswith("/") else c+"/" for c in args.folders]
+    else:
+        # Root + direkte Unterordner
+        candidates=[""]
+        for p in sorted(root.iterdir(), key=lambda x:x.name.lower()):
+            if p.is_dir() and p.name not in {".git",".github"} and not p.name.startswith("."):
+                candidates.append(p.relative_to(root).as_posix()+"/")
+
+    if args.changed_only:
+        changed=git_changed_dirs(root, base=args.base, head=args.head)
+        if changed:
+            candidates=[c for c in candidates if c in changed]
+        # kein else → beim ersten Mal evtl. leer; Bootstrap unten
+
+    # Bootstrap: falls noch kein README im Root, Root aufnehmen
+    try:
+        if not (root/"README.md").exists() and "" not in candidates:
+            candidates=[""]+candidates
+    except: pass
+
+    if args.max_folders:
+        candidates=candidates[:args.max_folders]
+
+    print("[info] Ordner:", candidates or "—")
+    wrote_any=False
+    for rel in candidates:
+        wrote=process_folder(root, rel, template_path)
+        wrote_any = wrote_any or wrote
+
+    if args.commit:
+        git_commit_all(root, f"Auto: README aktualisiert ({len(candidates)} Ordner)")
+    return 0
+
+if __name__=="__main__":
+    sys.exit(main())
+PY
+          chmod +x readme_autogen.py
+
+          # Template nur anlegen, wenn keines existiert (optional – Skript hat already Fallback)
+          if [ ! -f "README_TEMPLATE.md" ]; then
+            cat > README_TEMPLATE.md <<'TPL'
+# <TITEL DES ORDNERS/PROJEKTS>
+
+<!-- dirindex:files:start -->
+| Name | Größe | Typ | Rolle | Kurzbeschreibung | Tags |
+|---|---:|---|---|---|---|
+<!-- dirindex:files:end -->
+
+<!-- dirindex-json
+{
+  "repo": "<owner>/<repo>",
+  "path": "<ordner/pfad>",
+  "title": "<TITEL DES ORDNERS/PROJEKTS>",
+  "updated": "<YYYY-MM-DD>",
+  "status": "draft",
+  "tags": []
+}
+dirindex-json -->
+TPL
+          fi
+
       - name: Bootstrap Root-README (falls fehlt)
         run: |
+          set -euo pipefail
           if [ ! -f "README.md" ]; then
-            echo "Root-README fehlt → Bootstrap-Lauf"
-            python readme_autogen.py --root . --folders "" --extract-archives --allow-rar --commit
+            echo "Root-README fehlt → Bootstrap"
+            python readme_autogen.py --root . --folders "" --commit
           else
             echo "Root-README vorhanden → Bootstrap übersprungen"
           fi
 
       - name: README(s) erzeugen (nur geänderte Ordner, Branch=main)
         run: |
-          python readme_autogen.py --root . --changed-only --base main --max-folders 50 --extract-archives --allow-rar --commit
+          set -euo pipefail
+          python readme_autogen.py --root . --changed-only --base main --max-folders 50 --commit
