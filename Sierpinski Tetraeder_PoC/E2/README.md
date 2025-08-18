@@ -1,5 +1,4 @@
-# Write the complete README.md content to a downloadable file
-readme_content = """# E2 — Proof-of-Concept (PoC) für den ST-Graph
+## E2 — Proof-of-Concept (PoC) für den ST-Graph
 
 Dieser Ordner bündelt den **Schritt E2** des ST-Graph‑PoC. Er enthält (i) das Beweis‑PDF `E2_proof.pdf` und (ii) den Unterordner `files/` mit Skripten, Daten, Plots und einer eigenen README.
 
