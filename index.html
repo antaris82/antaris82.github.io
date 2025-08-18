@@ -6,15 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root { --bg:#0b0f14; --fg:#e6edf3; --muted:#9aa4b2; --card:#10161d; --accent:#2f81f7; }
+
     html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font:14px/1.45 system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Arial,sans-serif; }
-    header { padding:16px 20px; border-bottom:1px solid #1e2630; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+    /* Hintergrundbild (falls vorhanden) wird per JS gesetzt */
+    body.bg-on {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center center;
+    }
+    /* dezente Abdunklung für Lesbarkeit */
+    body.bg-on::before {
+      content:"";
+      position:fixed; inset:0;
+      background:rgba(11,15,20,.55);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+    header { border-bottom:1px solid #1e2630; }
+    header .row { padding:16px 0; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
     header h1 { font-size:18px; margin:0; }
     header .path { color:var(--muted); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-    main { padding:16px 20px; display:grid; grid-template-columns: 1fr; gap:16px; }
+
+    main.wrap { padding:16px 0 24px; display:grid; grid-template-columns: 1fr; gap:16px; }
+
     .controls { display:flex; gap:8px; flex-wrap:wrap; }
     .controls input[type="text"] { background:#0e141b; color:var(--fg); border:1px solid #26303c; border-radius:8px; padding:8px 10px; min-width:280px; }
     .controls button { background:var(--accent); color:white; border:0; border-radius:8px; padding:8px 12px; cursor:pointer; }
-    .stats { color:var(--muted); }
+    .stats { color:var(--muted); margin-left:auto; }
+
     .card { background:var(--card); border:1px solid #1e2630; border-radius:12px; padding:14px; }
     .flex { display:flex; gap:8px; align-items:center; }
     .grid { display:grid; gap:8px; }
@@ -27,8 +49,9 @@
     a:hover { text-decoration:underline; }
     .gallery { display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:10px; }
     .gallery img, .gallery video { width:100%; height:140px; object-fit:cover; border-radius:10px; border:1px solid #1e2630; background:#0e141b; }
-    footer { padding:20px; color:var(--muted); font-size:12px; }
+    footer { padding:20px 0; color:var(--muted); font-size:12px; }
     .license { font-size:12px; color:var(--muted); }
+
     .meta-chip { background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:10px 12px; }
     .meta-chip .title { font-weight:600; margin-bottom:6px; }
     .meta-chip .excerpt { white-space:pre-wrap; max-height:160px; overflow:auto; }
@@ -36,16 +59,20 @@
 </head>
 <body>
   <header>
-    <h1>Repo-Browser</h1>
-    <div class="path" id="currentPath">/</div>
-    <div class="controls">
-      <input id="tokenInput" type="text" placeholder="Optional: GitHub Token (?token=... im URL auch möglich)" />
-      <button id="reloadBtn">Neu laden</button>
+    <div class="wrap">
+      <div class="row">
+        <h1>Repo-Browser</h1>
+        <div class="path" id="currentPath">/</div>
+        <div class="controls">
+          <input id="tokenInput" type="text" placeholder="Optional: GitHub Token (?token=... im URL auch möglich)" />
+          <button id="reloadBtn">Neu laden</button>
+        </div>
+        <div class="stats" id="stats"></div>
+      </div>
     </div>
-    <div class="stats" id="stats"></div>
   </header>
 
-  <main>
+  <main class="wrap">
     <!-- Stand der Indizierung -->
     <section class="card grid" id="idxStatusCard">
       <div class="flex" style="justify-content:space-between;">
@@ -101,7 +128,7 @@
   </main>
 
   <footer>
-    <div>Dieses Frontend lädt bevorzugt <code>manifest.json</code> (falls vorhanden). Fallback: GitHub Contents API.</div>
+    <div class="wrap">Dieses Frontend lädt bevorzugt <code>manifest.json</code> (falls vorhanden). Fallback: GitHub Contents API.</div>
   </footer>
 
   <script>
@@ -110,12 +137,12 @@
     const REPO  = "antaris82.github.io";
     const BRANCH = "main";
 
-    // Current "virtueller" Pfad im Repo (für Unterordnernavigation)
+    // Aktueller Ordner via Query
     let cwd = decodeURIComponent((new URLSearchParams(location.search)).get("path") || "");
     if (cwd.startsWith("/")) cwd = cwd.slice(1);
     if (cwd.endsWith("/"))  cwd = cwd.slice(0, -1);
 
-    // Token-Verwendung: Query-Param > Eingabefeld
+    // Token: Query-Param -> Feld
     const urlToken = (new URLSearchParams(location.search)).get("token") || "";
     const tokenInput = document.getElementById("tokenInput");
     if (urlToken) tokenInput.value = urlToken;
@@ -130,7 +157,7 @@
     cwdLabelEl.textContent = "/" + (cwd || "");
     currentPathEl.textContent = "/" + (cwd || "");
 
-    // Hilfsfunktionen
+    // Helpers
     const isMedia = (p) => /\.(png|jpg|jpeg|gif|webp|svg|mp4|webm|ogg)$/i.test(p);
     const isBackground = (name) => /^background\.(png|jpg|jpeg|gif|webp|svg)$/i.test(name);
 
@@ -146,11 +173,14 @@
       return t ? { "Authorization": "Bearer " + t } : {};
     }
 
-    function navigateTo(path) {
-      const params = new URLSearchParams(location.search);
-      if (urlToken && !params.get("token")) params.set("token", urlToken);
-      params.set("path", path);
-      location.search = params.toString();
+    function getTokenParam() {
+      const t = tokenInput.value.trim() || urlToken;
+      return t ? `&token=${encodeURIComponent(t)}` : "";
+    }
+
+    function buildNavHref(path) {
+      const base = `${location.pathname}?path=${encodeURIComponent(path)}`;
+      return base + getTokenParam();
     }
 
     // Manifest-Header (Last-Modified) holen
@@ -162,20 +192,16 @@
           lastModified: res.headers.get("last-modified") || null,
           contentLength: res.headers.get("content-length") || null
         };
-      } catch {
-        return null;
-      }
+      } catch { return null; }
     }
 
-    // Dateiname im aktuellen Ordner finden
+    // Datei im aktuellen Ordner finden
     function findFileInFolder(manifest, folderPath, names) {
       const prefix = folderPath ? (folderPath + "/") : "";
-      // exakte Treffer im Ordner (nicht rekursiv)
       const candidates = manifest
         .filter(x => x.path.startsWith(prefix))
         .map(x => ({ ...x, rest: x.path.slice(prefix.length) }))
-        .filter(x => x.rest.length > 0 && !x.rest.includes("/")); // direkte Kinder
-
+        .filter(x => x.rest.length > 0 && !x.rest.includes("/"));
       for (const n of names) {
         const hit = candidates.find(x => x.rest.toLowerCase() === n.toLowerCase());
         if (hit) return hit;
@@ -183,7 +209,7 @@
       return null;
     }
 
-    // Rohtext einer Repo-Datei holen (Raw)
+    // Rohtext holen
     async function fetchRawText(path) {
       const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${path}`;
       const r = await fetch(rawUrl, { headers: { ...authHeaders() }, cache: "no-store" });
@@ -191,7 +217,7 @@
       return await r.text();
     }
 
-    // Exzerpt (sauber) bauen
+    // Exzerpt
     function buildExcerpt(txt, maxLen=400) {
       const clean = txt.replace(/\r/g,"").trim();
       if (clean.length <= maxLen) return clean;
@@ -204,19 +230,16 @@
         const res = await fetch("/manifest.json", { cache: "no-store" });
         if (!res.ok) return null;
         return await res.json();
-      } catch {
-        return null;
-      }
+      } catch { return null; }
     }
 
-    // ====== 2) Fallback: GitHub Contents API ======
-    // Hole rekursiv alle Dateien (zur Not). Achtung: kann bei großen Repos viele Calls nutzen; Token empfohlen.
+    // ====== 2) Fallback: GitHub Contents API (rekursiv) ======
     async function fetchAllViaAPI() {
       async function listDir(path = "") {
         const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(BRANCH)}`;
         const res = await fetch(api, { headers: { ...authHeaders() } });
         if (!res.ok) throw new Error("API error " + res.status);
-        return await res.json(); // Array (files/dirs)
+        return await res.json();
       }
       const acc = [];
       async function walk(path="") {
@@ -233,7 +256,7 @@
       return acc.sort((a,b)=> a.path.localeCompare(b.path));
     }
 
-    // ====== README laden (falls vorhanden) ======
+    // README laden
     async function loadReadme(manifest) {
       const prefix = cwd ? (cwd + "/") : "";
       const candidates = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
@@ -245,10 +268,7 @@
           if (hit) { readmeEntry = hit; break; }
         }
       }
-      if (!readmeEntry) {
-        readmeEl.textContent = "Kein README im aktuellen Ordner gefunden.";
-        return;
-      }
+      if (!readmeEntry) { readmeEl.textContent = "Kein README im aktuellen Ordner gefunden."; return; }
       try {
         const raw = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${readmeEntry.path}`;
         const r = await fetch(raw, { headers: { ...authHeaders() }, cache: "no-store" });
@@ -260,13 +280,22 @@
       }
     }
 
-    // ====== Listing + Galerie für aktuellen Ordner ======
+    // Hintergrund automatisch setzen, wenn im Root background.* existiert
+    function applyBackgroundFromManifest(manifest) {
+      const bg = manifest.find(x => !x.path.includes("/") && /^background\.(png|jpg|jpeg|gif|webp|svg)$/i.test(x.path));
+      if (!bg) return;
+      const url = `/${bg.path}`; // GH Pages Root
+      document.body.style.backgroundImage = `linear-gradient(rgba(11,15,20,0.6), rgba(11,15,20,0.6)), url('${url}')`;
+      document.body.classList.add("bg-on");
+    }
+
+    // Ordner-Listing + Galerie
     function renderFolder(manifest) {
       const prefix = cwd ? (cwd + "/") : "";
       const direct = manifest
         .filter(x => x.path.startsWith(prefix))
         .map(x => ({ ...x, rest: x.path.slice(prefix.length) }))
-        .filter(x => x.rest.length > 0 && !x.rest.includes("/")); // nur direkte Kinder
+        .filter(x => x.rest.length > 0 && !x.rest.includes("/"));
 
       const dirsSet = new Set(
         manifest
@@ -277,23 +306,21 @@
       );
       const dirs = Array.from(dirsSet).sort();
 
-      // UI leeren (bis auf Kopfzeile)
+      // Kopf der Tabelle
       listingEl.innerHTML = `
         <div class="head">Pfad/Name</div>
         <div class="head">Typ</div>
         <div class="head">Größe</div>
       `;
 
-      // Meta-Block (README + LICENSE) direkt über der Liste
+      // Meta-Block (README + LICENSE)
       const folderMetaEl = document.getElementById("folderMeta");
-      folderMetaEl.innerHTML = ""; // leeren
-
+      folderMetaEl.innerHTML = "";
       (async () => {
-        const prefixPath = cwd || ""; // aktueller Ordner
+        const prefixPath = cwd || "";
         const readmeNames  = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
         const licenseNames = ["LICENSE","LICENSE.md","LICENSE.txt","License","COPYING","COPYING.txt"];
 
-        // README suchen
         const readmeEntry = findFileInFolder(manifest, prefixPath, readmeNames);
         if (readmeEntry) {
           try {
@@ -308,14 +335,12 @@
             `;
             folderMetaEl.appendChild(chip);
           } catch (e) {
-            const chip = document.createElement("div");
-            chip.className = "meta-chip";
+            const chip = document.createElement("div"); chip.className = "meta-chip";
             chip.innerHTML = `<div class="title">README</div><div class="excerpt">Konnte nicht geladen werden: ${e.message}</div>`;
             folderMetaEl.appendChild(chip);
           }
         }
 
-        // LICENSE suchen
         const licEntry = findFileInFolder(manifest, prefixPath, licenseNames);
         if (licEntry) {
           try {
@@ -330,8 +355,7 @@
             `;
             folderMetaEl.appendChild(chip);
           } catch (e) {
-            const chip = document.createElement("div");
-            chip.className = "meta-chip";
+            const chip = document.createElement("div"); chip.className = "meta-chip";
             chip.innerHTML = `<div class="title">Lizenz</div><div class="excerpt">Konnte nicht geladen werden: ${e.message}</div>`;
             folderMetaEl.appendChild(chip);
           }
@@ -342,21 +366,21 @@
         }
       })();
 
-      // "nach oben" Link, falls in Unterordner
+      // Nach oben Link (per normalem href)
       if (cwd) {
         const up = cwd.split("/").slice(0, -1).join("/");
         const row = document.createElement("div");
         row.className = "mono";
         row.style.gridColumn = "1 / span 3";
-        row.innerHTML = `<a href="javascript:void(0)" onclick="(${navigateTo.toString()})('${up}')">⬅︎ .. (nach oben)</a>`;
+        row.innerHTML = `<a href="${buildNavHref(up)}">⬅︎ .. (nach oben)</a>`;
         listingEl.appendChild(row);
       }
 
-      // Ordner rendern
+      // Ordner rendern (normale Links)
       for (const d of dirs) {
         const rowName = document.createElement("div");
         rowName.className = "mono";
-        rowName.innerHTML = `<a href="javascript:void(0)" onclick="(${navigateTo.toString()})('${cwd ? (cwd + '/') : ''}${d}')">📁 ${d}</a>`;
+        rowName.innerHTML = `<a href="${buildNavHref(cwd ? (cwd + '/' + d) : d)}">📁 ${d}</a>`;
         const rowType = document.createElement("div");
         rowType.textContent = "dir";
         rowType.className = "muted mono";
@@ -386,22 +410,17 @@
         listingEl.appendChild(rowSize);
       }
 
-      // Galerie rendern (nur Medien im aktuellen Ordner), background.* ausschließen
+      // Galerie (ohne background.*)
       galleryEl.innerHTML = "";
-      const mediaFiles = direct
-        .filter(x => x.type === "blob" && isMedia(x.rest) && !isBackground(x.rest));
+      const mediaFiles = direct.filter(x => x.type === "blob" && isMedia(x.rest) && !isBackground(x.rest));
       for (const m of mediaFiles) {
         const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${encodeURIComponent(cwd ? (cwd + "/" + m.rest) : m.rest)}`;
         if (/\.(mp4|webm|ogg)$/i.test(m.rest)) {
           const v = document.createElement("video");
-          v.src = rawUrl;
-          v.controls = true;
-          galleryEl.appendChild(v);
+          v.src = rawUrl; v.controls = true; galleryEl.appendChild(v);
         } else {
           const img = document.createElement("img");
-          img.src = rawUrl;
-          img.alt = m.rest;
-          galleryEl.appendChild(img);
+          img.src = rawUrl; img.alt = m.rest; galleryEl.appendChild(img);
         }
       }
 
@@ -416,16 +435,14 @@
 
       let manifest = await fetchManifest();
       if (!manifest) {
-        // Fallback: vollständiges Manifest via API (Token empfohlen)
-        try {
-          manifest = await fetchAllViaAPI();
-        } catch (e) {
-          statsEl.textContent = "Fehler beim Laden (API): " + e.message;
-          return;
-        }
+        try { manifest = await fetchAllViaAPI(); }
+        catch (e) { statsEl.textContent = "Fehler beim Laden (API): " + e.message; return; }
       }
 
-      // Statuskarte: Timestamp + Anzahl
+      // Hintergrund setzen (falls background.* im Root existiert)
+      applyBackgroundFromManifest(manifest);
+
+      // Statuskarte
       try {
         const hdr = await getManifestHeaders();
         if (hdr && hdr.lastModified) {
@@ -435,7 +452,6 @@
           document.getElementById("manifestUpdatedAt").textContent = "–";
         }
       } catch { /* ignore */ }
-
       const totalFiles = manifest.filter(x => x.type === "blob").length;
       document.getElementById("manifestTotalFiles").textContent = String(totalFiles);
 
