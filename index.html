@@ -20,9 +20,6 @@
     .grid { display:grid; gap:8px; }
     .list { display:grid; grid-template-columns: 1fr auto auto; gap:6px 8px; align-items:center; }
     .list .head { color:var(--muted); font-weight:600; }
-    .meta-chip { background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:10px 12px; }
-    .meta-chip .title { font-weight:600; margin-bottom:6px; }
-    .meta-chip .excerpt { white-space:pre-wrap; max-height:160px; overflow:auto; }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
     .muted { color:var(--muted); }
     .readme { max-height:280px; overflow:auto; background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:12px; white-space:pre-wrap; }
@@ -32,6 +29,9 @@
     .gallery img, .gallery video { width:100%; height:140px; object-fit:cover; border-radius:10px; border:1px solid #1e2630; background:#0e141b; }
     footer { padding:20px; color:var(--muted); font-size:12px; }
     .license { font-size:12px; color:var(--muted); }
+    .meta-chip { background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:10px 12px; }
+    .meta-chip .title { font-weight:600; margin-bottom:6px; }
+    .meta-chip .excerpt { white-space:pre-wrap; max-height:160px; overflow:auto; }
   </style>
 </head>
 <body>
@@ -46,7 +46,8 @@
   </header>
 
   <main>
-     <section class="card grid" id="idxStatusCard">
+    <!-- Stand der Indizierung -->
+    <section class="card grid" id="idxStatusCard">
       <div class="flex" style="justify-content:space-between;">
         <strong>Stand der Indizierung</strong>
         <span class="muted">Automatisch aus <code>manifest.json</code></span>
@@ -56,7 +57,8 @@
         <div><span class="muted">Gesamtdateien:</span> <span id="manifestTotalFiles" class="mono">–</span></div>
       </div>
     </section>
-    
+
+    <!-- README-Block -->
     <section class="card grid">
       <div class="flex" style="justify-content:space-between;">
         <strong>README</strong>
@@ -65,15 +67,16 @@
       <div id="readme" class="readme mono">—</div>
     </section>
 
+    <!-- Dateien & Ordner -->
     <section class="card grid">
       <div class="flex" style="justify-content:space-between;">
         <strong>Dateien & Ordner</strong>
         <span id="cwdLabel" class="muted mono">/</span>
       </div>
-      
-      <!-- NEU: kompakter Meta-Block im Ordner -->
+
+      <!-- Meta-Block (README/Lizenz-Auszug) -->
       <div id="folderMeta" class="grid"></div>
-      
+
       <div class="list" id="listing">
         <div class="head">Pfad/Name</div>
         <div class="head">Typ</div>
@@ -81,6 +84,7 @@
       </div>
     </section>
 
+    <!-- Galerie -->
     <section class="card grid">
       <div class="flex" style="justify-content:space-between;">
         <strong>Galerie</strong>
@@ -89,6 +93,7 @@
       <div class="gallery" id="gallery"></div>
     </section>
 
+    <!-- Lizenzhinweis -->
     <section class="card license">
       <div><strong>Lizenz</strong></div>
       <div>Code: MIT License. Nicht-Code (z. B. PDFs, CSV/PNG): CC BY 4.0. © 2025 antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.</div>
@@ -141,14 +146,25 @@
       return t ? { "Authorization": "Bearer " + t } : {};
     }
 
-     // Manifest-Header (Last-Modified) holen
+    function navigateTo(path) {
+      const params = new URLSearchParams(location.search);
+      if (urlToken && !params.get("token")) params.set("token", urlToken);
+      params.set("path", path);
+      location.search = params.toString();
+    }
+
+    // Manifest-Header (Last-Modified) holen
     async function getManifestHeaders() {
-      const res = await fetch("/manifest.json", { method:"GET", cache:"no-store" });
-      if (!res.ok) return null;
-      return {
-        lastModified: res.headers.get("last-modified") || null,
-        contentLength: res.headers.get("content-length") || null
-      };
+      try {
+        const res = await fetch("/manifest.json", { method:"GET", cache:"no-store" });
+        if (!res.ok) return null;
+        return {
+          lastModified: res.headers.get("last-modified") || null,
+          contentLength: res.headers.get("content-length") || null
+        };
+      } catch {
+        return null;
+      }
     }
 
     // Dateiname im aktuellen Ordner finden
@@ -181,13 +197,6 @@
       if (clean.length <= maxLen) return clean;
       return clean.slice(0, maxLen).trim() + " …";
     }
-    
-    function navigateTo(path) {
-      const params = new URLSearchParams(location.search);
-      if (urlToken && !params.get("token")) params.set("token", urlToken);
-      params.set("path", path);
-      location.search = params.toString();
-    }
 
     // ====== 1) Erst manifest.json versuchen ======
     async function fetchManifest() {
@@ -203,14 +212,12 @@
     // ====== 2) Fallback: GitHub Contents API ======
     // Hole rekursiv alle Dateien (zur Not). Achtung: kann bei großen Repos viele Calls nutzen; Token empfohlen.
     async function fetchAllViaAPI() {
-      // Listet einen Ordner via Contents API
       async function listDir(path = "") {
         const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(BRANCH)}`;
         const res = await fetch(api, { headers: { ...authHeaders() } });
         if (!res.ok) throw new Error("API error " + res.status);
         return await res.json(); // Array (files/dirs)
       }
-      // Wir traversieren rekursiv für ein Vollmanifest
       const acc = [];
       async function walk(path="") {
         const items = await listDir(path);
@@ -228,13 +235,11 @@
 
     // ====== README laden (falls vorhanden) ======
     async function loadReadme(manifest) {
-      // Suche README.* im aktuellen Ordner
       const prefix = cwd ? (cwd + "/") : "";
       const candidates = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
       let readmeEntry = manifest.find(x => x.path.toLowerCase() === (prefix + "readme.md")) ||
                         manifest.find(x => x.path.toLowerCase() === (prefix + "readme"));
       if (!readmeEntry) {
-        // alternative Kandidaten prüfen
         for (const name of candidates) {
           const hit = manifest.find(x => x.path === (prefix + name));
           if (hit) { readmeEntry = hit; break; }
@@ -245,7 +250,6 @@
         return;
       }
       try {
-        // Raw-URL zu GitHub (ohne Rate-Limits des API-Endpoints)
         const raw = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${readmeEntry.path}`;
         const r = await fetch(raw, { headers: { ...authHeaders() }, cache: "no-store" });
         if (!r.ok) throw new Error("READMERaw error " + r.status);
@@ -258,14 +262,12 @@
 
     // ====== Listing + Galerie für aktuellen Ordner ======
     function renderFolder(manifest) {
-      // Filter manifest auf items im aktuellen Ordner (direkt, nicht rekursiv)
       const prefix = cwd ? (cwd + "/") : "";
       const direct = manifest
         .filter(x => x.path.startsWith(prefix))
         .map(x => ({ ...x, rest: x.path.slice(prefix.length) }))
         .filter(x => x.rest.length > 0 && !x.rest.includes("/")); // nur direkte Kinder
 
-      // Ordner aus den Pfaden ableiten
       const dirsSet = new Set(
         manifest
           .filter(x => x.path.startsWith(prefix))
@@ -276,13 +278,18 @@
       const dirs = Array.from(dirsSet).sort();
 
       // UI leeren (bis auf Kopfzeile)
-            // Meta-Block (README + LICENSE) direkt über der Liste
+      listingEl.innerHTML = `
+        <div class="head">Pfad/Name</div>
+        <div class="head">Typ</div>
+        <div class="head">Größe</div>
+      `;
+
+      // Meta-Block (README + LICENSE) direkt über der Liste
       const folderMetaEl = document.getElementById("folderMeta");
       folderMetaEl.innerHTML = ""; // leeren
 
       (async () => {
         const prefixPath = cwd || ""; // aktueller Ordner
-        // Kandidaten
         const readmeNames  = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
         const licenseNames = ["LICENSE","LICENSE.md","LICENSE.txt","License","COPYING","COPYING.txt"];
 
@@ -330,18 +337,10 @@
           }
         }
 
-        // Falls weder README noch LICENSE existiert, dezent text anzeigen
         if (!readmeEntry && !licEntry) {
           folderMetaEl.innerHTML = `<div class="muted">Kein README/Lizenz im aktuellen Ordner gefunden.</div>`;
         }
       })();
-
-      
-      listingEl.innerHTML = `
-        <div class="head">Pfad/Name</div>
-        <div class="head">Typ</div>
-        <div class="head">Größe</div>
-      `;
 
       // "nach oben" Link, falls in Unterordner
       if (cwd) {
@@ -387,7 +386,7 @@
         listingEl.appendChild(rowSize);
       }
 
-      // Galerie rendern (nur Medien im aktuellen Ordner), background.* explizit ausschließen
+      // Galerie rendern (nur Medien im aktuellen Ordner), background.* ausschließen
       galleryEl.innerHTML = "";
       const mediaFiles = direct
         .filter(x => x.type === "blob" && isMedia(x.rest) && !isBackground(x.rest));
@@ -425,7 +424,8 @@
           return;
         }
       }
-            // Statuskarte: Timestamp + Anzahl
+
+      // Statuskarte: Timestamp + Anzahl
       try {
         const hdr = await getManifestHeaders();
         if (hdr && hdr.lastModified) {
@@ -438,7 +438,6 @@
 
       const totalFiles = manifest.filter(x => x.type === "blob").length;
       document.getElementById("manifestTotalFiles").textContent = String(totalFiles);
-
 
       await loadReadme(manifest);
       renderFolder(manifest);
