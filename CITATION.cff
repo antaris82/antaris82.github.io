@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: >-
+  Wenn Sie diese Arbeit verwenden, zitieren Sie sie bitte wie unten angegeben.
+  Hinweis: Code steht unter MIT-Lizenz; Daten/Abbildungen/Texte in diesem
+  Unterordner stehen unter CC BY 4.0 (Namensnennung erforderlich).
+authors:
+  - name: antaris
+title: "ST-Graph PoC — E2 / files"
+abstract: >-
+  Proof-of-Concept (E2) für den ST-Graph auf Basis des Sierpinski-Tetraeders,
+  mit Python-Skripten, numerischen Zielgrößen (CSV/JSON) und Visualisierungen (PNG)
+  für u. a. First-Crossing, Amplitude und OTOC auf verschiedenen ST-Leveln.
+version: "0.1.0-e2"
+date-released: 2025-08-18
+url: "https://antaris82.github.io/"
+repository-code: "https://github.com/antaris82/antaris82.github.io"
+keywords:
+  - ST-Graph
+  - Sierpinski Tetraeder
+  - Proof of Concept
+  - Quantum Gravity
+  - Complex Networks
+license: MIT
+preferred-citation:
+  type: software
+  title: "ST-Graph PoC — E2 / files"
+  authors:
+    - name: antaris
+  version: "0.1.0-e2"
+  date-released: 2025-08-18
+  url: "https://antaris82.github.io/Sierpinski%20Tetraeder_PoC/E2/files/"
