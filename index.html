@@ -10,7 +10,7 @@
   --bg:#0b1020;--panel:#10172a;--muted:#9fb0d0;--fg:#e6edff;--acc:#7aa2ff;--acc2:#37d2a7;
   --danger:#ff6b6b;--card:#0f1528;--border:#1d2742;--shadow:0 10px 30px rgba(0,0,0,.35);
   --radius:14px;--bgimg:none;
-  --overlay-alpha:.30;   /* Intensität der Abdunkelung über dem Hintergrundbild */
+  --overlay-alpha:.30;   /* Abdunkelung über dem Hintergrundbild */
   --space:32px;          /* vertikale Blockabstände */
 }
 *{box-sizing:border-box}
@@ -310,74 +310,46 @@ code.kv{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
   }
   /* ================================================== */
 
-  /* === Math vor Markdown schützen & danach einsetzen === */
-
-  // Markdown-Code schützen (fenced ```/~~~ und Inline `...`)
+  /* === Markdown-Code schützen (```, ~~~, `…`) ======= */
   function protectMdCode(md){
     const placeholders = [];
-    const push = (m)=>{ const tok = `__MD_CODE_${placeholders.length}__`; placeholders.push(m); return tok; };
+    const push = (m)=>{ const tok = `\uE010MC${placeholders.length}\uE011`; placeholders.push(m); return tok; };
     md = md.replace(/```[\s\S]*?```/g, push);
     md = md.replace(/~~~[\s\S]*?~~~/g, push);
     md = md.replace(/`[^`]*`/g, push);
     return { md, placeholders };
   }
   function restoreMdCode(md, placeholders){
-    return md.replace(/__MD_CODE_(\d+)__/g, (_,i)=> placeholders[+i] ?? '');
+    return md.replace(/\uE010MC(\d+)\uE011/g, (_,i)=> placeholders[+i] ?? '');
+  }
+  /* ================================================ */
+
+  /* === Math vor Markdown schützen & danach einsetzen === */
+  function extractMathPlaceholders(md){
+    const code = protectMdCode(md);   // Code erst schützen
+    let s = code.md;
+
+    const blocks = [];
+    const push = (m)=>{
+      const tok = '\uE000MB' + blocks.length + '\uE001'; // Private-Use Tokens (Markdown-neutral)
+      blocks.push(m);
+      return tok;
+    };
+
+    // Reihenfolge wichtig (auch doppelt escapt)
+    s = s.replace(/\$\$[\s\S]*?\$\$/g, push);
+    s = s.replace(/\\\\\[[\s\S]*?\\\\\]/g, push);
+    s = s.replace(/\\\[[\s\S]*?\\\]/g, push);
+    s = s.replace(/\\\\\([\s\S]*?\\\\\)/g, push);
+    s = s.replace(/\\\([\s\S]*?\\\)/g, push);
+    s = s.replace(/\\\\begin\{([\w*]+)\}[\s\S]*?\\\\end\{\1\}/g, push);
+    s = s.replace(/\\begin\{([\w*]+)\}[\s\S]*?\\end\{\1\}/g, push);
+
+    // Code wieder einsetzen, Math bleibt als Token
+    s = restoreMdCode(s, code.placeholders);
+    return { md: s, blocks };
   }
 
-  // Mathblöcke herauslösen (auch doppelt escapt), Code bleibt geschützt
-  // 🔒 Mathblöcke mit Markdown-neutralen Tokens ausklinken
-function extractMathPlaceholders(md){
-  const blocks = [];
-
-  // Wir schützen zuerst Code (``` … ``` / ~~~ … ~~~ / `…`) vor Matches:
-  const code = protectMdCode(md);
-  let s = code.md;
-
-  const push = (m)=>{
-    // Private-Use-Zeichen U+E000 / U+E001 → von Markdown/HTML nicht angefasst
-    const tok = '\uE000MB' + blocks.length + '\uE001';
-    blocks.push(m);
-    return tok;
-  };
-
-  // Reihenfolge wichtig (auch doppelt escapt)
-  s = s.replace(/\$\$[\s\S]*?\$\$/g, push);
-  s = s.replace(/\\\\\[[\s\S]*?\\\\\]/g, push);
-  s = s.replace(/\\\[[\s\S]*?\\\]/g, push);
-  s = s.replace(/\\\\\([\s\S]*?\\\\\)/g, push);
-  s = s.replace(/\\\([\s\S]*?\\\)/g, push);
-  s = s.replace(/\\\\begin\{([\w*]+)\}[\s\S]*?\\\\end\{\1\}/g, push);
-  s = s.replace(/\\begin\{([\w*]+)\}[\s\S]*?\\end\{\1\}/g, push);
-
-  // Code wieder einsetzen, Math bleibt als Token
-  s = restoreMdCode(s, code.placeholders);
-  return { md: s, blocks };
-}
-
-// 🔁 Tokens im HTML zurück in echten TeX-Quelltext verwandeln
-function restoreMathPlaceholders(html, blocks){
-  function normalize(tex){
-    return tex
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/&nbsp;/gi, ' ')
-      .replace(/\\\\/g, '\\'); // doppelte Backslashes → einfache
-  }
-  function escHtml(s){
-    return s
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;');
-  }
-
-  // U+E000MB<idx>U+E001 → originaler (normalisierter) TeX
-  return html.replace(/\uE000MB(\d+)\uE001/gu, (_,i)=>{
-    const tex = blocks[+i] || '';
-    return escHtml(normalize(tex));
-  });
-}
-
-  // Platzhalter im HTML wieder einsetzen (mit Normalisierung)
   function restoreMathPlaceholders(html, blocks){
     function normalize(tex){
       return tex
@@ -386,9 +358,13 @@ function restoreMathPlaceholders(html, blocks){
         .replace(/\\\\/g, '\\'); // doppelte Backslashes → einfache
     }
     function escHtml(s){
-      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return s
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;');
     }
-    return html.replace(/__MATHBLOCK_(\d+)__/g, (_,i)=>{
+    // Tokens U+E000…U+E001 zurück zu normalisiertem, sicherem TeX-Text
+    return html.replace(/\uE000MB(\d+)\uE001/gu, (_,i)=>{
       const tex = blocks[+i] || '';
       return escHtml(normalize(tex));
     });
@@ -873,7 +849,7 @@ function restoreMathPlaceholders(html, blocks){
 
       if (!content){ readmeWrap.style.display='none'; return; }
 
-      // 1) Math-Segmente als Platzhalter ausklinken (vor Markdown!)
+      // 1) Math-Segmente als Tokens ausklinken (vor Markdown!)
       const { md: mdProtected, blocks: mathBlocks } = extractMathPlaceholders(content);
 
       // 2) Markdown → HTML (keine <br> aus einfachen \n, wichtig für mehrzeilige Math)
