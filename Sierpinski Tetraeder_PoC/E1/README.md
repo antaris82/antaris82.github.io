@@ -1,5 +1,4 @@
-# Create README for E1 folder and save for download
-readme_e1 = """# E1 — Proof-of-Concept (PoC) für den ST-Graph
+## E1 — Proof-of-Concept (PoC) für den ST-Graph
 
 Dieser Ordner enthält **E1** des ST-Graph‑PoC und umfasst ausschließlich das Beweis‑PDF **`E1_proof.pdf`**.
 Der Schritt **E1** verifiziert die **Bühne** (Mathematik/Analysis) auf dem Sierpiński‑Tetraeder (ST): Existenz von
