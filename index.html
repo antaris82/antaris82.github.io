@@ -58,7 +58,7 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
 
-  <!-- KaTeX (CSS + JS + auto-render + mhchem) — ohne SRI, damit nichts blockiert -->
+  <!-- KaTeX (CSS + JS + auto-render + mhchem) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
@@ -231,73 +231,58 @@
       return clean.slice(0, maxLen).trim() + " …";
     }
 
-    // ===== Markdown/LaTeX Preprocessing & math-Fences =====
-    // Wandelt \[...\] → $$...$$ und \(...\) → $...$ um; rendert ```math|latex|tex``` als $$...$$
-    function preprocessMath(md) {
-      // Fences & Inline-Codes temporär ausblenden
-      const fences = [];
-      md = md.replace(/```[\s\S]*?```/g, m => { fences.push(m); return '§§FENCE§§'; });
-      const inlines = [];
-      md = md.replace(/`[^`]*`/g, m => { inlines.push(m); return '§§INLINE§§'; });
+    // ===== Math-Schutz: TeX-Segmente vor Markdown isolieren und später wieder einsetzen =====
+    function extractMathSlots(src) {
+      const slots = [];
+      let out = src;
 
-      // \[...\] -> $$...$$   und   \(...\) -> $...$
-      md = md
-        .replace(/\\\[((?:.|\n)*?)\\\]/g, (m,g1) => `$$${g1}$$`)
-        .replace(/\\\(((?:.|\n)*?)\\\)/g, (m,g1) => `$${g1}$`);
+      // 1) Code-Fences ```math|latex|tex ... ```
+      out = out.replace(/```(math|latex|tex)\s*([\s\S]*?)```/gi, (_, __, body) => {
+        const id = `§§MATHFENCE_${slots.length}§§`;
+        slots.push({ id, tex: body.trim(), kind: 'fence' }); // display
+        return id;
+      });
 
-      // Platzhalter zurück
-      md = md.replace(/§§INLINE§§/g, () => inlines.shift())
-             .replace(/§§FENCE§§/g,  () => fences.shift());
-      return md;
+      // 2) Display \[ ... \]
+      out = out.replace(/\\\[([\s\S]*?)\\\]/g, (_, body) => {
+        const id = `§§MATHDSP_${slots.length}§§`;
+        slots.push({ id, tex: body.trim(), kind: 'display' });
+        return id;
+      });
+
+      // 3) Inline \( ... \)
+      out = out.replace(/\\\(([\s\S]*?)\\\)/g, (_, body) => {
+        const id = `§§MATHINL_${slots.length}§§`;
+        slots.push({ id, tex: body.trim(), kind: 'inline' });
+        return id;
+      });
+
+      // 4) Optional: $$ ... $$ (falls in READMEs genutzt)
+      out = out.replace(/\$\$([\s\S]*?)\$\$/g, (_, body) => {
+        const id = `§§MATHDOLLAR_${slots.length}§§`;
+        slots.push({ id, tex: body.trim(), kind: 'display' });
+        return id;
+      });
+
+      return { text: out, slots };
     }
 
-    marked.setOptions({ mangle: false, headerIds: true });
-    const mdRenderer = new marked.Renderer();
-    const mathLangs = new Set(['math', 'latex', 'tex']);
-    const origCode = mdRenderer.code.bind(mdRenderer);
-    mdRenderer.code = (code, infostring, escaped) => {
-      const lang = (infostring || '').trim().toLowerCase();
-      if (mathLangs.has(lang)) {
-        const safe = code.replace(/<\/?(script|style)[^>]*>/gi, '');
-        return `<div class="math-fence">$$\n${safe}\n$$</div>`;
-      }
-      return origCode(code, infostring, escaped);
-    };
-    marked.use({ renderer: mdRenderer });
-
-    // ====== 1) Erst manifest.json versuchen ======
-    async function fetchManifest() {
-      try {
-        const res = await fetch("/manifest.json", { cache: "no-store" });
-        if (!res.ok) return null;
-        return await res.json();
-      } catch { return null; }
-    }
-
-    // ====== 2) Fallback: GitHub Contents API (rekursiv) ======
-    async function fetchAllViaAPI() {
-      async function listDir(path = "") {
-        const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(BRANCH)}`;
-        const res = await fetch(api, { headers: { ...authHeaders() } });
-        if (!res.ok) throw new Error("API error " + res.status);
-        return await res.json();
-      }
-      const acc = [];
-      async function walk(path="") {
-        const items = await listDir(path);
-        for (const it of items) {
-          if (it.type === "file") {
-            acc.push({ path: it.path, size: it.size ?? 0, sha: it.sha, type: "blob", mode: "100644" });
-          } else if (it.type === "dir") {
-            await walk(it.path);
-          }
+    function restoreMathSlots(html, slots) {
+      for (const s of slots) {
+        let repl;
+        if (s.kind === 'fence' || s.kind === 'display') {
+          // Display-Math als $$...$$ (auto-render erkennt $$ und \[ \])
+          repl = `<div class="math-fence">$$\n${s.tex}\n$$</div>`;
+        } else {
+          // Inline-Math als \( ... \)
+          repl = `\\(${s.tex}\\)`;
         }
+        html = html.split(s.id).join(repl);
       }
-      await walk("");
-      return acc.sort((a,b)=> a.path.localeCompare(b.path));
+      return html;
     }
 
-    // KaTeX render helper (wartet polling-basiert auf auto-render)
+    // ===== KaTeX render helper (wartet polling-basiert auf auto-render) =====
     function renderKatex(el) {
       return new Promise((resolve) => {
         const opts = {
@@ -332,7 +317,42 @@
       });
     }
 
-    // README laden + Markdown + LaTeX rendern
+    // ====== Markdown Optionen (keine spezielle Code-Override mehr nötig) ======
+    marked.setOptions({ mangle: false, headerIds: true });
+
+    // ====== 1) Erst manifest.json versuchen ======
+    async function fetchManifest() {
+      try {
+        const res = await fetch("/manifest.json", { cache: "no-store" });
+        if (!res.ok) return null;
+        return await res.json();
+      } catch { return null; }
+    }
+
+    // ====== 2) Fallback: GitHub Contents API (rekursiv) ======
+    async function fetchAllViaAPI() {
+      async function listDir(path = "") {
+        const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(BRANCH)}`;
+        const res = await fetch(api, { headers: { ...authHeaders() } });
+        if (!res.ok) throw new Error("API error " + res.status);
+        return await res.json();
+      }
+      const acc = [];
+      async function walk(path="") {
+        const items = await listDir(path);
+        for (const it of items) {
+          if (it.type === "file") {
+            acc.push({ path: it.path, size: it.size ?? 0, sha: it.sha, type: "blob", mode: "100644" });
+          } else if (it.type === "dir") {
+            await walk(it.path);
+          }
+        }
+      }
+      await walk("");
+      return acc.sort((a,b)=> a.path.localeCompare(b.path));
+    }
+
+    // ===== README laden + Markdown + LaTeX rendern =====
     async function loadReadme(manifest) {
       const prefix = cwd ? (cwd + "/") : "";
       const candidates = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
@@ -354,12 +374,20 @@
         if (!r.ok) throw new Error("READMERaw error " + r.status);
         const txt = await r.text();
 
-        // (1) TeX-Delimiter robust umschreiben
-        const pre = preprocessMath(txt);
-        // (2) Markdown -> HTML (mit math-fences), danach sanitizen
-        const html = DOMPurify.sanitize(marked.parse(pre));
+        // (1) TeX-Segmente isolieren
+        const { text: placeholderMD, slots } = extractMathSlots(txt);
+
+        // (2) Markdown -> HTML, dann sanitizen
+        let html = marked.parse(placeholderMD);
+        html = DOMPurify.sanitize(html);
+
+        // (3) Platzhalter wieder einsetzen (echte TeX-Delimiter)
+        html = restoreMathSlots(html, slots);
+
+        // (4) HTML setzen
         readmeEl.innerHTML = html;
-        // (3) LaTeX mit KaTeX rendern
+
+        // (5) KaTeX rendern
         await renderKatex(readmeEl);
       } catch (e) {
         readmeEl.textContent = "README konnte nicht geladen/gerendert werden: " + e.message;
