@@ -29,8 +29,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "8a205a8948179316c9b02d852ef1bcba70a62cc7",
-    "size": 17103,
+    "sha": "5e82643d615c11c7a7d7d1af3ca1823b513cd857",
+    "size": 17106,
     "type": "blob",
     "mode": "100644"
   },
@@ -77,9 +77,9 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/A1/A1_ST-Graph_oC.pdf",
-    "sha": "afbb7bc31ab932f581c95527ef30f574d065cdb4",
-    "size": 411767,
+    "path": "Sierpinski Tetraeder_PoC/A1/A1_ST_exclusive_metrics_formal.pdf",
+    "sha": "09272b607e090eba1be62e8437f46786720fe5f0",
+    "size": 422341,
     "type": "blob",
     "mode": "100644"
   },
