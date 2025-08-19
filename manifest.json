@@ -7,13 +7,6 @@
     "mode": "100644"
   },
   {
-    "path": ".github/workflows/readme-index.yml",
-    "sha": "ca212a68db30ba8e19f3e67b3d26c43d499cc390",
-    "size": 7127,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "background.png",
     "sha": "e138af865f091ccaeb89e1b4039a5ac6db34902e",
     "size": 677287,
@@ -50,7 +43,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "c50a09d49b69efff7eb66d233d929dafe2e99a1f",
+    "sha": "058eb6016eb6f0f8099abaa17f5f5e2885b5927b",
     "size": 18058,
     "type": "blob",
     "mode": "100644"
