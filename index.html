@@ -97,7 +97,7 @@
     <section class="card grid">
       <div class="flex" style="justify-content:space-between;">
         <strong>README</strong>
-        <span class="muted">wird automatisch geladen, gerendert (Markdown + LaTeX)</span>
+        
       </div>
       <div id="readme" class="readme">—</div>
     </section>
@@ -115,7 +115,7 @@
     <section class="card grid" id="idxStatusCard">
       <div class="flex" style="justify-content:space-between;">
         <strong>Stand der Indizierung</strong>
-        <span class="muted">Automatisch aus <code>manifest.json</code></span>
+        
       </div>
       <div class="flex" style="gap:16px; flex-wrap:wrap;">
         <div><span class="muted">Letzte Aktualisierung:</span> <span id="manifestUpdatedAt" class="mono">–</span></div>
@@ -126,7 +126,7 @@
     <!-- 5) Lizenzhinweis -->
     <section class="card license">
       <div><strong>Lizenz</strong></div>
-      <div>Code: MIT License. Nicht-Code (z. B. PDFs, CSV/PNG): CC BY 4.0. © 2025 antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.</div>
+      <div>© 2025 antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.</div>
     </section>
   </main>
 
@@ -438,7 +438,7 @@
         listingEl.appendChild(rowSize);
       }
 
-      // Galerie (ohne background.*)
+      // Galerie
       galleryEl.innerHTML = "";
       const mediaFiles = direct.filter(x => x.type === "blob" && isMedia(x.rest) && !isBackground(x.rest));
       for (const m of mediaFiles) {
