@@ -1,0 +1,48 @@
+Perfekt — ich habe dir ein **kompaktes, lokal ausführbares Simulations-Paket** gebaut (reine Python-Skripte für Jupyter/CLI). Lade es hier:
+
+[Download **ST\_Simulations\_PoC\_v1.zip**](sandbox:/mnt/data/ST_Simulations_PoC_v1.zip)
+
+## Was drin ist
+
+* **ST-Graph (Sierpiński-Tetraeder)**: rekursiver Approximant (Level $m$), 3D-Koordinaten, Randknoten (Ecken).
+* **Heat-Trace & Spektraldimension** $\hat d_s(t)$ via Hutchinson + `expm_multiply` (Al-Mohy–Higham).
+* **Unitäre Einteilchen-Dynamik** (Tight-Binding $H=-A$) + **LR-Front** (0.9-Quantil) als anschaulicher *Lieb–Robinson*-Proxy.
+* **GKLS-Dephasierung** (Markovian, ortsdiagonal) – zeigt Dämpfung der Off-Diagonalen und verlangsamte Front.
+* **Dirichlet-to-Neumann (DtN)** auf dem Graphen + **gezielte Tiefen-Perturbation** einer Subzelle; liefert $\|\Delta\Lambda\|_2$ als messbare „Resilienz“-Signatur.
+* Vergleichsgraphen: **$\mathbb Z^2$** und **$\mathbb Z^3$** (periodisch optional) für *direkte* Physik-Vergleiche.
+
+### Schnellstart (lokal)
+
+```bash
+python -m pip install numpy scipy matplotlib
+unzip ST_Simulations_PoC_v1.zip
+cd ST_Simulations_PoC_v1
+python demo_ST_vs_Zd.py
+# Ergebnisse: ./out/*.png, *.csv, dtn_delta.json
+```
+
+In Jupyter: `%run demo_ST_vs_Zd.py`. Parameter (Level, T-Raster, Sonden etc.) stehen oben im Script.
+
+## Warum das wissenschaftlich anschlussfähig ist (Kurzverweise)
+
+* **Dirichlet-Formen & p.c.f.-Fraktale** (Kigami) — Operatorik/Heat auf p.c.f. Sets. ([www-an.acs.i.kyoto-u.ac.jp][1], [Cambridge University Press & Assessment][2])
+* **Heat-Kerne/Sub-Gauss** auf Graphen/Fraktalen (Barlow/Perkins; Grigor’yan/Telcs) — direkte Vergleichs-Skalen. ([SpringerLink][3], [CiteSeerX][4], [American Mathematical Society][5])
+* **Sierpiński-Tetraeder-Laplacian (3D)** — Spektrum & Zählfunktion (Riane & David). ([arXiv][6])
+* **expm\_multiply** (Al-Mohy & Higham) — robuste Matrix-Exp-Aktion für Heat/Unitär. ([eprints.maths.manchester.ac.uk][7], [docs.scipy.org][8])
+* **Quasi-Lokalität/Lieb–Robinson für GKLS** — offene Systeme bleiben quasi-lokal. ([Physical Review Link Manager][9], [arXiv][10])
+* **Dirichlet-to-Neumann für Netzwerke** — inverse/forward Diagnostik. ([epubs.siam.org][11], [sites.math.washington.edu][12])
+
+Wenn du die ersten Läufe gemacht hast, lade mir gern die CSV/PNGs aus `out/` hoch. Dann mache ich die **Auswertung + Formalisierung (LaTeX)** nach deinem Standard (inkl. Vergleich **ST vs. $\mathbb Z^d$**, Fit der $\hat d_s(t)$, LR-Geschwindigkeit, $\|\Delta\Lambda\|_2$).
+
+[1]: https://www-an.acs.i.kyoto-u.ac.jp/~kigami/AOF.pdf?utm_source=chatgpt.com "Analysis on Fractals"
+[2]: https://www.cambridge.org/core/books/analysis-on-fractals/analysis-on-limits-of-networks/959955B70EDCD7616C0748299D9D3ACC?utm_source=chatgpt.com "Analysis on Limits of Networks (Chapter 2)"
+[3]: https://link.springer.com/content/pdf/10.1007/BF00318785.pdf?utm_source=chatgpt.com "Brownian motion on the Sierpinski gasket"
+[4]: https://citeseerx.ist.psu.edu/document?doi=d603857677ae0c1bfbb948b83aee737790a1090f&repid=rep1&type=pdf&utm_source=chatgpt.com "Sub-Gaussian estimates of heat kernels on infinite graphs ∗"
+[5]: https://www.ams.org/books/ulect/071/ulect071-endmatter.pdf?utm_source=chatgpt.com "Introduction to Analysis on Graphs"
+[6]: https://arxiv.org/abs/1703.05793?utm_source=chatgpt.com "Laplacian, on the Sierpinski tetrahedron"
+[7]: https://eprints.maths.manchester.ac.uk/1591/1/alhi11.pdf?utm_source=chatgpt.com "Computing the Action of the Matrix Exponential - MIMS EPrints"
+[8]: https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.expm_multiply.html?utm_source=chatgpt.com "expm_multiply — SciPy v1.16.1 Manual"
+[9]: https://link.aps.org/doi/10.1103/PhysRevLett.108.230504?utm_source=chatgpt.com "Quasilocality and Efficient Simulation of Markovian Quantum ..."
+[10]: https://arxiv.org/abs/1111.4210?utm_source=chatgpt.com "Quasi-locality and efficient simulation of Markovian ..."
+[11]: https://epubs.siam.org/doi/10.1137/0151051?utm_source=chatgpt.com "The Dirichlet to Neumann Map for a Resistor Network"
+[12]: https://sites.math.washington.edu/~curtis/book.pdf?utm_source=chatgpt.com "Inverse Problems for Electrical Networks"
