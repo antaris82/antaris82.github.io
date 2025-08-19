@@ -44,9 +44,6 @@
     footer { padding:20px 0; color:var(--muted); font-size:12px; }
     .license { font-size:12px; color:var(--muted); }
 
-    .meta-chip { background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:10px 12px; }
-    .meta-chip .title { font-weight:600; margin-bottom:6px; }
-    .meta-chip .excerpt { white-space:pre-wrap; max-height:160px; overflow:auto; }
     .math-fence { margin: 8px 0; }
 
     /* KaTeX Dark */
@@ -87,8 +84,7 @@
         <span id="cwdLabel" class="muted mono">/</span>
       </div>
 
-      <!-- Meta-Block (README/Lizenz-Auszug) -->
-      <div id="folderMeta" class="grid"></div>
+      <!-- (Auszug entfernt) -->
 
       <div class="list" id="listing">
         <div class="head">Pfad/Name</div>
@@ -202,35 +198,6 @@
       } catch { return null; }
     }
 
-    // Datei im aktuellen Ordner finden
-    function findFileInFolder(manifest, folderPath, names) {
-      const prefix = folderPath ? (folderPath + "/") : "";
-      const candidates = manifest
-        .filter(x => x.path.startsWith(prefix))
-        .map(x => ({ ...x, rest: x.path.slice(prefix.length) }))
-        .filter(x => x.rest.length > 0 && !x.rest.includes("/"));
-      for (const n of names) {
-        const hit = candidates.find(x => x.rest.toLowerCase() === n.toLowerCase());
-        if (hit) return hit;
-      }
-      return null;
-    }
-
-    // Rohtext holen
-    async function fetchRawText(path) {
-      const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${path}`;
-      const r = await fetch(rawUrl, { headers: { ...authHeaders() }, cache: "no-store" });
-      if (!r.ok) throw new Error("Raw fetch failed " + r.status);
-      return await r.text();
-    }
-
-    // Exzerpt
-    function buildExcerpt(txt, maxLen=400) {
-      const clean = txt.replace(/\r/g,"").trim();
-      if (clean.length <= maxLen) return clean;
-      return clean.slice(0, maxLen).trim() + " …";
-    }
-
     // ===== Math-Schutz: TeX-Segmente vor Markdown isolieren und später wieder einsetzen =====
     function extractMathSlots(src) {
       const slots = [];
@@ -271,10 +238,8 @@
       for (const s of slots) {
         let repl;
         if (s.kind === 'fence' || s.kind === 'display') {
-          // Display-Math als $$...$$ (auto-render erkennt $$ und \[ \])
           repl = `<div class="math-fence">$$\n${s.tex}\n$$</div>`;
         } else {
-          // Inline-Math als \( ... \)
           repl = `\\(${s.tex}\\)`;
         }
         html = html.split(s.id).join(repl);
@@ -317,7 +282,7 @@
       });
     }
 
-    // ====== Markdown Optionen (keine spezielle Code-Override mehr nötig) ======
+    // ====== Markdown Optionen ======
     marked.setOptions({ mangle: false, headerIds: true });
 
     // ====== 1) Erst manifest.json versuchen ======
@@ -427,58 +392,7 @@
         <div class="head">Größe</div>
       `;
 
-      // Meta-Block (README + LICENSE)
-      const folderMetaEl = document.getElementById("folderMeta");
-      folderMetaEl.innerHTML = "";
-      (async () => {
-        const prefixPath = cwd || "";
-        const readmeNames  = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
-        const licenseNames = ["LICENSE","LICENSE.md","LICENSE.txt","License","COPYING","COPYING.txt"];
-
-        const readmeEntry = findFileInFolder(manifest, prefixPath, readmeNames);
-        if (readmeEntry) {
-          try {
-            const readmeTxt = await fetchRawText(readmeEntry.path);
-            const readmeEx  = buildExcerpt(readmeTxt, 600);
-            const readmeUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${readmeEntry.path}`;
-            const chip = document.createElement("div");
-            chip.className = "meta-chip";
-            chip.innerHTML = `
-              <div class="title">README <a href="${readmeUrl}" target="_blank" rel="noopener" class="mono">(${readmeEntry.rest || readmeEntry.path})</a></div>
-              <div class="excerpt mono">${readmeEx.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
-            `;
-            folderMetaEl.appendChild(chip);
-          } catch (e) {
-            const chip = document.createElement("div"); chip.className = "meta-chip";
-            chip.innerHTML = `<div class="title">README</div><div class="excerpt">Konnte nicht geladen werden: ${e.message}</div>`;
-            folderMetaEl.appendChild(chip);
-          }
-        }
-
-        const licEntry = findFileInFolder(manifest, prefixPath, licenseNames);
-        if (licEntry) {
-          try {
-            const licTxt = await fetchRawText(licEntry.path);
-            const licEx  = buildExcerpt(licTxt, 400);
-            const licUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${licEntry.path}`;
-            const chip = document.createElement("div");
-            chip.className = "meta-chip";
-            chip.innerHTML = `
-              <div class="title">Lizenz <a href="${licUrl}" target="_blank" rel="noopener" class="mono">(${licEntry.rest || licEntry.path})</a></div>
-              <div class="excerpt mono">${licEx.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
-            `;
-            folderMetaEl.appendChild(chip);
-          } catch (e) {
-            const chip = document.createElement("div"); chip.className = "meta-chip";
-            chip.innerHTML = `<div class="title">Lizenz</div><div class="excerpt">Konnte nicht geladen werden: ${e.message}</div>`;
-            folderMetaEl.appendChild(chip);
-          }
-        }
-
-        if (!readmeEntry && !licEntry) {
-          folderMetaEl.innerHTML = `<div class="muted">Kein README/Lizenz im aktuellen Ordner gefunden.</div>`;
-        }
-      })();
+      // (Auszug-Block entfernt)
 
       // Nach oben Link
       if (cwd) {
