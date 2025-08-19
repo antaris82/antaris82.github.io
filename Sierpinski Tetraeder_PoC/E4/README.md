@@ -1,69 +1,56 @@
-# E4 — Robustheit via Homotopie G(θ)
+# E4 — Robustheit via Homotopie \(G(\theta)\): ST → Baum
 
-Dieses Verzeichnis dokumentiert den vierten Schritt des PoC zum **ST‑Graph**. Im Fokus steht die **Robustheit der Kinematik** gegen Mikrodeformationen: eine kontinuierliche Familie gewichteter Graphen \(G(\theta)\), die von der Sierpiński‑Tetraeder‑Geometrie (\(\theta=0\)) zu einer baumartigen Struktur (\(\theta=1\)) homotopiert. Zielgrößen sind der **Spektral‑Dimensions‑Proxy** \(\hat d_s(\theta)\) und die **Frontgeschwindigkeit** \(\hat v^*(\theta)\).
+Dieser Ordner dokumentiert den **E4-Schritt** im Sierpinski-Tetraeder-PoC.  
+Ziel: **Stabilität der Kinematik** gegen Mikrodeformationen durch Homotopie von der ST-Geometrie (\(\theta=0\)) hin zu einer Baumstruktur (\(\theta=1\)).
 
----
+## Inhalt
 
-## Inhalte
+| Datei | Typ | Beschreibung |
+|-------|-----|--------------|
+| `E4_formal.pdf` | PDF | Formalisierung, Theorie & Akzeptanzkriterien (Lieb–Robinson-Bounds, Heat-Kernel-Vergleich Fraktal↔Baum). |
+| `files/` | Ordner | Enthält Simulation (`E4_simulation.py`), CSV-Ergebnisse (`E4_homotopy_summary.csv`), Plots (`E4_ds_theta.png`, `E4_vstar_theta.png`) — siehe [README im files-Ordner](../files/README.md). |
 
-### Kern‑Dokumente
-- **`E4_formal.pdf`** – mathematische Formulierung: Definition von **A(θ)**, **L(θ)=D−A**, Messgrößen (\(\hat d_s\), \(\hat v^*\)), theoretische Erwartungen (Fraktal‑Power‑Law → Baum‑Exponential), Lieb–Robinson‑Beschränktheit und Akzeptanzkriterien.
-- **`E4_formal_fixed.pdf`** – überarbeitete/korrigierte Fassung des obigen Dokuments.
+## Methode
 
-### Unterordner [`files/`](./files/)
-Begleitende Artefakte zur Simulation und Visualisierung:
-- **`E4_simulation.py`** – Python‑Pipeline zur Erzeugung von \(G(\theta)\), Heat‑Kernel‑Analyse (\(\hat d_s\)) und CTQW‑Front (\(\hat v^*\)).
-- **`E4_homotopy_summary.csv`** – aggregierte Ergebnisse über \(\theta\) (z. B. 0.00, 0.25, 0.50, 0.75, 1.00); enthält u. a. Spalten `theta`, `ds_est`, `ds_r2`, `vstar_est`, `vstar_r2`.
-- **`E4_ds_theta.png`** – Plot von **\(\hat d_s(\theta)\)**.
-- **`E4_vstar_theta.png`** – Plot von **\(\hat v^*(\theta)\)**.
+- **Graph-Konstruktion:** \(A(\theta) = \frac{(1-\theta)A_{ST}+\theta A_{tree}}{\|(1-\theta)A_{ST}+\theta A_{tree}\|_1}\), \(L(\theta)=D(\theta)-A(\theta)\).  
+- **Messgrößen:**  
+  - (E1) Spektral-Dimensions-Proxy \(\hat d_s(\theta)\) aus Heat-Kernel Fit.  
+  - (E2) Frontgeschwindigkeit \(\hat v^*(\theta)\) aus Continuous-Time-Quantum-Walk (CTQW).  
 
-> Eine ausführliche Dateiübersicht und Repro‑Hinweise findest du direkt in [`files/README.md`](./files/README.md).
+## Ergebnisse
 
----
+- \(\hat d_s(\theta)\): fällt von ca. **1.67** (ST) auf ca. **0.80** (Baum).  
+- \(\hat v^*(\theta)\): steigt moderat von **0.51 → 0.55**.  
+- Übergang: Potenzgesetz (Fraktal) → exponentielle Abnahme (Baum).  
 
-## Ergebnisse (Kurzfassung)
+## Akzeptanzkriterien
 
-- **Trend \(\hat d_s(\theta)\):** fällt von ca. **1.67** (ST, \(\theta=0\)) auf ca. **0.80** (baumartige Spannung, \(\theta=1\)).  
-- **Trend \(\hat v^*(\theta)\):** bleibt **endlich** und steigt **moderat** (etwa **0.51 → 0.55**).  
-- **Interpretation:** Übergang von **sub‑gaußscher Potenz‑Abnahme** des Heat‑Kernels (Fraktal/pcf) zu **exponentieller Abnahme** im Baum‑Limit; der effektive Kausal‑Kegel bleibt bestehen (Lieb–Robinson).
+- (K1) Glatter Trend in \(\hat d_s(\theta)\) / Exponentialrate \(\alpha(\theta)\) ✅  
+- (K2) \(\hat v^*(\theta)\) bleibt endlich und moderat variierend ✅  
+- (K3) Konsistenz mit Theorie (Fraktal vs. Baum) ✅  
 
-### Akzeptanzkriterien (erfüllt)
-- **K1:** Glatter Trend in \(\hat d_s(\theta)\) bzw. zunehmende Exponentialrate.  
-- **K2:** \(\hat v^*(\theta)\) bleibt endlich, mäßige Variation mit \(\theta\).  
-- **K3:** Konsistenz mit der Theorie (Fraktal‑Power‑Law vs. Baum‑Exponential).
+**Validierungsstatus:**  
+| Kriterium | Status |
+|-----------|--------|
+| K1 | 🟢 |
+| K2 | 🟢 |
+| K3 | 🟢 |
 
----
+## Offene Punkte / To-Do
 
-## Nutzung & Reproduzierbarkeit (Kurz)
+- Erweiterung der Fits: kombinierter Power- & Exponential-Fit über gesamtes \(\theta\)-Intervall.  
+- Systematische Analyse größerer ST-Level (≥7) für Robustheit.  
+- Numerische Stabilität für lange Zeitfenster prüfen.  
 
-1) **Python‑Umgebung** (für Artefakte in `./files/`):
-```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r files/requirements.txt  # falls vorhanden
-```
+## Referenzen
 
-2) **Beispielablauf** (Details siehe `files/README.md`):
-```bash
-python files/E4_simulation.py
-# erzeugt/aktualisiert: files/E4_homotopy_summary.csv und Plots
-```
-
----
+- Kliesch, Gogolin, Eisert — Lieb–Robinson Bounds.  
+- Woess — Random Walks on Trees.  
+- Sato et al., PRA 101:022312 — Quanten-Suche auf Fraktalen.  
 
 ## Lizenz
 
-- **Code** (insb. in `./files/`): **MIT License**.  
-- **Nicht‑Code** (z. B. PDFs, CSV/PNG): **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+- **Code** (im `files/`-Ordner): MIT License.  
+- **Nicht-Code** (PDFs, CSV, PNG): CC BY 4.0.  
 
-> © 2025 antaris — **Code:** MIT; **Daten/Abbildungen/Texte (inkl. PDFs):** CC BY 4.0.
-
----
-
-## Zitation
-
-Bitte referenziere:
-> antaris (2025): *ST‑Graph PoC — E4: Robustheit via Homotopie G(θ)*. Ordner `Sierpinski Tetraeder_PoC/E4/`.  
-> **Code:** MIT. **Daten & Abbildungen (inkl. PDFs):** CC BY 4.0.
-
-(Optional: `CITATION.cff` im Repo‑Root hinzufügen, damit GitHub die Zitation automatisch anzeigt.)
+© 2025 antaris — Code: MIT; Daten & Abbildungen: CC BY 4.0.
