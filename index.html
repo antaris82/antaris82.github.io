@@ -8,22 +8,15 @@
     :root { --bg:#0b0f14; --fg:#e6edf3; --muted:#9aa4b2; --card:#10161d; --accent:#2f81f7; }
 
     html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font:14px/1.45 system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Arial,sans-serif; }
-    /* Hintergrundbild (falls vorhanden) wird per JS gesetzt */
-    body.bg-on {
-      background-attachment: fixed;
-      background-size: cover;
-      background-position: center center;
-    }
+    body.bg-on { background-attachment: fixed; background-size: cover; background-position: center center; }
 
     .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
-
     header { border-bottom:1px solid #1e2630; }
     header .row { padding:16px 0; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
     header h1 { font-size:18px; margin:0; }
     header .path { color:var(--muted); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
 
     main.wrap { padding:16px 0 24px; display:grid; grid-template-columns: 1fr; gap:16px; }
-
     .controls { display:flex; gap:8px; flex-wrap:wrap; }
     .controls input[type="text"] { background:#0e141b; color:var(--fg); border:1px solid #26303c; border-radius:8px; padding:8px 10px; min-width:280px; }
     .controls button { background:var(--accent); color:white; border:0; border-radius:8px; padding:8px 12px; cursor:pointer; }
@@ -55,26 +48,21 @@
     .meta-chip .title { font-weight:600; margin-bottom:6px; }
     .meta-chip .excerpt { white-space:pre-wrap; max-height:160px; overflow:auto; }
     .math-fence { margin: 8px 0; }
+
+    /* KaTeX Dark */
+    .katex { color: inherit; }
+    .katex-display { overflow:auto; }
   </style>
 
   <!-- Markdown (marked) & Sanitizer -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
 
-  <!-- MathJax v3: LaTeX ($...$, \(...\), $$...$$, \[...\]) -->
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$','$$'], ['\\[','\\]']],
-        processEscapes: true,
-        tags: 'ams'
-      },
-      options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <!-- KaTeX (CSS + JS + auto-render + mhchem) — ohne SRI, damit nichts blockiert -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/mhchem.min.js"></script>
 </head>
 <body>
   <header>
@@ -244,7 +232,7 @@
     }
 
     // ===== Markdown/LaTeX Preprocessing & math-Fences =====
-    // Schützt \[...\] und \(...\) vor marked; rendert ```math|latex|tex``` als Formeln
+    // Wandelt \[...\] → $$...$$ und \(...\) → $...$ um; rendert ```math|latex|tex``` als $$...$$
     function preprocessMath(md) {
       // Fences & Inline-Codes temporär ausblenden
       const fences = [];
@@ -252,10 +240,10 @@
       const inlines = [];
       md = md.replace(/`[^`]*`/g, m => { inlines.push(m); return '§§INLINE§§'; });
 
-      // Backslashes vor [ ] und ( ) verdoppeln
+      // \[...\] -> $$...$$   und   \(...\) -> $...$
       md = md
-        .replace(/\\\[/g, '\\\\[').replace(/\\\]/g, '\\\\]')
-        .replace(/\\\(/g, '\\\\(').replace(/\\\)/g, '\\\\)');
+        .replace(/\\\[((?:.|\n)*?)\\\]/g, (m,g1) => `$$${g1}$$`)
+        .replace(/\\\(((?:.|\n)*?)\\\)/g, (m,g1) => `$${g1}$`);
 
       // Platzhalter zurück
       md = md.replace(/§§INLINE§§/g, () => inlines.shift())
@@ -309,20 +297,38 @@
       return acc.sort((a,b)=> a.path.localeCompare(b.path));
     }
 
-    // MathJax Typeset Helper
-    function typeset(el) {
+    // KaTeX render helper (wartet polling-basiert auf auto-render)
+    function renderKatex(el) {
       return new Promise((resolve) => {
-        if (window.MathJax && MathJax.typesetPromise) {
-          MathJax.typesetPromise([el]).then(() => resolve()).catch(() => resolve());
-        } else {
-          let tries = 0;
-          const t = setInterval(() => {
-            if (window.MathJax && MathJax.typesetPromise) {
-              clearInterval(t);
-              MathJax.typesetPromise([el]).then(() => resolve()).catch(() => resolve());
-            } else if (++tries > 40) { clearInterval(t); resolve(); }
-          }, 200);
-        }
+        const opts = {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "$",  right: "$",  display: false}
+          ],
+          throwOnError: false,
+          strict: "ignore",
+          macros: {
+            "\\d": "\\mathrm{d}",
+            "\\dd": "\\,\\mathrm{d}",
+            "\\dv": "\\frac{\\mathrm{d} #1}{\\mathrm{d} #2}",
+            "\\pdv": "\\frac{\\partial #1}{\\partial #2}",
+            "\\vb": "\\mathbf{#1}",
+            "\\abs": "\\left|#1\\right|",
+            "\\norm": "\\left\\lVert #1\\right\\rVert",
+            "\\qty": "\\left( #1 \\right)"
+          },
+          ignoredTags: ['script','noscript','style','textarea','pre','code']
+        };
+        let tries = 0;
+        const tick = () => {
+          if (window.renderMathInElement) {
+            try { window.renderMathInElement(el, opts); } catch(_) {}
+            resolve();
+          } else if (++tries > 50) { resolve(); } else { setTimeout(tick, 200); }
+        };
+        tick();
       });
     }
 
@@ -348,13 +354,13 @@
         if (!r.ok) throw new Error("READMERaw error " + r.status);
         const txt = await r.text();
 
-        // (1) TeX-Delimiter vor Markdown schützen
+        // (1) TeX-Delimiter robust umschreiben
         const pre = preprocessMath(txt);
         // (2) Markdown -> HTML (mit math-fences), danach sanitizen
         const html = DOMPurify.sanitize(marked.parse(pre));
         readmeEl.innerHTML = html;
-        // (3) LaTeX rendern
-        await typeset(readmeEl);
+        // (3) LaTeX mit KaTeX rendern
+        await renderKatex(readmeEl);
       } catch (e) {
         readmeEl.textContent = "README konnte nicht geladen/gerendert werden: " + e.message;
       }
