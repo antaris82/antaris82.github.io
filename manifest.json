@@ -29,8 +29,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "d952277af645fbce7e555e2375da9b52551d8342",
-    "size": 24116,
+    "sha": "c0096c3ae39cf4718ae898f1fb8bd7e1eb3006d9",
+    "size": 24298,
     "type": "blob",
     "mode": "100644"
   },
@@ -493,6 +493,13 @@
     "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/quantum.py",
     "sha": "5ce47c9ff91ff7ceb1de6e7945884d3be065a203",
     "size": 1250,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/README.md",
+    "sha": "12bc697be5b919109a482998747b30cdfc445f68",
+    "size": 2420,
     "type": "blob",
     "mode": "100644"
   },
