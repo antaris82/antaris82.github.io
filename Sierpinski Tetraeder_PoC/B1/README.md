@@ -1,141 +1,76 @@
-# B1 — Formalisierung, PoC-Brücke und Dateiübersicht
+# B1 – Formale Ergebnisse und Artefakte (ST-Graph, Teilspur, Thermodynamik)
 
-> Dieses README beschreibt den Ordner **`Sierpinski Tetraeder_PoC/B1/`** samt Unterordner **`files/`**.  
-> **Math-Delimiters:** Inline mit \( … \), Display mit \[ … \].
-
----
-
-## 🔗 Schnellzugriff
-
-- 📄 **Beweis/Details:** `B1_v4_check run 3_formal_ST.pdf`
-- 📄 **Zusammenfassung (self-contained):** `B1_summary.pdf`
-- 📦 **Artefakte & Daten:** `files/`
+Dieses Verzeichnis dokumentiert die Ergebnisse und Beweise zu **B1** im Rahmen des *Sierpinski-Tetraeder-PoC*.  
+Zentrale Inhalte sind die formale Ausarbeitung (PDF), begleitende Codes und die erzeugten Daten/Animationen im Unterordner [`files/`](./files).
 
 ---
 
-## 1) Ziel & Kontext
+## 📄 Inhalt
 
-**B1** liefert eine endlichdimensionale, saubere Formalisierung auf ST-Graphen (Sierpiński-Tetraeder) mit
+### Hauptdokumente
+- **B1_formal.pdf**  
+  Enthält die vollständigen mathematischen Beweise und Ergebnisse zu:
+  - Definition und Eigenschaften des Approximanten  
+    \
+    L_A(\alpha) = (1-\alpha)L + \alpha L_{\text{lift}}
+    \
+  - Positivität und Kerneigenschaft (Lemma 1)  
+  - Kronecker-Summenoperator und Spektralzerlegung (Proposition 2)  
+  - Teilspur-Reduktion des Gibbs-Zustands (Satz 3)  
+  - Thermodynamische Identitäten (Proposition 4)  
+  - Stetigkeit der Observablen in α (Proposition 5)  
+  - Numerische Verifikation (Checks 1–3, Tabellen mit Observablen über α)  
 
-- exakter **Gibbs-Reduktion (Teilspur)** für Kronecker-Summen,
-- **Laplace-kohärentem Coarse-Graining** via Lift \(L_{\mathrm{lift}}=C^{\top}L_0C\),
-- **Approximanten** \(L_A(\alpha)=(1-\alpha)L+\alpha L_{\mathrm{lift}}\) für \(\alpha\in[0,1]\),
-- Observablen \(E,S,P\) aus dem Gibbs-Zustand, **Thermo-Checks** über \(Z(\beta)\).
-
-Die PDFs dokumentieren Beweise, Mapping **Code ↔ Formel**, und numerische Checks.
-
----
-
-## 2) Kernformeln (ohne Platzhalter)
-
-### Partial Trace (Subsystem \(E\) wird getraced)
-
-\[
-\rho_S(\beta)
-=\operatorname{Tr}_E\!\left(\frac{e^{-\beta\bigl(H_S\otimes \mathbf 1+\mathbf 1\otimes H_E\bigr)}}{\operatorname{Tr}e^{-\beta\bigl(H_S\otimes \mathbf 1+\mathbf 1\otimes H_E\bigr)}}\right)
-=\frac{e^{-\beta H_S}}{\operatorname{Tr}e^{-\beta H_S}}\;.
-\]
-
-**Kommentar:** Nutzung von \([H_S\otimes \mathbf 1,\mathbf 1\otimes H_E]=0\) ⇒ Faktorisation von \(e^{-\beta H}\) ⇒ exakte Reduktion.
-
----
-
-### Beispielhafte Observablen-Abbildung über \(\alpha\)
-
-\[
-L_A(\alpha)=(1-\alpha)L+\alpha\,C^{\top}L_0C,\qquad 
-p_i(\alpha,\beta)=\frac{e^{-\beta\lambda_i(\alpha)}}{\sum_j e^{-\beta\lambda_j(\alpha)}}\;,
-\]
-\[
-E(\alpha,\beta)=\sum_i p_i(\alpha,\beta)\,\lambda_i(\alpha),\quad
-S(\alpha,\beta)=-\sum_i p_i(\alpha,\beta)\,\log p_i(\alpha,\beta),\quad
-P(\alpha,\beta)=\sum_i p_i(\alpha,\beta)^2\;.
-\]
-
-Mit \(Z(\alpha,\beta)=\operatorname{Tr}\,e^{-\beta L_A(\alpha)}\) gelten
-\[
-\partial_\beta\log Z(\alpha,\beta)=-E(\alpha,\beta),\qquad
-\partial_\beta^2\log Z(\alpha,\beta)=\mathrm{Var}_{\rho(\alpha,\beta)}(L_A(\alpha))\ge 0\;.
-\]
+### Unterordner
+- [`files/`](./files)  
+  Enthält die zugehörigen Python-Skripte, CSV-Daten, Berichte sowie animierte GIFs (Simulationen).  
+  Beispiele:
+  - `B1_v2_check.py` – Kernskript zur numerischen Überprüfung der Aussagen.  
+  - `B1_v1_partial trace_partial trace on ST-Graph.py` – Simulation der Teilspur auf dem ST-Graph.  
+  - `B1_v2_check_alpha_observables.csv` – numerische Observablen (Energie, Entropie, Purity) über α.  
+  - `B1_v2_check_checks_report.txt` – numerischer Report (Symmetrie, Positivität, Teilspur-Gleichheit, Thermo-Identitäten).  
+  - mehrere GIF-Animationen (z. B. dynamische Dichte und Graph-Coarsening).
 
 ---
 
-### Lieb–Robinson-artige Schranke (Motivation für effektive Kegel/Kausalität)
+## 🔬 Zusammenfassung der Ergebnisse
 
-\[
-\bigl\|[\alpha_t(A),B]\bigr\|
-\;\le\;
-C\,\|A\|\,\|B\|\,
-\exp\!\Bigl(-\mu\,\bigl[d(X,Y)-v_{\mathrm{LR}}\,t\bigr]\Bigr)\,.
-\]
+- **Reduktion:** Für jedes endliche Environment H_E gilt
+  \
+  \mathrm{Tr}_E \!\left(e^{-\beta(L\otimes 1 + 1 \otimes H_E)}\right) \propto e^{-\beta L},
+  \
+  sodass die reduzierte Dichte nach Normierung genau dem Gibbs-Zustand von L entspricht.
 
-Dies motiviert einen **effektiven Lichtkegel** und eine maximale Gruppengeschwindigkeit \(v^*\le v_{\mathrm{LR}}\) auf Gittern/Netzwerken.
+- **Thermodynamik:**  
+  \
+  E(\beta) = -\partial_\beta \log Z(\beta), 
+  \quad 
+  \partial^2_\beta \log Z(\beta) = \mathrm{Var}_\rho(L) \geq 0 .
+  \
 
----
+- **Stetigkeit:** Die thermischen Observablen hängen stetig von \(\alpha\) ab.  
 
-## 3) PoC: Code ↔ Formel (Mapping)
-
-- **Graph-Aufbau:** `build_graph_by_addresses(level)` → \((V_m,E_m)\), Adjazenz \(A\), Laplacian \(L=D-A\) (symmetrisch, PSD, \(L\mathbf 1=0\)).
-- **Aggregation/Rekonstruktion:** \(C\) (Zeilensummen \(1\)), \(R=C^{\top}\); **Lift:** \(L_{\mathrm{lift}}=R\,L_0\,C\).
-- **Approximanten:** `L_A_alpha(alpha)` → \(L_A(\alpha)\), PSD und \(\ker\)-Erhalt für \(\alpha\in[0,1]\).
-- **Gibbs & Observablen:** `rho_from_spectrum(L,beta)`, `energy/entropy/purity_from_p` → \(E,S,P\) aus Spektrum & \(p_i\).
-- **Thermo-Checks:** numerisch \(\partial_\beta\log Z=-E\) und \(\partial_\beta^2\log Z=\mathrm{Var}(L)\) innerhalb Toleranz.
-
-Konkrete Referenzen und numerische Tabellen siehe PDFs und `files/`-Artefakte.
+- **Numerische Bestätigung:** Alle Kernaussagen (Symmetrie, Positivität, Teilspur-Gleichheit, Thermo-Identitäten) wurden bis zu Toleranzen von 10^{-10}–10^{-16} bestätigt.
 
 ---
 
-## 4) Reproduzierbarkeit (How-To)
+## 📊 Beispieltabellen (aus B1_formal.pdf)
 
-1. **Graph-Level** wählen (z. B. ST-Level 4–6) und \(L\) erzeugen.  
-2. **Aggregation \(C\)** und **groben Laplacian \(L_0\)** festlegen → \(L_{\mathrm{lift}}=C^{\top}L_0C\).  
-3. **Approximanten** \(L_A(\alpha)\) über \(\alpha\in[0,1]\) scannen.  
-4. **Gibbs-Zustände** \(\rho(\alpha,\beta)\propto e^{-\beta L_A(\alpha)}\) evaluieren; **\(E,S,P\)** berechnen.  
-5. **Thermo-Checks**: \(\partial_\beta \log Z\) und \(\partial_\beta^2 \log Z\) gegen \(E\) bzw. \(\mathrm{Var}(L)\) prüfen.  
-6. **Vergleich Urgraph vs. Approximant-Subgraph** (Trends von \(E,S,P\) über \(\alpha\) und Dimension \(n\)).
+**Thermische Observablen über den Approximanten L_A(\alpha):**
 
-> Outputs (CSV/JSON/PNG/GIF) liegen in `files/` und sind in den PDFs referenziert.
-
----
-
-## 5) Ordnerstruktur
-
-```
-B1/
-├─ B1_v4_check run 3_formal_ST.pdf       # Vollständiger Beweis & PoC-Mapping
-├─ B1_summary.pdf                         # Self-contained Zusammenfassung
-└─ files/                                 # Daten, Plots, Tabellen, GIFs, Snippets
-```
-
-**Typische Inhalte in `files/`:**  
-CSV/JSON (Spektren, Sweeps, Hard-Checks), PNG/PDF (Plots), GIF (rotierender ST), TEX-Snippets (Tabellen/Einfügeblöcke).
+| α       | Energie E | Entropie S | Purity P |
+|---------|-----------|------------|----------|
+| 0.000000 | 0.244396 | 1.939091 | 0.186146 |
+| 0.250000 | 0.275970 | 2.209655 | 0.145043 |
+| 0.500000 | 0.313159 | 2.623000 | 0.097992 |
+| 0.750000 | 0.371128 | 3.443204 | 0.045853 |
+| 1.000000 | 0.003005 | 4.602681 | 0.010043 |
 
 ---
 
-## 6) Hinweise für LaTeX-Nutzung
+## 📜 Lizenz
 
-- **Math-Delimiters:** Inline \( … \), Display \[ … \].  
-- **Tabellen:** `booktabs` verwenden (`\toprule`, `\midrule`, `\bottomrule`).  
-- **Compiler:** Bei `fontspec` **LuaLaTeX/XeLaTeX** nutzen (Hinweis „inputenc package ignored…“ ist normal).  
-- **Bilder:** Pfade prüfen; fehlende Dateien erzeugen Fehler wie *“File `…png` not found: using draft setting”*.  
-- **Zitate & Bib:** Quellenangaben wie in den PDFs; zusätzliche `\bibitem` ggf. in `files/` hinterlegt.
+- **Code** (insb. in `./files/`): MIT License  
+- **Nicht-Code** (z. B. PDFs, CSV/PNG/GIF): Creative Commons Attribution 4.0 International (CC BY 4.0)  
 
----
-
-## 7) FAQ (Kurz)
-
-- **Exakte Teilspur?**  
-  Kommutierende Summanden ⇒ \(e^{-\beta H}\) faktorisiert ⇒ \(\rho_S(\beta)=e^{-\beta H_S}/\operatorname{Tr}e^{-\beta H_S}\).
-
-- **Kern-Erhalt unter Lift/Approximation?**  
-  \(C\mathbf 1=\mathbf 1\), \(L_0\mathbf 1=0\Rightarrow L_{\mathrm{lift}}\mathbf 1=0\) ⇒ \(L_A(\alpha)\mathbf 1=0\).
-
-- **Thermo-Kohärenz?**  
-  \(\partial_\beta\log Z=-E\), \(\partial_\beta^2\log Z=\mathrm{Var}(L)\ge 0\) bestätigt numerisch in `files/`/PDFs.
-
----
-
-## 8) Changelog (B1)
-
-- **v1.1** — Delimiters auf **\( … \)** und **\[ … \]** umgestellt.
-- **v1.0** — Erstveröffentlichung dieses README; Platzhalter `MATHBLOCK_*` ersetzt.
+© 2025 antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.
