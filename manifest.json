@@ -28,13 +28,6 @@
     "mode": "100644"
   },
   {
-    "path": "generate_readme.py",
-    "sha": "f8120021cafb9e40db1962f8ef81c285782742a2",
-    "size": 60,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "index.html",
     "sha": "a776f68eaa00c16b7d62ff0e14d8a22f6805c035",
     "size": 23066,
@@ -43,8 +36,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "a716da0d755568752fa80cf4a258068212619bf6",
-    "size": 17885,
+    "sha": "40032cedc85d4ef427aabfc8d98bb3e501d2289b",
+    "size": 17728,
     "type": "blob",
     "mode": "100644"
   },
