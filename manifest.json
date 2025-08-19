@@ -36,15 +36,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "40032cedc85d4ef427aabfc8d98bb3e501d2289b",
-    "size": 17728,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "README_GUIDE.md",
-    "sha": "5421ecb764288362f0f098017d096619e02c7088",
-    "size": 15,
+    "sha": "d00a71b5b4cde369db793c6ff2333f9deb5e738a",
+    "size": 17573,
     "type": "blob",
     "mode": "100644"
   },
