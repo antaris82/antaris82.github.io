@@ -11,9 +11,9 @@ Zentrale Inhalte sind die formale Ausarbeitung (PDF), begleitende Codes und die 
 - **B1_formal.pdf**  
   Enthält die vollständigen mathematischen Beweise und Ergebnisse zu:
   - Definition und Eigenschaften des Approximanten  
-    \
+    \[
     L_A(\alpha) = (1-\alpha)L + \alpha L_{\text{lift}}
-    \
+    \]
   - Positivität und Kerneigenschaft (Lemma 1)  
   - Kronecker-Summenoperator und Spektralzerlegung (Proposition 2)  
   - Teilspur-Reduktion des Gibbs-Zustands (Satz 3)  
@@ -36,27 +36,27 @@ Zentrale Inhalte sind die formale Ausarbeitung (PDF), begleitende Codes und die 
 ## 🔬 Zusammenfassung der Ergebnisse
 
 - **Reduktion:** Für jedes endliche Environment H_E gilt
-  \
+  \[
   \mathrm{Tr}_E \!\left(e^{-\beta(L\otimes 1 + 1 \otimes H_E)}\right) \propto e^{-\beta L},
-  \
-  sodass die reduzierte Dichte nach Normierung genau dem Gibbs-Zustand von L entspricht.
+  \]
+  sodass die reduzierte Dichte nach Normierung genau dem Gibbs-Zustand von \(L\) entspricht.
 
 - **Thermodynamik:**  
-  \
+  \[
   E(\beta) = -\partial_\beta \log Z(\beta), 
   \quad 
   \partial^2_\beta \log Z(\beta) = \mathrm{Var}_\rho(L) \geq 0 .
-  \
+  \]
 
 - **Stetigkeit:** Die thermischen Observablen hängen stetig von \(\alpha\) ab.  
 
-- **Numerische Bestätigung:** Alle Kernaussagen (Symmetrie, Positivität, Teilspur-Gleichheit, Thermo-Identitäten) wurden bis zu Toleranzen von 10^{-10}–10^{-16} bestätigt.
+- **Numerische Bestätigung:** Alle Kernaussagen (Symmetrie, Positivität, Teilspur-Gleichheit, Thermo-Identitäten) wurden bis zu Toleranzen von \(10^{-10}–10^{-16}\) bestätigt.
 
 ---
 
 ## 📊 Beispieltabellen (aus B1_formal.pdf)
 
-**Thermische Observablen über den Approximanten L_A(\alpha):**
+**Thermische Observablen über den Approximanten \(L_A(\alpha)\):**
 
 | α       | Energie E | Entropie S | Purity P |
 |---------|-----------|------------|----------|
