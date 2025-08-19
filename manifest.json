@@ -29,8 +29,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "497befea826a6ffd92c22558d2e7e60a6a6f0952",
-    "size": 17124,
+    "sha": "b9969d1d212961d1240969c0d1c1795238f0a72f",
+    "size": 16936,
     "type": "blob",
     "mode": "100644"
   },
@@ -234,6 +234,258 @@
     "path": "Sierpinski Tetraeder_PoC/B1/README.md",
     "sha": "3533bd9348fb046f4415816d7be86c65b3f08c16",
     "size": 3028,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/C1_ST_duality and singulary resitance.pdf",
+    "sha": "ea19d13d0c286291fafff8a636bdf99c474376dd",
+    "size": 280792,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/C1_ST_formalization.pdf",
+    "sha": "0d29f270f46462ce6b2ecbaeffcecbe9f3c1f2e2",
+    "size": 227449,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/C1_ST_proofs.pdf",
+    "sha": "61cfbf9d5c21d8fd6d32db4ee2319b34271d9ace",
+    "size": 195548,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/C1_demo_ST_vs_Zd.py",
+    "sha": "1dc70eea9d6d3f979376ac9f533dccdf8e5f3278",
+    "size": 5823,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/C1_README_RUN.md",
+    "sha": "77a00cfe72257dab1a7314c9a888d848c77f31d8",
+    "size": 1600,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/C1_ST_Simulations_PoC_v1.txt",
+    "sha": "4bcbd7222fedc7570f036f7ecff3045f835439c5",
+    "size": 4212,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/C1_ST_Simulations_PoC_v1.zip",
+    "sha": "80f8e0a299625d3340e97304ce5392e4bef82218",
+    "size": 10398,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_dtn_delta.json",
+    "sha": "b57ced8143ef2c53c8fc78544ad2ac190ae00850",
+    "size": 87,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_dtn_ST_baseline.csv",
+    "sha": "c59a7f8e3d905fd4710f46028973496c059fc22c",
+    "size": 412,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_dtn_ST_perturbed.csv",
+    "sha": "fac0eb1049872f567389ce3c2ce6d8bcf073f060",
+    "size": 412,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_heat_ST.csv",
+    "sha": "28189016c6f6d21094d75527c5231855235220fb",
+    "size": 2418,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_heat_trace_compare.png",
+    "sha": "13d66c18cee5f164df7b67056c7b917dada02f4b",
+    "size": 44742,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_heat_Z2.csv",
+    "sha": "8598a5e47e4e286e42a19a05e2005557618bb80f",
+    "size": 2418,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_heat_Z3.csv",
+    "sha": "ae8080dbdce57ac4c2791ebc38b0a3c56796ed9c",
+    "size": 2418,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_lr_front_ST_gkls.csv",
+    "sha": "cc91e55b30479ab9c9a1b4b81b31c113b4c16a7d",
+    "size": 2511,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_lr_front_ST_gkls.png",
+    "sha": "f02a2737739da2a8ef116fef4b703a655b75ee60",
+    "size": 30191,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_lr_front_ST.csv",
+    "sha": "2e7adb05cef04c9b7e55d335efa31c04c90c61f2",
+    "size": 1256,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_lr_front_ST.png",
+    "sha": "901fc03ba180bf3fd126d591f6183ba9c27f49f2",
+    "size": 31017,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_spectral_dimension_compare.png",
+    "sha": "a69a262d93ac939c5984bb0f77df71d9fe2ab944",
+    "size": 52350,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/result/C1_heat_trace_compare_from_zip.png",
+    "sha": "c24b7839e0845a2dac71fda40d7120461e37cd70",
+    "size": 81864,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/result/C1_result.md",
+    "sha": "f9ebf4d3808d2b8bc59c364d5be37afa3e157803",
+    "size": 4452,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/result/C1_spectral_dimension_median_lines.png",
+    "sha": "6322fd373d3a07de52d765342cbda6bef9a64e4b",
+    "size": 50289,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/__pycache__/dtn.cpython-313.pyc",
+    "sha": "317843fb5ec1eb7cbe2d5dd3496bf4e53efd1c57",
+    "size": 2696,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/__pycache__/gkls.cpython-313.pyc",
+    "sha": "cfe1f25b0fbca2fb7f805ff037640f1845082f35",
+    "size": 2056,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/__pycache__/graph_st.cpython-313.pyc",
+    "sha": "fdbe1002bd4ada521df888f1b6359b95c9e101a4",
+    "size": 5262,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/__pycache__/graphs_regular.cpython-313.pyc",
+    "sha": "67eafb52cbb7a25ae51030faf170a75162d99325",
+    "size": 3339,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/__pycache__/heat.cpython-313.pyc",
+    "sha": "72bef45eac95816eb65ea9b41df94777ec2bc60b",
+    "size": 2382,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/__pycache__/linops.cpython-313.pyc",
+    "sha": "d03995174dfd93e5458f3d72663e0ebdb8e7d6b9",
+    "size": 3995,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/__pycache__/quantum.cpython-313.pyc",
+    "sha": "0cf381e848a0d8800e830e0a206236eae9762fb4",
+    "size": 2343,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/dtn.py",
+    "sha": "2bd74851881b48cb6aaeb9ba268f05498192853d",
+    "size": 1594,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/gkls.py",
+    "sha": "2760c0bee630b351a67d26eeabb58e06c431b2f1",
+    "size": 1250,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/graph_st.py",
+    "sha": "eb48c80cb82d26cfa4b3d61f52caea4d3d67c976",
+    "size": 3465,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/graphs_regular.py",
+    "sha": "21ce15672a5ff8ac142c1a98097a5113b9b055ab",
+    "size": 1975,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/heat.py",
+    "sha": "3a8ba75c47bbe4c4c66825b86499991cd0c1d4db",
+    "size": 1106,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/linops.py",
+    "sha": "28f6fb820243f582c7bd1d6dd7abd92ce887178c",
+    "size": 2084,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/stlib/quantum.py",
+    "sha": "5ce47c9ff91ff7ceb1de6e7945884d3be065a203",
+    "size": 1250,
     "type": "blob",
     "mode": "100644"
   },
