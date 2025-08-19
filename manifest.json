@@ -22,14 +22,14 @@
   },
   {
     "path": "index.html",
-    "sha": "b1a428644eec42312f9f5999fd442028d2a21943",
-    "size": 19895,
+    "sha": "944ce9ba91dccc221a38bbc490ad3c2ddbeb4f36",
+    "size": 19661,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.json",
-    "sha": "fadf3bfce791ba033e301c60d7d69a60b259ecb7",
+    "sha": "1cbc24b2d9b7c04070a5d3bec6e1f0d0c85f96c7",
     "size": 24474,
     "type": "blob",
     "mode": "100644"
