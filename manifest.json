@@ -29,8 +29,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "b9969d1d212961d1240969c0d1c1795238f0a72f",
-    "size": 16936,
+    "sha": "d952277af645fbce7e555e2375da9b52551d8342",
+    "size": 24116,
     "type": "blob",
     "mode": "100644"
   },
@@ -367,6 +367,13 @@
     "path": "Sierpinski Tetraeder_PoC/C1/files/out/C1_spectral_dimension_compare.png",
     "sha": "a69a262d93ac939c5984bb0f77df71d9fe2ab944",
     "size": 52350,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/README.md",
+    "sha": "86a15bd81167b2d685adc5ee14afc746b658bb1d",
+    "size": 2641,
     "type": "blob",
     "mode": "100644"
   },
