@@ -43,15 +43,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "058eb6016eb6f0f8099abaa17f5f5e2885b5927b",
-    "size": 18058,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "readme_autogen.py",
-    "sha": "654f5c47ab12aef7a71443357b0b8b6659998866",
-    "size": 10904,
+    "sha": "a716da0d755568752fa80cf4a258068212619bf6",
+    "size": 17885,
     "type": "blob",
     "mode": "100644"
   },
