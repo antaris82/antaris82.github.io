@@ -21,13 +21,6 @@
     "mode": "100644"
   },
   {
-    "path": "dirindex.meta.schema.json",
-    "sha": "d22b883a8dbf02d3270771a6a38bb3b0604c0d5c",
-    "size": 63,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "index.html",
     "sha": "a776f68eaa00c16b7d62ff0e14d8a22f6805c035",
     "size": 23066,
@@ -36,8 +29,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "0bb302db4c6afb78c0efc5b3421a7944d0acb2d5",
-    "size": 17421,
+    "sha": "3b29b14d8a335f547641b1c65290c8395ecd7716",
+    "size": 17265,
     "type": "blob",
     "mode": "100644"
   },
