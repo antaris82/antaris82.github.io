@@ -1,86 +1,73 @@
-## E1 — Proof-of-Concept (PoC) für den ST-Graph
+# E1 — Bühne verifiziert: Laplace‑Operator, Heat‑Kernel & spektrale Dimension (ST)
 
-Dieser Ordner enthält **E1** des ST-Graph‑PoC und umfasst ausschließlich das Beweis‑PDF **`E1_proof.pdf`**.
-Der Schritt **E1** verifiziert die **Bühne** (Mathematik/Analysis) auf dem Sierpiński‑Tetraeder (ST): Existenz von
-Resistance‑/Dirichlet‑Form \\((\\mathcal E,\\mathcal F)\\), des selbstadjungierten Laplace‑Operators \\(-\\Delta\\) und eines stetigen
-Heat‑Kernels \\(p_t(x,y)\\); ferner sub‑gaußsche Heat‑Kernel‑Schranken bzgl. der Widerstandsmetrik sowie explizite Exponenten
-(\\(d_w, d_s\\)) für ST.
-
-- 📄 **Beweis:** [`E1_proof.pdf`](./E1_proof.pdf)
+> **Pfad:** `Sierpinski Tetraeder_PoC/E1/` • **Owner:** antaris82  
+> **Kurzbeschreibung:** Dieses Verzeichnis enthält das formale PDF zum Beweis von **E1**: Existenz von Resistance‑/Dirichlet‑Form \((\mathcal E,\mathcal F)\), selbstadjungiertem Laplace‑Operator \(-\Delta\), stetigem Heat‑Kernel \(p_t(x,y)\) auf dem **Sierpiński‑Tetraeder (ST)** sowie der zugehörigen Exponenten \(d_w, d_s\).  
+> **Math‑Hinweis:** Inline \( … \), Display \[ … \].
 
 ---
 
-## Kurzüberblick (Kernaussagen)
-
-- **Existenz:** Auf ST existieren (bis auf Zeitskalierung eindeutig) eine lokale, reguläre **Resistance‑/Dirichlet‑Form** \\((\\mathcal E,\\mathcal F)\\),
-  der zugehörige **selbstadjungierte Laplace‑Operator** \\(-\\Delta\\) sowie ein **(streng positiver) stetiger Heat‑Kernel** \\(p_t(x,y)\\).
-
-- **Sub‑gaußsche Schranken:** Relativ zur **Widerstandsmetrik** \\(R\\) gelten **zweiseitige sub‑gaußsche Bounds** mit **Walk‑Dimension**
-  \\(d_w>2\\):
-  \\[
-  c_1\\, t^{-d_s/2} \\exp\\!\\Big(-c_2\\,\\Big(\\tfrac{R(x,y)^{d_w}}{t}\\Big)^{\\!\\frac{1}{d_w-1}}\\Big)
-  \\;\\le\\; p_t(x,y) \\;\\le\\;
-  c_3\\, t^{-d_s/2} \\exp\\!\\Big(-c_4\\,\\Big(\\tfrac{R(x,y)^{d_w}}{t}\\Big)^{\\!\\frac{1}{d_w-1}}\\Big).
-  \\]
-
-- **Exponenten auf ST:** Für das Sierpiński‑Tetraeder (Sierpiński‑Simplex mit \\(d=3\\)) gilt
-  \\[
-  d_w = \\frac{\\ln 6}{\\ln 2},\\qquad
-  d_s = \\frac{2\\,\\ln 4}{\\ln 6} \\approx 1{.}5474,
-  \\]
-  woraus \\(p_t(x,x) \\asymp t^{-d_s/2}\\) für \\(t\\downarrow 0\\) folgt (bis auf **log‑periodische Modulationen**).
+## 🔗 Schnellzugriff
+- 📄 **Beweis:** `E1_proof.pdf` — vollständige Herleitung, Definitionen, Lemma‑Kette, Literatur.
 
 ---
 
-## Dateiübersicht
+## 1) Ziel & Kontext
+E1 fixiert die **Bühne** für alle folgenden PoC‑Schritte: wohldefinierte Analysis auf dem ST (pcf‑Fraktal), sub‑gaußsche Heat‑Kernel‑Schranken bzgl. Widerstandsmetrik und die **spektrale Dimension** als Leitgröße für asymptotische Skalen.
 
-| Datei | Typ | Beschreibung |
+## 2) Axiome & Kernergebnisse (aus dem PDF)
+- **Existenz:** Auf pcf‑Räumen mit regulärer harmonischer Struktur existieren \((\mathcal E,\mathcal F)\), \(-\Delta)\) und ein stetiger \(p_t\).  
+- **Sub‑gaußsche Schranken:** Es gelten zweiseitige Estimates relativ zur Widerstandsmetrik \(R\) und Walk‑Dimension \(d_w>2\).  
+- **Spektrale Dimension (ST):**
+  \[
+  d_s \,=\, \frac{2\ln 4}{\ln 6} \approx 1.5474, 
+  \qquad p_t(x,x)\asymp t^{-d_s/2}\;(t\downarrow 0).
+  \]
+
+## 3) Methoden / Formalismus
+- **pcf‑Framework (Kigami):** Grenzbildung renormierter Energien auf Graph‑Approximanten; Widerstandsmetrik \(R\).  
+- **Heat‑Kernel:** Konstruktion über die zugehörige reguläre Dirichlet‑Form; Positivität, Stetigkeit.  
+- **Exponenten:** Ableitung/Verifikation für Sierpiński‑Simplexe; Spezialisierung auf ST.
+
+## 4) Datei‑ & Ordnerübersicht
+| Pfad | Typ | Kurzbeschreibung |
 |---|---|---|
-| `E1_proof.pdf` | PDF | Vollständiges Beweis‑Dokument zu **E1** (Bühne verifiziert: Laplace‑Operator, Heat‑Kernel, spektrale Dimension auf ST). |
-
-**PDF‑Inhalt (Struktur):**
-1. **Voraussetzungen und Definitionen** (pcf‑Set, harmonische Struktur, Widerstandsmetrik, Walk‑ & spektrale Dimension).  
-2. **Existenz von \\((\\mathcal E,\\mathcal F)\\), \\(-\\Delta\\) und \\(p_t\\) auf ST** (Kigami‑Theorie, Markov‑Prozess, Stetigkeit/Positivität).  
-3. **Sub‑gaußsche Heat‑Kernel‑Abschätzungen & \\(d_w\\)** (VD/Poincaré/Ketten‑Bedingungen; Charakterisierung der Schranken).  
-4. **Sierpiński‑Simplex: \\(d_w\\) und \\(d_s\\) explizit; Spezialisierung auf ST** (Formeln für \\(d\\)-Simplexe; Einsetzen von \\(d=3\\)).  
-5. **Schluss** (Robustheit der Bühne; Unabhängigkeit von numerischen Experimenten).
+| `./E1_proof.pdf` | PDF | Formale Herleitung und Beweisführung zu E1 (Bühne, Heat‑Kernel, \(d_s\), Literatur). |
 
 ---
 
-## Nutzung
+## 5) Akzeptanzkriterien
+- **K1:** PDF enthält konsistente Definitionen (pcf, Resistance‑Form, \(-\Delta\), \(p_t\)).  
+- **K2:** Sub‑gaußsche Struktur (Parameterschema, Abhängigkeiten von \(R,d_w\)) ist explizit dokumentiert.  
+- **K3:** **ST‑Spezialisierung:** \(d_s=2\ln 4/\ln 6\) und On‑Diagonal‑Skalierung werden explizit angegeben.  
+- **K4:** Literaturangaben vorhanden (Primärquellen).
 
-- Dieses Verzeichnis dient der **Dokumentation des Beweises**. Zur numerischen Verifikation/Simulation siehe die
-  weiteren PoC‑Schritte (z. B. `E2/`).
+## 6) Reproduzierbarkeit
+1. **Lesen:** `E1_proof.pdf` vollständig durcharbeiten (Definitionen → Propositionen → Sätze).  
+2. **Quervergleich:** Formeln/Exponenten mit den im PDF zitierten Primärquellen abgleichen.  
+3. **(Optional):** Numerische Checks (Heat‑Trace) sind nicht erforderlich, da E1 formal bewiesen ist.
 
----
+## 7) Offene Punkte / To‑Do
+- [ ] Ergänzende Abbildungen (Heat‑Trace, log‑periodische Modulation) für spätere Ordner.  
+- [ ] Kurze Notiz zu Zeitskalierungskonventionen (Normalisierungskonstante).
 
-## Lizenz
+## 8) Validierungsstatus
+| Kriterium | Status | Kommentar |
+|---|---|---|
+| K1 | 🟢 | Vollständig im PDF |
+| K2 | 🟢 | Sub‑gaußsche Form dargelegt |
+| K3 | 🟢 | \(d_s\) und Diagonalskalierung angegeben |
+| K4 | 🟢 | Primärquellen gelistet |
 
-Da dieser Ordner ausschließlich **Nicht‑Code** enthält, gilt für den Inhalt **Creative Commons Attribution 4.0 International (CC BY 4.0)**.  
-Das erlaubt **freie Nutzung**, **Weitergabe** und **Bearbeitung**, erfordert aber **Namensnennung** des Urhebers.
+## 9) Referenzen
+Siehe Literaturliste in `E1_proof.pdf`.
 
-> **Lizenzhinweis für dieses Verzeichnis:**  
-> © 2025 antaris — **`E1_proof.pdf` unter CC BY 4.0**.  
-> *(Sollte künftig Code ergänzt werden, empfehlen wir dafür zusätzlich die **MIT‑Lizenz**.)*
+## 10) Lizenz
+Lizenz
 
----
+    Code (insb. in ./files/): MIT License.
+    Nicht‑Code (z. B. PDFs, CSV/PNG): Creative Commons Attribution 4.0 International (CC BY 4.0).
 
-## Zitation
+    © 2025 antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.
 
-Bitte zitiere wie folgt:
-> antaris (2025): *E1 — Bühne verifiziert: Laplace‑Operator, Heat‑Kernel und spektrale Dimension auf dem Sierpiński‑Tetraeder*.  
-> GitHub‑Repo `antaris82.github.io`, Ordner `Sierpinski Tetraeder_PoC/E1/`. **Lizenz:** CC BY 4.0.
-
-(Optional kann im Repo‑Root eine `CITATION.cff` gepflegt werden, damit GitHub die Zitation automatisch anzeigt.)
-
----
-
-## Kontakt
-
-Maintainer: **@antaris** — Feedback/Fragen bitte als GitHub‑Issue einreichen.
-"""
-out_path = "/mnt/data/README_E1.md"
-with open(out_path, "w", encoding="utf-8") as f:
-    f.write(readme_e1)
-out_path
-
+## 11) Changelog
+- **v1.0 (2025-08-20):** Erstausgabe für `E1/`.
