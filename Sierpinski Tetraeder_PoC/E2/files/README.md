@@ -1,71 +1,89 @@
-# E2 / files — Proof-of-Concept (PoC) für den ST-Graph
+# E2/files — Simulationen und Analysen
 
-Dieser Unterordner bündelt sämtliche Artefakte des **E2-Schritts** im PoC zum **ST-Graph** (Sierpinski-Tetraeder-basierte Ur-Geometrie): Skripte, numerische Ergebnisse (CSV/JSON/TXT) sowie Abbildungen (PNG).  
-Ziel: Reproduzierbare Läufe auf unterschiedlichen ST-Leveln (L4/L5/L6) mit konsistenter Auswertung (First-Crossing, Amplitude, OTOC, Fits, Hard-Checks).
+Ordner für die **E2-Studien**: Simulationen, numerische Experimente und Auswertungen zu OTOCs, Amplitudenfronten und Crossing-Analysen auf dem ST-Graph.
 
----
+## Pfad
+`antaris82.github.io/Sierpinski Tetraeder_PoC/E2/files/`
 
-## Schnellüberblick
-
-- **Thema:** ST-Graph PoC — Schritt *E2*  
-- **Inhalt:** Python-Skripte, CSV/JSON-Daten, PNG-Plots, Ergebnis-Notizen  
-- **Reproduzierbarkeit:** siehe Abschnitt „Nutzung & Reproduzierbarkeit“
+**Owner:** antaris82
 
 ---
 
-## Dateiübersicht
+## Dateien & Kurzbeschreibung
 
-Die Dateien sind nach „Run“ (1–3) gruppiert. Die Kurzbeschreibungen basieren auf Dateinamen und Struktur.
+- `E2_run 1_Level 4.py` — Python-Skript für Simulation Run 1 (Level-4 ST-Ball, First-Crossing).  
+- `E2_run 1_chain_firstcross.csv` — CSV-Daten (First Crossing Chain, Run 1).  
+- `E2_run 1_ST L4 Ball First Crossing.png` — Visualisierung der Crossing-Analyse (Level 4).  
+- `E2_run 1_results.json` — JSON-Ergebnisse Run 1.  
+- `E2_run 1_Ergebnis.txt` — Textzusammenfassung Run 1.
 
-### Run 1 (ST-Level 4)
-| Datei | Typ | Kurzbeschreibung |
-|---|---|---|
-| `E2_run 1_Level 4.py` | PY | Simulation für **ST-Level 4** (Run 1); erzeugt First-Crossing-Daten/Plots. |
-| `E2_run 1_results.json` | JSON | Metadaten/Parameter/ggf. Seeds & Laufinformationen von Run 1. |
-| `E2_run 1_ST L4 Ball First Crossing.png` | PNG | Plot **First-Crossing** (Setup „Ball“) auf Level 4. |
-| `E2_run 1_STL4_firstcross.csv` | CSV | Tabellare **First-Crossing**-Messwerte für Level 4. |
-| `E2_run 1_Chain First Crossing.png` | PNG | Plot **First-Crossing** (Setup „Chain“) auf Level 4. |
-| `E2_run 1_chain_firstcross.csv` | CSV | Messwerte **First-Crossing** (Chain) für Level 4. |
-| `E2_run 1_Ergebnis.txt` | TXT | Kurzbericht/Notizen zu Ergebnissen und Beobachtungen in Run 1. |
+- `E2_run 2_Level 5.py` — Python-Skript für Simulation Run 2 (Level-5 ST-Ball).  
+- `E2_run 2_plot.png` — Visualisierung Run 2.  
+- `E2_run 2_STL5_eps0p02_alltargets.csv` — CSV-Daten aller Targets (ε=0.02).  
+- `E2_run 2_STL5_J1_fits.csv` — Fits J1 (Level-5).  
+- `E2_run 2_STL5_hardcheck.json` — Validierungs-JSON Run 2.  
+- `E2_run 2_Ergebnis.txt` — Textzusammenfassung Run 2.
 
-### Run 2 (ST-Level 5)
-| Datei | Typ | Kurzbeschreibung |
-|---|---|---|
-| `E2_run 2_Level 5.py` | PY | Simulation für **ST-Level 5** (Run 2). |
-| `E2_run 2_plot.png` | PNG | Übersichts-/Vergleichsplot für Run 2. |
-| `E2_run 2_STL5_eps0p02_alltargets.csv` | CSV | **Alle Targets** für Level 5 bei ε = 0.02 (Referenz/Kalibrierung). |
-| `E2_run 2_STL5_J1_fits.csv` | CSV | Ergebnisdatei mit **J1-Fits** (angepasste Parameter/Kurven). |
-| `E2_run 2_STL5_hardcheck.json` | JSON | **Hard-Check/Validierung** der L5-Ergebnisse (Konsistenz/Toleranzen). |
-| `E2_run 2_Ergebnis.txt` | TXT | Kurzbericht/Notizen zu Run 2. |
-
-### Run 3 (ST-Level 6)
-| Datei | Typ | Kurzbeschreibung |
-|---|---|---|
-| `E2_run 3_Level 6.py` | PY | Simulation für **ST-Level 6** (Run 3). |
-| `E2_run 3_ST Level-6 ball — amplitude front.png` | PNG | **Amplitude-Front** für Setup „Ball“ auf Level 6. |
-| `E2_run 3_ST Level-6 ball — OTOC front.png` | PNG | **OTOC-Front** für Setup „Ball“ auf Level 6. |
-| `E2_run 3_STL6_amp_otoc.json` | JSON | Konsolidierte Daten **Amplitude+OTOC** (Level 6). |
-| `E2_run 3_STL6_eps0p02_amp_targets.csv` | CSV | **Amplitude-Targets** (Level 6) bei ε = 0.02. |
-| `E2_run 3_STL6_eps1e-3_otoc_targets.csv` | CSV | **OTOC-Targets** (Level 6) bei ε = 1e-3. |
-| `E2_run 3_STL5_hardcheck.json` | JSON | Hard-Check/Referenz für Cross-Validation (L5↔L6). |
-| `E2_run 3_Ergebnisse.txt` | TXT | Kurzbericht/Notizen zu Run 3. |
+- `E2_run 3_Level 6.py` — Python-Skript für Simulation Run 3 (Level-6 ST-Ball).  
+- `E2_run 3_ST Level-6 ball — amplitude front.png` — Visualisierung der Amplitudenfront.  
+- `E2_run 3_STL6_amp_otoc.json` — OTOC-Daten (Level-6).  
+- `E2_run 3_STL6_eps0p02_amp_targets.csv` — Amplitude Targets (ε=0.02).  
+- `E2_run 3_STL6_eps1e-3_otoc_targets.csv` — OTOC Targets (ε=1e−3).  
+- `E2_run 3_STL5_hardcheck.json` — Validierungs-JSON (Cross-Level).  
+- `E2_run 3_Ergebnisse.txt` — Textzusammenfassung Run 3.
 
 ---
 
-## Nutzung & Reproduzierbarkeit
+## Axiome & Kernpunkte
 
-1) **Umgebung (Beispiel)**
-```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt  # falls vorhanden
+- **(A1)** ST-Graph-Simulationen werden für Level 4–6 durchgeführt.  
+- **(A2)** Fokus liegt auf **First-Crossing**, **Amplitude-Fronten** und **OTOC**-Analysen.  
+- **(A3)** Ergebnisse werden in Python generiert, numerisch validiert und in CSV/JSON/TXT/PNG dokumentiert.  
 
-2) **Läufe starten**
-python "E2_run 1_Level 4.py"
-python "E2_run 2_Level 5.py"
-python "E2_run 3_Level 6.py"
+---
 
-3) Seeds & Parameter
+## Ergebnisse
 
-Bitte in den Skripten dokumentieren (z. B. numpy.random.seed(...), Konfigurationen in cfg.py/config.yaml).
-Outputs liegen als CSV/JSON/PNG/ vor (siehe Dateiübersicht).
+- Crossing-Dynamik in Level-4–6 ST-Bällen analysiert.  
+- Amplituden-Fronten und OTOC-Daten für unterschiedliche ε getestet.  
+- JSON-Validierungen (Hardcheck) sichern Reproduzierbarkeit.  
+
+---
+
+## Akzeptanzkriterien
+
+- (K1) Konsistenz der Crossing- und OTOC-Daten.  
+- (K2) Validierung der Simulationen durch JSON-Hardchecks.  
+- (K3) Nachvollziehbare Dokumentation (CSV/TXT/PNG).  
+
+**Validierungsstatus:**  
+| Kriterium | Status |
+|-----------|--------|
+| K1 | 🟢 |
+| K2 | 🟡 |
+| K3 | 🟢 |
+
+---
+
+## Reproduzierbarkeit
+
+1. Python-Skripte (`*.py`) ausführen (benötigt NumPy, Matplotlib, evtl. SciPy).  
+2. CSV/JSON-Dateien vergleichen mit den generierten Outputs.  
+3. Ergebnisse mit den PNG-Plots abgleichen.  
+
+---
+
+## Offene Punkte / To-Do
+
+- Weitere Parameterbereiche (ε) testen.  
+- Ergänzung der Analyse für höhere Levels (≥7).  
+- Vergleich mit analytischen Bounds (Heat-Kernel, LR-Lichtkegel).  
+
+---
+
+## Lizenz
+
+- **Code** (`*.py`): MIT.  
+- **Nicht-Code** (CSV, JSON, PNG, TXT): CC BY 4.0.  
+
+© 2025 antaris — Code: MIT; Daten & Abbildungen: CC BY 4.0.
