@@ -1,106 +1,84 @@
-## E2 — Proof-of-Concept (PoC) für den ST-Graph
+# E2 — Lieb–Robinson & Frontzeiten
 
-Dieser Ordner bündelt den **Schritt E2** des ST-Graph‑PoC. Er enthält (i) das Beweis‑PDF `E2_proof.pdf` und (ii) den Unterordner `files/` mit Skripten, Daten, Plots und einer eigenen README.
+Ordner für die **E2-Studie**: Mathematischer Beweis und Simulationen zur Ableitung von Frontzeiten, maximaler Gruppengeschwindigkeit und emergenten Lichtkegeln auf dem ST-Graph.
 
-- 📄 **Beweis:** [`E2_proof.pdf`](./E2_proof.pdf)
-- 📦 **Artefakte & Skripte:** [`files/`](./files/) → Detailübersicht in [`files/README.md`](./files/README.md)
+## Pfad
+`antaris82.github.io/Sierpinski Tetraeder_PoC/E2/`
 
----
-
-## Kurzüberblick
-
-- **Thema:** ST‑Graph PoC — Schritt *E2*  
-- **Ziel:** Numerische Experimente (Level 4/5/6) + formaler Beweis zu Ausbreitungsgrenzen (Lieb–Robinson → Frontzeit, maximale Geschwindigkeit)  
-- **Outputs:** CSV/JSON (Ziel‑/Messgrößen, Fits, Hard‑Checks), PNG‑Plots, TXT‑Notizen  
-- **Reproduzierbarkeit:** siehe Abschnitt „Nutzung & Reproduzierbarkeit“
+**Owner:** antaris82
 
 ---
 
-## Kernaussagen aus `E2_proof.pdf` (Beweis‑Zusammenfassung)
+## Dateien & Kurzbeschreibung
 
-**Rahmen.** Lokal endliche Graphen mit beschränktem Grad; lokale bzw. exponentiell abfallende Wechselwirkungen.
+- `E2_proof.pdf` — Formaler Beweis: **Lieb–Robinson ⇒ Frontzeit und maximale Geschwindigkeit**.  
+  Enthält Definitionen, Sätze und Beweise zur Herleitung der Frontzeit-Untergrenze, der maximalen Gruppengeschwindigkeit \( v^* \leq v_{\mathrm{LR}} \) sowie des emergenten Lichtkegels für ST-Graphen.
 
-**Lieb–Robinson‑Bound.** Es existieren Konstanten \\(C,\\mu,v_{\\mathrm{LR}}>0\\) mit
-\\[
-\\bigl\\|[\\,\\alpha_t(A),\\,B\\,]\\bigr\\|
-\\;\\le\\;
-C\\,\\|A\\|\\,\\|B\\|\\,
-\\exp\\!\\bigl(-\\mu\\,\\bigl[d(X,Y)-v_{\\mathrm{LR}}\\,t\\bigr]\\bigr)
-\\]
-für lokalisierte Observablen \\(A\\in\\mathcal A_X\\), \\(B\\in\\mathcal A_Y\\) und Distanz \\(d(X,Y)\\).
-
-**Frontzeit (Untergrenze) bei Toleranz \\(\\varepsilon>0\\).** Für
-\\[
-t_\\varepsilon(d):=\\inf\\{\\,t\\ge0:\\|[\\,\\alpha_t(A),B\\,]\\|\\le\\varepsilon\\,\\}
-\\]
-gilt
-\\[
-t_\\varepsilon(d)\\;\\ge\\;\\frac{d}{v_{\\mathrm{LR}}}-\\frac{1}{\\mu\\,v_{\\mathrm{LR}}}\\,
-\\ln\\!\\frac{C\\,\\|A\\|\\,\\|B\\|}{\\varepsilon}\\,.
-\\]
-Damit folgt eine **maximale Gruppengeschwindigkeit** \\(v^*\\le v_{\\mathrm{LR}}\\) und ein (nahezu) **linearer emergenter Lichtkegel**. Die Voraussetzungen sind für die **ST‑Graph‑Approximanten** erfüllt; Varianten decken exponentiell abfallende Interaktionen, offene Systeme (Lindbladiane) und — mit modifizierten Exponenten — bestimmte Long‑Range‑Fälle ab.
+### Unterordner
+- [`files/`](./files) — Simulationen, numerische Experimente und Auswertungen zu OTOCs, Crossing-Analysen und Amplitudenfronten (Level 4–6).  
+  → Details siehe [README im Unterordner](./files/README.md).
 
 ---
 
-## Ordnerstruktur
+## Axiome & Kernpunkte
 
-
-> **Hinweis:** Die **vollständige Dateiübersicht** steht in `files/README.md`. Nachfolgend eine Zusammenfassung der Runs (1–3).
-
----
-
-## Dateiübersicht (Zusammenfassung des Unterordners `./files/`)
-
-### Run 1 (ST‑Level 4)
-| Datei | Typ | Kurzbeschreibung |
-|---|---|---|
-| `E2_run 1_Level 4.py` | PY | Simulation für **ST‑Level 4** (Run 1); erzeugt First‑Crossing‑Daten/Plots. |
-| `E2_run 1_results.json` | JSON | Metadaten/Parameter/Seeds & Laufinformationen von Run 1. |
-| `E2_run 1_ST L4 Ball First Crossing.png` | PNG | Plot **First‑Crossing** (Setup „Ball“) auf Level 4. |
-| `E2_run 1_STL4_firstcross.csv` | CSV | Tabellare **First‑Crossing**‑Messwerte für Level 4. |
-| `E2_run 1_Chain First Crossing.png` | PNG | Plot **First‑Crossing** (Setup „Chain“) auf Level 4. |
-| `E2_run 1_chain_firstcross.csv` | CSV | **First‑Crossing**‑Messwerte (Chain) für Level 4. |
-| `E2_run 1_Ergebnis.txt` | TXT | Kurzbericht/Notizen zu Run 1. |
-
-### Run 2 (ST‑Level 5)
-| Datei | Typ | Kurzbeschreibung |
-|---|---|---|
-| `E2_run 2_Level 5.py` | PY | Simulation für **ST‑Level 5** (Run 2). |
-| `E2_run 2_plot.png` | PNG | Übersichts‑/Vergleichsplot für Run 2. |
-| `E2_run 2_STL5_eps0p02_alltargets.csv` | CSV | **Alle Targets** für Level 5 bei ε = 0.02 (Referenz/Kalibrierung). |
-| `E2_run 2_STL5_J1_fits.csv` | CSV | Ergebnisdatei mit **J1‑Fits** (angepasste Parameter/Kurven). |
-| `E2_run 2_STL5_hardcheck.json` | JSON | **Hard‑Check/Validierung** der L5‑Ergebnisse (Konsistenz/Toleranzen). |
-| `E2_run 2_Ergebnis.txt` | TXT | Kurzbericht/Notizen zu Run 2. |
-
-### Run 3 (ST‑Level 6)
-| Datei | Typ | Kurzbeschreibung |
-|---|---|---|
-| `E2_run 3_Level 6.py` | PY | Simulation für **ST‑Level 6** (Run 3). |
-| `E2_run 3_ST Level-6 ball — amplitude front.png` | PNG | **Amplitude‑Front** für Setup „Ball“ auf Level 6. |
-| `E2_run 3_ST Level-6 ball — OTOC front.png` | PNG | **OTOC‑Front** für Setup „Ball“ auf Level 6. |
-| `E2_run 3_STL6_amp_otoc.json` | JSON | Konsolidierte Daten **Amplitude + OTOC** (Level 6). |
-| `E2_run 3_STL6_eps0p02_amp_targets.csv` | CSV | **Amplitude‑Targets** (Level 6) bei ε = 0.02. |
-| `E2_run 3_STL6_eps1e-3_otoc_targets.csv` | CSV | **OTOC‑Targets** (Level 6) bei ε = 1e‑3. |
-| `E2_run 3_STL5_hardcheck.json` | JSON | Hard‑Check/Referenz für Cross‑Validation (L5↔L6). |
-| `E2_run 3_Ergebnisse.txt` | TXT | Kurzbericht/Notizen zu Run 3. |
+- **(A1)** Lieb–Robinson-Bounds gelten auf ST-Graph-Approximanten (lokal endlich, uniform beschränkter Grad).  
+- **(A2)** Aus dem Bound folgt eine **Untergrenze für die Frontzeit** \( t_\varepsilon(d) \).  
+- **(A3)** Daraus ergibt sich eine **maximale Gruppengeschwindigkeit** \( v^* \leq v_{\mathrm{LR}} \).  
+- **(A4)** Emergenz eines **nahezu linearen Lichtkegels** in der Dynamik auf ST-Graphen.  
+- **(A5)** Ergänzende numerische Analysen (E2/files) bestätigen Crossing- und OTOC-Strukturen.
 
 ---
 
-## Nutzung & Reproduzierbarkeit
+## Ergebnisse
 
-1) **Umgebung (Beispiel)**
-```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\\Scripts\\activate
-pip install -r files/requirements.txt  # falls vorhanden
+- Formale Herleitung: **Frontzeit ≥ linear in Distanz** mit Korrekturgliedern.  
+- Beweis: **Maximale Geschwindigkeit beschränkt durch \( v_{\mathrm{LR}} \)**.  
+- Korollar: **Emergenter Lichtkegel** auch auf fraktalen ST-Graphen.  
+- Robustheit: Resultate bleiben gültig für exponentiell abfallende Interaktionen und Lindblad-Dynamik.  
+- Numerische Simulationen (Unterordner `files/`) konsistent mit den theoretischen Bounds.
 
-2) **Läufe starten**
-```bash
-python "files/E2_run 1_Level 4.py"
-python "files/E2_run 2_Level 5.py"
-python "files/E2_run 3_Level 6.py"
+---
 
-3) Parameter & Seeds
-Bitte in den Skripten dokumentieren (z. B. numpy.random.seed(...), Konfiguration in cfg.py/config.yaml).
-Outputs liegen als CSV/JSON/PNG/TXT in files/.
+## Akzeptanzkriterien
 
+- (K1) Formaler Beweis der LR-Folgerungen auf ST-Graphen.  
+- (K2) Konsistenz mit numerischen Simulationen (Crossings, OTOCs).  
+- (K3) Reproduzierbarkeit durch Dokumentation in CSV/JSON/PNG im Unterordner.  
+
+**Validierungsstatus:**  
+| Kriterium | Status |
+|-----------|--------|
+| K1 | 🟢 |
+| K2 | 🟡 |
+| K3 | 🟢 |
+
+---
+
+## Reproduzierbarkeit
+
+1. **Theorie:**  
+   - E2_proof.pdf nachvollziehen (Beweise Schritt für Schritt).  
+   - Literatur [Lieb & Robinson 1972], [Nachtergaele & Sims 2006], [Bravyi–Hastings–Verstraete 2006] etc. prüfen.  
+
+2. **Simulation:**  
+   - Python-Skripte im Unterordner `files/` ausführen.  
+   - CSV/JSON-Daten mit erzeugten Outputs vergleichen.  
+   - Ergebnisse mit PNG-Plots abgleichen.  
+
+---
+
+## Offene Punkte / To-Do
+
+- Übertragung der Bounds auf **längere Reichweiten** (Power-Law-Interaktionen, \(1/r^\alpha\)).  
+- Vergleich analytischer Frontzeit-Bounds mit den numerischen Crossing-Daten.  
+- Tests für höhere Level (≥7) zur Stabilität der Ergebnisse.  
+
+---
+
+## Lizenz
+
+- **Code** (`*.py` in `files/`): MIT.  
+- **Nicht-Code** (PDF, CSV, JSON, PNG, TXT): CC BY 4.0.  
+
+© 2025 antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.
