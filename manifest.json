@@ -29,50 +29,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "10cb1147665c1bafe0eec9841e7bac7bcf6d1a1d",
+    "sha": "bf42ca7d4070d0ee460b9cee988d30fb1a0d5e7d",
     "size": 24474,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_partial trace/README.md",
-    "sha": "110c58e6f30cdd0d7dbe279abaec7e0633fbfca6",
-    "size": 7,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_partial trace/st_2_density_approximant.gif",
-    "sha": "3e4ffa2f22208e9134ae97c51313dd327cc451e4",
-    "size": 176013,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_partial trace/st_2_graph_and_coarsening.gif",
-    "sha": "a02958c37b50840ea842f4fadc5f6f6df2a707ca",
-    "size": 49160,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_partial trace/st_2_observables.gif",
-    "sha": "d034eedd8f316873d605d76240c6b424bcafbd8a",
-    "size": 122686,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_partial trace/st_2_partial trace on ST-Graph.py",
-    "sha": "1f0d6da382892723b29f97742c1311495c3bffb5",
-    "size": 11744,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_partial trace/st_2_static_density_urgraph.gif",
-    "sha": "c16da4b0cf5342dd1da987472a769bb938b29cd2",
-    "size": 205049,
     "type": "blob",
     "mode": "100644"
   },
@@ -864,13 +822,6 @@
     "path": "Sierpinski Tetraeder_PoC/README.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski-Tetrader_duality and singulary resitance.pdf",
-    "sha": "ea19d13d0c286291fafff8a636bdf99c474376dd",
-    "size": 280792,
     "type": "blob",
     "mode": "100644"
   }
