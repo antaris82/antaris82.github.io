@@ -14,6 +14,62 @@
     "mode": "100644"
   },
   {
+    "path": "assets/api.js",
+    "sha": "8a331aa4adbe0859f55a51390979b36d19939a65",
+    "size": 2096,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/app.css",
+    "sha": "52c5395b22d4edf26e7822d6d073d65022a418f7",
+    "size": 2783,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/app.js",
+    "sha": "c8ee69078a159b0900d58651271dc4de8aa0c5cd",
+    "size": 3898,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/config.js",
+    "sha": "4d65fc9167f6d386af327bee99f32ff73f73e8c3",
+    "size": 128,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/i18n.js",
+    "sha": "2e6c86c7a495a257726d5f254a1367b982959db0",
+    "size": 905,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/md.js",
+    "sha": "843105413bce6fda5789105a2f06e26a0d5e7ac8",
+    "size": 2624,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/render.js",
+    "sha": "8721013d6ffc110d33d4a5aef7ce677502ff3cd6",
+    "size": 4889,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/viewer.js",
+    "sha": "066488ca5d0bb00d9f02fd4e3d58222d25c3531b",
+    "size": 1483,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "background.png",
     "sha": "e138af865f091ccaeb89e1b4039a5ac6db34902e",
     "size": 677287,
@@ -29,6 +85,13 @@
   },
   {
     "path": "index.html",
+    "sha": "cc1cd21c7017a93f6d208b7913978d972a50ad74",
+    "size": 3271,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "index.html.old",
     "sha": "944ce9ba91dccc221a38bbc490ad3c2ddbeb4f36",
     "size": 19661,
     "type": "blob",
@@ -36,8 +99,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "84699d8517cf9b6090a5086d70e3668ad4b7a4e3",
-    "size": 23079,
+    "sha": "5f933d763a6249ddc77c698036e4f4e2b1a9bad9",
+    "size": 23247,
     "type": "blob",
     "mode": "100644"
   },
@@ -829,6 +892,13 @@
     "path": "Sierpinski Tetraeder_PoC/README.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "viewer.html",
+    "sha": "611f3f0ba7204ad7eb844a821d81ecc8e4a554f7",
+    "size": 2623,
     "type": "blob",
     "mode": "100644"
   }
