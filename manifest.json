@@ -1,8 +1,8 @@
 [
   {
     "path": ".github/scripts/translate-md.mjs",
-    "sha": "9ad1c8994542a7ddce82a7038d6d4c8c68cc2ca8",
-    "size": 6846,
+    "sha": "3c5b156ed023ce9e10f6521f89594e14d998b3da",
+    "size": 7111,
     "type": "blob",
     "mode": "100644"
   },
@@ -15,8 +15,8 @@
   },
   {
     "path": ".github/workflows/i18n-md.yml",
-    "sha": "59260cc2f816869d820ed7f79e88f9fdce6e65b6",
-    "size": 11307,
+    "sha": "766476195dc1a9582d9d2cd258fb0a8660c1b881",
+    "size": 11494,
     "type": "blob",
     "mode": "100644"
   },
@@ -92,8 +92,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "84e3d5bf0a55a3d767516543309722d737008295",
-    "size": 38,
+    "sha": "65f66e3f58a4226399276ec7006c882b16e0821e",
+    "size": 41,
     "type": "blob",
     "mode": "100644"
   },
@@ -120,7 +120,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "2a03bd6d29f1b1a7a01f5a7b5ee668fbdf68177c",
+    "sha": "cf15112d195ce39335618124c70bb2bf4b22fcd6",
     "size": 25438,
     "type": "blob",
     "mode": "100644"
