@@ -1,0 +1,192 @@
+import fs from "fs";
+import path from "path";
+
+const SOURCE_LANG = (process.env.SOURCE_LANG || "DE").toUpperCase();
+const DEEPL_API_KEY = process.env.DEEPL_API_KEY || "";
+let   DEEPL_API_URL = process.env.DEEPL_API_URL || "https://api-free.deepl.com/v2/translate";
+const CHANGED_LIST = (process.env.CHANGED || "").split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+const FAIL_ON_AUTH = (process.env.FAIL_ON_AUTH || "true").toLowerCase() !== "false";
+
+const SKIP_DIRS = new Set([".git","node_modules",".github"]);
+const isMd = f => f.toLowerCase().endsWith(".md");
+function isReadme(f){
+  const name = f.toLowerCase().split(/[\/\\]/).pop() || "";
+  return name === "readme.md" || name === "readme.de.md" || name === "readme.en.md" || /^readme\.[a-z]{2}\.md$/.test(name);
+}
+
+function listAllMd(dir="."){
+  const out=[];
+  for (const e of fs.readdirSync(dir,{withFileTypes:true})) {
+    if (SKIP_DIRS.has(e.name)) continue;
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) out.push(...listAllMd(p));
+    else if (isMd(p)) out.push(p);
+  }
+  return out;
+}
+
+function shouldTranslateFile(f){
+  if (!isMd(f)) return false;
+  if (/\.en\.md$/i.test(f)) return false;
+  const parts = f.split(/[\/\\]/);
+  if (parts.some(p => SKIP_DIRS.has(p))) return false;
+  return true;
+}
+
+function dstFor(file) {
+  if (/\.de\.md$/i.test(file)) return file.replace(/\.de\.md$/i, ".en.md");
+  return file.replace(/\.md$/i, ".en.md");
+}
+
+function protectSegments(src){
+  const map=[]; let i=0;
+  const take = (m)=>{ const id=`§§X${i++}§§`; map.push({id,content:m}); return id; };
+  let out=src;
+  out=out.replace(/<[^>]+>/g, m=>take(m));
+  out=out.replace(/```[\s\S]*?```/g, m=>take(m));
+  out=out.replace(/~~~[\s\S]*?~~~/g, m=>take(m));
+  out=out.replace(/`[^`\n]+`/g, m=>take(m));
+  out=out.replace(/\$\$[\s\S]*?\$\$/g, m=>take(m));
+  out=out.replace(/\\\[([\s\S]*?)\\\]/g, m=>take(m));
+  out=out.replace(/\\\(([\s\S]*?)\\\)/g, m=>take(m));
+  out=out.replace(/\[([^\]]*)\]\(([^)]+)\)/g, (_,t,u)=>{
+    const id=take("("+u+")");
+    return `[${t}]${id}`;
+  });
+  return {text: out, map};
+}
+function restoreSegments(txt,map){
+  let out=txt;
+  for (const {id,content} of map) out=out.split(id).join(content);
+  return out;
+}
+
+function chunkBySize(s, max=3500){
+  const paras = s.split(/\n{2,}/);
+  const out=[]; let cur="";
+  for (const p of paras){
+    const block = (cur? "\\n\\n":"") + p;
+    if ((cur+block).length > max) {
+      if (cur) out.push(cur);
+      if (p.length > max) {
+        for (let i=0;i<p.length;i+=max) out.push(p.slice(i, i+max));
+        cur = "";
+      } else {
+        cur = p;
+      }
+    } else {
+      cur += block;
+    }
+  }
+  if (cur) out.push(cur);
+  return out.length? out : [""];
+}
+
+const headers = () => ({
+  "Authorization": `DeepL-Auth-Key ${DEEPL_API_KEY}`,
+  "Content-Type": "application/json"
+});
+function baseUrlOf(endpoint){
+  const m = endpoint.match(/^(https?:\/\/[^/]+)(?:\/.*)?$/i);
+  return m ? m[1] : "https://api-free.deepl.com";
+}
+async function usage(endpoint){
+  const url = baseUrlOf(endpoint) + "/v2/usage";
+  const r = await fetch(url, { headers: headers(), method: "GET" });
+  if (!r.ok) return { ok:false, status:r.status };
+  const j = await r.json().catch(()=>({}));
+  return { ok:true, status:r.status, count: j.character_count ?? 0, limit: j.character_limit ?? 0 };
+}
+async function deeplJSON(texts, targetLang, endpoint){
+  const body = JSON.stringify({
+    text: texts,
+    source_lang: SOURCE_LANG,
+    target_lang: targetLang.toUpperCase(),
+    preserve_formatting: true
+  });
+  const r = await fetch(endpoint, { method: "POST", headers: headers(), body });
+  if (!r.ok) {
+    const e = await r.text().catch(()=>r.statusText);
+    throw new Error(`DeepL HTTP ${r.status}: ${e}`);
+  }
+  const j = await r.json();
+  return j.translations?.map(x=>x.text) || [];
+}
+
+(async()=>{
+  const candidates = (CHANGED_LIST.length? CHANGED_LIST : listAllMd(".")).filter(shouldTranslateFile);
+  console.log("[i18n] Candidates:");
+  for (const f of candidates) console.log(" -", f);
+  if (!candidates.length) { console.log("[i18n] No Markdown files to translate."); return; }
+
+  if (!DEEPL_API_KEY) {
+    console.error("[i18n] DEEPL_API_KEY is missing.");
+    process.exit(1);
+  }
+
+  const isFreeKey = DEEPL_API_KEY.endsWith(":fx");
+  if (isFreeKey && /api\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api-free.deepl.com/v2/translate";
+  if (!isFreeKey && /api-free\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api.deepl.com/v2/translate";
+
+  const plan = [];
+  for (const f of candidates) {
+    const raw = fs.readFileSync(f, "utf8");
+    const { text: protectedText, map: segMap } = protectSegments(raw);
+    const chunks = chunkBySize(protectedText, 3500);
+    const charCost = chunks.reduce((a,t)=>a+(t?.length||0), 0);
+    plan.push({ file:f, chunks, segMap, charCost, isReadme: isReadme(f), depth: f.split(/[\/\\]/).length });
+  }
+  console.log("[i18n] Plan:");
+  plan.forEach(p=>console.log(` - ${p.file} (${p.charCost} chars)`));
+
+  let u = await usage(DEEPL_API_URL);
+  if (!u.ok && (u.status===401 || u.status===403)) {
+    const alt = /api-free\.deepl\.com/.test(DEEPL_API_URL) ? "https://api.deepl.com/v2/translate" : "https://api-free.deepl.com/v2/translate";
+    console.warn(`[i18n] Preflight ${u.status} on ${baseUrlOf(DEEPL_API_URL)} → trying ${baseUrlOf(alt)}.`);
+    DEEPL_API_URL = alt;
+    u = await usage(DEEPL_API_URL);
+  }
+  if (!u.ok) {
+    console.error(`[i18n] Usage endpoint failed (HTTP ${u.status}).`);
+    process.exit(1);
+  }
+
+  const remaining = Math.max(0, (u.limit||500000) - (u.count||0));
+  console.log(`[i18n] DeepL usage: ${u.count||0} / ${u.limit||500000} chars. Remaining: ${remaining}.`);
+
+  plan.sort((a,b)=>{
+    if (a.isReadme !== b.isReadme) return a.isReadme ? -1 : 1;
+    if (a.isReadme && b.isReadme) {
+      if (a.depth !== b.depth) return a.depth - b.depth;
+    }
+    return a.file.localeCompare(b.file);
+  });
+
+  let left = remaining;
+  let wrote = 0;
+  for (const item of plan) {
+    if (item.charCost > left) {
+      console.warn(`[i18n] Skipping ${item.file} (${item.charCost} chars) → not enough quota (${left} left).`);
+      continue;
+    }
+    const outChunks = [];
+    for (const chunk of item.chunks) {
+      const res = await deeplJSON([chunk], "en", DEEPL_API_URL);
+      outChunks.push(res[0] || chunk);
+    }
+    let out = outChunks.join("\\n\\n");
+    out = restoreSegments(out, item.segMap);
+
+    const dstPath = (/\.de\.md$/i.test(item.file)) ? item.file.replace(/\.de\.md$/i, `.en.md`) : item.file.replace(/\.md$/i, `.en.md`);
+    fs.mkdirSync(path.dirname(dstPath), {recursive:true});
+    fs.writeFileSync(dstPath, out, "utf8");
+    console.log("→", dstPath);
+    wrote++;
+    left -= item.charCost;
+  }
+
+  if (!wrote) {
+    console.error("[i18n] No files were written.");
+    process.exit(1);
+  }
+})();
