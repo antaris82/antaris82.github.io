@@ -1,4 +1,4 @@
-name: i18n-md (DE → EN only, quota-aware, README first, stable regex)
+name: i18n-md (DE → EN, quota-aware, README first, strict key)
 
 on:
   push:
@@ -43,14 +43,13 @@ jobs:
           import fs from "fs";
           import path from "path";
 
-          // --- Config from env ---
           const SOURCE_LANG = (process.env.SOURCE_LANG || "DE").toUpperCase();
           const DEEPL_API_KEY = process.env.DEEPL_API_KEY || "";
           let   DEEPL_API_URL = process.env.DEEPL_API_URL || "https://api-free.deepl.com/v2/translate";
           const CHANGED_LIST = (process.env.CHANGED || "").split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
           const FAIL_ON_AUTH = (process.env.FAIL_ON_AUTH || "true").toLowerCase() !== "false";
+          const FALLBACK_COPY = (process.env.FALLBACK_COPY_WHEN_NO_KEY || "false").toLowerCase() === "true";
 
-          // --- Helpers ---
           const SKIP_DIRS = new Set([".git","node_modules",".github"]);
           const isMd = f => f.toLowerCase().endsWith(".md");
           function isReadme(f){
@@ -82,33 +81,21 @@ jobs:
             return file.replace(/\.md$/i, ".en.md");
           }
 
-          // Placeholders for segments we must not translate
           function protectSegments(src){
             const map=[]; let i=0;
             const take = (m)=>{ const id=`§§X${i++}§§`; map.push({id,content:m}); return id; };
             let out=src;
-
-            // HTML tags
             out=out.replace(/<[^>]+>/g, m=>take(m));
-
-            // Code fences (```/~~~)
             out=out.replace(/```[\s\S]*?```/g, m=>take(m));
             out=out.replace(/~~~[\s\S]*?~~~/g, m=>take(m));
-
-            // Inline code
             out=out.replace(/`[^`\n]+`/g, m=>take(m));
-
-            // Math delimiters
             out=out.replace(/\$\$[\s\S]*?\$\$/g, m=>take(m));
             out=out.replace(/\\\[([\s\S]*?)\\\]/g, m=>take(m));
             out=out.replace(/\\\(([\s\S]*?)\\\)/g, m=>take(m));
-
-            // Link targets: [text](URL) → keep URL intact
             out=out.replace(/\[([^\]]*)\]\(([^)]+)\)/g, (_,t,u)=>{
               const id=take("("+u+")");
               return `[${t}]${id}`;
             });
-
             return {text: out, map};
           }
           function restoreSegments(txt,map){
@@ -117,7 +104,6 @@ jobs:
             return out;
           }
 
-          // Chunk long texts to avoid request limits (split by paragraphs)
           function chunkBySize(s, max=3500){
             const paras = s.split(/\n{2,}/);
             const out=[]; let cur="";
@@ -139,7 +125,6 @@ jobs:
             return out.length? out : [""];
           }
 
-          // DeepL helpers
           const headers = () => ({
             "Authorization": `DeepL-Auth-Key ${DEEPL_API_KEY}`,
             "Content-Type": "application/json"
@@ -172,17 +157,30 @@ jobs:
           }
 
           (async()=>{
+            const candidates = (CHANGED_LIST.length? CHANGED_LIST : listAllMd(".")).filter(shouldTranslateFile);
+            console.log("[i18n] Candidates:");
+            for (const f of candidates) console.log(" -", f);
+            if (!candidates.length) { console.log("[i18n] No Markdown files to translate."); return; }
+
             if (!DEEPL_API_KEY) {
-              console.log("[i18n] No DEEPL_API_KEY → skipping translation without failing.");
-              return;
+              console.error("[i18n] DEEPL_API_KEY is missing.");
+              if (FALLBACK_COPY) {
+                console.warn("[i18n] FALLBACK_COPY_WHEN_NO_KEY=true → writing placeholder .en.md copies.");
+                for (const f of candidates) {
+                  const dst = dstFor(f);
+                  const raw = fs.readFileSync(f, "utf8");
+                  fs.mkdirSync(path.dirname(dst), {recursive:true});
+                  fs.writeFileSync(dst, raw, "utf8");
+                  console.log("→ placeholder", dst);
+                }
+                return;
+              }
+              process.exit(1);
             }
 
             const isFreeKey = DEEPL_API_KEY.endsWith(":fx");
             if (isFreeKey && /api\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api-free.deepl.com/v2/translate";
             if (!isFreeKey && /api-free\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api.deepl.com/v2/translate";
-
-            const candidates = (CHANGED_LIST.length? CHANGED_LIST : listAllMd(".")).filter(shouldTranslateFile);
-            if (!candidates.length) { console.log("[i18n] No Markdown files to translate."); return; }
 
             // Build plan
             const plan = [];
@@ -193,15 +191,8 @@ jobs:
               const charCost = chunks.reduce((a,t)=>a+(t?.length||0), 0);
               plan.push({ file:f, chunks, segMap, charCost, isReadme: isReadme(f), depth: f.split(/[\/\\]/).length });
             }
-
-            // Prioritize READMEs (root first)
-            plan.sort((a,b)=>{
-              if (a.isReadme !== b.isReadme) return a.isReadme ? -1 : 1;
-              if (a.isReadme && b.isReadme) {
-                if (a.depth !== b.depth) return a.depth - b.depth;
-              }
-              return a.file.localeCompare(b.file);
-            });
+            console.log("[i18n] Plan:");
+            plan.forEach(p=>console.log(` - ${p.file} (${p.charCost} chars)`));
 
             // Quota
             let u = await usage(DEEPL_API_URL);
@@ -221,7 +212,17 @@ jobs:
             const remaining = Math.max(0, (u.limit||500000) - (u.count||0));
             console.log(`[i18n] DeepL usage: ${u.count||0} / ${u.limit||500000} chars. Remaining: ${remaining}.`);
 
+            // Prioritize READMEs
+            plan.sort((a,b)=>{
+              if (a.isReadme !== b.isReadme) return a.isReadme ? -1 : 1;
+              if (a.isReadme && b.isReadme) {
+                if (a.depth !== b.depth) return a.depth - b.depth;
+              }
+              return a.file.localeCompare(b.file);
+            });
+
             let left = remaining;
+            let wrote = 0;
             let hadError = false;
             for (const item of plan) {
               if (item.charCost > left) {
@@ -241,12 +242,17 @@ jobs:
                 fs.mkdirSync(path.dirname(dstPath), {recursive:true});
                 fs.writeFileSync(dstPath, out, "utf8");
                 console.log("→", dstPath);
-
+                wrote++;
                 left -= item.charCost;
               } catch (e) {
                 hadError = true;
                 console.error("[i18n] Failed:", item.file, e.message);
               }
+            }
+
+            if (!wrote) {
+              console.error("[i18n] No files were written. Check logs above for quota/auth/plan.");
+              process.exit(1);
             }
             if (hadError) process.exit(1);
           })();
@@ -259,6 +265,7 @@ jobs:
           SOURCE_LANG: DE
           CHANGED: ${{ steps.diff.outputs.changed }}
           FAIL_ON_AUTH: "true"
+          FALLBACK_COPY_WHEN_NO_KEY: "false"
         run: node .github/scripts/translate-md.mjs
 
       - name: Commit changes (if any) with [skip ci]
@@ -268,7 +275,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git status --porcelain | grep -qE '(^[ MARCUD?].*\.en\.md$)'; then
-            git add -A '**/*.en.md'
+            git add -A
             git commit -m "i18n: update translated markdown (DE→EN, README first) [skip ci]" || true
           else
             echo "No .en.md changes to commit."
