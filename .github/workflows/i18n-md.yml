@@ -1,4 +1,4 @@
-name: i18n-md (DE → EN/FR/ES)
+name: i18n-md (DE → EN only, quota-aware, README first)
 
 on:
   push:
@@ -45,7 +45,7 @@ jobs:
           npm pkg set type=module
           npm i unified@11 remark-parse@10 unist-util-visit@5
 
-      - name: Add translate script (Authorization header auth, auto-endpoint switch, robust parsing)
+      - name: Add translate script (EN only, quota-aware, README-first, header auth)
         shell: bash
         run: |
           mkdir -p .github/scripts
@@ -56,19 +56,18 @@ jobs:
           import remarkParse from "remark-parse";
           import { visit } from "unist-util-visit";
 
+          // --- Config from env ---
           const SOURCE_LANG = (process.env.SOURCE_LANG || "DE").toUpperCase();
-          const TARGET_LANGS = (process.env.TARGET_LANGS || "en,fr,es").split(",").map(s=>s.trim()).filter(Boolean);
+          const TARGET_LANGS = ["en"]; // EN only
           const DEEPL_API_KEY = process.env.DEEPL_API_KEY || "";
+          let   DEEPL_API_URL = process.env.DEEPL_API_URL || "https://api-free.deepl.com/v2/translate";
           const CHANGED_LIST = (process.env.CHANGED || "").split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
-          let DEEPL_API_URL = process.env.DEEPL_API_URL || "https://api-free.deepl.com/v2/translate";
+          const FAIL_ON_AUTH = (process.env.FAIL_ON_AUTH || "true").toLowerCase() !== "false";
 
-          const isFreeKey = DEEPL_API_KEY.endsWith(":fx");
-          // Auto-correct endpoint if obvious mismatch
-          if (isFreeKey && /api\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api-free.deepl.com/v2/translate";
-          if (!isFreeKey && /api-free\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api.deepl.com/v2/translate";
-
+          // --- Helpers ---
           const SKIP_DIRS = new Set([".git","node_modules",".github"]);
           const isMd = f => f.toLowerCase().endsWith(".md");
+          const isReadme = f => /(?:^|\/)readme(?:\.[a-z]{2})?\.md$/i.test(f);
 
           function listAllMd(dir="."){
             const out=[];
@@ -83,11 +82,17 @@ jobs:
 
           function shouldTranslateFile(f, supLangs){
             if (!isMd(f)) return false;
-            const re = new RegExp(`\\.(${supLangs.join("|")})\\.md$`, "i");
-            if (re.test(f)) return false; // already a translated file
+            const re = new RegExp(`\\.(${supLangs.join("|")})\\.md$`, "i"); // already has .en.md
+            if (re.test(f)) return false;
             const parts = f.split(path.sep);
             if (parts.some(p => SKIP_DIRS.has(p))) return false;
             return true;
+          }
+
+          function dstFor(file) {
+            // Prefer README.<lang>.md schema; convert README.de.md -> README.en.md
+            if (/\.de\.md$/i.test(file)) return file.replace(/\.de\.md$/i, ".en.md");
+            return file.replace(/\.md$/i, ".en.md");
           }
 
           function protectSegments(src){
@@ -123,131 +128,139 @@ jobs:
             return nodes;
           }
 
+          // --- DeepL helpers ---
           const headers = () => ({
             "Authorization": `DeepL-Auth-Key ${DEEPL_API_KEY}`,
             "Content-Type": "application/json"
           });
-
           function baseUrlOf(endpoint){
             const m = endpoint.match(/^(https?:\/\/[^/]+)(?:\/.*)?$/i);
             return m ? m[1] : "https://api-free.deepl.com";
           }
-
-          async function preflight(endpoint){
-            if (!DEEPL_API_KEY) return { ok: false, status: 0, fatal: false, reason: "no-key" };
+          async function usage(endpoint){
             const url = baseUrlOf(endpoint) + "/v2/usage";
             const r = await fetch(url, { headers: headers(), method: "GET" });
-            return { ok: r.ok, status: r.status, fatal: r.status === 401 || r.status === 403 };
+            if (!r.ok) return { ok:false, status:r.status };
+            const j = await r.json().catch(()=>({}));
+            return { ok:true, status:r.status, count: j.character_count ?? 0, limit: j.character_limit ?? 0 };
           }
-
-          async function deeplBatchJSON(texts, targetLang, endpoint){
-            const url = endpoint;
+          async function deeplJSON(texts, targetLang, endpoint){
             const body = JSON.stringify({
               text: texts,
               source_lang: SOURCE_LANG,
               target_lang: targetLang.toUpperCase(),
               preserve_formatting: true
             });
-            const r = await fetch(url, { method: "POST", headers: headers(), body });
+            const r = await fetch(endpoint, { method: "POST", headers: headers(), body });
             if (!r.ok) {
               const e = await r.text().catch(()=>r.statusText);
               throw new Error(`DeepL HTTP ${r.status}: ${e}`);
             }
             const j = await r.json();
-            const out = j.translations?.map(x=>x.text) || [];
-            return out;
+            return j.translations?.map(x=>x.text) || [];
           }
 
-          async function translateFile(srcPath, endpoint){
-            const raw = fs.readFileSync(srcPath, "utf8");
-            const {text: protectedText, map: segMap} = protectSegments(raw);
-
-            let nodes=[];
-            try { nodes = collectTextNodes(protectedText); } catch(e){ nodes=[]; }
-
-            if (nodes.length) {
-              for (const L of TARGET_LANGS){
-                const texts = nodes.map(n=>n.text);
-                const outTexts = await deeplBatchJSON(texts, L, endpoint);
-                if (outTexts.length !== texts.length) throw new Error("Translation batch size mismatch");
-
-                let out = protectedText;
-                const rep = nodes.map((n,i)=>({...n, newText: outTexts[i]})).sort((a,b)=> b.start - a.start);
-                for (const r of rep) {
-                  out = out.slice(0, r.start) + r.newText + out.slice(r.end);
-                }
-                out = restoreSegments(out, segMap);
-
-                const dstPath = srcPath.replace(/\.md$/i, `.${L}.md`);
-                fs.mkdirSync(path.dirname(dstPath), {recursive:true});
-                fs.writeFileSync(dstPath, out, "utf8");
-                console.log("→", dstPath);
-              }
-              return;
-            }
-
-            // Fallback: whole doc
-            for (const L of TARGET_LANGS){
-              const outTexts = await deeplBatchJSON([protectedText], L, endpoint);
-              let out = outTexts[0] || protectedText;
-              out = restoreSegments(out, segMap);
-              const dstPath = srcPath.replace(/\.md$/i, `.${L}.md`);
-              fs.mkdirSync(path.dirname(dstPath), {recursive:true});
-              fs.writeFileSync(dstPath, out, "utf8");
-              console.log("→", dstPath);
-            }
-          }
-
+          // --- Main ---
           (async()=>{
             if (!DEEPL_API_KEY) {
               console.log("[i18n] No DEEPL_API_KEY → skipping translation without failing.");
               return;
             }
 
+            const isFreeKey = DEEPL_API_KEY.endsWith(":fx");
+            if (isFreeKey && /api\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api-free.deepl.com/v2/translate";
+            if (!isFreeKey && /api-free\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api.deepl.com/v2/translate";
+
             const supLangs = TARGET_LANGS.map(x=>x.toLowerCase());
             const candidates = (CHANGED_LIST.length? CHANGED_LIST : listAllMd(".")).filter(f=>shouldTranslateFile(f, supLangs));
             if (!candidates.length) { console.log("[i18n] No Markdown files to translate."); return; }
 
-            // Preflight & endpoint auto-switch on 401/403
-            let endpoint = DEEPL_API_URL;
-            let pf = await preflight(endpoint);
-            if (!pf.ok && pf.fatal) {
-              const alt = /api-free\.deepl\.com/.test(endpoint) ? "https://api.deepl.com/v2/translate" : "https://api-free.deepl.com/v2/translate";
-              console.warn(`[i18n] Preflight ${pf.status} on ${baseUrlOf(endpoint)} → trying ${baseUrlOf(alt)} instead.`);
-              const pf2 = await preflight(alt);
-              if (pf2.ok) endpoint = alt;
-              else {
-                console.error(`[i18n] Authentication failed (${pf.status}/${pf2.status}). Check API key and endpoint (Free vs Pro).`);
-                process.exit(1);
-              }
+            // Build translation plan
+            const plan = [];
+            for (const f of candidates) {
+              const raw = fs.readFileSync(f, "utf8");
+              const { text: protectedText, map: segMap } = protectSegments(raw);
+              let nodes = [];
+              try { nodes = collectTextNodes(protectedText); } catch {}
+              const texts = nodes.length ? nodes.map(n=>n.text) : [protectedText];
+              const charCost = texts.reduce((a,t)=>a+(t?.length||0), 0);
+              plan.push({ file:f, protectedText, segMap, nodes, texts, charCost, isReadme: isReadme(f), depth: f.split(path.sep).length });
             }
 
+            // Prioritize: README* first (root first), then others
+            plan.sort((a,b)=>{
+              if (a.isReadme !== b.isReadme) return a.isReadme ? -1 : 1;
+              if (a.isReadme && b.isReadme) {
+                // root-level README (smaller depth) first
+                if (a.depth !== b.depth) return a.depth - b.depth;
+              }
+              return a.file.localeCompare(b.file);
+            });
+
+            // Quota check
+            let u = await usage(DEEPL_API_URL);
+            if (!u.ok && (u.status===401 || u.status===403)) {
+              const alt = /api-free\.deepl\.com/.test(DEEPL_API_URL) ? "https://api.deepl.com/v2/translate" : "https://api-free.deepl.com/v2/translate";
+              console.warn(`[i18n] Preflight ${u.status} on ${baseUrlOf(DEEPL_API_URL)} → trying ${baseUrlOf(alt)}.`);
+              DEEPL_API_URL = alt;
+              u = await usage(DEEPL_API_URL);
+            }
+            if (!u.ok) {
+              console.error(`[i18n] Usage endpoint failed (HTTP ${u.status}).`);
+              if (FAIL_ON_AUTH) process.exit(1);
+              console.warn("[i18n] FAIL_ON_AUTH=false → skipping translation but keeping job green.");
+              return;
+            }
+
+            const remaining = Math.max(0, (u.limit||500000) - (u.count||0));
+            console.log(`[i18n] DeepL usage: ${u.count||0} / ${u.limit||500000} chars. Remaining: ${remaining}.`);
+
+            let left = remaining;
             let hadError = false;
-            for (const f of candidates) {
+            for (const item of plan) {
+              if (item.charCost > left) {
+                console.warn(`[i18n] Skipping ${item.file} (${item.charCost} chars) → not enough quota (${left} left).`);
+                continue;
+              }
               try {
-                await translateFile(f, endpoint);
-              } catch(e) {
+                for (const L of TARGET_LANGS) {
+                  const outTexts = await deeplJSON(item.texts, L, DEEPL_API_URL);
+                  let out = item.protectedText;
+                  if (item.nodes.length) {
+                    const nodes = item.nodes.map((n,i)=>({...n, newText: outTexts[i]})).sort((a,b)=> b.start - a.start);
+                    for (const r of nodes) out = out.slice(0, r.start) + r.newText + out.slice(r.end);
+                  } else {
+                    out = outTexts[0] || item.protectedText;
+                  }
+                  out = restoreSegments(out, item.segMap);
+
+                  const dstPath = dstFor(item.file);
+                  fs.mkdirSync(path.dirname(dstPath), {recursive:true});
+                  fs.writeFileSync(dstPath, out, "utf8");
+                  console.log("→", dstPath);
+                }
+                left -= item.charCost;
+              } catch (e) {
                 hadError = true;
-                console.error("[i18n] Failed:", f, e.message);
+                console.error("[i18n] Failed:", item.file, e.message);
               }
             }
             if (hadError) process.exit(1);
           })();
           JS
 
-      - name: Run translation
+      - name: Run translation (DE → EN only, README first)
         env:
           DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
-          # Use 'https://api-free.deepl.com/v2/translate' for DeepL API Free keys (ending with :fx)
-          # Use 'https://api.deepl.com/v2/translate'     for DeepL API Pro keys
           DEEPL_API_URL: https://api-free.deepl.com/v2/translate
           SOURCE_LANG: DE
-          TARGET_LANGS: en,fr,es
           CHANGED: ${{ steps.diff.outputs.changed }}
+          FAIL_ON_AUTH: "true"
         run: node .github/scripts/translate-md.mjs
 
       - name: Commit translated files
+        if: always()
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "i18n: update translated markdown"
-          file_pattern: "**/*.en.md **/*.fr.md **/*.es.md"
+          commit_message: "i18n: update translated markdown (DE→EN, README first)"
+          file_pattern: "**/*.en.md"
