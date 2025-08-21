@@ -43,9 +43,9 @@ jobs:
         run: |
           npm --yes init -y
           npm pkg set type=module
-          npm i unified@11 remark-parse@10 remark-gfm@4 unist-util-visit@5
+          npm i unified@11 remark-parse@10 unist-util-visit@5
 
-      - name: Add translate script
+      - name: Add translate script (no remark-gfm; robust fallback)
         shell: bash
         run: |
           mkdir -p .github/scripts
@@ -54,7 +54,6 @@ jobs:
           import path from "path";
           import { unified } from "unified";
           import remarkParse from "remark-parse";
-          import remarkGfm from "remark-gfm";
           import { visit } from "unist-util-visit";
 
           const SOURCE_LANG = (process.env.SOURCE_LANG || "DE").toUpperCase();
@@ -66,7 +65,6 @@ jobs:
           const SKIP_DIRS = new Set([".git","node_modules",".github"]);
           const isMd = f => f.toLowerCase().endsWith(".md");
 
-          // List all md for initial/full runs
           function listAllMd(dir="."){
             const out=[];
             for (const e of fs.readdirSync(dir,{withFileTypes:true})) {
@@ -87,24 +85,30 @@ jobs:
             return true;
           }
 
-          // Protect math segments before Markdown/translate
-          function protectMath(src){
+          // Protect math and code blocks/spans with placeholders
+          function protectSegments(src){
             const map=[]; let i=0;
-            const take = (m)=>{ const id=`§§M${i++}§§`; map.push({id,content:m}); return id; };
+            const take = (m)=>{ const id=`§§X${i++}§§`; map.push({id,content:m}); return id; };
             let out=src;
-            out=out.replace(/\$\$[\s\S]*?\$\$/g, m=>take(m));
-            out=out.replace(/\\\[([\s\S]*?)\\\]/g, m=>take(m));
-            out=out.replace(/\\\(([\s\S]*?)\\\)/g, m=>take(m));
+            // Code fences ```...``` and ~~~...~~~
+            out=out.replace(/```[\\s\\S]*?```/g, m=>take(m));
+            out=out.replace(/~~~[\\s\\S]*?~~~/g, m=>take(m));
+            // Inline code `...`
+            out=out.replace(/`[^`\\n]+`/g, m=>take(m));
+            // Math blocks/inline
+            out=out.replace(/\\$\\$[\\s\\S]*?\\$\\$/g, m=>take(m));
+            out=out.replace(/\\\\\\[[\\s\\S]*?\\\\\\]/g, m=>take(m));
+            out=out.replace(/\\\\\\([\\s\\S]*?\\\\\\)/g, m=>take(m));
             return {text: out, map};
           }
-          function restoreMath(txt,map){
+          function restoreSegments(txt,map){
             let out=txt;
             for (const {id,content} of map) out=out.split(id).join(content);
             return out;
           }
 
-          function collectTranslatableNodes(md){
-            const tree = unified().use(remarkParse).use(remarkGfm).parse(md);
+          function collectTextNodesWithRemark(md){
+            const tree = unified().use(remarkParse).parse(md);
             const nodes=[];
             visit(tree, (node, index, parent) => {
               if (node.type !== "text") return;
@@ -147,27 +151,45 @@ jobs:
 
           async function translateFile(srcPath){
             const raw = fs.readFileSync(srcPath, "utf8");
-            const {text: protectedText, map: mathMap} = protectMath(raw);
-            const nodes = collectTranslatableNodes(protectedText);
-            if (!nodes.length) return { wrote: [] };
+            // 1) Protect segments (math/code) to keep them intact in final output in fallback mode
+            const {text: protectedText, map: segMap} = protectSegments(raw);
 
+            // 2) Try fine-grained translation with remark-parse (no gfm) for better context
+            let nodes=[];
+            try {
+              nodes = collectTextNodesWithRemark(protectedText);
+            } catch (e) {
+              console.warn("[i18n] remark-parse failed, falling back to whole-doc translation:", srcPath, e.message);
+            }
+
+            if (nodes.length && DEEPL_API_KEY) {
+              for (const L of TARGET_LANGS){
+                const texts = nodes.map(n=>n.text);
+                const outTexts = await deeplBatch(texts, L);
+                if (outTexts.length !== texts.length) throw new Error("Translation batch size mismatch");
+
+                let out = protectedText;
+                const rep = nodes.map((n,i)=>({...n, newText: outTexts[i]})).sort((a,b)=> b.start - a.start);
+                for (const r of rep) {
+                  out = out.slice(0, r.start) + r.newText + out.slice(r.end);
+                }
+                out = restoreSegments(out, segMap);
+
+                const dstPath = srcPath.replace(/\\.md$/i, `.${L}.md`);
+                fs.mkdirSync(path.dirname(dstPath), {recursive:true});
+                fs.writeFileSync(dstPath, out, "utf8");
+                console.log("→", dstPath);
+              }
+              return { wrote: TARGET_LANGS };
+            }
+
+            // 3) Fallback: translate whole document (still with segments protected)
+            if (!DEEPL_API_KEY) return { wrote: [] };
             for (const L of TARGET_LANGS){
-              const texts = nodes.map(n=>n.text);
-              const outTexts = await deeplBatch(texts, L);
-              if (DEEPL_API_KEY && outTexts.length !== texts.length) {
-                throw new Error("Translation batch size mismatch");
-              }
-              // If no key, skip writing outputs for target languages
-              if (!DEEPL_API_KEY) continue;
-
-              let out = protectedText;
-              const rep = nodes.map((n,i)=>({...n, newText: outTexts[i]})).sort((a,b)=> b.start - a.start);
-              for (const r of rep) {
-                out = out.slice(0, r.start) + r.newText + out.slice(r.end);
-              }
-              out = restoreMath(out, mathMap);
-
-              const dstPath = srcPath.replace(/\.md$/i, `.${L}.md`);
+              const outTexts = await deeplBatch([protectedText], L);
+              let out = outTexts[0] || protectedText;
+              out = restoreSegments(out, segMap);
+              const dstPath = srcPath.replace(/\\.md$/i, `.${L}.md`);
               fs.mkdirSync(path.dirname(dstPath), {recursive:true});
               fs.writeFileSync(dstPath, out, "utf8");
               console.log("→", dstPath);
