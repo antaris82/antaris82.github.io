@@ -1,4 +1,4 @@
-name: i18n-md (DE → EN, quota-aware, README first, strict key)
+name: i18n-md (DE → EN, quota-aware, README first, robust commit)
 
 on:
   push:
@@ -48,7 +48,6 @@ jobs:
           let   DEEPL_API_URL = process.env.DEEPL_API_URL || "https://api-free.deepl.com/v2/translate";
           const CHANGED_LIST = (process.env.CHANGED || "").split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
           const FAIL_ON_AUTH = (process.env.FAIL_ON_AUTH || "true").toLowerCase() !== "false";
-          const FALLBACK_COPY = (process.env.FALLBACK_COPY_WHEN_NO_KEY || "false").toLowerCase() === "true";
 
           const SKIP_DIRS = new Set([".git","node_modules",".github"]);
           const isMd = f => f.toLowerCase().endsWith(".md");
@@ -164,17 +163,6 @@ jobs:
 
             if (!DEEPL_API_KEY) {
               console.error("[i18n] DEEPL_API_KEY is missing.");
-              if (FALLBACK_COPY) {
-                console.warn("[i18n] FALLBACK_COPY_WHEN_NO_KEY=true → writing placeholder .en.md copies.");
-                for (const f of candidates) {
-                  const dst = dstFor(f);
-                  const raw = fs.readFileSync(f, "utf8");
-                  fs.mkdirSync(path.dirname(dst), {recursive:true});
-                  fs.writeFileSync(dst, raw, "utf8");
-                  console.log("→ placeholder", dst);
-                }
-                return;
-              }
               process.exit(1);
             }
 
@@ -182,7 +170,6 @@ jobs:
             if (isFreeKey && /api\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api-free.deepl.com/v2/translate";
             if (!isFreeKey && /api-free\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api.deepl.com/v2/translate";
 
-            // Build plan
             const plan = [];
             for (const f of candidates) {
               const raw = fs.readFileSync(f, "utf8");
@@ -194,7 +181,6 @@ jobs:
             console.log("[i18n] Plan:");
             plan.forEach(p=>console.log(` - ${p.file} (${p.charCost} chars)`));
 
-            // Quota
             let u = await usage(DEEPL_API_URL);
             if (!u.ok && (u.status===401 || u.status===403)) {
               const alt = /api-free\.deepl\.com/.test(DEEPL_API_URL) ? "https://api.deepl.com/v2/translate" : "https://api-free.deepl.com/v2/translate";
@@ -204,15 +190,12 @@ jobs:
             }
             if (!u.ok) {
               console.error(`[i18n] Usage endpoint failed (HTTP ${u.status}).`);
-              if (FAIL_ON_AUTH) process.exit(1);
-              console.warn("[i18n] FAIL_ON_AUTH=false → skipping translation but keeping job green.");
-              return;
+              process.exit(1);
             }
 
             const remaining = Math.max(0, (u.limit||500000) - (u.count||0));
             console.log(`[i18n] DeepL usage: ${u.count||0} / ${u.limit||500000} chars. Remaining: ${remaining}.`);
 
-            // Prioritize READMEs
             plan.sort((a,b)=>{
               if (a.isReadme !== b.isReadme) return a.isReadme ? -1 : 1;
               if (a.isReadme && b.isReadme) {
@@ -223,38 +206,31 @@ jobs:
 
             let left = remaining;
             let wrote = 0;
-            let hadError = false;
             for (const item of plan) {
               if (item.charCost > left) {
                 console.warn(`[i18n] Skipping ${item.file} (${item.charCost} chars) → not enough quota (${left} left).`);
                 continue;
               }
-              try {
-                const outChunks = [];
-                for (const chunk of item.chunks) {
-                  const res = await deeplJSON([chunk], "en", DEEPL_API_URL);
-                  outChunks.push(res[0] || chunk);
-                }
-                let out = outChunks.join("\\n\\n");
-                out = restoreSegments(out, item.segMap);
-
-                const dstPath = (/\.de\.md$/i.test(item.file)) ? item.file.replace(/\.de\.md$/i, `.en.md`) : item.file.replace(/\.md$/i, `.en.md`);
-                fs.mkdirSync(path.dirname(dstPath), {recursive:true});
-                fs.writeFileSync(dstPath, out, "utf8");
-                console.log("→", dstPath);
-                wrote++;
-                left -= item.charCost;
-              } catch (e) {
-                hadError = true;
-                console.error("[i18n] Failed:", item.file, e.message);
+              const outChunks = [];
+              for (const chunk of item.chunks) {
+                const res = await deeplJSON([chunk], "en", DEEPL_API_URL);
+                outChunks.push(res[0] || chunk);
               }
+              let out = outChunks.join("\\n\\n");
+              out = restoreSegments(out, item.segMap);
+
+              const dstPath = (/\.de\.md$/i.test(item.file)) ? item.file.replace(/\.de\.md$/i, `.en.md`) : item.file.replace(/\.md$/i, `.en.md`);
+              fs.mkdirSync(path.dirname(dstPath), {recursive:true});
+              fs.writeFileSync(dstPath, out, "utf8");
+              console.log("→", dstPath);
+              wrote++;
+              left -= item.charCost;
             }
 
             if (!wrote) {
-              console.error("[i18n] No files were written. Check logs above for quota/auth/plan.");
+              console.error("[i18n] No files were written.");
               process.exit(1);
             }
-            if (hadError) process.exit(1);
           })();
           JS
 
@@ -264,21 +240,28 @@ jobs:
           DEEPL_API_URL: https://api-free.deepl.com/v2/translate
           SOURCE_LANG: DE
           CHANGED: ${{ steps.diff.outputs.changed }}
-          FAIL_ON_AUTH: "true"
-          FALLBACK_COPY_WHEN_NO_KEY: "false"
         run: node .github/scripts/translate-md.mjs
 
-      - name: Commit changes (if any) with [skip ci]
+      - name: Show .en.md changes (pre-commit)
+        shell: bash
+        run: |
+          echo "=== git status -s ==="
+          git status -s || true
+          echo "=== find . -name '*.en.md' ==="
+          find . -type f -name "*.en.md" | sort || true
+
+      - name: Commit changes (robust) with [skip ci]
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git status --porcelain | grep -qE '(^[ MARCUD?].*\.en\.md$)'; then
-            git add -A
-            git commit -m "i18n: update translated markdown (DE→EN, README first) [skip ci]" || true
+          # Stage everything; if nothing staged, commit is skipped
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No staged changes to commit."
           else
-            echo "No .en.md changes to commit."
+            git commit -m "i18n: update translated markdown (DE→EN, README first) [skip ci]"
           fi
 
       - name: Rebase & push main
