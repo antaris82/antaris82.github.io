@@ -1,4 +1,4 @@
-test6 deutsch
+test/ deutsch
 # A1 — Exklusive Metriken & Formale Herleitung
 
 > **Pfad:** `Sierpinski Tetraeder_PoC/A1/` • **Owner:** antaris82  
