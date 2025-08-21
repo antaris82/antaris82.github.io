@@ -19,19 +19,20 @@ jobs:
 
       - name: Compute changed Markdown
         id: diff
+        shell: bash
         run: |
-          set -e
-          BASE="${{ github.event.before }}"
+          set -euo pipefail
+          BASE="${{ github.event.before || '' }}"
           if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
             git ls-files "*.md" > changed.txt || true
           else
             git diff --name-only "$BASE" "${{ github.sha }}" -- "**/*.md" > changed.txt || true
           fi
-          echo "changed<<EOF" >> $GITHUB_OUTPUT
-          cat changed.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
           echo "Changed Markdown files:"
           cat changed.txt || true
+          echo "changed<<EOF" >> "$GITHUB_OUTPUT"
+          cat changed.txt >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -42,9 +43,10 @@ jobs:
         run: |
           npm --yes init -y
           npm pkg set type=module
-          npm i glob@10 unified@11 remark-parse@10 remark-gfm@4 unist-util-visit@5 node-fetch@3
+          npm i unified@11 remark-parse@10 remark-gfm@4 unist-util-visit@5
 
       - name: Add translate script
+        shell: bash
         run: |
           mkdir -p .github/scripts
           cat > .github/scripts/translate-md.mjs <<'JS'
@@ -54,32 +56,17 @@ jobs:
           import remarkParse from "remark-parse";
           import remarkGfm from "remark-gfm";
           import { visit } from "unist-util-visit";
-          import fetch from "node-fetch";
-          
+
           const SOURCE_LANG = (process.env.SOURCE_LANG || "DE").toUpperCase();
           const TARGET_LANGS = (process.env.TARGET_LANGS || "en,fr,es").split(",").map(s=>s.trim()).filter(Boolean);
           const DEEPL_API_URL = process.env.DEEPL_API_URL || "https://api-free.deepl.com/v2/translate";
           const DEEPL_API_KEY = process.env.DEEPL_API_KEY || "";
-          if (!DEEPL_API_KEY) { console.error("Missing DEEPL_API_KEY"); process.exit(0); }
-
-          const changedList = (process.env.CHANGED || "")
-            .split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+          const CHANGED_LIST = (process.env.CHANGED || "").split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
 
           const SKIP_DIRS = new Set([".git","node_modules",".github"]);
           const isMd = f => f.toLowerCase().endsWith(".md");
 
-          const SUP_LANGS = TARGET_LANGS.map(l=>l.toLowerCase());
-          const trgSuffixRe = new RegExp(`\\.(${SUP_LANGS.join("|")})\\.md$`, "i");
-
-          function shouldTranslateFile(f){
-            if (!isMd(f)) return false;
-            if (trgSuffixRe.test(f)) return false; // bereits übersetzte Datei
-            const parts = f.split(path.sep);
-            if (parts.some(p => SKIP_DIRS.has(p))) return false;
-            return true;
-          }
-
-          // Finde Kandidatenliste (changed bevorzugt, sonst alle)
+          // List all md for initial/full runs
           function listAllMd(dir="."){
             const out=[];
             for (const e of fs.readdirSync(dir,{withFileTypes:true})) {
@@ -90,18 +77,24 @@ jobs:
             }
             return out;
           }
-          const candidates = (changedList.length? changedList: listAllMd(".")).filter(shouldTranslateFile);
-          if (!candidates.length) { console.log("No Markdown files to translate."); process.exit(0); }
 
-          // Schützt KaTeX-Math (\[...\], \(...\), $$...$$) durch Platzhalter
+          function shouldTranslateFile(f, supLangs){
+            if (!isMd(f)) return false;
+            const re = new RegExp(`\\.(${supLangs.join("|")})\\.md$`, "i");
+            if (re.test(f)) return false; // already a translated file
+            const parts = f.split(path.sep);
+            if (parts.some(p => SKIP_DIRS.has(p))) return false;
+            return true;
+          }
+
+          // Protect math segments before Markdown/translate
           function protectMath(src){
-            const map=[];
-            let i=0;
+            const map=[]; let i=0;
             const take = (m)=>{ const id=`§§M${i++}§§`; map.push({id,content:m}); return id; };
             let out=src;
-            out=out.replace(/\$\$[\s\S]*?\$\$/g, m=>take(m));        // $$...$$
-            out=out.replace(/\\\[([\s\S]*?)\\\]/g, m=>take(m));       // \[...\]
-            out=out.replace(/\\\(([\s\S]*?)\\\)/g, m=>take(m));       // \(...\)
+            out=out.replace(/\$\$[\s\S]*?\$\$/g, m=>take(m));
+            out=out.replace(/\\\[([\s\S]*?)\\\]/g, m=>take(m));
+            out=out.replace(/\\\(([\s\S]*?)\\\)/g, m=>take(m));
             return {text: out, map};
           }
           function restoreMath(txt,map){
@@ -110,21 +103,39 @@ jobs:
             return out;
           }
 
+          function collectTranslatableNodes(md){
+            const tree = unified().use(remarkParse).use(remarkGfm).parse(md);
+            const nodes=[];
+            visit(tree, (node, index, parent) => {
+              if (node.type !== "text") return;
+              if (parent && ["code","inlineCode","html"].includes(parent.type)) return;
+              const val = node.value;
+              if (!val || !val.trim()) return;
+              const pos = node.position || {};
+              if (typeof pos.start?.offset !== "number" || typeof pos.end?.offset !== "number") return;
+              nodes.push({start: pos.start.offset, end: pos.end.offset, text: val});
+            });
+            return nodes;
+          }
+
           async function deeplBatch(texts, targetLang){
-            if (!texts.length) return [];
-            const chunkSize = 40;
+            if (!DEEPL_API_KEY) {
+              console.log("[i18n] No DEEPL_API_KEY → skipping translation.");
+              return [];
+            }
             const results = [];
-            for (let i=0;i<texts.length;i+=chunkSize){
-              const chunk = texts.slice(i,i+chunkSize);
+            const chunk = 40;
+            for (let i=0;i<texts.length;i+=chunk){
+              const part = texts.slice(i,i+chunk);
               const body = new URLSearchParams();
               body.set("auth_key", DEEPL_API_KEY);
               body.set("source_lang", SOURCE_LANG);
               body.set("target_lang", targetLang.toUpperCase());
               body.set("preserve_formatting","1");
-              for (const t of chunk) body.append("text", t);
+              for (const t of part) body.append("text", t);
               const r = await fetch(DEEPL_API_URL, { method:"POST", headers:{ "Content-Type":"application/x-www-form-urlencoded" }, body });
               if (!r.ok) {
-                const e=await r.text().catch(()=>r.statusText);
+                const e = await r.text().catch(()=>r.statusText);
                 throw new Error(`DeepL HTTP ${r.status}: ${e}`);
               }
               const json = await r.json();
@@ -137,57 +148,52 @@ jobs:
           async function translateFile(srcPath){
             const raw = fs.readFileSync(srcPath, "utf8");
             const {text: protectedText, map: mathMap} = protectMath(raw);
+            const nodes = collectTranslatableNodes(protectedText);
+            if (!nodes.length) return { wrote: [] };
 
-            // Parse mit Positionen (remark-parse liefert Offsets in position.start.offset/.end.offset)
-            const tree = unified().use(remarkParse).use(remarkGfm).parse(protectedText);
-
-            // Sammle alle "text"-Nodes außerhalb von Code/InlineCode/HTML
-            const nodes=[];
-            visit(tree, (node, index, parents) => {
-              if (node.type !== "text") return;
-              // Flag: in verbotenen Eltern?
-              const banned = parents?.some(p => ["code","inlineCode","html"].includes(p.type));
-              if (banned) return;
-              const val = node.value;
-              if (!val || !val.trim()) return;
-              const {start,end} = node.position || {};
-              if (typeof start?.offset !== "number" || typeof end?.offset !== "number") return;
-              nodes.push({start:start.offset, end:end.offset, text: val});
-            });
-
-            if (!nodes.length) return null;
-
-            for (const lang of TARGET_LANGS){
-              // Quellenbereich → Zielsprache
+            for (const L of TARGET_LANGS){
               const texts = nodes.map(n=>n.text);
-              const translated = await deeplBatch(texts, lang);
-              if (translated.length !== texts.length) throw new Error("Batch size mismatch");
+              const outTexts = await deeplBatch(texts, L);
+              if (DEEPL_API_KEY && outTexts.length !== texts.length) {
+                throw new Error("Translation batch size mismatch");
+              }
+              // If no key, skip writing outputs for target languages
+              if (!DEEPL_API_KEY) continue;
 
-              // Rebuild per Slices (absteigend ersetzen vermeidet Offset-Shift)
               let out = protectedText;
-              const rep = nodes.map((n,i)=>({...n, newText: translated[i]}))
-                               .sort((a,b)=> b.start - a.start);
-              for (const r of rep){
+              const rep = nodes.map((n,i)=>({...n, newText: outTexts[i]})).sort((a,b)=> b.start - a.start);
+              for (const r of rep) {
                 out = out.slice(0, r.start) + r.newText + out.slice(r.end);
               }
               out = restoreMath(out, mathMap);
 
-              const dstPath = srcPath.replace(/\.md$/i, `.${lang}.md`);
+              const dstPath = srcPath.replace(/\.md$/i, `.${L}.md`);
               fs.mkdirSync(path.dirname(dstPath), {recursive:true});
               fs.writeFileSync(dstPath, out, "utf8");
-              console.log(`→ ${dstPath}`);
+              console.log("→", dstPath);
             }
+            return { wrote: TARGET_LANGS };
           }
 
           (async()=>{
+            const supLangs = TARGET_LANGS.map(x=>x.toLowerCase());
+            const candidates = (CHANGED_LIST.length? CHANGED_LIST : listAllMd(".")).filter(f=>shouldTranslateFile(f, supLangs));
+
+            if (!candidates.length) {
+              console.log("[i18n] No Markdown files to translate.");
+              return;
+            }
+
+            let hadError = false;
             for (const f of candidates) {
               try {
                 await translateFile(f);
               } catch(e) {
-                console.error("Failed:", f, e.message);
-                process.exitCode = 1;
+                hadError = true;
+                console.error("[i18n] Failed:", f, e.message);
               }
             }
+            if (hadError) process.exit(1);
           })();
           JS
 
