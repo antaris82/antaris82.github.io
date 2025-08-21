@@ -57,8 +57,8 @@
   },
   {
     "path": "assets/i18n.js",
-    "sha": "70d3ea4699ee0f76fdcab1c9c775946c7eaba3f4",
-    "size": 3143,
+    "sha": "78d8bfa29304d820cd7e0c968c1b3ef42ee0c7a7",
+    "size": 2640,
     "type": "blob",
     "mode": "100644"
   },
@@ -120,22 +120,22 @@
   },
   {
     "path": "index.html",
-    "sha": "478e1b46fe7ea8e0a467c0d345557c4558d193d9",
-    "size": 22136,
+    "sha": "0a4d3189b53d28d0846d235d9bb8192215b7e248",
+    "size": 10764,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "index.html.old",
-    "sha": "944ce9ba91dccc221a38bbc490ad3c2ddbeb4f36",
-    "size": 19661,
+    "sha": "0a4d3189b53d28d0846d235d9bb8192215b7e248",
+    "size": 10764,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.json",
-    "sha": "66aefcfbb62214cd2998a10280aef3657eabcc18",
-    "size": 25759,
+    "sha": "11560344b3fb3486b53aa1cd557ab34cc2b6a614",
+    "size": 25760,
     "type": "blob",
     "mode": "100644"
   },
