@@ -1,4 +1,4 @@
-name: i18n-md (DE → EN only, quota-aware, README first, branch-only)
+name: i18n-md (DE → EN only, quota-aware, README first, direct push)
 
 on:
   push:
@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write # not used, but fine to keep
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: main
 
       - name: Compute changed Markdown
         id: diff
@@ -58,7 +58,6 @@ jobs:
           import { visit } from "unist-util-visit";
 
           const SOURCE_LANG = (process.env.SOURCE_LANG || "DE").toUpperCase();
-          const TARGET_LANGS = ["en"]; // EN only
           const DEEPL_API_KEY = process.env.DEEPL_API_KEY || "";
           let   DEEPL_API_URL = process.env.DEEPL_API_URL || "https://api-free.deepl.com/v2/translate";
           const CHANGED_LIST = (process.env.CHANGED || "").split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
@@ -79,10 +78,9 @@ jobs:
             return out;
           }
 
-          function shouldTranslateFile(f, supLangs){
+          function shouldTranslateFile(f){
             if (!isMd(f)) return false;
-            const re = new RegExp(`\\.(${supLangs.join("|")})\\.md$`, "i"); // already has .en.md
-            if (re.test(f)) return false;
+            if (/\.en\.md$/i.test(f)) return false; // target already exists / is en file
             const parts = f.split(path.sep);
             if (parts.some(p => SKIP_DIRS.has(p))) return false;
             return true;
@@ -167,8 +165,7 @@ jobs:
             if (isFreeKey && /api\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api-free.deepl.com/v2/translate";
             if (!isFreeKey && /api-free\.deepl\.com/.test(DEEPL_API_URL)) DEEPL_API_URL = "https://api.deepl.com/v2/translate";
 
-            const supLangs = ["en"];
-            const candidates = (CHANGED_LIST.length? CHANGED_LIST : listAllMd(".")).filter(f=>shouldTranslateFile(f, supLangs));
+            const candidates = (CHANGED_LIST.length? CHANGED_LIST : listAllMd(".")).filter(shouldTranslateFile);
             if (!candidates.length) { console.log("[i18n] No Markdown files to translate."); return; }
 
             const plan = [];
@@ -179,9 +176,10 @@ jobs:
               try { nodes = collectTextNodes(protectedText); } catch {}
               const texts = nodes.length ? nodes.map(n=>n.text) : [protectedText];
               const charCost = texts.reduce((a,t)=>a+(t?.length||0), 0);
-              plan.push({ file:f, protectedText, segMap, nodes, texts, charCost, isReadme: /(?:^|\/)readme(?:\.[a-z]{2})?\.md$/i.test(f), depth: f.split(path.sep).length });
+              plan.push({ file:f, protectedText, segMap, nodes, texts, charCost, isReadme: isReadme(f), depth: f.split(path.sep).length });
             }
 
+            // Prioritize: READMEs first (root first), then alpha
             plan.sort((a,b)=>{
               if (a.isReadme !== b.isReadme) return a.isReadme ? -1 : 1;
               if (a.isReadme && b.isReadme) {
@@ -190,6 +188,7 @@ jobs:
               return a.file.localeCompare(b.file);
             });
 
+            // Get quota
             let u = await usage(DEEPL_API_URL);
             if (!u.ok && (u.status===401 || u.status===403)) {
               const alt = /api-free\.deepl\.com/.test(DEEPL_API_URL) ? "https://api.deepl.com/v2/translate" : "https://api-free.deepl.com/v2/translate";
@@ -248,19 +247,29 @@ jobs:
           FAIL_ON_AUTH: "true"
         run: node .github/scripts/translate-md.mjs
 
-      - name: Sync & push main (rebase)
-  run: |
-    git fetch origin main
-    git pull --rebase origin main
-    git push origin HEAD:main
-          branch: "ci/i18n-en-${{ github.run_id }}"
-          create_branch: true
-
-      - name: Summarize result
-        if: steps.commit.outputs.changes_detected == 'true'
+      - name: Commit changes (if any)
+        shell: bash
         run: |
-          BR="ci/i18n-en-${{ github.run_id }}"
-          echo "### i18n (DE→EN) results" >> $GITHUB_STEP_SUMMARY
-          echo "- Created branch: \`$BR\`" >> $GITHUB_STEP_SUMMARY
-          echo "- Compare & open PR: https://github.com/${{ github.repository }}/compare/main...$BR" >> $GITHUB_STEP_SUMMARY
-          echo "Compare URL (copy/paste): https://github.com/${{ github.repository }}/compare/main...$BR"
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git status --porcelain | grep -qE '(^[ MARCUD?].*\.en\.md$)'; then
+            git add -A '**/*.en.md'
+            git commit -m "i18n: update translated markdown (DE→EN, README first)" || true
+          else
+            echo "No .en.md changes to commit."
+          fi
+
+      - name: Rebase & push main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git pull --rebase origin main
+          # Only push if we have local commits not on origin/main
+          AHEAD=$(git rev-list --count origin/main..HEAD || echo 0)
+          if [ "$AHEAD" -gt 0 ]; then
+            git push origin HEAD:main
+          else
+            echo "Nothing to push."
+          fi
