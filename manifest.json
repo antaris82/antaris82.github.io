@@ -8,8 +8,8 @@
   },
   {
     "path": ".github/workflows/i18n-md.yml",
-    "sha": "25387f1c6656eaac67b40190708dd1693c7d308d",
-    "size": 11637,
+    "sha": "67b55287823a19ab4859d1cbba533fd85eb96fcb",
+    "size": 12298,
     "type": "blob",
     "mode": "100644"
   },
@@ -106,7 +106,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "39a6fc2448553ea0e40ab0da332a993d5bdaa9f4",
+    "sha": "f3d8e37ba6b5721db33357ede92e8cbdd66e001f",
     "size": 24940,
     "type": "blob",
     "mode": "100644"
