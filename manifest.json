@@ -8,8 +8,15 @@
   },
   {
     "path": ".github/workflows/i18n-md.yml",
-    "sha": "bcf638518a6ad674d7c96a831f2b1fe73ea812ef",
-    "size": 11596,
+    "sha": "25387f1c6656eaac67b40190708dd1693c7d308d",
+    "size": 11637,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": ".github/workflows/pages.yml",
+    "sha": "df4199ef87c289ea2d3bb61ca42c491caf57b526",
+    "size": 941,
     "type": "blob",
     "mode": "100644"
   },
@@ -99,8 +106,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "b89026ccbb27e4c9cb8ff3546fdd0651486363b9",
-    "size": 24775,
+    "sha": "39a6fc2448553ea0e40ab0da332a993d5bdaa9f4",
+    "size": 24940,
     "type": "blob",
     "mode": "100644"
   },
@@ -176,7 +183,7 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/A1/README.md",
-    "sha": "1adb1e66b39f8e36d58436795a33443acaa9460d",
+    "sha": "0fb26f714b4c9ddd72f4af3da67d6ce07569d193",
     "size": 4684,
     "type": "blob",
     "mode": "100644"
