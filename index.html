@@ -2,562 +2,299 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <title>antaris82 — GitHub Pages Browser</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sierpinski Project</title>
   <style>
-    :root { --bg:#0b0f14; --fg:#e6edf3; --muted:#9aa4b2; --card:#10161d; --accent:#2f81f7; }
+    :root {
+      --bg: #0b1117;
+      --panel: #0e141b;
+      --muted: #8aa0b4;
+      --fg: #e7eef5;
+      --accent: #5ba8ff;
+      --border: #1b2632;
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font:14px/1.45 system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Arial,sans-serif; }
-    body.bg-on { background-attachment: fixed; background-size: cover; background-position: center center; }
+    header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 16px; background: var(--panel); border-bottom:1px solid var(--border);
+      position: sticky; top:0; z-index:5;
+    }
+    .title { display:flex; gap:12px; align-items: baseline; }
+    .title h1 { margin:0; font-size: 18px; }
+    .title span { color: var(--muted); font-size: 13px; }
 
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
-    header { border-bottom:1px solid #1e2630; }
-    header .row { padding:16px 0; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
-    header h1 { font-size:18px; margin:0; }
-    header .path { color:var(--muted); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-
-    main.wrap { padding:16px 0 24px; display:grid; grid-template-columns: 1fr; gap:16px; }
-    .controls { display:flex; gap:8px; flex-wrap:wrap; }
-    .controls input[type="text"] { background:#0e141b; color:var(--fg); border:1px solid #26303c; border-radius:8px; padding:8px 10px; min-width:280px; }
-    .controls button { background:var(--accent); color:white; border:0; border-radius:8px; padding:8px 12px; cursor:pointer; }
-    .stats { color:var(--muted); margin-left:auto; }
-
-    .card { background:var(--card); border:1px solid #1e2630; border-radius:12px; padding:14px; }
-    .flex { display:flex; gap:8px; align-items:center; }
-    .grid { display:grid; gap:8px; }
-    .list { display:grid; grid-template-columns: 1fr auto auto; gap:6px 8px; align-items:center; }
-    .list .head { color:var(--muted); font-weight:600; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-    .muted { color:var(--muted); }
-
-    .readme { max-height:420px; overflow:auto; background:#0e141b; border:1px solid #26303c; border-radius:8px; padding:16px; }
-    .readme h1,.readme h2,.readme h3 { margin: 0.6em 0 0.4em; }
-    .readme code { background:#0b1016; padding:0 .25em; border-radius:4px; }
-    .readme pre { background:#0b1016; padding:10px; border-radius:8px; overflow:auto; }
-    .readme table { border-collapse:collapse; border:1px solid #26303c; }
-    .readme th,.readme td { border:1px solid #26303c; padding:6px 8px; }
-
-    a { color:#9cc4ff; text-decoration:none; }
-    a:hover { text-decoration:underline; }
-    .gallery { display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:10px; }
-    .gallery img, .gallery video { width:100%; height:140px; object-fit:cover; border-radius:10px; border:1px solid #1e2630; background:#0e141b; }
-    footer { padding:20px 0; color:var(--muted); font-size:12px; }
-    .license { font-size:12px; color:var(--muted); }
-
-    .math-fence { margin: 8px 0; }
-
-    /* KaTeX Dark */
-    .katex { color: inherit; }
-    .katex-display { overflow:auto; }
-    /* Language selector */
     .lang { display:flex; align-items:center; gap:8px; }
+    .lang label { color: var(--muted); }
     .lang select {
       background:#0e141b; color:var(--fg);
-      border:1px solid #26303c; border-radius:8px;
-      padding:8px 10px;
+      border:1px solid #26303c; border-radius:8px; padding:6px 10px;
     }
 
+    .app { display:grid; grid-template-columns: 320px 1fr; height: calc(100vh - 56px); }
+    .left {
+      border-right: 1px solid var(--border); background: #0c1218; overflow:auto;
+    }
+    .right { overflow:auto; }
 
+    .left .section { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    .section h2 { margin:0 0 8px; font-size:13px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+    .search { padding: 0 14px 12px; border-bottom: 1px solid var(--border); }
+    .search input {
+      width:100%; padding:10px 12px; border-radius:10px; border:1px solid #24303c;
+      background:#0f1720; color:var(--fg);
+    }
+
+    .list { list-style: none; margin:0; padding:6px; }
+    .item {
+      display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer;
+      color: #fff; /* Ordner/Datei-Schrift stets weiß */
+    }
+    .item:hover { background:#111a23; }
+    .item .name { flex:1 1 auto; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .item .kind { color: var(--muted); font-size:12px; }
+    .item.active { background:#122236; }
+
+    .viewer {
+      padding: 18px 22px 60px;
+    }
+    .viewer .bar {
+      display:flex; align-items:center; gap:8px; justify-content: space-between;
+      position: sticky; top:0; padding: 10px 0; background: linear-gradient(var(--bg), var(--bg));
+    }
+    .viewer .btns { display:flex; gap:8px; }
+    .btn {
+      background:#0f1922; border:1px solid #26303c; color: var(--fg);
+      padding:8px 10px; border-radius:8px; cursor:pointer;
+    }
+    .btn:hover { background:#122436; }
+    .muted { color: var(--muted); }
+
+    .md { max-width: 920px; }
+    .md h1, .md h2, .md h3, .md h4 { margin-top: 1.6em; }
+    .md pre { background:#0f1922; padding:12px; border-radius:10px; overflow:auto; border:1px solid #223042; }
+    .md code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    .md table { border-collapse: collapse; border:1px solid #223042; }
+    .md table th, .md table td { border:1px solid #223042; padding:6px 8px; }
+    .md img { max-width: 100%; }
+
+    /* Print for PDF export */
+    @media print {
+      header, .left, .viewer .bar { display:none !important; }
+      .app { display:block; }
+      body { background:#fff; color:#000; }
+      .md pre { border:1px solid #ccc; background:#fafafa; }
+    }
   </style>
 
-  <!-- Markdown (marked) & Sanitizer -->
+  <!-- libs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 
-  <!-- KaTeX (CSS + JS + auto-render + mhchem) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/mhchem.min.js"></script>
+  <!-- i18n runtime -->
+  <script src="assets/i18n.js"></script>
 </head>
 <body>
   <header>
-    <div class="wrap">
-      <div class="row">
-        <h1>Repo-Browser</h1>
-        <div class="path" id="currentPath">/</div>
-        <div class="controls">
-          <input id="tokenInput" type="text" placeholder="Optional: GitHub Token (?token=... im URL auch möglich)" />
-          <button id="reloadBtn">Neu laden</button>
-        </div>
-        
-        <div class="lang">
-          <label for="langSelect" class="muted" data-i18n="app.language">Sprache</label>
-          <select id="langSelect" aria-label="Language">
-            <option value="de">Deutsch</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-
-        <div class="stats" id="stats"></div>
-      </div>
+    <div class="title">
+      <h1 data-i18n="app.title">Sierpinski-Tetraeder – Projekt</h1>
+      <span class="muted" data-i18n="app.subtitle">Experiment, Dokumentation und Materialien</span>
+    </div>
+    <div class="lang">
+      <label for="langSelect" data-i18n="app.language">Sprache</label>
+      <select id="langSelect" aria-label="Language">
+        <option value="de">Deutsch</option>
+        <option value="en">English</option>
+      </select>
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- 1) Dateien & Ordner -->
-    <section class="card grid">
-      <div class="flex" style="justify-content:space-between;">
-        <strong>Dateien & Ordner</strong>
-        <span id="cwdLabel" class="muted mono">/</span>
+  <main class="app">
+    <!-- Browser -->
+    <aside class="left">
+      <div class="section"><h2 data-i18n="browser.title">Dateibrowser</h2></div>
+      <div class="search">
+        <input id="q" type="search" placeholder="Suchen …"
+               data-i18n="search" data-i18n-attr="placeholder" data-i18n-search="search.placeholder">
       </div>
+      <ul id="list" class="list"></ul>
+    </aside>
 
-      <!-- (Auszug entfernt) -->
-
-      <div class="list" id="listing">
-        <div class="head">Pfad/Name</div>
-        <div class="head">Typ</div>
-        <div class="head">Größe</div>
+    <!-- Viewer -->
+    <section class="right">
+      <div class="viewer">
+        <div class="bar">
+          <div class="muted" id="crumb">/</div>
+          <div class="btns">
+            <button id="btnOpenRaw" class="btn" data-i18n="viewer.openRaw">Rohdatei öffnen</button>
+            <button id="btnPdf" class="btn" data-i18n="viewer.downloadPdf">Als PDF exportieren</button>
+          </div>
+        </div>
+        <article id="md" class="md"></article>
       </div>
-    </section>
-
-    <!-- 2) README -->
-    <section class="card grid">
-      <div class="flex" style="justify-content:space-between;">
-        <strong>README</strong>
-        
-      </div>
-      <div id="readme" class="readme">—</div>
-    </section>
-
-    <!-- 3) Galerie -->
-    <section class="card grid">
-      <div class="flex" style="justify-content:space-between;">
-        <strong>Galerie</strong>
-        <span class="muted">Zeigt Medien aus dem aktuellen Ordner (ohne <code>background.*</code>)</span>
-      </div>
-      <div class="gallery" id="gallery"></div>
-    </section>
-
-    <!-- 4) Stand der Indizierung -->
-    <section class="card grid" id="idxStatusCard">
-      <div class="flex" style="justify-content:space-between;">
-        <strong>Stand der Indizierung</strong>
-        
-      </div>
-      <div class="flex" style="gap:16px; flex-wrap:wrap;">
-        <div><span class="muted">Letzte Aktualisierung:</span> <span id="manifestUpdatedAt" class="mono">–</span></div>
-        <div><span class="muted">Gesamtdateien:</span> <span id="manifestTotalFiles" class="mono">–</span></div>
-      </div>
-    </section>
-
-    <!-- 5) Lizenzhinweis -->
-    <section class="card license">
-      <div><strong>Lizenz</strong></div>
-      <div>© 2025 antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.</div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">Dieses Frontend lädt bevorzugt <code>manifest.json</code> (falls vorhanden). Fallback: GitHub Contents API.</div>
-  </footer>
-
   <script>
-    // ====== Basiskonfiguration ======
-    const OWNER = "antaris82";
-    const REPO  = "antaris82.github.io";
-    const BRANCH = "main";
+    // ------- Config (Repo/Branch) -------
+    const GH = { owner: "antaris82", repo: "antaris82.github.io", branch: "main" };
 
-    // Aktueller Ordner via Query
-    let cwd = decodeURIComponent((new URLSearchParams(location.search)).get("path") || "");
-    if (cwd.startsWith("/")) cwd = cwd.slice(1);
-    if (cwd.endsWith("/"))  cwd = cwd.slice(0, -1);
+    // ------- State -------
+    let cwd = "";                  // current directory path
+    let entries = [];              // current directory listing
+    let currentFilePath = null;    // currently viewed file (in repo)
+    let currentRawUrl = null;
 
-    // Token: Query-Param -> Feld
-    const urlToken = (new URLSearchParams(location.search)).get("token") || "";
-    const tokenInput = document.getElementById("tokenInput");
-    if (urlToken) tokenInput.value = urlToken;
+    // ------- Helpers -------
+    const api = (p="") =>
+      `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${p ? p.replace(/^\/+/,'') : ""}?ref=${GH.branch}`;
+    const raw = (p="") =>
+      `https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${GH.branch}/${p.replace(/^\/+/,'')}`;
 
-    const statsEl = document.getElementById("stats");
-    const listingEl = document.getElementById("listing");
-    const readmeEl = document.getElementById("readme");
-    const galleryEl = document.getElementById("gallery");
-    const cwdLabelEl = document.getElementById("cwdLabel");
-    const currentPathEl = document.getElementById("currentPath");
-
-    cwdLabelEl.textContent = "/" + (cwd || "");
-    currentPathEl.textContent = "/" + (cwd || "");
-
-    // Helpers
-    const isMedia = (p) => /\.(png|jpg|jpeg|gif|webp|svg|mp4|webm|ogg)$/i.test(p);
-    const isBackground = (name) => /^background\.(png|jpg|jpeg|gif|webp|svg)$/i.test(name);
-
-    function humanBytes(n) {
-      const units = ["B","KB","MB","GB","TB"];
-      let i = 0, v = Number(n)||0;
-      while (v >= 1024 && i < units.length-1) { v /= 1024; i++; }
-      return (Math.round(v*10)/10) + " " + units[i];
+    async function fetchJSON(url){
+      const r = await fetch(url, { cache: "no-store" });
+      if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+      return r.json();
     }
 
-    function authHeaders() {
-      const t = tokenInput.value.trim();
-      return t ? { "Authorization": "Bearer " + t } : {};
+    function sortEntries(items){
+      const dirs = items.filter(e => e.type === "dir");
+      const files = items.filter(e => e.type === "file");
+      dirs.sort((a,b)=> a.name.localeCompare(b.name, undefined, {numeric:true}));
+      files.sort((a,b)=> a.name.localeCompare(b.name, undefined, {numeric:true}));
+      return [...dirs, ...files];
     }
 
-    function getTokenParam() {
-      const t = tokenInput.value.trim() || urlToken;
-      return t ? `&token=${encodeURIComponent(t)}` : "";
-    }
-
-    function buildNavHref(path) {
-      const base = `${location.pathname}?path=${encodeURIComponent(path)}`;
-      return base + getTokenParam();
-    }
-
-    // Manifest-Header (Last-Modified) holen
-    async function getManifestHeaders() {
-      try {
-        const res = await fetch("/manifest.json", { method:"GET", cache:"no-store" });
-        if (!res.ok) return null;
-        return {
-          lastModified: res.headers.get("last-modified") || null,
-          contentLength: res.headers.get("content-length") || null
-        };
-      } catch { return null; }
-    }
-
-    // ===== Math-Schutz: TeX-Segmente vor Markdown isolieren und später wieder einsetzen =====
-    function extractMathSlots(src) {
-      const slots = [];
-      let out = src;
-
-      // 1) Code-Fences ```math|latex|tex ... ```
-      out = out.replace(/```(math|latex|tex)\s*([\s\S]*?)```/gi, (_, __, body) => {
-        const id = `§§MATHFENCE_${slots.length}§§`;
-        slots.push({ id, tex: body.trim(), kind: 'fence' }); // display
-        return id;
-      });
-
-      // 2) Display \[ ... \]
-      out = out.replace(/\\\[([\s\S]*?)\\\]/g, (_, body) => {
-        const id = `§§MATHDSP_${slots.length}§§`;
-        slots.push({ id, tex: body.trim(), kind: 'display' });
-        return id;
-      });
-
-      // 3) Inline \( ... \)
-      out = out.replace(/\\\(([\s\S]*?)\\\)/g, (_, body) => {
-        const id = `§§MATHINL_${slots.length}§§`;
-        slots.push({ id, tex: body.trim(), kind: 'inline' });
-        return id;
-      });
-
-      // 4) Optional: $$ ... $$ (falls in READMEs genutzt)
-      out = out.replace(/\$\$([\s\S]*?)\$\$/g, (_, body) => {
-        const id = `§§MATHDOLLAR_${slots.length}§§`;
-        slots.push({ id, tex: body.trim(), kind: 'display' });
-        return id;
-      });
-
-      return { text: out, slots };
-    }
-
-    function restoreMathSlots(html, slots) {
-      for (const s of slots) {
-        let repl;
-        if (s.kind === 'fence' || s.kind === 'display') {
-          repl = `<div class="math-fence">$$\n${s.tex}\n$$</div>`;
-        } else {
-          repl = `\\(${s.tex}\\)`;
-        }
-        html = html.split(s.id).join(repl);
-      }
-      return html;
-    }
-
-    // ===== KaTeX render helper (wartet polling-basiert auf auto-render) =====
-    function renderKatex(el) {
-      return new Promise((resolve) => {
-        const opts = {
-          delimiters: [
-            {left: "$$", right: "$$", display: true},
-            {left: "\\[", right: "\\]", display: true},
-            {left: "\\(", right: "\\)", display: false},
-            {left: "$",  right: "$",  display: false}
-          ],
-          throwOnError: false,
-          strict: "ignore",
-          macros: {
-            "\\d": "\\mathrm{d}",
-            "\\dd": "\\,\\mathrm{d}",
-            "\\dv": "\\frac{\\mathrm{d} #1}{\\mathrm{d} #2}",
-            "\\pdv": "\\frac{\\partial #1}{\\partial #2}",
-            "\\vb": "\\mathbf{#1}",
-            "\\abs": "\\left|#1\\right|",
-            "\\norm": "\\left\\lVert #1\\right\\rVert",
-            "\\qty": "\\left( #1 \\right)"
-          },
-          ignoredTags: ['script','noscript','style','textarea','pre','code']
-        };
-        let tries = 0;
-        const tick = () => {
-          if (window.renderMathInElement) {
-            try { window.renderMathInElement(el, opts); } catch(_) {}
-            resolve();
-          } else if (++tries > 50) { resolve(); } else { setTimeout(tick, 200); }
-        };
-        tick();
-      });
-    }
-
-    // ====== Markdown Optionen ======
-    marked.setOptions({ mangle: false, headerIds: true });
-
-    // ====== 1) Erst manifest.json versuchen ======
-    async function fetchManifest() {
-      try {
-        const res = await fetch("/manifest.json", { cache: "no-store" });
-        if (!res.ok) return null;
-        return await res.json();
-      } catch { return null; }
-    }
-
-    // ====== 2) Fallback: GitHub Contents API (rekursiv) ======
-    async function fetchAllViaAPI() {
-      async function listDir(path = "") {
-        const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(BRANCH)}`;
-        const res = await fetch(api, { headers: { ...authHeaders() } });
-        if (!res.ok) throw new Error("API error " + res.status);
-        return await res.json();
-      }
-      const acc = [];
-      async function walk(path="") {
-        const items = await listDir(path);
-        for (const it of items) {
-          if (it.type === "file") {
-            acc.push({ path: it.path, size: it.size ?? 0, sha: it.sha, type: "blob", mode: "100644" });
-          } else if (it.type === "dir") {
-            await walk(it.path);
-          }
-        }
-      }
-      await walk("");
-      return acc.sort((a,b)=> a.path.localeCompare(b.path));
-    }
-
-    // ===== README laden + Markdown + LaTeX rendern =====
-    async function loadReadme(manifest) {
-      const prefix = cwd ? (cwd + "/") : "";
-      const candidates = ["README.md","readme.md","README","Readme.md","README.txt","readme.txt"];
-      let readmeEntry = manifest.find(x => x.path.toLowerCase() === (prefix + "readme.md")) ||
-                        manifest.find(x => x.path.toLowerCase() === (prefix + "readme"));
-      if (!readmeEntry) {
-        for (const name of candidates) {
-          const hit = manifest.find(x => x.path === (prefix + name));
-          if (hit) { readmeEntry = hit; break; }
-        }
-      }
-      if (!readmeEntry) {
-        readmeEl.textContent = "Kein README im aktuellen Ordner gefunden.";
+    function renderList(items){
+      const q = (document.getElementById("q").value || "").trim().toLowerCase();
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+      const filtered = items.filter(e => !q || e.name.toLowerCase().includes(q));
+      if (!filtered.length){
+        const li = document.createElement("li");
+        li.className = "item";
+        li.innerHTML = `<span class="name" data-i18n="browser.empty">Keine Dateien gefunden.</span>`;
+        list.appendChild(li);
+        I18n.apply();
         return;
       }
+      for (const e of filtered){
+        const li = document.createElement("li");
+        li.className = "item";
+        li.dataset.path = e.path;
+
+        const icon = e.type === "dir" ? "📁" : "📄";
+        const kind = e.type === "dir" ? "dir" : (e.name.toLowerCase().endsWith(".md") ? "md" : "file");
+
+        li.innerHTML = `
+          <span class="kind">${icon}</span>
+          <span class="name">${e.name}</span>
+          <span class="kind">${kind}</span>
+        `;
+
+        li.addEventListener("click", () => {
+          document.querySelectorAll(".item.active").forEach(n => n.classList.remove("active"));
+          li.classList.add("active");
+          if (e.type === "dir") {
+            openDir(e.path);
+          } else {
+            // markdown opens in viewer, other files open raw
+            if (e.name.toLowerCase().endsWith(".md")) {
+              openMarkdown(e.path);
+            } else {
+              openRaw(e.path);
+            }
+          }
+        });
+        list.appendChild(li);
+      }
+    }
+
+    function setCrumb(path){
+      document.getElementById("crumb").textContent = "/" + (path || "");
+    }
+
+    async function openDir(path=""){
+      cwd = path;
+      setCrumb(cwd);
       try {
-        const raw = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${readmeEntry.path}`;
-        const r = await fetch(raw, { headers: { ...authHeaders() }, cache: "no-store" });
-        if (!r.ok) throw new Error("READMERaw error " + r.status);
-        const txt = await r.text();
-
-        // (1) TeX-Segmente isolieren
-        const { text: placeholderMD, slots } = extractMathSlots(txt);
-
-        // (2) Markdown -> HTML, dann sanitizen
-        let html = marked.parse(placeholderMD);
-        html = DOMPurify.sanitize(html);
-
-        // (3) Platzhalter wieder einsetzen (echte TeX-Delimiter)
-        html = restoreMathSlots(html, slots);
-
-        // (4) HTML setzen
-        readmeEl.innerHTML = html;
-
-        // (5) KaTeX rendern
-        await renderKatex(readmeEl);
-      } catch (e) {
-        readmeEl.textContent = "README konnte nicht geladen/gerendert werden: " + e.message;
+        const data = await fetchJSON(api(cwd));
+        entries = sortEntries(data);
+        renderList(entries);
+      } catch (e){
+        console.error("openDir failed:", e);
+        entries = [];
+        renderList(entries);
       }
     }
 
-    // Hintergrund automatisch setzen, wenn im Root background.* existiert
-    function applyBackgroundFromManifest(manifest) {
-      const bg = manifest.find(x => !x.path.includes("/") && /^background\.(png|jpg|jpeg|gif|webp|svg)$/i.test(x.path));
-      if (!bg) return;
-      const url = `/${bg.path}`;
-      document.body.style.backgroundImage = `linear-gradient(rgba(11,15,20,0.6), rgba(11,15,20,0.6)), url('${url}')`;
-      document.body.classList.add("bg-on");
+    async function headExists(path){
+      try{
+        const r = await fetch(raw(path), { method:"HEAD", cache:"no-store" });
+        return r.ok;
+      } catch { return false; }
     }
 
-    // Ordner-Listing + Galerie
-    function renderFolder(manifest) {
-      const prefix = cwd ? (cwd + "/") : "";
-      const direct = manifest
-        .filter(x => x.path.startsWith(prefix))
-        .map(x => ({ ...x, rest: x.path.slice(prefix.length) }))
-        .filter(x => x.rest.length > 0 && !x.rest.includes("/"));
-
-      const dirsSet = new Set(
-        manifest
-          .filter(x => x.path.startsWith(prefix))
-          .map(x => x.path.slice(prefix.length))
-          .filter(x => x.includes("/"))
-          .map(x => x.split("/")[0])
-      );
-      const dirs = Array.from(dirsSet).sort();
-
-      // Kopf
-      listingEl.innerHTML = `
-        <div class="head">Pfad/Name</div>
-        <div class="head">Typ</div>
-        <div class="head">Größe</div>
-      `;
-
-      // (Auszug-Block entfernt)
-
-      // Nach oben Link
-      if (cwd) {
-        const up = cwd.split("/").slice(0, -1).join("/");
-        const row = document.createElement("div");
-        row.className = "mono";
-        row.style.gridColumn = "1 / span 3";
-        row.innerHTML = `<a href="${buildNavHref(up)}">⬅︎ .. (nach oben)</a>`;
-        listingEl.appendChild(row);
-      }
-
-      // Ordner rendern
-      for (const d of dirs) {
-        const rowName = document.createElement("div");
-        rowName.className = "mono";
-        rowName.innerHTML = `<a href="${buildNavHref(cwd ? (cwd + '/' + d) : d)}">📁 ${d}</a>`;
-        const rowType = document.createElement("div");
-        rowType.textContent = "dir";
-        rowType.className = "muted mono";
-        const rowSize = document.createElement("div");
-        rowSize.textContent = "—";
-        rowSize.className = "muted mono";
-        listingEl.appendChild(rowName);
-        listingEl.appendChild(rowType);
-        listingEl.appendChild(rowSize);
-      }
-
-      // Dateien rendern
-      for (const f of direct.filter(x => x.type === "blob")) {
-        const name = f.rest;
-        const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${encodeURIComponent(cwd ? (cwd + "/" + name) : name)}`;
-        const rowName = document.createElement("div");
-        rowName.className = "mono";
-        rowName.innerHTML = `📄 <a href="${rawUrl}" target="_blank" rel="noopener">${name}</a>`;
-        const rowType = document.createElement("div");
-        rowType.textContent = "file";
-        rowType.className = "muted mono";
-        const rowSize = document.createElement("div");
-        rowSize.textContent = humanBytes(f.size);
-        rowSize.className = "muted mono";
-        listingEl.appendChild(rowName);
-        listingEl.appendChild(rowType);
-        listingEl.appendChild(rowSize);
-      }
-
-      // Galerie
-      galleryEl.innerHTML = "";
-      const mediaFiles = direct.filter(x => x.type === "blob" && isMedia(x.rest) && !isBackground(x.rest));
-      for (const m of mediaFiles) {
-        const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${encodeURIComponent(cwd ? (cwd + "/" + m.rest) : m.rest)}`;
-        if (/\.(mp4|webm|ogg)$/i.test(m.rest)) {
-          const v = document.createElement("video");
-          v.src = rawUrl; v.controls = true; galleryEl.appendChild(v);
-        } else {
-          const img = document.createElement("img");
-          img.src = rawUrl; img.alt = m.rest; galleryEl.appendChild(img);
+    async function resolveMdForLang(path){
+      const lang = (I18n && I18n.lang) || "de";
+      const lower = path.toLowerCase();
+      if (lang === "en"){
+        if (lower.endsWith(".en.md")) return path;
+        if (lower.endsWith(".de.md")){
+          const p = path.replace(/\.de\.md$/i, ".en.md");
+          if (await headExists(p)) return p;
+        } else if (lower.endsWith(".md")){
+          const p = path.replace(/\.md$/i, ".en.md");
+          if (await headExists(p)) return p;
         }
       }
-
-      // Stats
-      const totalFiles = manifest.filter(x => x.type === "blob").length;
-      statsEl.textContent = `Gesamtdateien: ${totalFiles} | Aktueller Ordner: ${dirs.length} Ordner, ${direct.filter(x=>x.type==='blob').length} Dateien`;
+      return path; // fallback: original
     }
 
-    // ====== Bootstrapping ======
-    async function boot() {
-      document.getElementById("reloadBtn").addEventListener("click", () => location.reload());
+    async function openMarkdown(path){
+      // Determine EN variant if chosen
+      const chosen = await resolveMdForLang(path);
+      currentFilePath = chosen;
+      currentRawUrl = raw(chosen);
 
-      let manifest = await fetchManifest();
-      if (!manifest) {
-        try { manifest = await fetchAllViaAPI(); }
-        catch (e) { statsEl.textContent = "Fehler beim Laden (API): " + e.message; return; }
+      document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
+      document.getElementById("btnPdf").onclick = () => window.print();
+
+      try{
+        const r = await fetch(currentRawUrl, { cache: "no-store" });
+        if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+        const text = await r.text();
+        // Render markdown safely
+        const html = DOMPurify.sanitize(marked.parse(text));
+        document.getElementById("md").innerHTML = html;
+        // Scroll to top
+        document.querySelector(".right").scrollTop = 0;
+      } catch(e){
+        document.getElementById("md").innerHTML = `<p style="color:#f66">Failed to load ${chosen}: ${e.message}</p>`;
       }
-
-      // Hintergrund setzen (falls background.* im Root existiert)
-      applyBackgroundFromManifest(manifest);
-
-      // Statuskarte
-      try {
-        const hdr = await getManifestHeaders();
-        if (hdr && hdr.lastModified) {
-          const dt = new Date(hdr.lastModified);
-          document.getElementById("manifestUpdatedAt").textContent = dt.toLocaleString();
-        } else {
-          document.getElementById("manifestUpdatedAt").textContent = "–";
-        }
-      } catch { /* ignore */ }
-      const totalFiles = manifest.filter(x => x.type === "blob").length;
-      document.getElementById("manifestTotalFiles").textContent = String(totalFiles);
-
-      await loadReadme(manifest);
-      renderFolder(manifest);
     }
 
-    boot();
-  </script>
+    function openRaw(path){
+      const url = raw(path);
+      window.open(url, "_blank");
+    }
 
-  <!-- i18n: JSON-based UI translations -->
-  <script src="assets/i18n.js"></script>
-  <script>
+    // Search typing
+    document.getElementById("q").addEventListener("input", () => renderList(entries));
+
+    // Language init
     document.addEventListener("DOMContentLoaded", async () => {
-      // Initialize i18n
       await I18n.init({ defaultLang: "de" });
-
-      // Heuristic mapping of existing labels to i18n keys (one-time)
-      const map = new Map([
-        ["Dateibrowser","browser.title"],
-        ["Markdown Viewer","viewer.title"],
-        ["Markdown-Viewer","viewer.title"],
-        ["README","readme.title"],
-        ["Im Viewer öffnen","browser.openInViewer"],
-        ["Herunterladen","browser.download"],
-        ["Als PDF exportieren","viewer.downloadPdf"],
-        ["Rohdatei öffnen","viewer.openRaw"],
-        ["Zurück","viewer.back"],
-        ["Bereitgestellt via GitHub Pages","footer.credits"],
-        ["Theme umschalten","theme.toggle"]
-      ]);
-
-      document.querySelectorAll("h1,h2,h3,button,a,span,div,th,label").forEach(el => {
-        const t = (el.textContent || "").trim();
-        if (map.has(t)) el.setAttribute("data-i18n", map.get(t));
-      });
-
-      // placeholders (e.g., search)
-      document.querySelectorAll("input[placeholder],textarea[placeholder]").forEach(el => {
-        const ph = el.getAttribute("placeholder") || "";
-        if (/^suchen/i.test(ph)) {
-          el.setAttribute("data-i18n", "search");
-          el.setAttribute("data-i18n-attr", "placeholder");
-        }
-      });
-
-      // Language selector label (if not present)
-      const sel = document.getElementById("langSelect");
-      if (sel && !document.querySelector('label[for="langSelect"]')) {
-        const label = document.createElement("label");
-        label.setAttribute("for", "langSelect");
-        label.setAttribute("data-i18n", "app.language");
-        label.textContent = "Sprache";
-        sel.parentNode.insertBefore(label, sel);
-      }
-
-      // Re-apply after dynamic tagging
-      I18n.apply();
+      // Initial directory: repo root
+      openDir("");
     });
   </script>
-
 </body>
 </html>
