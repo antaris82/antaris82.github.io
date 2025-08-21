@@ -248,12 +248,11 @@ jobs:
           FAIL_ON_AUTH: "true"
         run: node .github/scripts/translate-md.mjs
 
-      - name: Commit translated files to feature branch
-        id: commit
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "i18n: update translated markdown (DE→EN, README first)"
-          file_pattern: "**/*.en.md"
+      - name: Sync & push main (rebase)
+  run: |
+    git fetch origin main
+    git pull --rebase origin main
+    git push origin HEAD:main
           branch: "ci/i18n-en-${{ github.run_id }}"
           create_branch: true
 
