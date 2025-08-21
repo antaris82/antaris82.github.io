@@ -1,5 +1,5 @@
 // assets/i18n.js
-export const SUPPORTED_LANGS = ["de","en","fr","es","it","pl"];
+export const SUPPORTED_LANGS = ["de","en"];
 
 export function getLang() {
   const qs = (new URLSearchParams(location.search)).get("lang");

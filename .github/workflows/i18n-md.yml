@@ -1,4 +1,4 @@
-name: i18n-md (DE → EN only, quota-aware, README first)
+name: i18n-md (DE → EN only, quota-aware, README first, PR-based)
 
 on:
   push:
@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,7 +57,6 @@ jobs:
           import remarkParse from "remark-parse";
           import { visit } from "unist-util-visit";
 
-          // --- Config from env ---
           const SOURCE_LANG = (process.env.SOURCE_LANG || "DE").toUpperCase();
           const TARGET_LANGS = ["en"]; // EN only
           const DEEPL_API_KEY = process.env.DEEPL_API_KEY || "";
@@ -64,7 +64,6 @@ jobs:
           const CHANGED_LIST = (process.env.CHANGED || "").split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
           const FAIL_ON_AUTH = (process.env.FAIL_ON_AUTH || "true").toLowerCase() !== "false";
 
-          // --- Helpers ---
           const SKIP_DIRS = new Set([".git","node_modules",".github"]);
           const isMd = f => f.toLowerCase().endsWith(".md");
           const isReadme = f => /(?:^|\/)readme(?:\.[a-z]{2})?\.md$/i.test(f);
@@ -90,7 +89,6 @@ jobs:
           }
 
           function dstFor(file) {
-            // Prefer README.<lang>.md schema; convert README.de.md -> README.en.md
             if (/\.de\.md$/i.test(file)) return file.replace(/\.de\.md$/i, ".en.md");
             return file.replace(/\.md$/i, ".en.md");
           }
@@ -128,7 +126,6 @@ jobs:
             return nodes;
           }
 
-          // --- DeepL helpers ---
           const headers = () => ({
             "Authorization": `DeepL-Auth-Key ${DEEPL_API_KEY}`,
             "Content-Type": "application/json"
@@ -160,7 +157,6 @@ jobs:
             return j.translations?.map(x=>x.text) || [];
           }
 
-          // --- Main ---
           (async()=>{
             if (!DEEPL_API_KEY) {
               console.log("[i18n] No DEEPL_API_KEY → skipping translation without failing.");
@@ -175,7 +171,6 @@ jobs:
             const candidates = (CHANGED_LIST.length? CHANGED_LIST : listAllMd(".")).filter(f=>shouldTranslateFile(f, supLangs));
             if (!candidates.length) { console.log("[i18n] No Markdown files to translate."); return; }
 
-            // Build translation plan
             const plan = [];
             for (const f of candidates) {
               const raw = fs.readFileSync(f, "utf8");
@@ -184,20 +179,17 @@ jobs:
               try { nodes = collectTextNodes(protectedText); } catch {}
               const texts = nodes.length ? nodes.map(n=>n.text) : [protectedText];
               const charCost = texts.reduce((a,t)=>a+(t?.length||0), 0);
-              plan.push({ file:f, protectedText, segMap, nodes, texts, charCost, isReadme: isReadme(f), depth: f.split(path.sep).length });
+              plan.push({ file:f, protectedText, segMap, nodes, texts, charCost, isReadme: /(?:^|\/)readme(?:\.[a-z]{2})?\.md$/i.test(f), depth: f.split(path.sep).length });
             }
 
-            // Prioritize: README* first (root first), then others
             plan.sort((a,b)=>{
               if (a.isReadme !== b.isReadme) return a.isReadme ? -1 : 1;
               if (a.isReadme && b.isReadme) {
-                // root-level README (smaller depth) first
                 if (a.depth !== b.depth) return a.depth - b.depth;
               }
               return a.file.localeCompare(b.file);
             });
 
-            // Quota check
             let u = await usage(DEEPL_API_URL);
             if (!u.ok && (u.status===401 || u.status===403)) {
               const alt = /api-free\.deepl\.com/.test(DEEPL_API_URL) ? "https://api.deepl.com/v2/translate" : "https://api-free.deepl.com/v2/translate";
@@ -234,7 +226,7 @@ jobs:
                   }
                   out = restoreSegments(out, item.segMap);
 
-                  const dstPath = dstFor(item.file);
+                  const dstPath = (/\.de\.md$/i.test(item.file)) ? item.file.replace(/\.de\.md$/i, `.en.md`) : item.file.replace(/\.md$/i, `.en.md`);
                   fs.mkdirSync(path.dirname(dstPath), {recursive:true});
                   fs.writeFileSync(dstPath, out, "utf8");
                   console.log("→", dstPath);
@@ -258,9 +250,26 @@ jobs:
           FAIL_ON_AUTH: "true"
         run: node .github/scripts/translate-md.mjs
 
-      - name: Commit translated files
-        if: always()
+      - name: Commit translated files to feature branch
+        id: commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "i18n: update translated markdown (DE→EN, README first)"
           file_pattern: "**/*.en.md"
+          branch: "ci/i18n-en-${{ github.run_id }}"
+          create_branch: true
+
+      - name: Create Pull Request
+        if: steps.commit.outputs.changes_detected == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: "ci/i18n-en-${{ github.run_id }}"
+          base: "main"
+          title: "i18n: English translations (DE→EN)"
+          body: |
+            This PR was created automatically by the i18n workflow.
+            - Source: **DE → EN**
+            - Quota-aware (DeepL Free 500k chars/month)
+            - README files prioritized
+          labels: i18n, automation
+          delete-branch: true
