@@ -1,8 +1,8 @@
 [
   {
     "path": ".github/scripts/translate-md.mjs",
-    "sha": "3c5b156ed023ce9e10f6521f89594e14d998b3da",
-    "size": 7111,
+    "sha": "548b4012efdcfa369ced8fa45dd76ddca9868108",
+    "size": 7455,
     "type": "blob",
     "mode": "100644"
   },
@@ -57,8 +57,22 @@
   },
   {
     "path": "assets/i18n.js",
-    "sha": "bd589db0a20b3005dd12a031cd665c89b7da17e7",
-    "size": 885,
+    "sha": "70d3ea4699ee0f76fdcab1c9c775946c7eaba3f4",
+    "size": 3143,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/locales/de.json",
+    "sha": "ba1ff9dcaf9a0ace929aac5acbf57c267654559d",
+    "size": 721,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "assets/locales/en.json",
+    "sha": "1c11c6af935aff09751253e39897be7f00570921",
+    "size": 675,
     "type": "blob",
     "mode": "100644"
   },
@@ -92,8 +106,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "65f66e3f58a4226399276ec7006c882b16e0821e",
-    "size": 41,
+    "sha": "84e3d5bf0a55a3d767516543309722d737008295",
+    "size": 38,
     "type": "blob",
     "mode": "100644"
   },
@@ -106,8 +120,8 @@
   },
   {
     "path": "index.html",
-    "sha": "01c32468f61e7059fc9149b8cd0281ddc73b1240",
-    "size": 3293,
+    "sha": "5f94d8e55b20ade912694b0258489d51b266bded",
+    "size": 21592,
     "type": "blob",
     "mode": "100644"
   },
@@ -119,8 +133,15 @@
     "mode": "100644"
   },
   {
+    "path": "index.html.old2",
+    "sha": "01c32468f61e7059fc9149b8cd0281ddc73b1240",
+    "size": 3293,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "manifest.json",
-    "sha": "051ec43934e61dfdf1dd56992d6ff533d9275832",
+    "sha": "781fc7621f29cb9ce455e321e76d8a2d0d435f83",
     "size": 25438,
     "type": "blob",
     "mode": "100644"
@@ -197,8 +218,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/A1/README.en.md",
-    "sha": "fa6e0e86a8881e9182b1161ad74e6e0c7ec246e4",
-    "size": 4554,
+    "sha": "78535d5d0839eea116368cbff83563e7d4046770",
+    "size": 4561,
     "type": "blob",
     "mode": "100644"
   },
