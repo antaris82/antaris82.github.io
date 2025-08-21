@@ -1,9 +1,6 @@
-<!-- assets/i18n.js -->
-<script>
 (() => {
   const STORE_KEY = "app.lang";
   const SUPPORTED_LANGS = ["de","en"];
-
   const I18n = {
     lang: null,
     dict: {},
@@ -24,22 +21,11 @@
         this.dict = await res.json();
         this.lang = lang;
       } catch (e) {
-        if (lang !== fallback) {
-          console.warn(`[i18n] Failed to load ${lang}, falling back to ${fallback}`, e);
-          return this.load(fallback);
-        } else {
-          console.error("[i18n] Failed to load fallback locale:", e);
-        }
+        if (lang !== fallback) return this.load(fallback);
       }
     },
     t(key, fallback="") {
-      const parts = key.split(".");
-      let cur = this.dict;
-      for (const p of parts) {
-        if (cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p];
-        else return fallback || key;
-      }
-      return (typeof cur === "string") ? cur : (fallback || key);
+      return key.split(".").reduce((acc,k)=>acc && acc[k], this.dict) || fallback || key;
     },
     apply() {
       document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -75,15 +61,8 @@
       const lang = this.resolveLang() || defaultLang;
       await this.set(lang);
       const sel = document.getElementById("langSelect");
-      if (sel) {
-        sel.addEventListener("change", (e) => {
-          const v = e.target.value;
-          this.set(v);
-        });
-      }
+      if (sel) sel.addEventListener("change", e => this.set(e.target.value));
     }
   };
-
   window.I18n = I18n;
 })();
-</script>
