@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="./assets/app.css">
 
-  <!-- External libs kept here to keep modules simple -->
+  <!-- External libs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
@@ -53,10 +53,13 @@
 
     <section class="card grid">
       <div class="flex">
-        <strong>README</strong>
-        <span class="muted">Markdown &amp; LaTeX (\\[...\\], \\(...\\), $$...$$)</span>
+        <strong>Markdown‑Viewer</strong>
+        <div class="muted" style="display:flex; gap:10px; align-items:center;">
+          <span id="mdPath" class="mono"></span>
+          <a id="openInNew" class="btn-open" target="_blank" rel="noopener">↗ im neuen Tab</a>
+        </div>
       </div>
-      <div id="readme" class="readme">Lade…</div>
+      <div id="readme" class="readme">Wähle links eine <code>.md</code> Datei aus — oder es wird automatisch das README geladen.</div>
     </section>
 
     <section class="card grid">

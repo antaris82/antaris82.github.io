@@ -1,6 +1,6 @@
 // assets/app.js
 import { OWNER, REPO, BRANCH } from "./config.js";
-import { authHeaders, fetchManifest, fetchAllViaAPI, getManifestHeaders } from "./api.js";
+import { authHeaders, fetchManifest, fetchAllViaAPI, getManifestHeaders, rawUrl } from "./api.js";
 import { renderMarkdownInto } from "./md.js";
 import { renderGallery, renderFolder } from "./render.js";
 import { getLang, initLangSelect } from "./i18n.js";
@@ -27,6 +27,8 @@ const readmeEl = document.getElementById("readme");
 const galleryEl = document.getElementById("gallery");
 const cwdLabelEl = document.getElementById("cwdLabel");
 const currentPathEl = document.getElementById("currentPath");
+const mdPathEl = document.getElementById("mdPath");
+const openInNewEl = document.getElementById("openInNew");
 
 cwdLabelEl.textContent = "/" + (cwd || "");
 currentPathEl.textContent = "/" + (cwd || "");
@@ -41,7 +43,36 @@ function buildNavHref(path) {
   return `${base}${sp.get("token")?`&token=${encodeURIComponent(sp.get("token"))}`:""}`;
 }
 
-// README loader (with language variants)
+function langVariant(path, lang) {
+  if (!/\.md$/i.test(path)) return [path];
+  const dot=path.toLowerCase().lastIndexOf('.md');
+  const base=path.slice(0,dot);
+  return [`${base}.${lang}.md`, `${base}.md`];
+}
+
+async function openMarkdown(path) {
+  if (mdPathEl) mdPathEl.textContent = "/" + path;
+  const [first, fallback] = langVariant(path, LANG);
+  const trials = [first, fallback];
+  let txt=null, raw=null;
+  for (const p of trials) {
+    const url = rawUrl(encodeURIComponent(p).replace(/%2F/g,'/'));
+    const r = await fetch(url, { headers: { ...authHeaders(token) }, cache: "no-store" });
+    if (r.ok) { txt = await r.text(); raw = url; break; }
+  }
+  if (!txt) { readmeEl.textContent = "Datei nicht gefunden."; return; }
+  // set 'open in new tab' link
+  const base = `${location.pathname.replace(/[^/]+$/,'')}viewer.html?path=${encodeURIComponent(path)}`;
+  const sp = new URLSearchParams(location.search);
+  let href = base;
+  if (sp.get("lang")) href += `&lang=${encodeURIComponent(sp.get("lang"))}`;
+  if (sp.get("token")) href += `&token=${encodeURIComponent(sp.get("token"))}`;
+  if (openInNewEl) openInNewEl.href = href;
+
+  await renderMarkdownInto(readmeEl, txt);
+}
+
+// README loader (prefers README.<lang>.md)
 async function loadReadme(manifest) {
   const prefix = cwd ? (cwd + "/") : "";
   const cand = [
@@ -55,25 +86,18 @@ async function loadReadme(manifest) {
     `${prefix}README.txt`,
     `${prefix}readme.txt`
   ];
-  let readmeEntry = null;
+  let entry = null;
   for (const name of cand) {
-    readmeEntry = manifest.find(x => x.path.toLowerCase() === name.toLowerCase());
-    if (readmeEntry) break;
+    entry = manifest.find(x => x.path.toLowerCase() === name.toLowerCase());
+    if (entry) break;
   }
-  if (!readmeEntry) {
+  if (!entry) {
     readmeEl.textContent = "Kein README im aktuellen Ordner gefunden.";
+    if (mdPathEl) mdPathEl.textContent = "";
+    if (openInNewEl) openInNewEl.removeAttribute("href");
     return;
   }
-  try {
-    const raw = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${encodeURIComponent(BRANCH)}/${readmeEntry.path}`;
-    const r = await fetch(raw, { headers: { ...authHeaders(token) }, cache: "no-store" });
-    if (!r.ok) throw new Error("READMERaw error " + r.status);
-    const txt = await r.text();
-    await renderMarkdownInto(readmeEl, txt);
-  } catch (e) {
-    readmeEl.textContent = "README konnte nicht geladen werden.";
-    console.error(e);
-  }
+  await openMarkdown(entry.path);
 }
 
 async function boot() {
@@ -105,7 +129,7 @@ async function boot() {
   document.getElementById("manifestTotalFiles").textContent = String(totalFiles);
 
   await loadReadme(manifest);
-  renderFolder({ manifest, cwd, buildNavHref, listingEl });
+  renderFolder({ manifest, cwd, buildNavHref, listingEl, token, onOpenMd: openMarkdown });
   renderGallery({ manifest, cwd, token, galleryEl });
 }
 

@@ -25,7 +25,7 @@ main.wrap { padding:16px 0 24px; display:grid; grid-template-columns: 1fr; gap:1
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
 .muted { color:var(--muted); }
 
-.readme { max-height:420px; overflow:auto; background:#0e141b; border:1px solid #26303c; border-radius:12px; padding:16px; }
+.readme { min-height:220px; max-height:520px; overflow:auto; background:#0e141b; border:1px solid #26303c; border-radius:12px; padding:16px; }
 .readme h1,.readme h2,.readme h3 { margin: 0.8em 0 0.4em; }
 .readme pre { background:#0b1016; padding:12px; border-radius:8px; overflow:auto; }
 .readme table { border-collapse:collapse; border:1px solid #26303c; }
@@ -40,3 +40,20 @@ footer { border-top:1px solid #1e2630; color:var(--muted); }
 footer .wrap { padding: 14px 16px; }
 
 .math-fence { overflow:auto; padding:8px; margin:8px 0; background:#0b1016; border-radius:8px; border:1px solid #26303c; }
+
+/* Folder links: always white */
+.entry-dir, .entry-dir:visited, .entry-dir:hover, .entry-dir:active {
+  color: #ffffff !important;
+  text-decoration: none;
+}
+/* File links readable */
+.entry-file { color: #e6edf3; }
+
+/* Button for opening current MD in new tab */
+.btn-open, .btn-open:visited, .btn-open:hover, .btn-open:active {
+  background: var(--accent);
+  color: #fff !important;
+  border-radius: 8px;
+  padding: 6px 10px;
+  text-decoration: none;
+}

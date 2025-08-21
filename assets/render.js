@@ -13,7 +13,6 @@ export function humanBytes(b) {
 const mediaRE = /\.(png|jpg|jpeg|gif|webp|svg|mp4|webm|ogg)$/i;
 const backgroundRE = /^background\.(png|jpg|jpeg|gif|webp|svg)$/i;
 
-/** Render the gallery for the current folder */
 export function renderGallery({ manifest, cwd, token, galleryEl }) {
   galleryEl.innerHTML = "";
   const prefix = cwd ? (cwd + "/") : "";
@@ -53,8 +52,7 @@ export function renderGallery({ manifest, cwd, token, galleryEl }) {
   }
 }
 
-/** Render the folder listing */
-export function renderFolder({ manifest, cwd, buildNavHref, listingEl }) {
+export function renderFolder({ manifest, cwd, buildNavHref, listingEl, token = "", onOpenMd = null }) {
   const prefix = cwd ? (cwd + "/") : "";
   const direct = manifest
     .filter(x => x.path.startsWith(prefix))
@@ -88,13 +86,20 @@ export function renderFolder({ manifest, cwd, buildNavHref, listingEl }) {
   for (const d of dirs) {
     const rowName = document.createElement("div");
     rowName.className = "mono";
-    rowName.innerHTML = `<a href="${buildNavHref(cwd ? (cwd + '/' + d) : d)}">📁 ${d}</a>`;
+    const aDir = document.createElement("a");
+    aDir.href = buildNavHref(cwd ? (cwd + '/' + d) : d);
+    aDir.textContent = `📁 ${d}`;
+    aDir.className = "entry-link entry-dir";
+    rowName.appendChild(aDir);
+
     const rowType = document.createElement("div");
     rowType.textContent = "dir";
     rowType.className = "muted mono";
+
     const rowSize = document.createElement("div");
     rowSize.textContent = "—";
     rowSize.className = "muted mono";
+
     listingEl.appendChild(rowName);
     listingEl.appendChild(rowType);
     listingEl.appendChild(rowSize);
@@ -104,24 +109,31 @@ export function renderFolder({ manifest, cwd, buildNavHref, listingEl }) {
     const rowName = document.createElement("div");
     rowName.className = "mono";
     const isMd = /\.md$/i.test(f.rest);
-    let href;
     if (isMd) {
-      const viewer = `${location.pathname.replace(/[^/]+$/,'')}viewer.html?path=${encodeURIComponent(cwd ? (cwd + "/" + f.rest) : f.rest)}`;
-      href = viewer;
+      const icon = document.createTextNode("📰 ");
+      const a = document.createElement("a");
+      a.href = "#";
+      a.textContent = f.rest;
+      a.className = "entry-link entry-file";
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (onOpenMd) onOpenMd(cwd ? (cwd + "/" + f.rest) : f.rest);
+      });
+      rowName.appendChild(icon);
+      rowName.appendChild(a);
     } else {
-      href = rawUrl(f.path);
+      const a = document.createElement("a");
+      const raw = rawUrl(f.path);
+      let href = raw;
+      if (token) href += `?token=${encodeURIComponent(token)}`;
+      a.href = href;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = f.rest;
+      a.className = "entry-link entry-file";
+      rowName.innerHTML = "📄 ";
+      rowName.appendChild(a);
     }
-    // keep existing token/lang via search params
-    const sp = new URLSearchParams(location.search);
-    if (isMd) {
-      // viewer handles token/lang; append both
-      if (sp.get("lang")) href += `&lang=${encodeURIComponent(sp.get("lang"))}`;
-      if (sp.get("token")) href += `&token=${encodeURIComponent(sp.get("token"))}`;
-    } else {
-      if (sp.get("token")) href += `?token=${encodeURIComponent(sp.get("token"))}`;
-    }
-
-    rowName.innerHTML = `${isMd ? "📰" : "📄"} <a href="${href}" target="_blank" rel="noopener">${f.rest}</a>`;
 
     const rowType = document.createElement("div");
     rowType.textContent = isMd ? "md (Viewer)" : "file";

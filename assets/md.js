@@ -1,44 +1,32 @@
 // assets/md.js
 // Markdown + KaTeX helpers
-// Assumes marked & DOMPurify & KaTeX auto-render are loaded globally via <script> tags.
 
-/** Isolate TeX blocks to protect from Markdown parsing */
 export function extractMathSlots(src) {
   const slots = [];
   let out = src;
-
-  // Code fences ```math|latex|tex ... ```
   out = out.replace(/```(math|latex|tex)\s*([\s\S]*?)```/gi, (_, __, body) => {
     const id = `§§MATHFENCE_${slots.length}§§`;
     slots.push({ id, tex: body.trim(), kind: 'fence' });
     return id;
   });
-
-  // Display \[ ... \]
   out = out.replace(/\\\[([\s\S]*?)\\\]/g, (_, body) => {
     const id = `§§MATHDSP_${slots.length}§§`;
     slots.push({ id, tex: body.trim(), kind: 'display' });
     return id;
   });
-
-  // Inline \( ... \)
   out = out.replace(/\\\(([\s\S]*?)\\\)/g, (_, body) => {
     const id = `§§MATHINL_${slots.length}§§`;
     slots.push({ id, tex: body.trim(), kind: 'inline' });
     return id;
   });
-
-  // $$ ... $$
   out = out.replace(/\$\$([\s\S]*?)\$\$/g, (_, body) => {
     const id = `§§MATHDOLL_${slots.length}§§`;
     slots.push({ id, tex: body.trim(), kind: 'display' });
     return id;
   });
-
   return { text: out, slots };
 }
 
-/** Restore TeX placeholders back into HTML */
 export function restoreMathSlots(html, slots) {
   for (const s of slots) {
     let repl;
@@ -52,7 +40,6 @@ export function restoreMathSlots(html, slots) {
   return html;
 }
 
-/** Wait for KaTeX auto-render and render math */
 export function renderKatex(el) {
   return new Promise((resolve) => {
     const opts = {
@@ -79,7 +66,6 @@ export function renderKatex(el) {
   });
 }
 
-/** Convert Markdown to safe HTML and render KaTeX */
 export async function renderMarkdownInto(el, srcText) {
   const { text: placeholderMD, slots } = extractMathSlots(srcText);
   let html = window.marked.parse(placeholderMD);

@@ -15,7 +15,6 @@ const openRaw = document.getElementById("openRaw");
 const openGh  = document.getElementById("openGitHub");
 pathEl.textContent = "/" + filePath;
 
-// lang variant resolver
 function langVariant(path, lang) {
   if (!/\.md$/i.test(path)) return [path];
   const dot=path.toLowerCase().lastIndexOf('.md');
