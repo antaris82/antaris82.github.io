@@ -1,0 +1,207 @@
+name: i18n-md (DE → EN/FR/ES)
+
+on:
+  push:
+    paths:
+      - "**/*.md"
+  workflow_dispatch:
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute changed Markdown
+        id: diff
+        run: |
+          set -e
+          BASE="${{ github.event.before }}"
+          if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+            git ls-files "*.md" > changed.txt || true
+          else
+            git diff --name-only "$BASE" "${{ github.sha }}" -- "**/*.md" > changed.txt || true
+          fi
+          echo "changed<<EOF" >> $GITHUB_OUTPUT
+          cat changed.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "Changed Markdown files:"
+          cat changed.txt || true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install minimal deps
+        run: |
+          npm --yes init -y
+          npm pkg set type=module
+          npm i glob@10 unified@11 remark-parse@10 remark-gfm@4 unist-util-visit@5 node-fetch@3
+
+      - name: Add translate script
+        run: |
+          mkdir -p .github/scripts
+          cat > .github/scripts/translate-md.mjs <<'JS'
+          import fs from "fs";
+          import path from "path";
+          import { unified } from "unified";
+          import remarkParse from "remark-parse";
+          import remarkGfm from "remark-gfm";
+          import { visit } from "unist-util-visit";
+          import fetch from "node-fetch";
+          
+          const SOURCE_LANG = (process.env.SOURCE_LANG || "DE").toUpperCase();
+          const TARGET_LANGS = (process.env.TARGET_LANGS || "en,fr,es").split(",").map(s=>s.trim()).filter(Boolean);
+          const DEEPL_API_URL = process.env.DEEPL_API_URL || "https://api-free.deepl.com/v2/translate";
+          const DEEPL_API_KEY = process.env.DEEPL_API_KEY || "";
+          if (!DEEPL_API_KEY) { console.error("Missing DEEPL_API_KEY"); process.exit(0); }
+
+          const changedList = (process.env.CHANGED || "")
+            .split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+
+          const SKIP_DIRS = new Set([".git","node_modules",".github"]);
+          const isMd = f => f.toLowerCase().endsWith(".md");
+
+          const SUP_LANGS = TARGET_LANGS.map(l=>l.toLowerCase());
+          const trgSuffixRe = new RegExp(`\\.(${SUP_LANGS.join("|")})\\.md$`, "i");
+
+          function shouldTranslateFile(f){
+            if (!isMd(f)) return false;
+            if (trgSuffixRe.test(f)) return false; // bereits übersetzte Datei
+            const parts = f.split(path.sep);
+            if (parts.some(p => SKIP_DIRS.has(p))) return false;
+            return true;
+          }
+
+          // Finde Kandidatenliste (changed bevorzugt, sonst alle)
+          function listAllMd(dir="."){
+            const out=[];
+            for (const e of fs.readdirSync(dir,{withFileTypes:true})) {
+              if (SKIP_DIRS.has(e.name)) continue;
+              const p = path.join(dir, e.name);
+              if (e.isDirectory()) out.push(...listAllMd(p));
+              else if (isMd(p)) out.push(p);
+            }
+            return out;
+          }
+          const candidates = (changedList.length? changedList: listAllMd(".")).filter(shouldTranslateFile);
+          if (!candidates.length) { console.log("No Markdown files to translate."); process.exit(0); }
+
+          // Schützt KaTeX-Math (\[...\], \(...\), $$...$$) durch Platzhalter
+          function protectMath(src){
+            const map=[];
+            let i=0;
+            const take = (m)=>{ const id=`§§M${i++}§§`; map.push({id,content:m}); return id; };
+            let out=src;
+            out=out.replace(/\$\$[\s\S]*?\$\$/g, m=>take(m));        // $$...$$
+            out=out.replace(/\\\[([\s\S]*?)\\\]/g, m=>take(m));       // \[...\]
+            out=out.replace(/\\\(([\s\S]*?)\\\)/g, m=>take(m));       // \(...\)
+            return {text: out, map};
+          }
+          function restoreMath(txt,map){
+            let out=txt;
+            for (const {id,content} of map) out=out.split(id).join(content);
+            return out;
+          }
+
+          async function deeplBatch(texts, targetLang){
+            if (!texts.length) return [];
+            const chunkSize = 40;
+            const results = [];
+            for (let i=0;i<texts.length;i+=chunkSize){
+              const chunk = texts.slice(i,i+chunkSize);
+              const body = new URLSearchParams();
+              body.set("auth_key", DEEPL_API_KEY);
+              body.set("source_lang", SOURCE_LANG);
+              body.set("target_lang", targetLang.toUpperCase());
+              body.set("preserve_formatting","1");
+              for (const t of chunk) body.append("text", t);
+              const r = await fetch(DEEPL_API_URL, { method:"POST", headers:{ "Content-Type":"application/x-www-form-urlencoded" }, body });
+              if (!r.ok) {
+                const e=await r.text().catch(()=>r.statusText);
+                throw new Error(`DeepL HTTP ${r.status}: ${e}`);
+              }
+              const json = await r.json();
+              const trans = json.translations?.map(x=>x.text) || [];
+              results.push(...trans);
+            }
+            return results;
+          }
+
+          async function translateFile(srcPath){
+            const raw = fs.readFileSync(srcPath, "utf8");
+            const {text: protectedText, map: mathMap} = protectMath(raw);
+
+            // Parse mit Positionen (remark-parse liefert Offsets in position.start.offset/.end.offset)
+            const tree = unified().use(remarkParse).use(remarkGfm).parse(protectedText);
+
+            // Sammle alle "text"-Nodes außerhalb von Code/InlineCode/HTML
+            const nodes=[];
+            visit(tree, (node, index, parents) => {
+              if (node.type !== "text") return;
+              // Flag: in verbotenen Eltern?
+              const banned = parents?.some(p => ["code","inlineCode","html"].includes(p.type));
+              if (banned) return;
+              const val = node.value;
+              if (!val || !val.trim()) return;
+              const {start,end} = node.position || {};
+              if (typeof start?.offset !== "number" || typeof end?.offset !== "number") return;
+              nodes.push({start:start.offset, end:end.offset, text: val});
+            });
+
+            if (!nodes.length) return null;
+
+            for (const lang of TARGET_LANGS){
+              // Quellenbereich → Zielsprache
+              const texts = nodes.map(n=>n.text);
+              const translated = await deeplBatch(texts, lang);
+              if (translated.length !== texts.length) throw new Error("Batch size mismatch");
+
+              // Rebuild per Slices (absteigend ersetzen vermeidet Offset-Shift)
+              let out = protectedText;
+              const rep = nodes.map((n,i)=>({...n, newText: translated[i]}))
+                               .sort((a,b)=> b.start - a.start);
+              for (const r of rep){
+                out = out.slice(0, r.start) + r.newText + out.slice(r.end);
+              }
+              out = restoreMath(out, mathMap);
+
+              const dstPath = srcPath.replace(/\.md$/i, `.${lang}.md`);
+              fs.mkdirSync(path.dirname(dstPath), {recursive:true});
+              fs.writeFileSync(dstPath, out, "utf8");
+              console.log(`→ ${dstPath}`);
+            }
+          }
+
+          (async()=>{
+            for (const f of candidates) {
+              try {
+                await translateFile(f);
+              } catch(e) {
+                console.error("Failed:", f, e.message);
+                process.exitCode = 1;
+              }
+            }
+          })();
+          JS
+
+      - name: Run translation
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+          DEEPL_API_URL: https://api-free.deepl.com/v2/translate
+          SOURCE_LANG: DE
+          TARGET_LANGS: en,fr,es
+          CHANGED: ${{ steps.diff.outputs.changed }}
+        run: node .github/scripts/translate-md.mjs
+
+      - name: Commit translated files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "i18n: update translated markdown"
+          file_pattern: "**/*.en.md **/*.fr.md **/*.es.md"
