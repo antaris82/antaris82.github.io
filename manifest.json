@@ -1,5 +1,12 @@
 [
   {
+    "path": ".github/scripts/translate-md.mjs",
+    "sha": "9ad1c8994542a7ddce82a7038d6d4c8c68cc2ca8",
+    "size": 6846,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": ".github/workflows/build-manifest.yml",
     "sha": "86a4c5bbcddd3ffb186534c63490aab2beee2689",
     "size": 2077,
@@ -8,8 +15,8 @@
   },
   {
     "path": ".github/workflows/i18n-md.yml",
-    "sha": "be0aaaff9eafdcf41294b620cee7cd7513a8b2fc",
-    "size": 11335,
+    "sha": "59260cc2f816869d820ed7f79e88f9fdce6e65b6",
+    "size": 11307,
     "type": "blob",
     "mode": "100644"
   },
@@ -84,6 +91,13 @@
     "mode": "100644"
   },
   {
+    "path": "changed.txt",
+    "sha": "84e3d5bf0a55a3d767516543309722d737008295",
+    "size": 38,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "CITATION.cff",
     "sha": "658d591b4bdffe51fc7ef5f6111fdeb870bf40c4",
     "size": 1074,
@@ -106,7 +120,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "b43f049f8774f62232de386e983eeefa3dd1b360",
+    "sha": "adb05cca718adb50e5178acfcb98c5e8e868e2b4",
     "size": 24940,
     "type": "blob",
     "mode": "100644"
@@ -178,6 +192,13 @@
     "path": "Sierpinski Tetraeder_PoC/A1/files/static_colored_obs_exclusive-scaled.png",
     "sha": "3d73a408569b8c4efe217f6697ed621ccc6f132b",
     "size": 178356,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/A1/README.en.md",
+    "sha": "f4e57d4cfa176daf2780b67b22d5a99ba66315d3",
+    "size": 4554,
     "type": "blob",
     "mode": "100644"
   },
