@@ -1,26 +1,89 @@
-// assets/i18n.js
-export const SUPPORTED_LANGS = ["de","en"];
+<!-- assets/i18n.js -->
+<script>
+(() => {
+  const STORE_KEY = "app.lang";
+  const SUPPORTED_LANGS = ["de","en"];
 
-export function getLang() {
-  const qs = (new URLSearchParams(location.search)).get("lang");
-  const stored = localStorage.getItem("lang");
-  const nav = (navigator.language || "de").slice(0,2).toLowerCase();
-  const c = (qs || stored || nav);
-  return SUPPORTED_LANGS.includes(c) ? c : "de";
-}
+  const I18n = {
+    lang: null,
+    dict: {},
+    resolveLang() {
+      const url = new URL(window.location.href);
+      const queryLang = url.searchParams.get("lang");
+      if (queryLang && SUPPORTED_LANGS.includes(queryLang)) return queryLang;
+      const saved = localStorage.getItem(STORE_KEY);
+      if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
+      const nav = (navigator.language || "de").slice(0,2).toLowerCase();
+      return SUPPORTED_LANGS.includes(nav) ? nav : "de";
+    },
+    async load(lang) {
+      const fallback = "de";
+      try {
+        const res = await fetch(`assets/locales/${lang}.json`, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        this.dict = await res.json();
+        this.lang = lang;
+      } catch (e) {
+        if (lang !== fallback) {
+          console.warn(`[i18n] Failed to load ${lang}, falling back to ${fallback}`, e);
+          return this.load(fallback);
+        } else {
+          console.error("[i18n] Failed to load fallback locale:", e);
+        }
+      }
+    },
+    t(key, fallback="") {
+      const parts = key.split(".");
+      let cur = this.dict;
+      for (const p of parts) {
+        if (cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p];
+        else return fallback || key;
+      }
+      return (typeof cur === "string") ? cur : (fallback || key);
+    },
+    apply() {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        const text = this.t(key, el.textContent.trim());
+        el.textContent = text;
+      });
+      document.querySelectorAll("[data-i18n-attr]").forEach(el => {
+        const attrs = el.getAttribute("data-i18n-attr").split(",").map(s=>s.trim()).filter(Boolean);
+        const baseKey = el.getAttribute("data-i18n") || "";
+        for (const a of attrs) {
+          const k = baseKey ? `${baseKey}.${a}` : el.getAttribute(`data-i18n-${a}`);
+          if (!k) continue;
+          const val = this.t(k, el.getAttribute(a) || "");
+          el.setAttribute(a, val);
+        }
+      });
+      document.documentElement.setAttribute("lang", this.lang || "de");
+      const sel = document.getElementById("langSelect");
+      if (sel && sel.value !== this.lang) sel.value = this.lang;
+    },
+    async set(lang) {
+      if (!SUPPORTED_LANGS.includes(lang)) return;
+      await this.load(lang);
+      localStorage.setItem(STORE_KEY, lang);
+      this.apply();
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", lang);
+      window.history.replaceState({}, "", url);
+    },
+    async init(opts={}) {
+      const defaultLang = (opts.defaultLang || "de");
+      const lang = this.resolveLang() || defaultLang;
+      await this.set(lang);
+      const sel = document.getElementById("langSelect");
+      if (sel) {
+        sel.addEventListener("change", (e) => {
+          const v = e.target.value;
+          this.set(v);
+        });
+      }
+    }
+  };
 
-export function initLangSelect(selectEl, initialLang, onChange) {
-  selectEl.value = initialLang;
-  selectEl.addEventListener("change", (e) => {
-    const LANG = e.target.value;
-    localStorage.setItem("lang", LANG);
-    const qs = new URLSearchParams(location.search);
-    qs.set("lang", LANG);
-    const curPath = qs.get("path");
-    if (curPath) qs.set("path", curPath);
-    const token = qs.get("token") || "";
-    if (token) qs.set("token", token);
-    onChange?.(LANG, qs);
-    location.search = qs.toString();
-  });
-}
+  window.I18n = I18n;
+})();
+</script>

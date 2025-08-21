@@ -1,0 +1,32 @@
+{
+  "app": {
+    "title": "Sierpinski Tetrahedron – Project",
+    "subtitle": "Experiment, documentation, and materials",
+    "language": "Language"
+  },
+  "browser": {
+    "title": "File Browser",
+    "empty": "No files found.",
+    "openInViewer": "Open in viewer",
+    "download": "Download"
+  },
+  "viewer": {
+    "title": "Markdown Viewer",
+    "downloadPdf": "Export as PDF",
+    "openRaw": "Open raw file",
+    "back": "Back"
+  },
+  "readme": {
+    "title": "README",
+    "lastUpdated": "Last updated"
+  },
+  "search": {
+    "placeholder": "Search …"
+  },
+  "theme": {
+    "toggle": "Toggle theme"
+  },
+  "footer": {
+    "credits": "Powered by GitHub Pages"
+  }
+}

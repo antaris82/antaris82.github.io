@@ -1,0 +1,32 @@
+{
+  "app": {
+    "title": "Sierpinski-Tetraeder – Projekt",
+    "subtitle": "Experiment, Dokumentation und Materialien",
+    "language": "Sprache"
+  },
+  "browser": {
+    "title": "Dateibrowser",
+    "empty": "Keine Dateien gefunden.",
+    "openInViewer": "Im Viewer öffnen",
+    "download": "Herunterladen"
+  },
+  "viewer": {
+    "title": "Markdown-Viewer",
+    "downloadPdf": "Als PDF exportieren",
+    "openRaw": "Rohdatei öffnen",
+    "back": "Zurück"
+  },
+  "readme": {
+    "title": "README",
+    "lastUpdated": "Zuletzt aktualisiert"
+  },
+  "search": {
+    "placeholder": "Suchen …"
+  },
+  "theme": {
+    "toggle": "Theme umschalten"
+  },
+  "footer": {
+    "credits": "Bereitgestellt via GitHub Pages"
+  }
+}
