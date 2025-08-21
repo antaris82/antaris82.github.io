@@ -1,4 +1,4 @@
-test15 German
+test16 German
 # A1 - Exclusive Metrics & Formal Derivation\n\n> **Path:** `Sierpinski Tetraeder_PoC/A1/` - **Owner:** antaris82
 **Short description:** This folder contains the **formal derivation** of the metrics used in A1 (entropy, mutual information, intersection metrics) as well as the associated assets in the subfolder `files/`.
 > **Math hint:** Inline \( … \), Display \[ … \].\n\n---\n\n## 🔗 Quick access
