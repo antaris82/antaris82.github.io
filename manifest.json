@@ -8,8 +8,8 @@
   },
   {
     "path": ".github/workflows/i18n-md.yml",
-    "sha": "a305a67480768c66ab62905f42f8cd468546c046",
-    "size": 11427,
+    "sha": "dd5172b1652ef9625bb980d0be9f6f3d3298b176",
+    "size": 11862,
     "type": "blob",
     "mode": "100644"
   },
@@ -43,8 +43,8 @@
   },
   {
     "path": "assets/i18n.js",
-    "sha": "2e6c86c7a495a257726d5f254a1367b982959db0",
-    "size": 905,
+    "sha": "bd589db0a20b3005dd12a031cd665c89b7da17e7",
+    "size": 885,
     "type": "blob",
     "mode": "100644"
   },
@@ -85,8 +85,8 @@
   },
   {
     "path": "index.html",
-    "sha": "65d6312dbf9607a155b4faa12b1b9bf5ed367622",
-    "size": 3488,
+    "sha": "01c32468f61e7059fc9149b8cd0281ddc73b1240",
+    "size": 3293,
     "type": "blob",
     "mode": "100644"
   },
@@ -99,7 +99,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "f9ac0c0ab679de46a336de3def40d5688f64c2b2",
+    "sha": "2229cf5d64adfe198d828ba2cb903237cfe1791b",
     "size": 24775,
     "type": "blob",
     "mode": "100644"
@@ -176,7 +176,7 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/A1/README.md",
-    "sha": "0fef88078d9b5f35e4f1e59a8e0e14b0b2756e29",
+    "sha": "614447e18d039d9a400f24bba2e8fd65fd5a32e7",
     "size": 4683,
     "type": "blob",
     "mode": "100644"
