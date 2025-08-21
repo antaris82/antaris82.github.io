@@ -106,8 +106,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "90a82fe19130979191753ea8051bc46b0ef9d71c",
-    "size": 24775,
+    "sha": "39a6fc2448553ea0e40ab0da332a993d5bdaa9f4",
+    "size": 24940,
     "type": "blob",
     "mode": "100644"
   },
@@ -183,7 +183,7 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/A1/README.md",
-    "sha": "c6eaf8103f7fca2d220a6d25967470b079479848",
+    "sha": "0fb26f714b4c9ddd72f4af3da67d6ce07569d193",
     "size": 4684,
     "type": "blob",
     "mode": "100644"
