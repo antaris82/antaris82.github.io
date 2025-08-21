@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <title>MD Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <style>
+    :root { --bg:#0b0f14; --fg:#e6edf3; --muted:#9aa4b2; --card:#10161d; --accent:#2f81f7; }
+    html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font:16px/1.55 system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Arial,sans-serif; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+    header { position: sticky; top:0; background:rgba(11,15,20,.9); border-bottom:1px solid #1e2630; backdrop-filter: blur(6px); }
+    header .row { display:flex; gap:10px; align-items:center; padding:10px 16px; }
+    header button, header a { background:var(--accent); color:#fff; border:0; border-radius:10px; padding:8px 12px; text-decoration:none; }
+    header a.secondary { background:#26303c; }
+    .content { background:var(--card); border:1px solid #1e2630; border-radius:12px; padding:20px; }
+    .content h1,.content h2,.content h3 { margin: 0.8em 0 0.4em; }
+    .content pre { background:#0b1016; padding:12px; border-radius:8px; overflow:auto; }
+    .content table { border-collapse:collapse; border:1px solid #26303c; }
+    .content th,.content td { border:1px solid #26303c; padding:6px 8px; }
+    .content a { color:#9cc2ff; }
+    #path { margin-left:auto;color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace }
+    @media print {
+      header { display:none; }
+      .wrap { max-width: 100%; padding: 0; }
+      .content { border:0; border-radius:0; }
+      a[href^="http"]::after { content:" (" attr(href) ")"; font-size:80%; color:#666; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <button onclick="window.print()">Als PDF speichern</button>
+      <a id="openRaw" target="_blank" rel="noopener">Raw öffnen</a>
+      <a id="openGitHub" target="_blank" rel="noopener" class="secondary">Auf GitHub</a>
+      <div id="path"></div>
+    </div>
+  </header>
+  <div class="wrap">
+    <div id="md" class="content">Lade…</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script type="module" src="./assets/viewer.js"></script>
+</body>
+</html>
