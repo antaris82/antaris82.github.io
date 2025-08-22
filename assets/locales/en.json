@@ -16,7 +16,10 @@
   "status": {
     "manifestOk": "Manifest found",
     "manifestMissing": "Manifest missing",
-    "manifestInvalid": "Manifest invalid"
+    "manifestInvalid": "Manifest invalid",
+    "files": "files",
+    "folders": "folders",
+    "indexedAt": "As of"
   },
   "search": { "placeholder": "Search …" },
   "errors": { "loadFailed": "Failed to load file" }
