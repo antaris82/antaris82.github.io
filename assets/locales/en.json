@@ -6,27 +6,18 @@
   },
   "browser": {
     "title": "File Browser",
-    "empty": "No files found.",
-    "openInViewer": "Open in viewer",
-    "download": "Download"
+    "empty": "No files found."
   },
   "viewer": {
-    "title": "Markdown Viewer",
-    "downloadPdf": "Export as PDF",
     "openRaw": "Open raw file",
-    "back": "Back"
+    "downloadPdf": "Export as PDF",
+    "up": ".. (Parent directory)"
   },
-  "readme": {
-    "title": "README",
-    "lastUpdated": "Last updated"
+  "status": {
+    "manifestOk": "Manifest found",
+    "manifestMissing": "Manifest missing",
+    "manifestInvalid": "Manifest invalid"
   },
-  "search": {
-    "placeholder": "Search …"
-  },
-  "theme": {
-    "toggle": "Toggle theme"
-  },
-  "footer": {
-    "credits": "Powered by GitHub Pages"
-  }
+  "search": { "placeholder": "Search …" },
+  "errors": { "loadFailed": "Failed to load file" }
 }
