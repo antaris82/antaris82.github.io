@@ -120,15 +120,15 @@
   },
   {
     "path": "index.html",
-    "sha": "3ffbe5ace73be8f7febbdbb4d29f917833c8fd29",
-    "size": 34402,
+    "sha": "f44a3546f401fcc47bed91ac554c4360777780f2",
+    "size": 36866,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.json",
-    "sha": "95d7d6dbbfd379c92a7348d11ad2fd4e5f149bd0",
-    "size": 25458,
+    "sha": "9157aa6877267be857c1476783c55204cd8e435f",
+    "size": 25613,
     "type": "blob",
     "mode": "100644"
   },
