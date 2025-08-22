@@ -125,13 +125,12 @@
       return Array.from(pkgs);
     }
 
-    // ---- Matplotlib-Backend je nach Code ----
+    // ---- Matplotlib-Backend: Standard Agg; html5 via Kommentar "# backend: html5" ----
     function detectMatplotlibBackend(code) {
-      const writesFile = /\bsavefig\s*\(\s*["'`][^"'`]*\.(png|jpe?g|gif|tiff?|svg|pdf)["'`]/i.test(code);
-      const animates   = /\b(FuncAnimation|PillowWriter)\b/i.test(code);
-      return (writesFile || animates)
-        ? "module://matplotlib.backends.backend_agg"
-        : "module://matplotlib_pyodide.html5_canvas_backend";
+      // explizite Nutzer-Vorgabe per Kommentar
+      if (/\bbackend\s*:\s*html5\b/i.test(code)) return "module://matplotlib_pyodide.html5_canvas_backend";
+      // Default robust für savefig/Exports:
+      return "module://matplotlib.backends.backend_agg";
     }
 
     // Basis + erkannte Pakete laden (ohne Backend setzen)
@@ -190,15 +189,31 @@
 
         const py = await ensurePyPackages([], code);
         const backend = detectMatplotlibBackend(code);
+
+        // Wichtig: Backend VOR dem ersten pyplot-Import setzen; force=True für Wechsel auch nach vorherigem Import
         const prelude = `
-import os
+import os, sys
+import matplotlib
 os.environ["MPLBACKEND"] = "${backend}"
+try:
+    matplotlib.use("${backend}", force=True)
+except Exception:
+    # Fallback: Versuch, pyplot zu schließen & neu zu laden
+    import importlib
+    if "matplotlib.pyplot" in sys.modules:
+        try:
+            import matplotlib.pyplot as _plt
+            _plt.close("all")
+        except Exception: pass
+        del sys.modules["matplotlib.pyplot"]
+    importlib.reload(matplotlib)
+    matplotlib.use("${backend}", force=True)
 `;
 
         py.setStdout({ batched: s => appendStdout(outEl, s) });
         py.setStderr({ batched: s => appendStdout(outEl, s) });
 
-        await py.runPythonAsync(prelude + code);
+        await py.runPythonAsync(prelude + "\n" + code);
 
       } catch (err) {
         appendStdout(outEl, "\n" + err);
@@ -292,7 +307,7 @@ os.environ["MPLBACKEND"] = "${backend}"
     async function fetchText(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); }
     async function fetchArrayBuffer(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer(); }
 
-    // LaTeX-Delimiter-Fix (außerhalb von Code)
+    // LaTeX-Delimiter-Fix (außerhalb von Code): \(...\)/\[...\] -> $...$/$$...$$
     function convertLatexDelimiters(src) {
       let out="", i=0, inFence=false, inInline=false;
       const starts = s => src.startsWith(s, i);
@@ -502,8 +517,8 @@ os.environ["MPLBACKEND"] = "${backend}"
         btnRun.onclick = () => runPython(codeEl.textContent, out, btnRun);
         const hint=document.createElement("div"); hint.className="muted"; hint.style.margin="6px 0 2px";
         hint.innerHTML = I18n?.lang==="en"
-          ? `Tip: Many packages are available (<code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>pillow</code>). For images: <code>print("DATA:image/png;base64,"+...)</code>. For animations via <code>PillowWriter</code> print <code>WROTE: anim.gif</code>.`
-          : `Tipp: Viele Pakete sind verfügbar (<code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>pillow</code>). Bilder per <code>print("DATA:image/png;base64,"+...)</code>. Für Animationen mit <code>PillowWriter</code> <code>WROTE: anim.gif</code> ausgeben.`;
+          ? `Default backend: <code>Agg</code> (file-safe). Switch to HTML5 canvas by adding <code># backend: html5</code> as the first line.<br>Bilder anzeigen: <code>plt.savefig(buf,...); print("DATA:image/png;base64,"+...)</code>. Für Animationen: <code>PillowWriter</code> + <code>print("WROTE: anim.gif")</code>.`
+          : `Standard-Backend: <code>Agg</code> (export-sicher). Auf HTML5-Canvas umschalten mit <code># backend: html5</code> als erste Zeile.<br>Bilder zeigen: <code>plt.savefig(buf,...); print("DATA:image/png;base64,"+...)</code>. Animationen: <code>PillowWriter</code> + <code>print("WROTE: anim.gif")</code>.`;
         wrap.appendChild(hint);
         wrap.appendChild(out);
       } else {
