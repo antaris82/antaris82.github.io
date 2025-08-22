@@ -107,33 +107,39 @@
       return __pyodidePromise;
     }
 
-    async function ensurePyPackages(pkgs = []) {
+    // Paketerkennung aus Code (pandas, scipy, sympy, networkx, PIL->pillow, imageio)
+    function detectPyodidePkgsFromCode(code) {
+      const pkgs = new Set();
+      const has = (re) => re.test(code);
+      if (has(/\bimport\s+pandas\b|\bfrom\s+pandas\s+import\b/)) pkgs.add("pandas");
+      if (has(/\bimport\s+numpy\b|\bfrom\s+numpy\s+import\b/)) pkgs.add("numpy");
+      if (has(/\bimport\s+matplotlib\b|\bfrom\s+matplotlib\s+import\b/)) pkgs.add("matplotlib");
+      if (has(/\bimport\s+scipy\b|\bfrom\s+scipy\s+import\b/)) pkgs.add("scipy");
+      if (has(/\bimport\s+sympy\b|\bfrom\s+sympy\s+import\b/)) pkgs.add("sympy");
+      if (has(/\bimport\s+networkx\b|\bfrom\s+networkx\s+import\b/)) pkgs.add("networkx");
+      if (has(/\bimport\s+PIL\b|\bfrom\s+PIL\s+import\b/)) pkgs.add("pillow");
+      if (has(/\bimport\s+imageio\b|\bfrom\s+imageio\s+import\b/)) pkgs.add("imageio");
+      return Array.from(pkgs);
+    }
+
+    // Lädt Basis + dynamisch erkannte Pakete
+    async function ensurePyPackages(explicit = [], codeForDetect = "") {
       const py = await loadPyodideOnce();
-      // Lade Standardpakete für deinen Use-Case
-      const needed = new Set(pkgs);
-      // Matplotlib-Grafik-Backend für Browser
+      const detected = detectPyodidePkgsFromCode(codeForDetect);
+      const base = ["micropip", "numpy", "matplotlib", "pillow"]; // Basis
+      const toLoad = Array.from(new Set([...base, ...explicit, ...detected]));
+      if (toLoad.length) await py.loadPackage(toLoad);
       await py.runPythonAsync(`
-import sys
-import micropip
-try:
-    import matplotlib
-    matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
-except Exception as _e:
-    pass
+import matplotlib
+matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
 `);
-      // Pyodide hat eigene Paketnamen – loadPackage kann mehrere nehmen
-      if (needed.size) {
-        await py.loadPackage(Array.from(needed));
-      }
       return py;
     }
 
     function appendStdout(outEl, chunk) {
-      // Split in Zeilen und spezielle Marker erkennen
       const lines = String(chunk).split(/\r?\n/);
       for (const line of lines) {
         if (!line) continue;
-        // DATA:image/... -> Bild rendern
         if (/^DATA:image\//i.test(line)) {
           const img = document.createElement("img");
           img.src = line.trim();
@@ -144,7 +150,6 @@ except Exception as _e:
           outEl.appendChild(img);
           continue;
         }
-        // WROTE: <pfad> -> aus Pyodide-FS herunterladen
         const m = line.match(/^WROTE:\s*(.+)$/i);
         if (m && __pyInstance) {
           try {
@@ -165,7 +170,6 @@ except Exception as _e:
           }
           continue;
         }
-        // Default: plain text anhängen
         outEl.append(document.createTextNode(line + "\n"));
       }
     }
@@ -175,8 +179,7 @@ except Exception as _e:
       try {
         if (btn) { btn.disabled = true; btn.textContent = (I18n?.lang === "en" ? "Running…" : "Läuft…"); }
         outEl.textContent = "";
-        const py = await ensurePyPackages(["numpy","matplotlib","pillow"]);
-        // stdout/stderr in outEl umleiten
+        const py = await ensurePyPackages([], code); // dynamische Paket-Erkennung
         py.setStdout({ batched: s => appendStdout(outEl, s) });
         py.setStderr({ batched: s => appendStdout(outEl, s) });
         await py.runPythonAsync(code);
@@ -251,7 +254,7 @@ except Exception as _e:
   </footer>
 
   <script>
-    /* ===== Manifest-basierter Browser + Viewer (inkl. LaTeX & PDF.js) ===== */
+    /* ===== Manifest-basierter Browser + Viewer ===== */
     let MANIFEST = null;
     let NODES = new Map(), CHILDREN = new Map();
     let cwd = "", lastMdBasePath = null, currentRawUrl = null;
@@ -270,7 +273,7 @@ except Exception as _e:
     async function fetchText(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); }
     async function fetchArrayBuffer(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer(); }
 
-    // LaTeX-Delimiter fix (\(...\) / \[...\] → $...$ / $$...$$) außerhalb von Code
+    // LaTeX-Delimiter-Fix (außerhalb von Code): \(...\)/\[...\] -> $...$/$$...$$
     function convertLatexDelimiters(src) {
       let out="", i=0, inFence=false, inInline=false;
       const starts = s => src.startsWith(s, i);
@@ -286,6 +289,13 @@ except Exception as _e:
         out += src[i++];
       }
       return out;
+    }
+
+    // i18n-Helfer für Run-Button
+    function setRunPyVisible(show){
+      const btn = document.getElementById("btnRunPy");
+      btn.style.display = show ? "inline-block" : "none";
+      if (!show) btn.onclick = null;
     }
 
     function normalizeEntries(raw) {
@@ -357,8 +367,10 @@ except Exception as _e:
       } catch { dot.classList.remove("ok"); dot.classList.add("err"); txt.textContent=I18n.t("status.manifestInvalid","Manifest ungültig"); }
     }
 
+    // Markdown rendern (inkl. KaTeX & Highlighting)
     function showMd(html, titleText){
       const md=document.getElementById("md"), gen=document.getElementById("generic");
+      setRunPyVisible(false);
       gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
       document.getElementById("currentName").textContent=titleText||"—";
       document.querySelectorAll("#md pre code").forEach(block=>hljs.highlightElement(block));
@@ -433,23 +445,23 @@ except Exception as _e:
       wrap.appendChild(pre);
 
       if (ext(path) === "py") {
-        btnRun.style.display = "inline-block";
+        setRunPyVisible(true);
         btnRun.onclick = () => runPython(codeEl.textContent, out, btnRun);
         const hint=document.createElement("div"); hint.className="muted"; hint.style.margin="6px 0 2px";
         hint.innerHTML = I18n?.lang==="en"
-          ? `Tip: Many packages are available (<code>numpy</code>, <code>matplotlib</code>, <code>pillow</code>). To show plots as images:<br><code>import io, base64; buf=io.BytesIO(); plt.savefig(buf, format="png"); print("DATA:image/png;base64,"+base64.b64encode(buf.getvalue()).decode())</code><br>For animations: <code>PillowWriter</code> → prints <code>WROTE: anim.gif</code>.`
+          ? `Tip: Many packages are available (<code>numpy</code>, <code>matplotlib</code>, <code>pillow</code>). Use:<br><code>import io, base64; buf=io.BytesIO(); plt.savefig(buf, format="png"); print("DATA:image/png;base64,"+base64.b64encode(buf.getvalue()).decode())</code><br>Animations: <code>PillowWriter</code> → prints <code>WROTE: anim.gif</code>.`
           : `Tipp: Viele Pakete sind verfügbar (<code>numpy</code>, <code>matplotlib</code>, <code>pillow</code>). Plot als Bild zeigen:<br><code>import io, base64; buf=io.BytesIO(); plt.savefig(buf, format="png"); print("DATA:image/png;base64,"+base64.b64encode(buf.getvalue()).decode())</code><br>Animationen: <code>PillowWriter</code> → Ausgabe <code>WROTE: anim.gif</code>.`;
         wrap.appendChild(hint);
         wrap.appendChild(out);
       } else {
-        btnRun.style.display = "none";
-        btnRun.onclick = null;
+        setRunPyVisible(false);
       }
 
       showGeneric(wrap, path.split("/").pop());
     }
 
     async function openCsv(path){
+      setRunPyVisible(false);
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
       document.getElementById("btnPdf").onclick=()=>window.print();
@@ -464,6 +476,7 @@ except Exception as _e:
     }
 
     async function openPdf(path){
+      setRunPyVisible(false);
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
       document.getElementById("btnPdf").onclick=()=>window.print();
@@ -493,6 +506,7 @@ except Exception as _e:
     }
 
     function openImage(path){
+      setRunPyVisible(false);
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
       document.getElementById("btnPdf").onclick=()=>window.print();
@@ -500,6 +514,7 @@ except Exception as _e:
       showGeneric(img, img.alt);
     }
     function openAudio(path){
+      setRunPyVisible(false);
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
       document.getElementById("btnPdf").onclick=()=>window.print();
@@ -507,6 +522,7 @@ except Exception as _e:
       showGeneric(audio, path.split("/").pop());
     }
     function openVideo(path){
+      setRunPyVisible(false);
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
       document.getElementById("btnPdf").onclick=()=>window.print();
@@ -514,6 +530,7 @@ except Exception as _e:
       showGeneric(video, path.split("/").pop());
     }
     function openRawFile(path){
+      setRunPyVisible(false);
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
       document.getElementById("btnPdf").onclick=()=>window.print();
@@ -554,6 +571,21 @@ except Exception as _e:
                          : `© ${y} antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.`;
     }
 
+    // Initiale Vorschau: ST.png im Root anzeigen (falls vorhanden)
+    function openInitialPreview(){
+      const candidate = "ST.png";
+      if (existsInManifest(candidate)) {
+        // Item im Browser markieren (optional)
+        const item = Array.from(document.querySelectorAll("#list .item"))
+          .find(li => li.dataset.path === candidate);
+        if (item) {
+          document.querySelectorAll("#list .item.active").forEach(n=>n.classList.remove("active"));
+          item.classList.add("active");
+        }
+        openImage(candidate);
+      }
+    }
+
     document.getElementById("q").addEventListener("input", renderList);
     document.getElementById("langSelect").addEventListener("change", async (e)=>{
       await I18n.set(e.target.value); renderFooter(); updateManifestUI(); if (lastMdBasePath) openMarkdown(lastMdBasePath);
@@ -569,7 +601,8 @@ except Exception as _e:
       renderFooter();
       await loadManifest();
       updateManifestUI();
-      await openDir(""); // Start
+      await openDir("");          // Start im Root
+      openInitialPreview();       // ST.png anzeigen, wenn vorhanden
     });
   </script>
 </body>
