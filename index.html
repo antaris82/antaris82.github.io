@@ -21,7 +21,6 @@
     html, body { height: 100%; }
     body {
       margin: 0; color: var(--fg);
-      /* Vollflächiger Hintergrund */
       background:
         linear-gradient(rgba(11,17,23,.86), rgba(11,17,23,.86)),
         url('background.png') center / cover fixed no-repeat;
@@ -180,7 +179,7 @@
       <div class="header-right">
         <div id="manifestChip" class="manifest-chip" title="manifest.json">
           <span class="dot" id="manifestDot"></span>
-          <span id="manifestText">manifest...</span>
+          <span id="manifestText">manifest…</span>
         </div>
         <div class="lang">
           <label for="langSelect" data-i18n="app.language">Sprache</label>
@@ -231,20 +230,33 @@
   </footer>
 
   <script>
-    // ------- Config (Repo/Branch) -------
-    const GH = { owner: "antaris82", repo: "antaris82.github.io", branch: "main" };
-
-    // ------- State -------
+    // ===== Manifest-basierter Browser =====
+    let MANIFEST = null;
+    let NODES = new Map();      // path -> node { path, name, type:'file'|'dir', size?:number }
+    let CHILDREN = new Map();   // dirPath -> [node,...]
     let cwd = "";
-    let entries = [];
-    let lastMdBasePath = null; // ohne .en.md / .de.md
+    let lastMdBasePath = null;
     let currentRawUrl = null;
 
-    // ------- Helpers -------
-    const api = (p="") =>
-      `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${p ? p.replace(/^\/+/,'') : ""}?ref=${GH.branch}`;
-    const raw = (p="") =>
-      `https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${GH.branch}/${p.replace(/^\/+/,'')}`;
+    // ---- Utils ----
+    const pathDir = p => (p.split("/").slice(0, -1).join("/"));
+    const baseName = p => (p.split("/").pop() || "");
+    const ext = name => (name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1] || "");
+    const isTextExt = e => ["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg","java","c","cpp","h","hpp","cs","go","rs","php","rb","kt","swift","sql","toml"].includes(e);
+    const isImageExt = e => ["png","jpg","jpeg","gif","webp","avif","bmp","svg"].includes(e);
+    const isAudioExt = e => ["mp3","wav","ogg","m4a","aac","flac"].includes(e);
+    const isVideoExt = e => ["mp4","webm","ogv","mov"].includes(e);
+    const isPdfExt = e => e === "pdf";
+    const fmtSize = bytes => {
+      if (bytes == null || isNaN(bytes)) return "";
+      const units = ["B","KB","MB","GB","TB"];
+      let i = 0; let n = +bytes;
+      while (n >= 1024 && i < units.length-1){ n/=1024; i++; }
+      return (Math.round(n*10)/10) + " " + units[i];
+    };
+
+    // same-origin URL für Datei – mit Encoding für Leerzeichen, Umlaute, „—“, …
+    const urlFor = p => encodeURI((p || "").replace(/^\/+/, ""));
 
     async function fetchJSON(url){
       const r = await fetch(url, { cache: "no-store" });
@@ -261,33 +273,60 @@
       if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
       return r.arrayBuffer();
     }
-    async function headOk(url){
-      try { const r = await fetch(url, { method:"HEAD", cache:"no-store" }); return r.ok; } catch { return false; }
+
+    // ---- Manifest normalisieren ----
+    function normalizeEntries(raw) {
+      const out = [];
+      const take = (e) => {
+        let p = e.path || e.file || null;
+        if (!p) return;
+        p = p.replace(/^\/+/,"");
+        let t = e.type;
+        if (t === "blob") t = "file";
+        if (t === "tree") t = "dir";
+        if (!t) t = "file";
+        const node = { path: p, name: baseName(p), type: (t === "dir" ? "dir" : "file") };
+        if (typeof e.size === "number") node.size = e.size;
+        out.push(node);
+      };
+
+      if (Array.isArray(raw)) {
+        raw.forEach(take);
+      } else if (raw && typeof raw === "object") {
+        if (Array.isArray(raw.entries)) raw.entries.forEach(take);
+        else if (Array.isArray(raw.tree)) raw.tree.forEach(take);
+        else if (Array.isArray(raw.items)) raw.items.forEach(take);
+      }
+      return out;
     }
 
-    function ext(name){ const m = name.toLowerCase().match(/\.([a-z0-9]+)$/); return m? m[1] : ""; }
-    function isTextExt(e){ return ["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg","java","c","cpp","h","hpp","cs","go","rs","php","rb","kt","swift","sql","toml"].includes(e); }
-    function isImageExt(e){ return ["png","jpg","jpeg","gif","webp","avif","bmp","svg"].includes(e); }
-    function isAudioExt(e){ return ["mp3","wav","ogg","m4a","aac","flac"].includes(e); }
-    function isVideoExt(e){ return ["mp4","webm","ogv","mov"].includes(e); }
-    function isPdfExt(e){ return e === "pdf"; }
+    function indexEntries(nodes) {
+      NODES.clear(); CHILDREN.clear();
+      for (const n of nodes) NODES.set(n.path, n);
 
-    function fmtSize(bytes){
-      if (bytes == null || isNaN(bytes)) return "";
-      const units = ["B","KB","MB","GB","TB"];
-      let i = 0; let n = bytes;
-      while (n >= 1024 && i < units.length-1){ n/=1024; i++; }
-      return (Math.round(n*10)/10) + " " + units[i];
+      // fehlende Verzeichnisse aus Pfaden erzeugen
+      for (const n of nodes) {
+        const parts = n.path.split("/").slice(0, -1);
+        let acc = "";
+        for (const seg of parts) {
+          acc = acc ? acc + "/" + seg : seg;
+          if (!NODES.has(acc)) NODES.set(acc, { path: acc, name: seg, type: "dir" });
+        }
+      }
+      for (const n of NODES.values()) {
+        const parent = pathDir(n.path);
+        if (!CHILDREN.has(parent)) CHILDREN.set(parent, []);
+        CHILDREN.get(parent).push(n);
+      }
+      for (const [k, arr] of CHILDREN) {
+        arr.sort((a,b)=>{
+          if (a.type !== b.type) return a.type === "dir" ? -1 : 1;
+          return a.name.localeCompare(b.name, undefined, {numeric:true});
+        });
+      }
     }
 
-    function sortEntries(items){
-      const dirs = items.filter(e => e.type === "dir");
-      const files = items.filter(e => e.type === "file");
-      dirs.sort((a,b)=> a.name.localeCompare(b.name, undefined, {numeric:true}));
-      files.sort((a,b)=> a.name.localeCompare(b.name, undefined, {numeric:true}));
-      return [...dirs, ...files];
-    }
-
+    // ---- UI: Breadcrumbs / Liste ----
     function crumbHtml(path){
       const parts = path ? path.split("/").filter(Boolean) : [];
       const items = ['<a href="#" data-path="">/</a>'];
@@ -298,7 +337,6 @@
       }
       return items.join(" / ");
     }
-
     function renderCrumb(){
       const el = document.getElementById("crumb");
       el.innerHTML = crumbHtml(cwd);
@@ -310,38 +348,34 @@
       });
     }
 
-    function renderList(items){
+    function renderList(){
       const q = (document.getElementById("q").value || "").trim().toLowerCase();
       const list = document.getElementById("list");
       list.innerHTML = "";
 
-      // Up item
       if (cwd){
         const up = document.createElement("li");
         up.className = "item";
         up.innerHTML = `<span class="meta">⬆️</span><span class="name" data-i18n="viewer.up">.. (Ebene höher)</span><span class="meta">UP</span>`;
-        up.addEventListener("click", ()=> {
-          const parent = cwd.split("/").filter(Boolean).slice(0,-1).join("/");
-          openDir(parent);
-        });
+        up.addEventListener("click", ()=> openDir(pathDir(cwd)));
         list.appendChild(up);
         I18n.apply();
       }
 
-      const filtered = items.filter(e => !q || e.name.toLowerCase().includes(q));
-      if (!filtered.length){
+      const children = (CHILDREN.get(cwd) || []).filter(e => !q || e.name.toLowerCase().includes(q));
+      if (!children.length){
         const li = document.createElement("li");
         li.className = "item";
-        li.innerHTML = `<span class="name" data-i18n="browser.empty">Keine Dateien gefunden.</span><span class="meta"></span><span class="meta"></span>`;
+        li.innerHTML = `<span class="meta">—</span><span class="name" data-i18n="browser.empty">Keine Dateien gefunden.</span><span class="meta"></span>`;
         list.appendChild(li);
         I18n.apply();
         return;
       }
-      for (const e of filtered){
+
+      for (const e of children){
         const li = document.createElement("li");
         li.className = "item";
         li.dataset.path = e.path;
-
         const icon = e.type === "dir" ? "📁" : "📄";
         const extension = e.type === "dir" ? "DIR" : (ext(e.name).toUpperCase() || "FILE");
         const size = e.type === "dir" ? "" : fmtSize(e.size);
@@ -351,7 +385,6 @@
           <span class="name">${e.name}</span>
           <span class="meta">${extension}${size ? " • " + size : ""}</span>
         `;
-
         li.addEventListener("click", () => {
           document.querySelectorAll(".item.active").forEach(n => n.classList.remove("active"));
           li.classList.add("active");
@@ -365,44 +398,37 @@
     async function openDir(path=""){
       cwd = path;
       renderCrumb();
+      renderList();
+    }
+
+    // ---- Manifest-Anzeige ----
+    function updateManifestChip(){
+      const dot = document.getElementById("manifestDot");
+      const txt = document.getElementById("manifestText");
       try {
-        const data = await fetchJSON(api(cwd));
-        const sorted = sortEntries(data);
-        entries = sorted;
-        renderList(entries);
-      } catch (e){
-        console.error("openDir failed:", e);
-        entries = [];
-        renderList(entries);
+        const files = [...NODES.values()].filter(n => n.type === "file").length;
+        const dirs  = [...NODES.values()].filter(n => n.type === "dir").length;
+        const t = MANIFEST?.indexedAt || MANIFEST?.generatedAt || MANIFEST?.timestamp || null;
+        const d = t ? new Date(t) : new Date();
+        const locale = (I18n && I18n.lang === "en") ? "en-GB" : "de-DE";
+        const stamp = d.toLocaleString(locale, { year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+        const label = `${files} ${I18n.t("status.files","Dateien")} • ${dirs} ${I18n.t("status.folders","Ordner")} • ${I18n.t("status.indexedAt","Stand")}: ${stamp}`;
+        txt.textContent = label;
+        dot.classList.add("ok");
+      } catch {
+        dot.classList.remove("ok"); dot.classList.add("err");
+        txt.textContent = I18n.t("status.manifestInvalid","Manifest ungültig");
       }
     }
 
-    async function resolveMdForLang(path){
-      const lang = (I18n && I18n.lang) || "de";
-      const lower = path.toLowerCase();
-      if (lang === "en"){
-        if (lower.endsWith(".en.md")) return path;
-        if (lower.endsWith(".de.md")) {
-          const p = path.replace(/\.de\.md$/i, ".en.md");
-          if (await headOk(raw(p))) return p;
-        } else if (lower.endsWith(".md")) {
-          const p = path.replace(/\.md$/i, ".en.md");
-          if (await headOk(raw(p))) return p;
-        }
-      }
-      return path;
-    }
-
+    // ---- Viewer ----
     function showMd(html, titleText){
       const md = document.getElementById("md");
       const gen = document.getElementById("generic");
       gen.hidden = true; gen.innerHTML = "";
       md.hidden = false; md.innerHTML = html;
       document.getElementById("currentName").textContent = titleText || "—";
-
-      // Syntax highlight
       document.querySelectorAll("#md pre code").forEach(block => hljs.highlightElement(block));
-      // LaTeX
       try {
         renderMathInElement(md, {
           delimiters: [
@@ -415,7 +441,6 @@
         });
       } catch(e) { console.warn("katex render failed", e); }
     }
-
     function showGeneric(node, titleText){
       const md = document.getElementById("md");
       const gen = document.getElementById("generic");
@@ -425,11 +450,27 @@
       document.getElementById("currentName").textContent = titleText || "—";
     }
 
+    function existsInManifest(path){
+      return NODES.has((path || "").replace(/^\/+/,""));
+    }
+
     async function openMarkdown(path){
-      // Remember "base" for language re-open
+      // Sprachvariante wählen
       lastMdBasePath = path.replace(/\.en\.md$/i, ".md").replace(/\.de\.md$/i, ".md");
-      const chosen = await resolveMdForLang(path);
-      currentRawUrl = raw(chosen);
+      const lang = I18n.lang || "de";
+      let chosen = path;
+      if (lang === "en"){
+        if (path.toLowerCase().endsWith(".md") && !path.toLowerCase().endsWith(".en.md")){
+          const candidate = path.replace(/\.md$/i, ".en.md");
+          if (existsInManifest(candidate)) chosen = candidate;
+        }
+        if (path.toLowerCase().endsWith(".de.md")){
+          const candidate = path.replace(/\.de\.md$/i, ".en.md");
+          if (existsInManifest(candidate)) chosen = candidate;
+        }
+      }
+
+      currentRawUrl = urlFor(chosen);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
@@ -446,9 +487,8 @@
         showGeneric(p, chosen.split("/").pop());
       }
     }
-
     async function openText(path){
-      currentRawUrl = raw(path);
+      currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
@@ -467,9 +507,8 @@
       }
       showGeneric(pre, path.split("/").pop());
     }
-
     async function openCsv(path){
-      currentRawUrl = raw(path);
+      currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
@@ -497,9 +536,8 @@
       }
       showGeneric(wrap, path.split("/").pop());
     }
-
     async function openPdf(path){
-      currentRawUrl = raw(path);
+      currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
@@ -514,7 +552,6 @@
       try{
         const data = await fetchArrayBuffer(currentRawUrl);
         const pdf = await pdfjsLib.getDocument({ data }).promise;
-
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++){
           const page = await pdf.getPage(pageNum);
           const viewport = page.getViewport({ scale: 1.5 });
@@ -535,9 +572,8 @@
       }
       showGeneric(container, path.split("/").pop());
     }
-
     function openImage(path){
-      currentRawUrl = raw(path);
+      currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
@@ -547,9 +583,8 @@
       img.alt = path.split("/").pop();
       showGeneric(img, img.alt);
     }
-
     function openAudio(path){
-      currentRawUrl = raw(path);
+      currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
@@ -559,9 +594,8 @@
       audio.src = currentRawUrl;
       showGeneric(audio, path.split("/").pop());
     }
-
     function openVideo(path){
-      currentRawUrl = raw(path);
+      currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
@@ -571,9 +605,8 @@
       video.src = currentRawUrl;
       showGeneric(video, path.split("/").pop());
     }
-
     function openRawFile(path){
-      currentRawUrl = raw(path);
+      currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
@@ -584,7 +617,6 @@
       frame.style.height = "78vh";
       showGeneric(frame, path.split("/").pop());
     }
-
     function openFile(path){
       const e = ext(path);
       if (e === "md" || e === "markdown" || e === "mdown") return openMarkdown(path);
@@ -597,44 +629,38 @@
       return openRawFile(path);
     }
 
-    // Manifest indicator: files/dirs + indexedAt
-    async function checkManifest(){
-      const dot = document.getElementById("manifestDot");
-      const txt = document.getElementById("manifestText");
+    // ---- Manifest laden / indexieren ----
+    async function loadManifest(){
       try {
-        // try manifest.json
-        const url = raw("manifest.json");
-        const exists = await headOk(url);
-        let files = 0, dirs = 0, indexedAt = null;
+        const m = await fetchJSON(`manifest.json?ts=${Date.now()}`);
+        MANIFEST = m;
+        const norm = normalizeEntries(m);
+        if (!norm.length) throw new Error("manifest.json enthält keine Einträge.");
+        indexEntries(norm);
+        return true;
+      } catch (e){
+        console.error("manifest.json laden fehlgeschlagen:", e);
+        MANIFEST = {};
+        NODES.clear(); CHILDREN.clear();
+        NODES.set("", { path:"", name:"", type:"dir" });
+        CHILDREN.set("", []);
 
-        if (exists){
-          const m = await fetchJSON(url);
-          files = Number(m.totalFiles ?? 0);
-          dirs  = Number(m.totalDirs  ?? 0);
-          indexedAt = m.indexedAt || m.generatedAt || null;
-          dot.classList.add("ok");
-        } else {
-          // fallback: compute via git trees API
-          const branchInfo = await fetchJSON(`https://api.github.com/repos/${GH.owner}/${GH.repo}/branches/${GH.branch}`);
-          const sha = branchInfo.commit.sha;
-          const tree = await fetchJSON(`https://api.github.com/repos/${GH.owner}/${GH.repo}/git/trees/${sha}?recursive=1`);
-          for (const n of (tree.tree || [])){
-            if (n.type === "blob") files++;
-            else if (n.type === "tree") dirs++;
-          }
-          indexedAt = new Date().toISOString();
-          dot.classList.add("ok");
+        const list = document.getElementById("list");
+        if (list) {
+          list.innerHTML = `
+            <li class="item">
+              <span class="meta">⚠️</span>
+              <span class="name">manifest.json konnte nicht geladen werden. Öffne die Seite über HTTPS / GitHub Pages oder einen lokalen Server.</span>
+              <span class="meta"></span>
+            </li>`;
         }
-
-        const d = new Date(indexedAt || Date.now());
-        const locale = (I18n && I18n.lang === "en") ? "en-GB" : "de-DE";
-        const stamp = d.toLocaleString(locale, { year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
-        const label = `${files} ${I18n.t("status.files","Dateien")} • ${dirs} ${I18n.t("status.folders","Ordner")} • ${I18n.t("status.indexedAt","Stand")}: ${stamp}`;
-        txt.textContent = label;
-      } catch (e) {
-        dot.classList.remove("ok"); dot.classList.add("err");
-        txt.textContent = I18n.t("status.manifestInvalid","Manifest ungültig");
+        return false;
       }
+    }
+
+    function updateManifestUI(){
+      updateManifestChip();
+      renderList();
     }
 
     function renderFooter(){
@@ -645,23 +671,38 @@
           : `© ${y} antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.`;
     }
 
-    // Search input
-    document.getElementById("q").addEventListener("input", () => renderList(entries));
+    // Suche
+    document.getElementById("q").addEventListener("input", renderList);
 
-    // Language re-open for Markdown
+    // Sprache wechseln
     document.getElementById("langSelect").addEventListener("change", async (e) => {
       await I18n.set(e.target.value);
       renderFooter();
-      checkManifest();
+      updateManifestUI();
       if (lastMdBasePath) openMarkdown(lastMdBasePath);
     });
 
     // Init
     document.addEventListener("DOMContentLoaded", async () => {
+      // Lokales Öffnen via file:// abfangen (fetch blockiert sonst)
+      if (location.protocol === "file:") {
+        const list = document.getElementById("list");
+        if (list) {
+          list.innerHTML = `
+            <li class="item">
+              <span class="meta">ℹ️</span>
+              <span class="name">Bitte über einen lokalen Server (z. B. <code>python -m http.server</code>) oder GitHub Pages öffnen. <code>file://</code> blockiert <code>fetch</code>.</span>
+              <span class="meta"></span>
+            </li>`;
+        }
+        return;
+      }
+
       await I18n.init({ defaultLang: "de" });
       renderFooter();
-      await openDir("");         // start at repo root
-      await checkManifest();     // set manifest badge
+      await loadManifest();
+      updateManifestUI();
+      await openDir(""); // Start im Root
     });
   </script>
 </body>
