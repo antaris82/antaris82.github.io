@@ -1,70 +1,109 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sierpinski Project</title>
-<style>
-  :root{--bg:#0b1117;--panel:#0e141b;--muted:#8aa0b4;--fg:#e7eef5;--accent:#5ba8ff;--border:#1b2632;--ok:#37c978;--warn:#ffb020;--err:#ff5a5a;--content-max:1320px;--content-pad:32px}
-  html,body{height:100%}
-  body{margin:0;color:var(--fg);background:linear-gradient(rgba(11,17,23,.86),rgba(11,17,23,.86)),url('background.png') center/cover fixed no-repeat;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
-  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-  .container{width:min(var(--content-max),100% - var(--content-pad)*2);margin:0 auto}
-  header{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--border)}
-  header .inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-  .title{display:flex;gap:12px;align-items:baseline}.title h1{margin:0;font-size:18px}.title span{color:var(--muted);font-size:13px}
-  .header-right{display:flex;align-items:center;gap:10px}
-  .manifest-chip{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);border:1px solid var(--border);padding:6px 8px;border-radius:8px;background:#0c131a;white-space:nowrap}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--warn);flex:0 0 8px}.dot.ok{background:var(--ok)}.dot.err{background:var(--err)}
-  .lang{display:flex;align-items:center;gap:8px}.lang label{color:var(--muted)}.lang select{background:#0e141b;color:var(--fg);border:1px solid #26303c;border-radius:8px;padding:6px 10px}
-  .refresh{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:6px 10px;border-radius:8px;cursor:pointer}.refresh:hover{background:#122436}
-  main{background:transparent}
-  .app{display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 56px);gap:24px;padding:18px 0 28px}
-  .left,.right{border:1px solid var(--border);background:#0c1218;border-radius:12px;overflow:auto}
-  .left .section{padding:12px 14px;border-bottom:1px solid var(--border)}
-  .section h2{margin:0 0 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-  .search{padding:0 14px 12px;border-bottom:1px solid var(--border)}
-  .search input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #24303c;background:#0f1720;color:var(--fg)}
-  .crumb{padding:8px 14px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
-  .crumb a{color:var(--muted)} .crumb a:hover{color:var(--fg)}
-  .list{list-style:none;margin:0;padding:6px}
-  .item{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;color:#fff}
-  .item:hover{background:#111a23}.item .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .item .meta{color:var(--muted);font-size:12px}.item.active{background:#122236}
-  .viewer{padding:18px 22px 60px}.viewer .bar{display:flex;align-items:center;gap:8px;justify-content:space-between;position:sticky;top:0;padding:10px 0;background:#0c1218;z-index:3}
-  .viewer .btns{display:flex;gap:8px}.btn{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:8px 10px;border-radius:8px;cursor:pointer}.btn:hover{background:#122436}.muted{color:var(--muted)}
-  .md,.generic{max-width:980px;margin:0 auto}
-  .md h1,.md h2,.md h3,.md h4{margin-top:1.6em}
-  .md pre{background:#0f1922;padding:12px;border-radius:10px;overflow:auto;border:1px solid #223042}
-  .md code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
-  .md table{border-collapse:collapse;border:1px solid #223042}.md table th,.md table td{border:1px solid #223042;padding:6px 8px}
-  .md img{max-width:100%}
-  .viewer .preview,.viewer img.preview,.viewer video.preview,.viewer audio.preview{width:100%;max-width:980px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
-  .viewer img.preview{height:auto}
-  pre.codebox{background:#0f1922;padding:12px;border-radius:10px;overflow:auto;border:1px solid #223042;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;white-space:pre;max-height:78vh}
-  footer{border-top:1px solid var(--border);padding:10px 0;color:var(--muted);background:var(--panel)}
-  footer .inner{display:flex;align-items:center;justify-content:space-between}
-  @media print{header,.left,.viewer .bar,footer{display:none !important}.app{display:block}body{background:#fff;color:#000}.md pre,pre.codebox{border:1px solid #ccc;background:#fafafa;color:#111}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sierpinski Project</title>
+  <style>
+    :root {
+      --bg:#0b1117; --panel:#0e141b; --muted:#8aa0b4; --fg:#e7eef5;
+      --accent:#5ba8ff; --border:#1b2632; --ok:#37c978; --warn:#ffb020; --err:#ff5a5a;
+      --content-max:1320px; --content-pad:32px;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--fg);
+      background: linear-gradient(rgba(11,17,23,.86), rgba(11,17,23,.86)),
+                  url('background.png') center/cover fixed no-repeat;
+      font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(var(--content-max), 100% - var(--content-pad)*2); margin:0 auto}
+    header{position:sticky; top:0; z-index:5; background:var(--panel); border-bottom:1px solid var(--border)}
+    header .inner{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
+    .title{display:flex; gap:12px; align-items:baseline}
+    .title h1{margin:0; font-size:18px}
+    .title span{color:var(--muted); font-size:13px}
+    .header-right{display:flex; align-items:center; gap:10px}
+    .manifest-chip{
+      display:flex; align-items:center; gap:6px; font-size:12px; color:var(--muted);
+      border:1px solid var(--border); padding:6px 8px; border-radius:8px; background:#0c131a; white-space:nowrap;
+    }
+    .dot{width:8px; height:8px; border-radius:50%; background:var(--warn); flex:0 0 8px}
+    .dot.ok{background:var(--ok)} .dot.err{background:var(--err)}
+    .lang{display:flex; align-items:center; gap:8px}
+    .lang label{color:var(--muted)}
+    .lang select{background:#0e141b; color:var(--fg); border:1px solid #26303c; border-radius:8px; padding:6px 10px}
+    .refresh{background:#0f1922; border:1px solid #26303c; color:var(--fg); padding:6px 10px; border-radius:8px; cursor:pointer}
+    .refresh:hover{background:#122436}
 
-<!-- libs -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<!-- PDF.js (Legacy build setzt window.pdfjsLib) -->
-<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.min.js"></script>
-<script>pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.worker.min.js";</script>
+    .app{display:grid; grid-template-columns:360px 1fr; min-height:calc(100vh - 56px); gap:24px; padding:18px 0 28px}
+    .left,.right{border:1px solid var(--border); background:#0c1218; border-radius:12px; overflow:auto}
+    .left .section{padding:12px 14px; border-bottom:1px solid var(--border)}
+    .section h2{margin:0 0 8px; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em}
+    .search{padding:0 14px 12px; border-bottom:1px solid var(--border)}
+    .search input{width:100%; padding:10px 12px; border-radius:10px; border:1px solid #24303c; background:#0f1720; color:var(--fg)}
+    .crumb{padding:8px 14px; border-bottom:1px solid var(--border); font-size:12px; color:var(--muted)}
+    .crumb a{color:var(--muted)} .crumb a:hover{color:var(--fg)}
+    .list{list-style:none; margin:0; padding:6px}
+    .item{display:grid; grid-template-columns:24px 1fr auto; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; color:#fff}
+    .item:hover{background:#111a23}
+    .item .name{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+    .item .meta{color:var(--muted); font-size:12px}
+    .item.active{background:#122236}
 
-<!-- Pyodide -->
-<script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+    .viewer{padding:18px 22px 60px}
+    .viewer .bar{display:flex; align-items:center; gap:8px; justify-content:space-between; position:sticky; top:0; padding:10px 0; background:#0c1218; z-index:3}
+    .viewer .btns{display:flex; gap:8px}
+    .btn{background:#0f1922; border:1px solid #26303c; color:var(--fg); padding:8px 10px; border-radius:8px; cursor:pointer}
+    .btn:hover{background:#122436}
+    .muted{color:var(--muted)}
+    .md,.generic{max-width:980px; margin:0 auto}
+    .md h1,.md h2,.md h3,.md h4{margin-top:1.6em}
+    .md pre{background:#0f1922; padding:12px; border-radius:10px; overflow:auto; border:1px solid #223042}
+    .md code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+    .md table{border-collapse:collapse; border:1px solid #223042}
+    .md table th,.md table td{border:1px solid #223042; padding:6px 8px}
+    .md img{max-width:100%}
+    .viewer .preview,.viewer img.preview,.viewer video.preview,.viewer audio.preview{
+      width:100%; max-width:980px; border:1px solid #223042; border-radius:10px; background:#0f1922; display:block; margin:0 auto;
+    }
+    .viewer img.preview{height:auto}
+    pre.codebox{background:#0f1922; padding:12px; border-radius:10px; overflow:auto; border:1px solid #223042; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; white-space:pre; max-height:78vh}
 
-<!-- i18n runtime -->
-<script src="assets/i18n.js"></script>
+    footer{border-top:1px solid var(--border); padding:10px 0; color:var(--muted); background:var(--panel)}
+    footer .inner{display:flex; align-items:center; justify-content:space-between}
+
+    @media print{
+      header,.left,.viewer .bar,footer{display:none !important}
+      .app{display:block}
+      body{background:#fff; color:#000}
+      .md pre,pre.codebox{border:1px solid #ccc; background:#fafafa; color:#111}
+    }
+  </style>
+
+  <!-- libs -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <!-- PDF.js Legacy (setzt window.pdfjsLib) -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.worker.min.js";
+  </script>
+
+  <!-- Pyodide -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+
+  <!-- i18n runtime -->
+  <script src="assets/i18n.js"></script>
 </head>
 <body>
 <header>
@@ -127,7 +166,7 @@
 </footer>
 
 <script>
-/* ===== Manifest + Dateibrowser ===== */
+/* ===================== Manifest + Dateibrowser ===================== */
 let MANIFEST=null; let NODES=new Map(), CHILDREN=new Map();
 let cwd="", lastMdBasePath=null, currentRawUrl=null; let lastManifestTs=0;
 
@@ -146,15 +185,15 @@ async function fetchText(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok)
 async function fetchArrayBuffer(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer();}
 
 function convertLatexDelimiters(src){
-  let out="",i=0,inFence=false,inInline=false;const starts=s=>src.startsWith(s,i);
+  let out="", i=0, inFence=false, inInline=false; const starts=s=>src.startsWith(s,i);
   while(i<src.length){
-    if(!inInline&&starts("```")){inFence=!inFence;out+="```";i+=3;continue;}
-    if(!inFence&&src[i]==="`"){inInline=!inInline;out+=src[i++];continue;}
+    if(!inInline&&starts("```")){inFence=!inFence; out+="```"; i+=3; continue;}
+    if(!inFence&&src[i]==="`"){inInline=!inInline; out+=src[i++]; continue;}
     if(!inFence&&!inInline){
-      if(starts("\\(")){out+="$";i+=2;continue;}
-      if(starts("\\)")){out+="$";i+=2;continue;}
-      if(starts("\\[")){out+="$$";i+=2;continue;}
-      if(starts("\\]")){out+="$$";i+=2;continue;}
+      if(starts("\\(")){out+="$"; i+=2; continue;}
+      if(starts("\\)")){out+="$"; i+=2; continue;}
+      if(starts("\\[")){out+="$$"; i+=2; continue;}
+      if(starts("\\]")){out+="$$"; i+=2; continue;}
     }
     out+=src[i++];
   }
@@ -164,13 +203,14 @@ function convertLatexDelimiters(src){
 function setRunPyVisible(show){const btn=document.getElementById("btnRunPy"); btn.style.display=show?"inline-block":"none"; if(!show) btn.onclick=null;}
 
 function normalizeEntries(raw){
-  const out=[]; const take=e=>{let p=e.path||e.file||null;if(!p)return;p=p.replace(/^\/+/,"");let t=e.type;if(t==="blob")t="file";if(t==="tree")t="dir";if(!t)t="file";const n={path:p,name:baseName(p),type:(t==="dir"?"dir":"file")};if(typeof e.size==="number")n.size=e.size;out.push(n);};
+  const out=[]; const take=e=>{let p=e.path||e.file||null; if(!p) return; p=p.replace(/^\/+/,""); let t=e.type; if(t==="blob") t="file"; if(t==="tree") t="dir"; if(!t) t="file"; const n={path:p,name:baseName(p),type:(t==="dir"?"dir":"file")}; if(typeof e.size==="number") n.size=e.size; out.push(n);};
   if(Array.isArray(raw)) raw.forEach(take);
   else if(raw&&typeof raw==="object"){
     if(Array.isArray(raw.entries)) raw.entries.forEach(take);
     else if(Array.isArray(raw.tree)) raw.tree.forEach(take);
     else if(Array.isArray(raw.items)) raw.items.forEach(take);
-  } return out;
+  }
+  return out;
 }
 function indexEntries(nodes){
   NODES.clear(); CHILDREN.clear();
@@ -187,8 +227,8 @@ function indexEntries(nodes){
   for(const [k,arr] of CHILDREN){arr.sort((a,b)=> (a.type!==b.type)?(a.type==="dir"?-1:1):a.name.localeCompare(b.name,undefined,{numeric:true}));}
 }
 
-function crumbHtml(path){const parts=path?path.split("/").filter(Boolean):[];const items=['<a href="#" data-path="">/</a>'];let acc="";for(const p of parts){acc=acc?acc+"/"+p:p;items.push(`<a href="#" data-path="${acc}">${p}</a>`);}return items.join(" / ");}
-function renderCrumb(){const el=document.getElementById("crumb"); el.innerHTML=crumbHtml(cwd); el.querySelectorAll("a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();openDir(a.dataset.path||"");}));}
+function crumbHtml(path){const parts=path?path.split("/").filter(Boolean):[]; const items=['<a href="#" data-path="">/</a>']; let acc=""; for(const p of parts){acc=acc?acc+"/"+p:p; items.push(`<a href="#" data-path="${acc}">${p}</a>`);} return items.join(" / ");}
+function renderCrumb(){const el=document.getElementById("crumb"); el.innerHTML=crumbHtml(cwd); el.querySelectorAll("a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault(); openDir(a.dataset.path||"");}));}
 function renderList(){
   const q=(document.getElementById("q").value||"").trim().toLowerCase(); const list=document.getElementById("list"); list.innerHTML="";
   if(cwd){const up=document.createElement("li"); up.className="item"; up.innerHTML=`<span class="meta">⬆️</span><span class="name" data-i18n="viewer.up">.. (Ebene höher)</span><span class="meta">UP</span>`; up.addEventListener("click",()=>openDir(pathDir(cwd))); list.appendChild(up); I18n.apply();}
@@ -198,7 +238,7 @@ function renderList(){
     const li=document.createElement("li"); li.className="item"; li.dataset.path=e.path;
     const icon=e.type==="dir"?"📁":"📄"; const extension=e.type==="dir"?"DIR":(ext(e.name).toUpperCase()||"FILE"); const size=e.type==="dir"?"":fmtSize(e.size);
     li.innerHTML=`<span class="meta">${icon}</span><span class="name">${e.name}</span><span class="meta">${extension}${size?" • "+size:""}</span>`;
-    li.addEventListener("click",()=>{document.querySelectorAll(".item.active").forEach(n=>n.classList.remove("active")); li.classList.add("active"); if(e.type==="dir")openDir(e.path); else openFile(e.path);});
+    li.addEventListener("click",()=>{document.querySelectorAll(".item.active").forEach(n=>n.classList.remove("active")); li.classList.add("active"); if(e.type==="dir") openDir(e.path); else openFile(e.path);});
     list.appendChild(li);
   }
 }
@@ -228,7 +268,7 @@ async function loadManifest(){
     const norm=normalizeEntries(m); if(!norm.length) throw new Error("manifest.json enthält keine Einträge.");
     indexEntries(norm); updateManifestChip(false); return true;
   }catch(e){
-    console.error("manifest.json laden fehlgeschlagen:",e);
+    console.error("manifest.json laden fehlgeschlagen:", e);
     MANIFEST={}; NODES.clear(); CHILDREN.clear(); NODES.set("",{path:"",name:"",type:"dir"}); CHILDREN.set("",[]);
     const list=document.getElementById("list");
     if(list) list.innerHTML=`<li class="item"><span class="meta">⚠️</span><span class="name">manifest.json konnte nicht geladen werden. Über HTTPS/Pages oder lokalen Server öffnen.</span><span class="meta"></span></li>`;
@@ -244,13 +284,20 @@ function renderFooter(){
       : `© ${y} antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.`;
 }
 
-/* ===== Viewer ===== */
+/* ===================== Viewer ===================== */
 function showMd(html,titleText){
   const md=document.getElementById("md"), gen=document.getElementById("generic");
   setRunPyVisible(false); gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
   document.getElementById("currentName").textContent=titleText||"—";
   document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
-  try{ renderMathInElement(md,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false},{left:"$",right:"$",display:false}],throwOnError:false}); }catch(e){}
+  try{
+    renderMathInElement(md,{ delimiters:[
+      {left:"$$", right:"$$", display:true},
+      {left:"\\[", right:"\\]", display:true},
+      {left:"\\(", right:"\\)", display:false},
+      {left:"$", right:"$", display:false}
+    ], throwOnError:false });
+  }catch{}
 }
 function showGeneric(node,titleText){
   const md=document.getElementById("md"), gen=document.getElementById("generic");
@@ -260,25 +307,31 @@ function showGeneric(node,titleText){
 function existsInManifest(path){return NODES.has((path||"").replace(/^\/+/,""));}
 
 async function openMarkdown(path){
-  lastMdBasePath=path.replace(/\.en\.md$/i,".md").replace(/\.de\.md$/i,".md");
-  const lang=I18n.lang||""; let chosen=path.toLowerCase();
+  lastMdBasePath = path.replace(/\.en\.md$/i, ".md").replace(/\.de\.md$/i, ".md");
+  const lang = I18n.lang || ""; let chosen = path.toLowerCase();
   if(lang==="en"){
     if(chosen.endsWith(".md")&&!chosen.endsWith(".en.md")){const cand=path.replace(/\.md$/i,".en.md"); if(existsInManifest(cand)) path=cand;}
     if(chosen.endsWith(".de.md")){const cand=path.replace(/\.de\.md$/i,".en.md"); if(existsInManifest(cand)) path=cand;}
   }
-  currentRawUrl=urlFor(path);
+  currentRawUrl = urlFor(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
   try{
-    let text=await fetchText(currentRawUrl); text=convertLatexDelimiters(text);
-    marked.setOptions({breaks:false});
-    const html=DOMPurify.sanitize(marked.parse(text));
-    showMd(html, path.split("/").pop()); document.querySelector(".right").scrollTop=0;
-  }catch(e){const p=document.createElement("p"); p.style.color="#ff8080"; p.textContent=`Datei konnte nicht geladen werden: ${e.message}`; showGeneric(p, path.split("/").pop());}
+    let text = await fetchText(currentRawUrl);
+    text = convertLatexDelimiters(text);
+    marked.setOptions({gfm:true, breaks:false});
+    const html = DOMPurify.sanitize(marked.parse(text));
+    showMd(html, path.split("/").pop());
+    document.querySelector(".right").scrollTop=0;
+  }catch(e){
+    const p=document.createElement("p"); p.style.color="#ff8080"; p.textContent=`${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`;
+    showGeneric(p, path.split("/").pop());
+  }
 }
 
 async function openCsv(path){
-  setRunPyVisible(false); currentRawUrl=urlFor(path);
+  setRunPyVisible(false);
+  currentRawUrl = urlFor(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
   const wrap=document.createElement("div");
@@ -287,26 +340,70 @@ async function openCsv(path){
     const table=document.createElement("table"); table.className="md";
     parsed.data.forEach((row,i)=>{const tr=document.createElement("tr"); row.forEach(cell=>{const td=document.createElement(i===0?"th":"td"); td.textContent=cell; tr.appendChild(td)}); table.appendChild(tr);});
     wrap.appendChild(table);
-  }catch(e){const p=document.createElement("p"); p.style.color="#ff8080"; p.textContent=`Datei konnte nicht geladen werden: ${e.message}`; wrap.appendChild(p);}
+  }catch(e){const p=document.createElement("p"); p.style.color="#ff8080"; p.textContent=`${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`; wrap.appendChild(p);}
   showGeneric(wrap, path.split("/").pop());
 }
 async function openPdf(path){
-  setRunPyVisible(false); currentRawUrl=urlFor(path);
+  setRunPyVisible(false);
+  currentRawUrl = urlFor(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
-  if(typeof window.pdfjsLib==="undefined"){const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=path.split("/").pop(); frame.style.height="78vh"; showGeneric(frame, path.split("/").pop()); return;}
-  const container=document.createElement("div"); container.className="preview"; container.style.padding="16px"; container.style.background="#0f1922"; container.style.borderRadius="10px"; container.style.maxWidth="980px"; container.style.margin="0 auto";
-  try{
-    const data=await fetchArrayBuffer(currentRawUrl); const pdf=await pdfjsLib.getDocument({data}).promise;
-    for(let n=1;n<=pdf.numPages;n++){const page=await pdf.getPage(n), viewport=page.getViewport({scale:1.5}); const canvas=document.createElement("canvas"), ctx=canvas.getContext("2d"); canvas.width=viewport.width; canvas.height=viewport.height; canvas.style.display="block"; canvas.style.margin="0 auto 12px"; await page.render({canvasContext:ctx,viewport}).promise; container.appendChild(canvas);}
-    showGeneric(container, path.split("/").pop());
-  }catch(e){const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=path.split("/").pop(); frame.style.height="78vh"; showGeneric(frame, path.split("/").pop());}
-}
-function openImage(path){setRunPyVisible(false); currentRawUrl=urlFor(path); document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank"); document.getElementById("btnPdf").onclick=()=>window.print(); const img=document.createElement("img"); img.className="preview"; img.src=currentRawUrl; img.alt=path.split("/").pop(); showGeneric(img,img.alt);}
-function openAudio(path){setRunPyVisible(false); currentRawUrl=urlFor(path); document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank"); document.getElementById("btnPdf").onclick=()=>window.print(); const a=document.createElement("audio"); a.className="preview"; a.controls=true; a.src=currentRawUrl; showGeneric(a, path.split("/").pop());}
-function openVideo(path){setRunPyVisible(false); currentRawUrl=urlFor(path); document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank"); document.getElementById("btnPdf").onclick=()=>window.print(); const v=document.createElement("video"); v.className="preview"; v.controls=true; v.src=currentRawUrl; showGeneric(v, path.split("/").pop());}
-function openRawFile(path){setRunPyVisible(false); currentRawUrl=urlFor(path); document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank"); document.getElementById("btnPdf").onclick=()=>window.print(); const f=document.createElement("iframe"); f.className="preview"; f.src=currentRawUrl; f.title=path.split("/").pop(); f.style.height="78vh"; showGeneric(f, path.split("/").pop());}
 
+  if(typeof window.pdfjsLib==="undefined"){
+    const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=path.split("/").pop(); frame.style.height="78vh";
+    showGeneric(frame, path.split("/").pop()); return;
+  }
+  const container=document.createElement("div"); container.className="preview";
+  container.style.padding="16px"; container.style.background="#0f1922"; container.style.borderRadius="10px";
+  container.style.maxWidth="980px"; container.style.margin="0 auto";
+  try{
+    const data=await fetchArrayBuffer(currentRawUrl);
+    const pdf=await pdfjsLib.getDocument({ data }).promise;
+    for(let n=1;n<=pdf.numPages;n++){
+      const page=await pdf.getPage(n), viewport=page.getViewport({ scale:1.5 });
+      const canvas=document.createElement("canvas"), ctx=canvas.getContext("2d");
+      canvas.width=viewport.width; canvas.height=viewport.height; canvas.style.display="block"; canvas.style.margin="0 auto 12px";
+      await page.render({ canvasContext:ctx, viewport }).promise;
+      container.appendChild(canvas);
+    }
+    showGeneric(container, path.split("/").pop());
+  }catch(e){
+    const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=path.split("/").pop(); frame.style.height="78vh";
+    showGeneric(frame, path.split("/").pop());
+  }
+}
+function openImage(path){
+  setRunPyVisible(false);
+  currentRawUrl = urlFor(path);
+  document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
+  document.getElementById("btnPdf").onclick=()=>window.print();
+  const img=document.createElement("img"); img.className="preview"; img.src=currentRawUrl; img.alt=path.split("/").pop();
+  showGeneric(img, img.alt);
+}
+function openAudio(path){
+  setRunPyVisible(false);
+  currentRawUrl = urlFor(path);
+  document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
+  document.getElementById("btnPdf").onclick=()=>window.print();
+  const audio=document.createElement("audio"); audio.className="preview"; audio.controls=true; audio.src=currentRawUrl;
+  showGeneric(audio, path.split("/").pop());
+}
+function openVideo(path){
+  setRunPyVisible(false);
+  currentRawUrl = urlFor(path);
+  document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
+  document.getElementById("btnPdf").onclick=()=>window.print();
+  const video=document.createElement("video"); video.className="preview"; video.controls=true; video.src=currentRawUrl;
+  showGeneric(video, path.split("/").pop());
+}
+function openRawFile(path){
+  setRunPyVisible(false);
+  currentRawUrl = urlFor(path);
+  document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
+  document.getElementById("btnPdf").onclick=()=>window.print();
+  const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=path.split("/").pop(); frame.style.height="78vh";
+  showGeneric(frame, path.split("/").pop());
+}
 function openFile(path){
   const e=ext(path);
   if(e==="md"||e==="markdown"||e==="mdown") return openMarkdown(path);
@@ -319,14 +416,16 @@ function openFile(path){
   return openRawFile(path);
 }
 
-/* ===== Pyodide: Laden & lokale Modul-Preloads ===== */
+/* ===================== Pyodide + Python Runner ===================== */
 let __pyodidePromise=null, __pyInstance=null, __downloadedThisRun=new Set();
 
 async function loadPyodideOnce(){
   if(!__pyodidePromise){
-    __pyodidePromise = loadPyodide({ indexURL:"https://cdn.jsdelivr.net/pyodide/v0.25.1/full/" })
-      .then(py=>{ __pyInstance=py; return py; });
-  } return __pyodidePromise;
+    __pyodidePromise = loadPyodide({
+      indexURL:"https://cdn.jsdelivr.net/pyodide/v0.25.1/full/"
+    }).then(py=>{ __pyInstance=py; return py; });
+  }
+  return __pyodidePromise;
 }
 function detectPyodidePkgsFromCode(code){
   const s=new Set(), has=re=>re.test(code);
@@ -344,84 +443,123 @@ function detectMatplotlibBackend(code){
   if(/\bbackend\s*:\s*html5\b/i.test(code)) return "module://matplotlib_pyodide.html5_canvas_backend";
   return "module://matplotlib.backends.backend_agg";
 }
-async function ensurePyPackages(explicit=[],code=""){
+async function ensurePyPackages(explicit=[], code=""){
   const py=await loadPyodideOnce();
   const base=["micropip","numpy","matplotlib","pillow"];
   const detected=detectPyodidePkgsFromCode(code);
-  const toLoad=Array.from(new Set([...base,...explicit,...detected]));
+  const toLoad=Array.from(new Set([...base, ...explicit, ...detected]));
   if(toLoad.length) await py.loadPackage(toLoad);
   return py;
 }
 
-/* --- NEU: Import-Parser & Preloader aus manifest.json --- */
+/* ---- Import-Parser für lokale Module ---- */
 function extractImportNames(code){
   const names=new Set();
-  // import a, b as c
   for(const m of code.matchAll(/^[ \t]*import\s+([^\n#;]+)/gm)){
     const list=m[1].split(","); for(let part of list){
       part=part.trim(); if(!part) continue;
-      part=part.replace(/\s+as\s+.*$/,""); // drop alias
+      part=part.replace(/\s+as\s+.*$/,"");
       const top=part.split(".")[0].trim(); if(top) names.add(top);
     }
   }
-  // from x.y import z
   for(const m of code.matchAll(/^[ \t]*from\s+([.\w]+)\s+import\s+([^\n#;]+)/gm)){
-    let mod=m[1].trim(); mod=mod.replace(/^\.+/,""); // drop leading dots
+    let mod=m[1].trim(); mod=mod.replace(/^\.+/,"");
     if(!mod) continue;
     const top=mod.split(".")[0].trim(); if(top) names.add(top);
   }
-  // ignoriere offensichtliche stdlib häufige (kleine Heuristik)
   const common=["os","sys","re","math","itertools","json","pathlib","typing","collections","time","datetime","random","functools","subprocess"];
   common.forEach(n=>names.delete(n));
   return Array.from(names);
 }
-function findLocalModuleCandidates(modName){
-  const hits=[];
+
+/* ---- Helper: Direktes Nachladen aus typischen Pfaden (falls Manifest fehlt) ---- */
+async function tryFetchToRepo(py, relPath, destRel) {
+  try {
+    const txt = await fetchText(urlFor(relPath));   // cache: no-store
+    const dest = `/repo/${destRel}`;
+    const dir  = dest.split("/").slice(0, -1).join("/");
+    try { py.FS.mkdirTree(dir); } catch {}
+    py.FS.writeFile(dest, new TextEncoder().encode(txt));
+    return dest;
+  } catch {
+    return null;
+  }
+}
+
+/* ---- Rebase kompletter Modulbaum nach /repo (Manifest + Fallback-Pfade) ---- */
+async function rebaseModuleToRepo(py, modName){
+  const modLower = (modName||"").toLowerCase();
+  const written = [];
+
+  // 1) Manifest-Treffer
   for(const n of NODES.values()){
     if(n.type!=="file") continue;
-    if(n.path.endsWith(`/${modName}.py`) || n.path.endsWith(`/${modName}/__init__.py`) || n.path===`${modName}.py` || n.path===`${modName}/__init__.py`){
-      hits.push(n.path);
+    const pLower = n.path.toLowerCase();
+
+    if(pLower.endsWith(`/${modLower}.py`)){
+      try{
+        const txt = await fetchText(urlFor(n.path));
+        const dest = `/repo/${modLower}.py`;
+        const dir  = dest.split("/").slice(0,-1).join("/");
+        try{ py.FS.mkdirTree(dir);}catch{}
+        py.FS.writeFile(dest, new TextEncoder().encode(txt));
+        written.push(dest);
+      }catch{}
+      continue;
+    }
+
+    const parts = pLower.split("/");
+    const idx = parts.indexOf(modLower);
+    if(idx >= 0){
+      const tail = n.path.split("/").slice(idx+1).join("/");
+      const dest = `/repo/${modLower}/${tail}`;
+      try{
+        const txt = await fetchText(urlFor(n.path));
+        const dir = dest.split("/").slice(0,-1).join("/");
+        try{ py.FS.mkdirTree(dir);}catch{}
+        py.FS.writeFile(dest, new TextEncoder().encode(txt));
+        written.push(dest);
+      }catch{}
     }
   }
-  return hits;
-}
-async function preloadLocalImportsFor(py, code, contextPath){
-  // sammle Module
-  const names=extractImportNames(code);
-  if(!names.length) return {loaded:[], sysPaths:[]};
-  const baseDir=pathDir(contextPath||"");
-  const toFetch=new Set();
-  for(const name of names){
-    const cands=findLocalModuleCandidates(name);
-    // Priorisiere Pfade im selben Ast
-    let picked=null;
-    if(cands.length){
-      picked=cands.sort((a,b)=>{
-        const da=(a.startsWith(baseDir)?0:1), db=(b.startsWith(baseDir)?0:1);
-        if(da!==db) return da-db;
-        return a.length-b.length;
-      })[0];
-      toFetch.add(picked);
+
+  // 2) Fallback: häufige Pfade direkt versuchen
+  if(written.length===0){
+    const fileCandidates = [
+      `${modLower}.py`,
+      `assets/${modLower}.py`,
+      `assets/python/${modLower}.py`,
+      `python/${modLower}.py`,
+      `py/${modLower}.py`,
+      `lib/${modLower}.py`,
+      `scripts/${modLower}.py`,
+      `src/${modLower}.py`
+    ];
+    for(const rel of fileCandidates){
+      const dest = await tryFetchToRepo(py, rel, `${modLower}.py`);
+      if(dest){ written.push(dest); break; }
     }
   }
-  if(!toFetch.size) return {loaded:[], sysPaths:[`/repo/${baseDir}`.replace(/\/$/,""), "/repo", "/home/pyodide"]};
-
-  const loaded=[];
-  for(const rel of toFetch){
-    try{
-      const txt=await fetchText(urlFor(rel));
-      const dest=`/repo/${rel}`;
-      const dir=dest.split("/").slice(0,-1).join("/");
-      try{ py.FS.mkdirTree(dir); }catch{}
-      py.FS.writeFile(dest, new TextEncoder().encode(txt));
-      loaded.push(dest);
-    }catch(e){ console.warn("Preload fehlgeschlagen:", rel, e);}
+  if(written.length===0){
+    const pkgCandidates = [
+      `assets/${modLower}/__init__.py`,
+      `assets/python/${modLower}/__init__.py`,
+      `python/${modLower}/__init__.py`,
+      `py/${modLower}/__init__.py`,
+      `lib/${modLower}/__init__.py`,
+      `scripts/${modLower}/__init__.py`,
+      `src/${modLower}/__init__.py`,
+      `${modLower}/__init__.py`
+    ];
+    for(const rel of pkgCandidates){
+      const dest = await tryFetchToRepo(py, rel, `${modLower}/__init__.py`);
+      if(dest){ written.push(dest); break; }
+    }
   }
-  const sysPaths=[`/repo/${baseDir}`.replace(/\/$/,""), "/repo", "/home/pyodide"];
-  return {loaded, sysPaths};
+  return written;
 }
 
-/* --- Downloads / FS Snapshot --- */
+/* ---- Auto-Download erzeugter Dateien ---- */
 function resolveFsPath(p){return p&&p.startsWith("/")?p:`/home/pyodide/${p||""}`;}
 function guessMimeByExt(path){
   const e=(path.split(".").pop()||"").toLowerCase();
@@ -434,17 +572,19 @@ function guessMimeByExt(path){
   if(["txt","log","md","csv","tsv","json","xml","yml","yaml"].includes(e))return"text/plain";
   return"application/octet-stream";
 }
-function downloadPath(py,path){
+function downloadPath(py, path){
   const abs=resolveFsPath(path);
   try{
     const data=py.FS.readFile(abs);
     const blob=new Blob([data],{type:guessMimeByExt(abs)});
-    const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=abs.split("/").pop();
-    document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},1000);
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob); a.download=abs.split("/").pop();
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();}, 1000);
     return true;
-  }catch(e){return false;}
+  }catch{ return false; }
 }
-function walkFs(py,dir="/home/pyodide",acc=[]){
+function walkFs(py, dir="/home/pyodide", acc=[]){
   let list; try{list=py.FS.readdir(dir);}catch{return acc;}
   for(const name of list){
     if(name==="."||name==="..") continue;
@@ -452,40 +592,51 @@ function walkFs(py,dir="/home/pyodide",acc=[]){
     let st; try{st=py.FS.stat(p);}catch{continue;}
     const isDir = py.FS.isDir ? py.FS.isDir(st.mode) : (st.mode & 0x4000)===0x4000;
     if(isDir) walkFs(py,p,acc); else acc.push({path:p,size:st.size??0,mtime:+new Date(st.mtime||0)});
-  } return acc;
+  }
+  return acc;
 }
-function snapshotFs(py){const map=new Map(); for(const f of walkFs(py,"/home/pyodide")) map.set(f.path,{size:f.size,mtime:f.mtime}); return map;}
-function diffFs(prev,curr){const changed=[]; for(const [p,meta] of curr.entries()){const old=prev.get(p); if(!old||old.size!==meta.size||old.mtime!==meta.mtime) changed.push(p);} return changed;}
-function appendStdout(outEl,chunk){
+function snapshotFs(py){const m=new Map(); for(const f of walkFs(py,"/home/pyodide")) m.set(f.path,{size:f.size,mtime:f.mtime}); return m;}
+function diffFs(prev,curr){const out=[]; for(const [p,meta] of curr.entries()){const old=prev.get(p); if(!old||old.size!==meta.size||old.mtime!==meta.mtime) out.push(p);} return out;}
+function appendStdout(outEl, chunk){
   const lines=String(chunk).split(/\r?\n/);
   for(const line of lines){
     if(!line) continue;
-    if(/^DATA:image\//i.test(line)){const img=document.createElement("img"); img.src=line.trim(); img.style.display="block"; img.style.maxWidth="980px"; img.style.margin="8px auto"; img.className="preview"; outEl.appendChild(img); continue;}
+    if(/^DATA:image\//i.test(line)){
+      const img=document.createElement("img"); img.src=line.trim(); img.style.display="block"; img.style.maxWidth="980px"; img.style.margin="8px auto"; img.className="preview";
+      outEl.appendChild(img); continue;
+    }
     const m=line.match(/^WROTE:\s*(.+)$/i);
-    if(m&&__pyInstance){const p=m[1].trim(); if(!__downloadedThisRun.has(p)){ if(downloadPath(__pyInstance,p)) __downloadedThisRun.add(p);} continue;}
+    if(m&&__pyInstance){
+      const p=m[1].trim();
+      if(!__downloadedThisRun.has(p)){ if(downloadPath(__pyInstance,p)) __downloadedThisRun.add(p); }
+      continue;
+    }
     outEl.append(document.createTextNode(line+"\n"));
   }
 }
 
-/* --- Ausführen (mit Modul-Preload & Backend-Wahl) --- */
-function detectMatplotlibBackend(code){ if(/\bbackend\s*:\s*html5\b/i.test(code)) return "module://matplotlib_pyodide.html5_canvas_backend"; return "module://matplotlib.backends.backend_agg"; }
-
-async function runPythonWithProject(code,outEl,buttonEl,contextPath){
+/* ---- Run Python (mit Modul-Preload & Backendwahl) ---- */
+async function runPythonWithProject(code, outEl, buttonEl, contextPath){
   const btn=buttonEl;
   try{
     if(btn){btn.disabled=true; btn.textContent=(I18n?.lang==="en"?"Running…":"Läuft…");}
     outEl.textContent=""; __downloadedThisRun=new Set();
 
-    const py=await ensurePyPackages([],code);
-    // Lokale Module aus Repo vorab laden
-    const preload=await preloadLocalImportsFor(py, code, contextPath);
-    const backend=detectMatplotlibBackend(code);
+    const py=await ensurePyPackages([], code);
 
-    // Prelude: sys.path + Backend
+    // Lokale Module aus Imports bestimmen & nach /repo spiegeln
+    const importNames = extractImportNames(code);
+    const rebased = [];
+    for(const name of importNames){
+      const got = await rebaseModuleToRepo(py, name);
+      if(got.length) rebased.push(`${name}(${got.length})`);
+    }
+
+    // Backend setzen
+    const backend = detectMatplotlibBackend(code);
     const prelude = `
 import os, sys, matplotlib
-# sys.path für lokale Projektmodule
-for p in ${JSON.stringify(preload.sysPaths)}:
+for p in ["/repo", "${("/repo/"+pathDir(contextPath||"")).replace(/\/$/,"")}", "/home/pyodide"]:
     if p and p not in sys.path:
         sys.path.insert(0, p)
 os.environ["MPLBACKEND"] = "${backend}"
@@ -503,6 +654,10 @@ except Exception:
     matplotlib.use("${backend}", force=True)
 `;
 
+    if(rebased.length){
+      outEl.append(document.createTextNode((I18n?.lang==="en"?"Loaded local modules: ":"Geladene lokale Module: ")+rebased.join(", ")+"\n"));
+    }
+
     const before=snapshotFs(py);
     py.setStdout({batched:s=>appendStdout(outEl,s)}); py.setStderr({batched:s=>appendStdout(outEl,s)});
     await py.runPythonAsync(prelude + "\n" + code);
@@ -512,13 +667,16 @@ except Exception:
     if(remaining.length) outEl.append(document.createTextNode((I18n?.lang==="en"?"Auto-download: ":"Automatischer Download: ")+remaining.length+" file(s)\n"));
     for(const p of remaining) downloadPath(py,p);
 
-  }catch(err){appendStdout(outEl,"\n"+err);}
-  finally{if(btn){btn.disabled=false; btn.textContent=(I18n?.lang==="en"?"Run Python":"Python ausführen");}}
+  }catch(err){
+    appendStdout(outEl,"\n"+err);
+  }finally{
+    if(btn){btn.disabled=false; btn.textContent=(I18n?.lang==="en"?"Run Python":"Python ausführen");}
+  }
 }
 
-/* --- Text/Code Viewer inkl. Python --- */
+/* ---- Code/Text öffnen (mit Python-Button bei .py) ---- */
 async function openText(path){
-  currentRawUrl=urlFor(path);
+  currentRawUrl = urlFor(path);
   const btnRun=document.getElementById("btnRunPy");
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
@@ -532,25 +690,26 @@ async function openText(path){
     codeEl.textContent=text;
     const language=ext(path); if(language) codeEl.className=`language-${language}`;
     hljs.highlightElement(codeEl);
-  }catch(e){codeEl.textContent=`Datei konnte nicht geladen werden: ${e.message}`;}
+  }catch(e){ codeEl.textContent=`${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`; }
 
   const wrap=document.createElement("div"); wrap.appendChild(pre);
 
   if(ext(path)==="py"){
     setRunPyVisible(true);
-    btnRun.onclick=()=>runPythonWithProject(codeEl.textContent, out, btnRun, path);
+    btnRun.onclick = ()=> runPythonWithProject(codeEl.textContent, out, btnRun, path);
     const hint=document.createElement("div"); hint.className="muted"; hint.style.margin="6px 0 2px";
     hint.innerHTML = I18n?.lang==="en"
-      ? `Local imports are auto-loaded from the repository (via manifest). Default Matplotlib backend is <code>Agg</code>; switch to HTML5 canvas with <code># backend: html5</code> as first line.`
-      : `Lokale Imports werden automatisch aus dem Repository geladen (über das Manifest). Standard-Matplotlib-Backend ist <code>Agg</code>; zu HTML5-Canvas mit <code># backend: html5</code> in der ersten Zeile umschalten.`;
-    wrap.appendChild(hint); wrap.appendChild(out);
+      ? `Local imports are mirrored into <code>/repo</code> (tries manifest and common paths like <code>assets/stlib.py</code>). Default Matplotlib backend: <code>Agg</code>. Switch to HTML5 canvas with <code># backend: html5</code> as first line. Files created during the run will be auto-downloaded.`
+      : `Lokale Imports werden nach <code>/repo</code> gespiegelt (nutzt Manifest und gängige Pfade wie <code>assets/stlib.py</code>). Standard-Matplotlib-Backend: <code>Agg</code>. Zu HTML5-Canvas mit <code># backend: html5</code> in der ersten Zeile wechseln. Erzeugte Dateien werden automatisch heruntergeladen.`;
+    wrap.appendChild(hint);
+    wrap.appendChild(out);
   } else {
     setRunPyVisible(false);
   }
   showGeneric(wrap, path.split("/").pop());
 }
 
-/* ---- Initiale Vorschau: ST.png ---- */
+/* ---- Initial: ST.png anzeigen ---- */
 function openInitialPreview(){
   const candidate="ST.png";
   if(existsInManifest(candidate)){
@@ -562,23 +721,26 @@ function openInitialPreview(){
 
 /* ---- Events ---- */
 document.getElementById("q").addEventListener("input",renderList);
-document.getElementById("langSelect").addEventListener("change",async e=>{
+document.getElementById("langSelect").addEventListener("change", async (e)=>{
   await I18n.set(e.target.value); renderFooter(); updateManifestChip(); if(lastMdBasePath) openMarkdown(lastMdBasePath);
 });
 document.getElementById("btnRefresh").addEventListener("click", async ()=>{
-  await loadManifest(); await openDir(cwd||""); openInitialPreview();
+  await loadManifest(); await openDir(cwd || ""); openInitialPreview();
 });
 window.addEventListener("pageshow", async ()=>{
-  if(location.protocol!=="file:"){ await loadManifest(); await openDir(cwd||""); }
+  if(location.protocol!=="file:"){ await loadManifest(); await openDir(cwd || ""); }
 });
 document.addEventListener("DOMContentLoaded", async ()=>{
   if(location.protocol==="file:"){
     const list=document.getElementById("list");
-    if(list) list.innerHTML=`<li class="item"><span class="meta">ℹ️</span><span class="name">Bitte via lokalen Server (z. B. <code>python -m http.server</code>) oder GitHub Pages öffnen. <code>file://</code> blockiert <code>fetch</code>.</span><span class="meta"></span></li>`;
+    if(list) list.innerHTML = `<li class="item"><span class="meta">ℹ️</span><span class="name">Bitte via lokalen Server (z. B. <code>python -m http.server</code>) oder GitHub Pages öffnen. <code>file://</code> blockiert <code>fetch</code>.</span><span class="meta"></span></li>`;
     return;
   }
-  await I18n.init({defaultLang:"de"}); renderFooter();
-  await loadManifest(); await openDir(""); openInitialPreview();
+  await I18n.init({ defaultLang:"de" });
+  renderFooter();
+  await loadManifest();
+  await openDir("");
+  openInitialPreview();
 });
 </script>
 </body>
