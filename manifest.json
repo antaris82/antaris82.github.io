@@ -57,8 +57,8 @@
   },
   {
     "path": "assets/i18n.js",
-    "sha": "78d8bfa29304d820cd7e0c968c1b3ef42ee0c7a7",
-    "size": 2640,
+    "sha": "3f78ad5015b05edfd7853526b133951faa855b08",
+    "size": 2608,
     "type": "blob",
     "mode": "100644"
   },
@@ -134,7 +134,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "d92fe78077a0c7f5f60388a87c587b8a96af7d95",
+    "sha": "22e2832734cdf377ae3b4d8a5b65b997b4bf0b1a",
     "size": 25760,
     "type": "blob",
     "mode": "100644"
