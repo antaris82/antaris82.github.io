@@ -119,16 +119,23 @@
     "mode": "100644"
   },
   {
-    "path": "index.html",
+    "path": "index - Kopie.html",
     "sha": "35498d27f92d1d7b2878348df76c4ed666300500",
     "size": 26409,
     "type": "blob",
     "mode": "100644"
   },
   {
+    "path": "index.html",
+    "sha": "12b0966cc8f14cef0db68071691482d5dd1a8d46",
+    "size": 31109,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "manifest.json",
-    "sha": "fe73b362f58619f6676bff2e9f4083e7524068b6",
-    "size": 25760,
+    "sha": "202928cc62daf6284a23258fd76a93441c230220",
+    "size": 25606,
     "type": "blob",
     "mode": "100644"
   },
