@@ -12,11 +12,14 @@
       --fg: #e7eef5;
       --accent: #5ba8ff;
       --border: #1b2632;
+      --ok: #37c978;
+      --warn: #ffb020;
+      --err: #ff5a5a;
     }
     html, body { height: 100%; }
     body {
       margin: 0; background: var(--bg); color: var(--fg);
-      font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
     }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
@@ -30,6 +33,15 @@
     .title h1 { margin:0; font-size: 18px; }
     .title span { color: var(--muted); font-size: 13px; }
 
+    .header-right { display:flex; align-items:center; gap:16px; }
+    .manifest-chip {
+      display:flex; align-items:center; gap:6px; font-size:12px; color: var(--muted);
+      border:1px solid var(--border); padding:6px 8px; border-radius:8px; background:#0c131a;
+    }
+    .dot { width:8px; height:8px; border-radius:50%; background: var(--warn); }
+    .dot.ok { background: var(--ok); }
+    .dot.err { background: var(--err); }
+
     .lang { display:flex; align-items:center; gap:8px; }
     .lang label { color: var(--muted); }
     .lang select {
@@ -37,7 +49,7 @@
       border:1px solid #26303c; border-radius:8px; padding:6px 10px;
     }
 
-    .app { display:grid; grid-template-columns: 320px 1fr; height: calc(100vh - 56px); }
+    .app { display:grid; grid-template-columns: 340px 1fr; height: calc(100vh - 56px); }
     .left {
       border-right: 1px solid var(--border); background: #0c1218; overflow:auto;
     }
@@ -52,19 +64,21 @@
       background:#0f1720; color:var(--fg);
     }
 
+    .crumb { padding: 8px 14px; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .crumb a { color: var(--muted); }
+    .crumb a:hover { color: var(--fg); }
+
     .list { list-style: none; margin:0; padding:6px; }
     .item {
       display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer;
-      color: #fff; /* Ordner/Datei-Schrift stets weiß */
+      color: #fff; /* immer weiß */
     }
     .item:hover { background:#111a23; }
     .item .name { flex:1 1 auto; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
     .item .kind { color: var(--muted); font-size:12px; }
     .item.active { background:#122236; }
 
-    .viewer {
-      padding: 18px 22px 60px;
-    }
+    .viewer { padding: 18px 22px 60px; }
     .viewer .bar {
       display:flex; align-items:center; gap:8px; justify-content: space-between;
       position: sticky; top:0; padding: 10px 0; background: linear-gradient(var(--bg), var(--bg));
@@ -77,7 +91,7 @@
     .btn:hover { background:#122436; }
     .muted { color: var(--muted); }
 
-    .md { max-width: 920px; }
+    .md, .generic { max-width: 980px; }
     .md h1, .md h2, .md h3, .md h4 { margin-top: 1.6em; }
     .md pre { background:#0f1922; padding:12px; border-radius:10px; overflow:auto; border:1px solid #223042; }
     .md code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
@@ -85,18 +99,49 @@
     .md table th, .md table td { border:1px solid #223042; padding:6px 8px; }
     .md img { max-width: 100%; }
 
-    /* Print for PDF export */
+    .viewer iframe.preview, .viewer img.preview, .viewer video.preview, .viewer audio.preview {
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid #223042;
+      border-radius: 10px;
+      background:#0f1922;
+    }
+    .viewer iframe.preview { height: 78vh; }
+    .viewer img.preview { height: auto; display:block; }
+
+    pre.codebox {
+      background:#0f1922; padding:12px; border-radius:10px; overflow:auto; border:1px solid #223042;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      white-space: pre; max-height: 78vh;
+    }
+
+    footer {
+      border-top:1px solid var(--border);
+      padding: 10px 16px; color: var(--muted); background: var(--panel);
+    }
+    footer a { color: var(--muted); text-decoration: underline; }
+
+    /* Print */
     @media print {
-      header, .left, .viewer .bar { display:none !important; }
+      header, .left, .viewer .bar, footer { display:none !important; }
       .app { display:block; }
       body { background:#fff; color:#000; }
-      .md pre { border:1px solid #ccc; background:#fafafa; }
+      .md pre, pre.codebox { border:1px solid #ccc; background:#fafafa; color:#111; }
     }
   </style>
 
   <!-- libs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+  <!-- Syntax Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+  <!-- CSV -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <!-- KaTeX (LaTeX) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 
   <!-- i18n runtime -->
   <script src="assets/i18n.js"></script>
@@ -107,12 +152,18 @@
       <h1 data-i18n="app.title">Sierpinski-Tetraeder – Projekt</h1>
       <span class="muted" data-i18n="app.subtitle">Experiment, Dokumentation und Materialien</span>
     </div>
-    <div class="lang">
-      <label for="langSelect" data-i18n="app.language">Sprache</label>
-      <select id="langSelect" aria-label="Language">
-        <option value="de">Deutsch</option>
-        <option value="en">English</option>
-      </select>
+    <div class="header-right">
+      <div id="manifestChip" class="manifest-chip" title="manifest.json">
+        <span class="dot" id="manifestDot"></span>
+        <span id="manifestText">manifest…</span>
+      </div>
+      <div class="lang">
+        <label for="langSelect" data-i18n="app.language">Sprache</label>
+        <select id="langSelect" aria-label="Language">
+          <option value="de">Deutsch</option>
+          <option value="en">English</option>
+        </select>
+      </div>
     </div>
   </header>
 
@@ -124,6 +175,7 @@
         <input id="q" type="search" placeholder="Suchen …"
                data-i18n="search" data-i18n-attr="placeholder" data-i18n-search="search.placeholder">
       </div>
+      <div class="crumb" id="crumb"></div>
       <ul id="list" class="list"></ul>
     </aside>
 
@@ -131,25 +183,30 @@
     <section class="right">
       <div class="viewer">
         <div class="bar">
-          <div class="muted" id="crumb">/</div>
+          <div class="muted" id="currentName">—</div>
           <div class="btns">
             <button id="btnOpenRaw" class="btn" data-i18n="viewer.openRaw">Rohdatei öffnen</button>
             <button id="btnPdf" class="btn" data-i18n="viewer.downloadPdf">Als PDF exportieren</button>
           </div>
         </div>
-        <article id="md" class="md"></article>
+        <article id="md" class="md" hidden></article>
+        <div id="generic" class="generic" hidden></div>
       </div>
     </section>
   </main>
+
+  <footer>
+    <span id="copyright"></span>
+  </footer>
 
   <script>
     // ------- Config (Repo/Branch) -------
     const GH = { owner: "antaris82", repo: "antaris82.github.io", branch: "main" };
 
     // ------- State -------
-    let cwd = "";                  // current directory path
-    let entries = [];              // current directory listing
-    let currentFilePath = null;    // currently viewed file (in repo)
+    let cwd = "";
+    let entries = [];
+    let lastMdBasePath = null; // ohne .en.md / .de.md
     let currentRawUrl = null;
 
     // ------- Helpers -------
@@ -163,6 +220,21 @@
       if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
       return r.json();
     }
+    async function fetchText(url){
+      const r = await fetch(url, { cache: "no-store" });
+      if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+      return r.text();
+    }
+    async function headOk(url){
+      try { const r = await fetch(url, { method:"HEAD", cache:"no-store" }); return r.ok; } catch { return false; }
+    }
+
+    function ext(name){ const m = name.toLowerCase().match(/\.([a-z0-9]+)$/); return m? m[1] : ""; }
+    function isTextExt(e){ return ["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg","java","c","cpp","h","hpp","cs","go","rs","php","rb","kt","swift","sql","toml"].includes(e); }
+    function isImageExt(e){ return ["png","jpg","jpeg","gif","webp","avif","bmp","svg"].includes(e); }
+    function isAudioExt(e){ return ["mp3","wav","ogg","m4a","aac","flac"].includes(e); }
+    function isVideoExt(e){ return ["mp4","webm","ogv","mov"].includes(e); }
+    function isPdfExt(e){ return e === "pdf"; }
 
     function sortEntries(items){
       const dirs = items.filter(e => e.type === "dir");
@@ -172,10 +244,46 @@
       return [...dirs, ...files];
     }
 
+    function crumbHtml(path){
+      const parts = path ? path.split("/").filter(Boolean) : [];
+      const items = ['<a href="#" data-path="">/</a>'];
+      let acc = "";
+      for (const p of parts){
+        acc = acc ? acc + "/" + p : p;
+        items.push(`<a href="#" data-path="${acc}">${p}</a>`);
+      }
+      return items.join(" / ");
+    }
+
+    function renderCrumb(){
+      const el = document.getElementById("crumb");
+      el.innerHTML = crumbHtml(cwd);
+      el.querySelectorAll("a").forEach(a=>{
+        a.addEventListener("click", (e)=>{
+          e.preventDefault();
+          openDir(a.dataset.path||"");
+        });
+      });
+    }
+
     function renderList(items){
       const q = (document.getElementById("q").value || "").trim().toLowerCase();
       const list = document.getElementById("list");
       list.innerHTML = "";
+
+      // Up item
+      if (cwd){
+        const up = document.createElement("li");
+        up.className = "item";
+        up.innerHTML = `<span class="kind">⬆️</span><span class="name" data-i18n="viewer.up">.. (Ebene höher)</span><span class="kind">up</span>`;
+        up.addEventListener("click", ()=> {
+          const parent = cwd.split("/").filter(Boolean).slice(0,-1).join("/");
+          openDir(parent);
+        });
+        list.appendChild(up);
+        I18n.apply();
+      }
+
       const filtered = items.filter(e => !q || e.name.toLowerCase().includes(q));
       if (!filtered.length){
         const li = document.createElement("li");
@@ -190,8 +298,8 @@
         li.className = "item";
         li.dataset.path = e.path;
 
-        const icon = e.type === "dir" ? "📁" : "📄";
-        const kind = e.type === "dir" ? "dir" : (e.name.toLowerCase().endsWith(".md") ? "md" : "file");
+        const icon = e.type === "dir" ? "📁" : (isPdfExt(ext(e.name)) ? "📄" : "📄");
+        const kind = e.type === "dir" ? "dir" : ext(e.name);
 
         li.innerHTML = `
           <span class="kind">${icon}</span>
@@ -202,31 +310,20 @@
         li.addEventListener("click", () => {
           document.querySelectorAll(".item.active").forEach(n => n.classList.remove("active"));
           li.classList.add("active");
-          if (e.type === "dir") {
-            openDir(e.path);
-          } else {
-            // markdown opens in viewer, other files open raw
-            if (e.name.toLowerCase().endsWith(".md")) {
-              openMarkdown(e.path);
-            } else {
-              openRaw(e.path);
-            }
-          }
+          if (e.type === "dir") openDir(e.path);
+          else openFile(e.path);
         });
         list.appendChild(li);
       }
     }
 
-    function setCrumb(path){
-      document.getElementById("crumb").textContent = "/" + (path || "");
-    }
-
     async function openDir(path=""){
       cwd = path;
-      setCrumb(cwd);
+      renderCrumb();
       try {
         const data = await fetchJSON(api(cwd));
-        entries = sortEntries(data);
+        const sorted = sortEntries(data);
+        entries = sorted;
         renderList(entries);
       } catch (e){
         console.error("openDir failed:", e);
@@ -235,65 +332,249 @@
       }
     }
 
-    async function headExists(path){
-      try{
-        const r = await fetch(raw(path), { method:"HEAD", cache:"no-store" });
-        return r.ok;
-      } catch { return false; }
-    }
-
     async function resolveMdForLang(path){
       const lang = (I18n && I18n.lang) || "de";
       const lower = path.toLowerCase();
       if (lang === "en"){
         if (lower.endsWith(".en.md")) return path;
-        if (lower.endsWith(".de.md")){
+        if (lower.endsWith(".de.md")) {
           const p = path.replace(/\.de\.md$/i, ".en.md");
-          if (await headExists(p)) return p;
-        } else if (lower.endsWith(".md")){
+          if (await headOk(raw(p))) return p;
+        } else if (lower.endsWith(".md")) {
           const p = path.replace(/\.md$/i, ".en.md");
-          if (await headExists(p)) return p;
+          if (await headOk(raw(p))) return p;
         }
       }
-      return path; // fallback: original
+      return path;
+    }
+
+    function showMd(html, titleText){
+      const md = document.getElementById("md");
+      const gen = document.getElementById("generic");
+      gen.hidden = true; gen.innerHTML = "";
+      md.hidden = false; md.innerHTML = html;
+      document.getElementById("currentName").textContent = titleText || "—";
+
+      // Syntax highlight
+      document.querySelectorAll("#md pre code").forEach(block => hljs.highlightElement(block));
+      // LaTeX
+      try {
+        renderMathInElement(md, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "$", right: "$", display: false}
+          ],
+          throwOnError: false
+        });
+      } catch(e) { console.warn("katex render failed", e); }
+    }
+
+    function showGeneric(node, titleText){
+      const md = document.getElementById("md");
+      const gen = document.getElementById("generic");
+      md.hidden = true; md.innerHTML = "";
+      gen.hidden = false; gen.innerHTML = "";
+      gen.appendChild(node);
+      document.getElementById("currentName").textContent = titleText || "—";
     }
 
     async function openMarkdown(path){
-      // Determine EN variant if chosen
+      // Remember "base" for language re-open
+      lastMdBasePath = path.replace(/\.en\.md$/i, ".md").replace(/\.de\.md$/i, ".md");
       const chosen = await resolveMdForLang(path);
-      currentFilePath = chosen;
       currentRawUrl = raw(chosen);
-
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
 
       try{
-        const r = await fetch(currentRawUrl, { cache: "no-store" });
-        if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
-        const text = await r.text();
+        const text = await fetchText(currentRawUrl);
         // Render markdown safely
+        marked.setOptions({ breaks: false });
         const html = DOMPurify.sanitize(marked.parse(text));
-        document.getElementById("md").innerHTML = html;
-        // Scroll to top
+        showMd(html, chosen.split("/").pop());
+        // scroll top
         document.querySelector(".right").scrollTop = 0;
       } catch(e){
-        document.getElementById("md").innerHTML = `<p style="color:#f66">Failed to load ${chosen}: ${e.message}</p>`;
+        const p = document.createElement("p");
+        p.style.color = "#ff8080";
+        p.textContent = `${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`;
+        showGeneric(p, chosen.split("/").pop());
       }
     }
 
-    function openRaw(path){
-      const url = raw(path);
-      window.open(url, "_blank");
+    async function openText(path){
+      currentRawUrl = raw(path);
+      document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
+      document.getElementById("btnPdf").onclick = () => window.print();
+
+      const pre = document.createElement("pre");
+      pre.className = "codebox";
+      try{
+        const text = await fetchText(currentRawUrl);
+        pre.textContent = text;
+        // simple language guess by extension
+        const code = document.createElement("code");
+        code.textContent = text;
+        const language = ext(path);
+        if (language) code.className = `language-${language}`;
+        pre.innerHTML = "";
+        pre.appendChild(code);
+        hljs.highlightElement(code);
+      } catch(e){
+        pre.textContent = `${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`;
+      }
+      showGeneric(pre, path.split("/").pop());
     }
 
-    // Search typing
+    async function openCsv(path){
+      currentRawUrl = raw(path);
+      document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
+      document.getElementById("btnPdf").onclick = () => window.print();
+
+      const wrap = document.createElement("div");
+      try{
+        const text = await fetchText(currentRawUrl);
+        const parsed = Papa.parse(text.trim());
+        const table = document.createElement("table");
+        table.className = "md";
+        parsed.data.forEach((row,i)=>{
+          const tr = document.createElement("tr");
+          row.forEach(cell=>{
+            const td = document.createElement(i===0 ? "th" : "td");
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          table.appendChild(tr);
+        });
+        wrap.appendChild(table);
+      } catch(e){
+        const p = document.createElement("p");
+        p.style.color = "#ff8080";
+        p.textContent = `${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`;
+        wrap.appendChild(p);
+      }
+      showGeneric(wrap, path.split("/").pop());
+    }
+
+    function openImage(path){
+      currentRawUrl = raw(path);
+      document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
+      document.getElementById("btnPdf").onclick = () => window.print();
+
+      const img = document.createElement("img");
+      img.className = "preview";
+      img.src = currentRawUrl;
+      img.alt = path.split("/").pop();
+      showGeneric(img, img.alt);
+    }
+
+    function openAudio(path){
+      currentRawUrl = raw(path);
+      document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
+      document.getElementById("btnPdf").onclick = () => window.print();
+
+      const audio = document.createElement("audio");
+      audio.className = "preview";
+      audio.controls = true;
+      audio.src = currentRawUrl;
+      showGeneric(audio, path.split("/").pop());
+    }
+
+    function openVideo(path){
+      currentRawUrl = raw(path);
+      document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
+      document.getElementById("btnPdf").onclick = () => window.print();
+
+      const video = document.createElement("video");
+      video.className = "preview";
+      video.controls = true;
+      video.src = currentRawUrl;
+      showGeneric(video, path.split("/").pop());
+    }
+
+    function openPdf(path){
+      currentRawUrl = raw(path);
+      document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
+      document.getElementById("btnPdf").onclick = () => window.print();
+
+      const frame = document.createElement("iframe");
+      frame.className = "preview";
+      frame.src = currentRawUrl;
+      frame.setAttribute("title", path.split("/").pop());
+      showGeneric(frame, path.split("/").pop());
+    }
+
+    function openRawFile(path){
+      const frame = document.createElement("iframe");
+      currentRawUrl = raw(path);
+      frame.className = "preview";
+      frame.src = currentRawUrl;
+      frame.setAttribute("title", path.split("/").pop());
+      showGeneric(frame, path.split("/").pop());
+    }
+
+    function openFile(path){
+      const e = ext(path);
+      if (e === "md" || e === "markdown" || e === "mdown") return openMarkdown(path);
+      if (isPdfExt(e)) return openPdf(path);
+      if (isImageExt(e)) return openImage(path);
+      if (isAudioExt(e)) return openAudio(path);
+      if (isVideoExt(e)) return openVideo(path);
+      if (e === "csv" || e === "tsv") return openCsv(path);
+      if (isTextExt(e)) return openText(path);
+      return openRawFile(path);
+    }
+
+    // Manifest indicator
+    async function checkManifest(){
+      const dot = document.getElementById("manifestDot");
+      const txt = document.getElementById("manifestText");
+      try {
+        const url = raw("manifest.json");
+        const ok = await headOk(url);
+        if (!ok) {
+          dot.classList.remove("ok"); dot.classList.add("err");
+          txt.textContent = I18n.t("status.manifestMissing","Manifest fehlt");
+          return;
+        }
+        const j = await fetchJSON(url);
+        dot.classList.add("ok");
+        txt.textContent = I18n.t("status.manifestOk","Manifest gefunden");
+      } catch {
+        dot.classList.remove("ok"); dot.classList.add("err");
+        txt.textContent = I18n.t("status.manifestInvalid","Manifest ungültig");
+      }
+    }
+
+    function renderFooter(){
+      const y = new Date().getFullYear();
+      document.getElementById("copyright").textContent =
+        `© ${y} antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.`;
+      if (I18n.lang === "en"){
+        document.getElementById("copyright").textContent =
+          `© ${y} antaris — Code: MIT; Data/Figures/Texts (incl. PDFs): CC BY 4.0.`;
+      }
+    }
+
+    // Search input
     document.getElementById("q").addEventListener("input", () => renderList(entries));
 
-    // Language init
+    // Language re-open for Markdown
+    document.getElementById("langSelect").addEventListener("change", async (e) => {
+      await I18n.set(e.target.value);
+      renderFooter();
+      checkManifest();
+      if (lastMdBasePath) openMarkdown(lastMdBasePath);
+    });
+
+    // Init
     document.addEventListener("DOMContentLoaded", async () => {
       await I18n.init({ defaultLang: "de" });
-      // Initial directory: repo root
-      openDir("");
+      renderFooter();
+      await openDir("");         // start at repo root
+      await checkManifest();     // set manifest badge
     });
   </script>
 </body>
