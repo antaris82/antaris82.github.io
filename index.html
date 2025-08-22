@@ -107,44 +107,23 @@
       return __pyodidePromise;
     }
 
-     async function ensurePyPackages(pkgs = []) {
-    const py = await loadPyodideOnce();
-
-    // Alles, was wir brauchen, explizit laden (stellt sicher, dass 'micropip' vorhanden ist).
-    const base = ["micropip", "numpy", "matplotlib", "pillow"];
-    const toLoad = Array.from(new Set([...base, ...pkgs]));
-    await py.loadPackage(toLoad);
-
-    // Backend erst NACH dem Laden von matplotlib setzen.
-    await py.runPythonAsync(`
+    // *** FIX: micropip explizit laden, dann Backend setzen ***
+    async function ensurePyPackages(pkgs = []) {
+      const py = await loadPyodideOnce();
+      const base = ["micropip", "numpy", "matplotlib", "pillow"];
+      const toLoad = Array.from(new Set([...base, ...pkgs]));
+      await py.loadPackage(toLoad);
+      await py.runPythonAsync(`
 import matplotlib
 matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
 `);
-
-    return py;
-  }
-    
-import sys
-import micropip
-try:
-    import matplotlib
-    matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
-except Exception as _e:
-    pass
-`);
-      // Pyodide hat eigene Paketnamen – loadPackage kann mehrere nehmen
-      if (needed.size) {
-        await py.loadPackage(Array.from(needed));
-      }
       return py;
     }
 
     function appendStdout(outEl, chunk) {
-      // Split in Zeilen und spezielle Marker erkennen
       const lines = String(chunk).split(/\r?\n/);
       for (const line of lines) {
         if (!line) continue;
-        // DATA:image/... -> Bild rendern
         if (/^DATA:image\//i.test(line)) {
           const img = document.createElement("img");
           img.src = line.trim();
@@ -155,7 +134,6 @@ except Exception as _e:
           outEl.appendChild(img);
           continue;
         }
-        // WROTE: <pfad> -> aus Pyodide-FS herunterladen
         const m = line.match(/^WROTE:\s*(.+)$/i);
         if (m && __pyInstance) {
           try {
@@ -176,7 +154,6 @@ except Exception as _e:
           }
           continue;
         }
-        // Default: plain text anhängen
         outEl.append(document.createTextNode(line + "\n"));
       }
     }
@@ -187,7 +164,6 @@ except Exception as _e:
         if (btn) { btn.disabled = true; btn.textContent = (I18n?.lang === "en" ? "Running…" : "Läuft…"); }
         outEl.textContent = "";
         const py = await ensurePyPackages(["numpy","matplotlib","pillow"]);
-        // stdout/stderr in outEl umleiten
         py.setStdout({ batched: s => appendStdout(outEl, s) });
         py.setStderr({ batched: s => appendStdout(outEl, s) });
         await py.runPythonAsync(code);
@@ -281,7 +257,7 @@ except Exception as _e:
     async function fetchText(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); }
     async function fetchArrayBuffer(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer(); }
 
-    // LaTeX-Delimiter fix (\(...\) / \[...\] → $...$ / $$...$$) außerhalb von Code
+    // LaTeX-Delimiter-Fix außerhalb von Code
     function convertLatexDelimiters(src) {
       let out="", i=0, inFence=false, inInline=false;
       const starts = s => src.startsWith(s, i);
