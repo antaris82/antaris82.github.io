@@ -160,10 +160,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-  <!-- PDF.js -->
-  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/build/pdf.min.js"></script>
+  <!-- PDF.js Legacy (setzt window.pdfjsLib) -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.min.js"></script>
   <script>
-    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/build/pdf.worker.min.js";
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.worker.min.js";
   </script>
 
   <!-- i18n runtime -->
@@ -230,7 +230,9 @@
   </footer>
 
   <script>
-    // ===== Manifest-basierter Browser =====
+    /* =========================
+       Manifest-basierter Browser
+       ========================= */
     let MANIFEST = null;
     let NODES = new Map();      // path -> node { path, name, type:'file'|'dir', size?:number }
     let CHILDREN = new Map();   // dirPath -> [node,...]
@@ -255,7 +257,7 @@
       return (Math.round(n*10)/10) + " " + units[i];
     };
 
-    // same-origin URL für Datei – mit Encoding für Leerzeichen, Umlaute, „—“, …
+    // same-origin URL mit Encoding für Leerzeichen/Umlaute/— …
     const urlFor = p => encodeURI((p || "").replace(/^\/+/, ""));
 
     async function fetchJSON(url){
@@ -289,7 +291,6 @@
         if (typeof e.size === "number") node.size = e.size;
         out.push(node);
       };
-
       if (Array.isArray(raw)) {
         raw.forEach(take);
       } else if (raw && typeof raw === "object") {
@@ -303,7 +304,6 @@
     function indexEntries(nodes) {
       NODES.clear(); CHILDREN.clear();
       for (const n of nodes) NODES.set(n.path, n);
-
       // fehlende Verzeichnisse aus Pfaden erzeugen
       for (const n of nodes) {
         const parts = n.path.split("/").slice(0, -1);
@@ -421,7 +421,9 @@
       }
     }
 
-    // ---- Viewer ----
+    /* =========================
+       Viewer (alle Dateitypen)
+       ========================= */
     function showMd(html, titleText){
       const md = document.getElementById("md");
       const gen = document.getElementById("generic");
@@ -487,6 +489,7 @@
         showGeneric(p, chosen.split("/").pop());
       }
     }
+
     async function openText(path){
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
@@ -507,6 +510,7 @@
       }
       showGeneric(pre, path.split("/").pop());
     }
+
     async function openCsv(path){
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
@@ -536,10 +540,22 @@
       }
       showGeneric(wrap, path.split("/").pop());
     }
+
     async function openPdf(path){
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
       document.getElementById("btnPdf").onclick = () => window.print();
+
+      // Wenn PDF.js nicht verfügbar → Fallback iframe
+      if (typeof window.pdfjsLib === "undefined") {
+        const frame = document.createElement("iframe");
+        frame.className = "preview";
+        frame.src = currentRawUrl;
+        frame.setAttribute("title", path.split("/").pop());
+        frame.style.height = "78vh";
+        showGeneric(frame, path.split("/").pop());
+        return;
+      }
 
       const container = document.createElement("div");
       container.className = "preview";
@@ -552,6 +568,7 @@
       try{
         const data = await fetchArrayBuffer(currentRawUrl);
         const pdf = await pdfjsLib.getDocument({ data }).promise;
+
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++){
           const page = await pdf.getPage(pageNum);
           const viewport = page.getViewport({ scale: 1.5 });
@@ -564,14 +581,18 @@
           await page.render({ canvasContext: ctx, viewport }).promise;
           container.appendChild(canvas);
         }
+        showGeneric(container, path.split("/").pop());
       } catch (e){
-        const p = document.createElement("p");
-        p.style.color = "#ff8080";
-        p.textContent = `${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`;
-        container.appendChild(p);
+        // Fallback: iframe
+        const frame = document.createElement("iframe");
+        frame.className = "preview";
+        frame.src = currentRawUrl;
+        frame.setAttribute("title", path.split("/").pop());
+        frame.style.height = "78vh";
+        showGeneric(frame, path.split("/").pop());
       }
-      showGeneric(container, path.split("/").pop());
     }
+
     function openImage(path){
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
@@ -583,6 +604,7 @@
       img.alt = path.split("/").pop();
       showGeneric(img, img.alt);
     }
+
     function openAudio(path){
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
@@ -594,6 +616,7 @@
       audio.src = currentRawUrl;
       showGeneric(audio, path.split("/").pop());
     }
+
     function openVideo(path){
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
@@ -605,6 +628,7 @@
       video.src = currentRawUrl;
       showGeneric(video, path.split("/").pop());
     }
+
     function openRawFile(path){
       currentRawUrl = urlFor(path);
       document.getElementById("btnOpenRaw").onclick = () => window.open(currentRawUrl, "_blank");
@@ -617,6 +641,7 @@
       frame.style.height = "78vh";
       showGeneric(frame, path.split("/").pop());
     }
+
     function openFile(path){
       const e = ext(path);
       if (e === "md" || e === "markdown" || e === "mdown") return openMarkdown(path);
@@ -629,10 +654,12 @@
       return openRawFile(path);
     }
 
-    // ---- Manifest laden / indexieren ----
+    /* =========================
+       Manifest laden / UI init
+       ========================= */
     async function loadManifest(){
       try {
-        const m = await fetchJSON(`manifest.json?ts=${Date.now()}`);
+        const m = await fetchJSON(`manifest.json?ts=${Date.now()}`); // Cache-Bust
         MANIFEST = m;
         const norm = normalizeEntries(m);
         if (!norm.length) throw new Error("manifest.json enthält keine Einträge.");
