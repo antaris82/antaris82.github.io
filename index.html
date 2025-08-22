@@ -107,12 +107,23 @@
       return __pyodidePromise;
     }
 
-    async function ensurePyPackages(pkgs = []) {
-      const py = await loadPyodideOnce();
-      // Lade Standardpakete für deinen Use-Case
-      const needed = new Set(pkgs);
-      // Matplotlib-Grafik-Backend für Browser
-      await py.runPythonAsync(`
+     async function ensurePyPackages(pkgs = []) {
+    const py = await loadPyodideOnce();
+
+    // Alles, was wir brauchen, explizit laden (stellt sicher, dass 'micropip' vorhanden ist).
+    const base = ["micropip", "numpy", "matplotlib", "pillow"];
+    const toLoad = Array.from(new Set([...base, ...pkgs]));
+    await py.loadPackage(toLoad);
+
+    // Backend erst NACH dem Laden von matplotlib setzen.
+    await py.runPythonAsync(`
+import matplotlib
+matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
+`);
+
+    return py;
+  }
+    
 import sys
 import micropip
 try:
