@@ -91,6 +91,13 @@
     "mode": "100644"
   },
   {
+    "path": "assets/stlib.py",
+    "sha": "e155a87d37454559776f58f32bccb83bdb05e65d",
+    "size": 17148,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "assets/viewer.js",
     "sha": "fa6447fb6445d6077be5409d6894597f96242f8b",
     "size": 1458,
@@ -120,8 +127,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "7ac661763f4dd07c7f366c152d499e089cc598b6",
-    "size": 25606,
+    "sha": "95d7d6dbbfd379c92a7348d11ad2fd4e5f149bd0",
+    "size": 25458,
     "type": "blob",
     "mode": "100644"
   },
