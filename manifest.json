@@ -105,23 +105,9 @@
     "mode": "100644"
   },
   {
-    "path": "changed.txt",
-    "sha": "84e3d5bf0a55a3d767516543309722d737008295",
-    "size": 38,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "CITATION.cff",
     "sha": "658d591b4bdffe51fc7ef5f6111fdeb870bf40c4",
     "size": 1074,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "index - Kopie.html",
-    "sha": "35498d27f92d1d7b2878348df76c4ed666300500",
-    "size": 26409,
     "type": "blob",
     "mode": "100644"
   },
@@ -134,7 +120,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "53a42473d71c13aacbcbd3a1f654e9bf5c6d36fb",
+    "sha": "a58e2845ae371948b8889aa5813e138be4d39b03",
     "size": 25912,
     "type": "blob",
     "mode": "100644"
