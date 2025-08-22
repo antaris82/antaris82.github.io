@@ -26,7 +26,7 @@
     .title { display:flex; gap:12px; align-items: baseline; }
     .title h1 { margin:0; font-size: 18px; }
     .title span { color: var(--muted); font-size: 13px; }
-    .header-right { display:flex; align-items:center; gap:16px; }
+    .header-right { display:flex; align-items:center; gap:10px; }
     .manifest-chip {
       display:flex; align-items:center; gap:6px; font-size:12px; color: var(--muted);
       border:1px solid var(--border); padding:6px 8px; border-radius:8px; background:#0c131a; white-space: nowrap;
@@ -35,6 +35,9 @@
     .dot.ok { background: var(--ok); } .dot.err { background: var(--err); }
     .lang { display:flex; align-items:center; gap:8px; } .lang label { color: var(--muted); }
     .lang select { background:#0e141b; color:var(--fg); border:1px solid #26303c; border-radius:8px; padding:6px 10px; }
+    .refresh { background:#0f1922; border:1px solid #26303c; color: var(--fg); padding:6px 10px; border-radius:8px; cursor:pointer; }
+    .refresh:hover { background:#122436; }
+
     main { background: transparent; }
     .app { display:grid; grid-template-columns: 360px 1fr; min-height: calc(100vh - 56px); gap: 24px; padding: 18px 0 28px; }
     .left, .right { border: 1px solid var(--border); background: #0c1218; border-radius: 12px; overflow:auto; }
@@ -107,7 +110,7 @@
       return __pyodidePromise;
     }
 
-    // Paketerkennung aus Code (pandas, scipy, sympy, networkx, PIL->pillow, imageio)
+    // ---- Paket-Erkennung aus Code ----
     function detectPyodidePkgsFromCode(code) {
       const pkgs = new Set();
       const has = (re) => re.test(code);
@@ -122,17 +125,22 @@
       return Array.from(pkgs);
     }
 
-    // Lädt Basis + dynamisch erkannte Pakete
+    // ---- Matplotlib-Backend je nach Code ----
+    function detectMatplotlibBackend(code) {
+      const writesFile = /\bsavefig\s*\(\s*["'`][^"'`]*\.(png|jpe?g|gif|tiff?|svg|pdf)["'`]/i.test(code);
+      const animates   = /\b(FuncAnimation|PillowWriter)\b/i.test(code);
+      return (writesFile || animates)
+        ? "module://matplotlib.backends.backend_agg"
+        : "module://matplotlib_pyodide.html5_canvas_backend";
+    }
+
+    // Basis + erkannte Pakete laden (ohne Backend setzen)
     async function ensurePyPackages(explicit = [], codeForDetect = "") {
       const py = await loadPyodideOnce();
       const detected = detectPyodidePkgsFromCode(codeForDetect);
-      const base = ["micropip", "numpy", "matplotlib", "pillow"]; // Basis
+      const base = ["micropip", "numpy", "matplotlib", "pillow"];
       const toLoad = Array.from(new Set([...base, ...explicit, ...detected]));
       if (toLoad.length) await py.loadPackage(toLoad);
-      await py.runPythonAsync(`
-import matplotlib
-matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
-`);
       return py;
     }
 
@@ -179,10 +187,19 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
       try {
         if (btn) { btn.disabled = true; btn.textContent = (I18n?.lang === "en" ? "Running…" : "Läuft…"); }
         outEl.textContent = "";
-        const py = await ensurePyPackages([], code); // dynamische Paket-Erkennung
+
+        const py = await ensurePyPackages([], code);
+        const backend = detectMatplotlibBackend(code);
+        const prelude = `
+import os
+os.environ["MPLBACKEND"] = "${backend}"
+`;
+
         py.setStdout({ batched: s => appendStdout(outEl, s) });
         py.setStderr({ batched: s => appendStdout(outEl, s) });
-        await py.runPythonAsync(code);
+
+        await py.runPythonAsync(prelude + code);
+
       } catch (err) {
         appendStdout(outEl, "\n" + err);
       } finally {
@@ -202,6 +219,7 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
         <span class="muted" data-i18n="app.subtitle">Experiment, Dokumentation und Materialien</span>
       </div>
       <div class="header-right">
+        <button id="btnRefresh" class="refresh" title="Index aktualisieren">↻</button>
         <div id="manifestChip" class="manifest-chip" title="manifest.json">
           <span class="dot" id="manifestDot"></span>
           <span id="manifestText">manifest…</span>
@@ -258,6 +276,7 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
     let MANIFEST = null;
     let NODES = new Map(), CHILDREN = new Map();
     let cwd = "", lastMdBasePath = null, currentRawUrl = null;
+    let lastManifestTs = 0;
 
     const pathDir = p => (p.split("/").slice(0, -1).join("/"));
     const baseName = p => (p.split("/").pop() || "");
@@ -273,7 +292,7 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
     async function fetchText(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); }
     async function fetchArrayBuffer(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer(); }
 
-    // LaTeX-Delimiter-Fix (außerhalb von Code): \(...\)/\[...\] -> $...$/$$...$$
+    // LaTeX-Delimiter-Fix (außerhalb von Code)
     function convertLatexDelimiters(src) {
       let out="", i=0, inFence=false, inInline=false;
       const starts = s => src.startsWith(s, i);
@@ -291,7 +310,7 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
       return out;
     }
 
-    // i18n-Helfer für Run-Button
+    // UI-Helfer
     function setRunPyVisible(show){
       const btn = document.getElementById("btnRunPy");
       btn.style.display = show ? "inline-block" : "none";
@@ -354,20 +373,54 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
     }
     async function openDir(path=""){ cwd=path; renderCrumb(); renderList(); }
 
-    function updateManifestChip(){
+    function updateManifestChip(loading=false){
       const dot=document.getElementById("manifestDot"), txt=document.getElementById("manifestText");
+      if (loading) { dot.className = "dot"; txt.textContent = I18n.lang==="en" ? "Indexing…" : "Indiziere…"; return; }
       try {
         const files=[...NODES.values()].filter(n=>n.type==="file").length;
         const dirs=[...NODES.values()].filter(n=>n.type==="dir").length;
         const t=MANIFEST?.indexedAt||MANIFEST?.generatedAt||MANIFEST?.timestamp||null;
-        const d=t?new Date(t):new Date(); const locale=(I18n&&I18n.lang==="en")?"en-GB":"de-DE";
+        const d=t?new Date(t):new Date(lastManifestTs||Date.now());
+        const locale=(I18n&&I18n.lang==="en")?"en-GB":"de-DE";
         const stamp=d.toLocaleString(locale,{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
         txt.textContent=`${files} ${I18n.t("status.files","Dateien")} • ${dirs} ${I18n.t("status.folders","Ordner")} • ${I18n.t("status.indexedAt","Stand")}: ${stamp}`;
-        dot.classList.add("ok");
-      } catch { dot.classList.remove("ok"); dot.classList.add("err"); txt.textContent=I18n.t("status.manifestInvalid","Manifest ungültig"); }
+        dot.className = "dot ok";
+      } catch {
+        document.getElementById("manifestDot").className = "dot err";
+        txt.textContent=I18n.t("status.manifestInvalid","Manifest ungültig");
+      }
     }
 
-    // Markdown rendern (inkl. KaTeX & Highlighting)
+    // ---------- Manifest laden (immer frisch) ----------
+    async function loadManifest(force=true){
+      try {
+        updateManifestChip(true);
+        const ts = Date.now();
+        const m = await fetchJSON(`manifest.json?ts=${ts}`);
+        MANIFEST = m; lastManifestTs = ts;
+        const norm = normalizeEntries(m);
+        if (!norm.length) throw new Error("manifest.json enthält keine Einträge.");
+        indexEntries(norm);
+        updateManifestChip(false);
+        return true;
+      } catch(e){
+        console.error("manifest.json laden fehlgeschlagen:", e);
+        MANIFEST = {}; NODES.clear(); CHILDREN.clear(); NODES.set("", { path:"", name:"", type:"dir" }); CHILDREN.set("", []);
+        const list=document.getElementById("list");
+        if (list) list.innerHTML = `<li class="item"><span class="meta">⚠️</span><span class="name">manifest.json konnte nicht geladen werden. Über HTTPS/Pages oder lokalen Server öffnen.</span><span class="meta"></span></li>`;
+        updateManifestChip(false);
+        return false;
+      }
+    }
+
+    function renderFooter(){
+      const y=new Date().getFullYear();
+      document.getElementById("copyright").textContent =
+        I18n.lang==="en" ? `© ${y} antaris — Code: MIT; Data/Figures/Texts (incl. PDFs): CC BY 4.0.`
+                         : `© ${y} antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.`;
+    }
+
+    // ---------- Viewer ----------
     function showMd(html, titleText){
       const md=document.getElementById("md"), gen=document.getElementById("generic");
       setRunPyVisible(false);
@@ -449,8 +502,8 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
         btnRun.onclick = () => runPython(codeEl.textContent, out, btnRun);
         const hint=document.createElement("div"); hint.className="muted"; hint.style.margin="6px 0 2px";
         hint.innerHTML = I18n?.lang==="en"
-          ? `Tip: Many packages are available (<code>numpy</code>, <code>matplotlib</code>, <code>pillow</code>). Use:<br><code>import io, base64; buf=io.BytesIO(); plt.savefig(buf, format="png"); print("DATA:image/png;base64,"+base64.b64encode(buf.getvalue()).decode())</code><br>Animations: <code>PillowWriter</code> → prints <code>WROTE: anim.gif</code>.`
-          : `Tipp: Viele Pakete sind verfügbar (<code>numpy</code>, <code>matplotlib</code>, <code>pillow</code>). Plot als Bild zeigen:<br><code>import io, base64; buf=io.BytesIO(); plt.savefig(buf, format="png"); print("DATA:image/png;base64,"+base64.b64encode(buf.getvalue()).decode())</code><br>Animationen: <code>PillowWriter</code> → Ausgabe <code>WROTE: anim.gif</code>.`;
+          ? `Tip: Many packages are available (<code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>pillow</code>). For images: <code>print("DATA:image/png;base64,"+...)</code>. For animations via <code>PillowWriter</code> print <code>WROTE: anim.gif</code>.`
+          : `Tipp: Viele Pakete sind verfügbar (<code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>pillow</code>). Bilder per <code>print("DATA:image/png;base64,"+...)</code>. Für Animationen mit <code>PillowWriter</code> <code>WROTE: anim.gif</code> ausgeben.`;
         wrap.appendChild(hint);
         wrap.appendChild(out);
       } else {
@@ -549,33 +602,10 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
       return openRawFile(path);
     }
 
-    async function loadManifest(){
-      try {
-        const m = await fetchJSON(`manifest.json?ts=${Date.now()}`);
-        MANIFEST = m; const norm = normalizeEntries(m);
-        if (!norm.length) throw new Error("manifest.json enthält keine Einträge.");
-        indexEntries(norm); return true;
-      } catch(e){
-        console.error("manifest.json laden fehlgeschlagen:", e);
-        MANIFEST = {}; NODES.clear(); CHILDREN.clear(); NODES.set("", { path:"", name:"", type:"dir" }); CHILDREN.set("", []);
-        const list=document.getElementById("list");
-        if (list) list.innerHTML = `<li class="item"><span class="meta">⚠️</span><span class="name">manifest.json konnte nicht geladen werden. Über HTTPS/Pages oder lokalen Server öffnen.</span><span class="meta"></span></li>`;
-        return false;
-      }
-    }
-    function updateManifestUI(){ updateManifestChip(); renderList(); }
-    function renderFooter(){
-      const y=new Date().getFullYear();
-      document.getElementById("copyright").textContent =
-        I18n.lang==="en" ? `© ${y} antaris — Code: MIT; Data/Figures/Texts (incl. PDFs): CC BY 4.0.`
-                         : `© ${y} antaris — Code: MIT; Daten/Abbildungen/Texte (inkl. PDFs): CC BY 4.0.`;
-    }
-
-    // Initiale Vorschau: ST.png im Root anzeigen (falls vorhanden)
+    // ---- Initiale Vorschau: ST.png anzeigen (falls vorhanden) ----
     function openInitialPreview(){
       const candidate = "ST.png";
       if (existsInManifest(candidate)) {
-        // Item im Browser markieren (optional)
         const item = Array.from(document.querySelectorAll("#list .item"))
           .find(li => li.dataset.path === candidate);
         if (item) {
@@ -586,9 +616,23 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
       }
     }
 
+    // Events
     document.getElementById("q").addEventListener("input", renderList);
     document.getElementById("langSelect").addEventListener("change", async (e)=>{
-      await I18n.set(e.target.value); renderFooter(); updateManifestUI(); if (lastMdBasePath) openMarkdown(lastMdBasePath);
+      await I18n.set(e.target.value); renderFooter(); updateManifestChip(); if (lastMdBasePath) openMarkdown(lastMdBasePath);
+    });
+    document.getElementById("btnRefresh").addEventListener("click", async ()=>{
+      await loadManifest(true);
+      await openDir(cwd || "");
+      openInitialPreview();
+    });
+
+    // Bei jedem Seiten-Load (auch bfcache) Manifest neu holen & indizieren
+    window.addEventListener("pageshow", async () => {
+      if (location.protocol !== "file:") {
+        await loadManifest(true);
+        await openDir(cwd || "");
+      }
     });
 
     document.addEventListener("DOMContentLoaded", async ()=>{
@@ -599,10 +643,9 @@ matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
       }
       await I18n.init({ defaultLang: "de" });
       renderFooter();
-      await loadManifest();
-      updateManifestUI();
-      await openDir("");          // Start im Root
-      openInitialPreview();       // ST.png anzeigen, wenn vorhanden
+      await loadManifest(true);  // ← immer frisch
+      await openDir("");         // Start im Root
+      openInitialPreview();      // ST.png, falls vorhanden
     });
   </script>
 </body>
