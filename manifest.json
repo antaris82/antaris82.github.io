@@ -71,8 +71,8 @@
   },
   {
     "path": "assets/locales/en.json",
-    "sha": "9b7896b26fee30301b3d7d13912c5c35dc49f0d7",
-    "size": 596,
+    "sha": "a1c0ce5b9de423695453c85528da01ac4cce91c7",
+    "size": 670,
     "type": "blob",
     "mode": "100644"
   },
@@ -134,7 +134,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "8f9a9af2199b38fd1bf58d95af439691070073b0",
+    "sha": "fb0947dcb19d0920cd0b909632079e9e975311da",
     "size": 25760,
     "type": "blob",
     "mode": "100644"
