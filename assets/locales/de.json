@@ -16,7 +16,10 @@
   "status": {
     "manifestOk": "Manifest gefunden",
     "manifestMissing": "Manifest fehlt",
-    "manifestInvalid": "Manifest ungültig"
+    "manifestInvalid": "Manifest ungültig",
+    "files": "Dateien",
+    "folders": "Ordner",
+    "indexedAt": "Stand"
   },
   "search": { "placeholder": "Suchen …" },
   "errors": { "loadFailed": "Datei konnte nicht geladen werden" }
