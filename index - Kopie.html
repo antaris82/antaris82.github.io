@@ -13,9 +13,8 @@
     html, body { height: 100%; }
     body {
       margin: 0; color: var(--fg);
-      background:
-        linear-gradient(rgba(11,17,23,.86), rgba(11,17,23,.86)),
-        url('background.png') center / cover fixed no-repeat;
+      background: linear-gradient(rgba(11,17,23,.86), rgba(11,17,23,.86)),
+                  url('background.png') center / cover fixed no-repeat;
       font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
     }
     a { color: var(--accent); text-decoration: none; }
@@ -92,102 +91,6 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.worker.min.js";
   </script>
 
-  <!-- Pyodide (Python im Browser) -->
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
-  <script>
-    let __pyodidePromise = null;
-    let __pyInstance = null;
-
-    async function loadPyodideOnce() {
-      if (!__pyodidePromise) {
-        __pyodidePromise = loadPyodide({
-          indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/"
-        }).then(py => { __pyInstance = py; return py; });
-      }
-      return __pyodidePromise;
-    }
-
-    async function ensurePyPackages(pkgs = []) {
-      const py = await loadPyodideOnce();
-      // Lade Standardpakete für deinen Use-Case
-      const needed = new Set(pkgs);
-      // Matplotlib-Grafik-Backend für Browser
-      await py.runPythonAsync(`
-import sys
-import micropip
-try:
-    import matplotlib
-    matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
-except Exception as _e:
-    pass
-`);
-      // Pyodide hat eigene Paketnamen – loadPackage kann mehrere nehmen
-      if (needed.size) {
-        await py.loadPackage(Array.from(needed));
-      }
-      return py;
-    }
-
-    function appendStdout(outEl, chunk) {
-      // Split in Zeilen und spezielle Marker erkennen
-      const lines = String(chunk).split(/\r?\n/);
-      for (const line of lines) {
-        if (!line) continue;
-        // DATA:image/... -> Bild rendern
-        if (/^DATA:image\//i.test(line)) {
-          const img = document.createElement("img");
-          img.src = line.trim();
-          img.style.display = "block";
-          img.style.maxWidth = "980px";
-          img.style.margin = "8px auto";
-          img.className = "preview";
-          outEl.appendChild(img);
-          continue;
-        }
-        // WROTE: <pfad> -> aus Pyodide-FS herunterladen
-        const m = line.match(/^WROTE:\s*(.+)$/i);
-        if (m && __pyInstance) {
-          try {
-            const path = m[1].trim();
-            const data = __pyInstance.FS.readFile(path);
-            const mime = path.toLowerCase().endsWith(".gif") ? "image/gif"
-                      : path.toLowerCase().endsWith(".png") ? "image/png"
-                      : "application/octet-stream";
-            const blob = new Blob([data], { type: mime });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = path.split("/").pop();
-            a.click();
-          } catch (e) {
-            const span = document.createElement("span");
-            span.textContent = `\nDownload fehlgeschlagen: ${e.message}`;
-            outEl.appendChild(span);
-          }
-          continue;
-        }
-        // Default: plain text anhängen
-        outEl.append(document.createTextNode(line + "\n"));
-      }
-    }
-
-    async function runPython(code, outEl, buttonEl=null) {
-      const btn = buttonEl;
-      try {
-        if (btn) { btn.disabled = true; btn.textContent = (I18n?.lang === "en" ? "Running…" : "Läuft…"); }
-        outEl.textContent = "";
-        const py = await ensurePyPackages(["numpy","matplotlib","pillow"]);
-        // stdout/stderr in outEl umleiten
-        py.setStdout({ batched: s => appendStdout(outEl, s) });
-        py.setStderr({ batched: s => appendStdout(outEl, s) });
-        await py.runPythonAsync(code);
-      } catch (err) {
-        appendStdout(outEl, "\n" + err);
-      } finally {
-        if (btn) { btn.disabled = false; btn.textContent = (I18n?.lang === "en" ? "Run Python" : "Python ausführen"); }
-      }
-    }
-  </script>
-
   <!-- i18n runtime -->
   <script src="assets/i18n.js"></script>
 </head>
@@ -233,7 +136,6 @@ except Exception as _e:
             <div class="btns">
               <button id="btnOpenRaw" class="btn" data-i18n="viewer.openRaw">Rohdatei öffnen</button>
               <button id="btnPdf" class="btn" data-i18n="viewer.downloadPdf">Als PDF exportieren</button>
-              <button id="btnRunPy" class="btn" style="display:none" data-i18n="viewer.runPy">Python ausführen</button>
             </div>
           </div>
           <article id="md" class="md" hidden></article>
@@ -251,11 +153,15 @@ except Exception as _e:
   </footer>
 
   <script>
-    /* ===== Manifest-basierter Browser + Viewer (inkl. LaTeX & PDF.js) ===== */
+    /* ============ Manifest-basierter Browser ============ */
     let MANIFEST = null;
-    let NODES = new Map(), CHILDREN = new Map();
-    let cwd = "", lastMdBasePath = null, currentRawUrl = null;
+    let NODES = new Map();    // path -> { path, name, type:'file'|'dir', size? }
+    let CHILDREN = new Map(); // dirPath -> [nodes]
+    let cwd = "";
+    let lastMdBasePath = null;
+    let currentRawUrl = null;
 
+    // Helpers
     const pathDir = p => (p.split("/").slice(0, -1).join("/"));
     const baseName = p => (p.split("/").pop() || "");
     const ext = name => (name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1] || "");
@@ -264,18 +170,21 @@ except Exception as _e:
     const isAudioExt = e => ["mp3","wav","ogg","m4a","aac","flac"].includes(e);
     const isVideoExt = e => ["mp4","webm","ogv","mov"].includes(e);
     const isPdfExt = e => e === "pdf";
-    const fmtSize = b => { if (b==null||isNaN(b)) return ""; const u=["B","KB","MB","GB","TB"]; let i=0,n=+b; while(n>=1024&&i<u.length-1){n/=1024;i++;} return (Math.round(n*10)/10)+" "+u[i]; };
-    const urlFor = p => encodeURI((p || "").replace(/^\/+/, ""));
-    async function fetchJSON(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.json(); }
-    async function fetchText(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); }
-    async function fetchArrayBuffer(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer(); }
+    const fmtSize = bytes => { if (bytes == null || isNaN(bytes)) return ""; const u=["B","KB","MB","GB","TB"]; let i=0,n=+bytes; while(n>=1024&&i<u.length-1){n/=1024;i++;} return (Math.round(n*10)/10)+" "+u[i]; };
+    const urlFor = p => encodeURI((p || "").replace(/^\/+/, "")); // same-origin + Encoding
 
-    // LaTeX-Delimiter fix (\(...\) / \[...\] → $...$ / $$...$$) außerhalb von Code
+    async function fetchJSON(url){ const r = await fetch(url, { cache: "no-store" }); if (!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.json(); }
+    async function fetchText(url){ const r = await fetch(url, { cache: "no-store" }); if (!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); }
+    async function fetchArrayBuffer(url){ const r = await fetch(url, { cache: "no-store" }); if (!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer(); }
+
+    // Markdown: \(...\), \[...\] → $...$, $$...$$ (außerhalb von Code)
     function convertLatexDelimiters(src) {
       let out="", i=0, inFence=false, inInline=false;
-      const starts = s => src.startsWith(s, i);
+      function starts(s){ return src.startsWith(s, i); }
       while (i < src.length) {
+        // Fenced code ```
         if (!inInline && starts("```")) { inFence = !inFence; out += "```"; i += 3; continue; }
+        // Inline code `
         if (!inFence && src[i] === "`") { inInline = !inInline; out += src[i++]; continue; }
         if (!inFence && !inInline) {
           if (starts("\\(")) { out += "$"; i += 2; continue; }
@@ -288,6 +197,7 @@ except Exception as _e:
       return out;
     }
 
+    // Manifest normalisieren
     function normalizeEntries(raw) {
       const out = [];
       const take = (e) => {
@@ -305,9 +215,11 @@ except Exception as _e:
       }
       return out;
     }
+
     function indexEntries(nodes) {
       NODES.clear(); CHILDREN.clear();
       for (const n of nodes) NODES.set(n.path, n);
+      // fehlende Ordner erzeugen
       for (const n of nodes) {
         const parts = n.path.split("/").slice(0, -1); let acc = "";
         for (const seg of parts) { acc = acc ? acc + "/" + seg : seg; if (!NODES.has(acc)) NODES.set(acc, { path: acc, name: seg, type: "dir" }); }
@@ -322,6 +234,7 @@ except Exception as _e:
       }
     }
 
+    // UI
     function crumbHtml(path){ const parts = path ? path.split("/").filter(Boolean) : []; const items = ['<a href="#" data-path="">/</a>']; let acc=""; for (const p of parts){ acc = acc ? acc + "/" + p : p; items.push(`<a href="#" data-path="${acc}">${p}</a>`);} return items.join(" / "); }
     function renderCrumb(){ const el=document.getElementById("crumb"); el.innerHTML = crumbHtml(cwd);
       el.querySelectorAll("a").forEach(a=> a.addEventListener("click",(e)=>{e.preventDefault(); openDir(a.dataset.path||"");})); }
@@ -344,6 +257,7 @@ except Exception as _e:
     }
     async function openDir(path=""){ cwd=path; renderCrumb(); renderList(); }
 
+    // Manifest-Badge
     function updateManifestChip(){
       const dot=document.getElementById("manifestDot"), txt=document.getElementById("manifestText");
       try {
@@ -357,6 +271,7 @@ except Exception as _e:
       } catch { dot.classList.remove("ok"); dot.classList.add("err"); txt.textContent=I18n.t("status.manifestInvalid","Manifest ungültig"); }
     }
 
+    // Viewer
     function showMd(html, titleText){
       const md=document.getElementById("md"), gen=document.getElementById("generic");
       gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
@@ -397,7 +312,7 @@ except Exception as _e:
 
       try{
         let text = await fetchText(currentRawUrl);
-        text = convertLatexDelimiters(text);
+        text = convertLatexDelimiters(text);                     // << Fix für \(...\), \[...\]
         marked.setOptions({ breaks:false });
         const html = DOMPurify.sanitize(marked.parse(text));
         showMd(html, chosen.split("/").pop());
@@ -411,42 +326,16 @@ except Exception as _e:
 
     async function openText(path){
       currentRawUrl = urlFor(path);
-      const btnRun = document.getElementById("btnRunPy");
       document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
       document.getElementById("btnPdf").onclick=()=>window.print();
-
       const pre=document.createElement("pre"); pre.className="codebox";
-      const codeEl=document.createElement("code"); pre.appendChild(codeEl);
-
-      const out=document.createElement("pre"); out.className="codebox"; out.style.marginTop="12px"; out.title="stdout / stderr";
-
       try{
         const text = await fetchText(currentRawUrl);
-        codeEl.textContent = text;
-        const language = ext(path); if (language) codeEl.className=`language-${language}`;
-        hljs.highlightElement(codeEl);
-      } catch(e){
-        codeEl.textContent=`${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`;
-      }
-
-      const wrap=document.createElement("div");
-      wrap.appendChild(pre);
-
-      if (ext(path) === "py") {
-        btnRun.style.display = "inline-block";
-        btnRun.onclick = () => runPython(codeEl.textContent, out, btnRun);
-        const hint=document.createElement("div"); hint.className="muted"; hint.style.margin="6px 0 2px";
-        hint.innerHTML = I18n?.lang==="en"
-          ? `Tip: Many packages are available (<code>numpy</code>, <code>matplotlib</code>, <code>pillow</code>). To show plots as images:<br><code>import io, base64; buf=io.BytesIO(); plt.savefig(buf, format="png"); print("DATA:image/png;base64,"+base64.b64encode(buf.getvalue()).decode())</code><br>For animations: <code>PillowWriter</code> → prints <code>WROTE: anim.gif</code>.`
-          : `Tipp: Viele Pakete sind verfügbar (<code>numpy</code>, <code>matplotlib</code>, <code>pillow</code>). Plot als Bild zeigen:<br><code>import io, base64; buf=io.BytesIO(); plt.savefig(buf, format="png"); print("DATA:image/png;base64,"+base64.b64encode(buf.getvalue()).decode())</code><br>Animationen: <code>PillowWriter</code> → Ausgabe <code>WROTE: anim.gif</code>.`;
-        wrap.appendChild(hint);
-        wrap.appendChild(out);
-      } else {
-        btnRun.style.display = "none";
-        btnRun.onclick = null;
-      }
-
-      showGeneric(wrap, path.split("/").pop());
+        const code = document.createElement("code"); code.textContent=text;
+        const language = ext(path); if (language) code.className=`language-${language}`;
+        pre.appendChild(code); hljs.highlightElement(code);
+      }catch(e){ pre.textContent=`${I18n.t("errors.loadFailed","Datei konnte nicht geladen werden")}: ${e.message}`; }
+      showGeneric(pre, path.split("/").pop());
     }
 
     async function openCsv(path){
@@ -532,6 +421,7 @@ except Exception as _e:
       return openRawFile(path);
     }
 
+    // Manifest laden / UI init
     async function loadManifest(){
       try {
         const m = await fetchJSON(`manifest.json?ts=${Date.now()}`);
