@@ -203,7 +203,7 @@ function convertLatexDelimiters(src){
 function setRunPyVisible(show){const btn=document.getElementById("btnRunPy"); btn.style.display=show?"inline-block":"none"; if(!show) btn.onclick=null;}
 
 function normalizeEntries(raw){
-  const out=[]; const take=e=>{let p=e.path||e.file||null; if(!p) return; p=p.replace(/^\/+/,""); let t=e.type; if(t==="blob") t="file"; if(t==="tree") t="dir"; if(!t) t="file"; const n={path:p,name:baseName(p),type:(t==="dir"?"dir":"file")}; if(typeof e.size==="number") n.size=e.size; out.push(n);};
+  const out=[]; const take=e=>{let p=e.path||e.file||null; if(!p) return; p=p.replace(/^\/+/,""); let t=e.type; if(t==="blob") t="file"; if(t==="tree") t="dir"; if(!t) t="file"; const n={path:p,name:baseName(p),type:(t==="dir"?"dir":"file")}; if(typeof e.size==="number")n.size=e.size; out.push(n);};
   if(Array.isArray(raw)) raw.forEach(take);
   else if(raw&&typeof raw==="object"){
     if(Array.isArray(raw.entries)) raw.entries.forEach(take);
@@ -472,7 +472,7 @@ function extractImportNames(code){
   return Array.from(names);
 }
 
-/* ---- Helper: Direktes Nachladen aus typischen Pfaden (falls Manifest fehlt) ---- */
+/* ---- Helper: Direktes Nachladen in /repo ---- */
 async function tryFetchToRepo(py, relPath, destRel) {
   try {
     const txt = await fetchText(urlFor(relPath));   // cache: no-store
@@ -486,61 +486,89 @@ async function tryFetchToRepo(py, relPath, destRel) {
   }
 }
 
-/* ---- Rebase kompletter Modulbaum nach /repo (Manifest + Fallback-Pfade) ---- */
-async function rebaseModuleToRepo(py, modName){
-  const modLower = (modName||"").toLowerCase();
-  const written = [];
+/* ---- NEU: Paket-Rebase priorisiert Skriptordner & Parent ---- */
+async function rebaseModuleToRepo(py, modName, contextPath){
+  const modLower   = (modName||"").toLowerCase();
+  const pkgRoot    = `/repo/${modLower}`;
+  const written    = [];
+  let   hasInit    = false;
 
-  // 1) Manifest-Treffer
-  for(const n of NODES.values()){
-    if(n.type!=="file") continue;
-    const pLower = n.path.toLowerCase();
+  const norm = p => (p||"").replace(/^\/+/,"");
+  const scriptRel  = norm(pathDir(contextPath||""));
+  const parentRel  = norm(pathDir(scriptRel));
 
-    if(pLower.endsWith(`/${modLower}.py`)){
-      try{
-        const txt = await fetchText(urlFor(n.path));
-        const dest = `/repo/${modLower}.py`;
-        const dir  = dest.split("/").slice(0,-1).join("/");
-        try{ py.FS.mkdirTree(dir);}catch{}
-        py.FS.writeFile(dest, new TextEncoder().encode(txt));
-        written.push(dest);
-      }catch{}
-      continue;
-    }
-
-    const parts = pLower.split("/");
-    const idx = parts.indexOf(modLower);
-    if(idx >= 0){
-      const tail = n.path.split("/").slice(idx+1).join("/");
-      const dest = `/repo/${modLower}/${tail}`;
-      try{
-        const txt = await fetchText(urlFor(n.path));
-        const dir = dest.split("/").slice(0,-1).join("/");
-        try{ py.FS.mkdirTree(dir);}catch{}
-        py.FS.writeFile(dest, new TextEncoder().encode(txt));
-        written.push(dest);
-      }catch{}
-    }
+  // 1) Paket-Root relativ zum Skript suchen: <script>/<mod>/__init__.py, dann ../<mod>/__init__.py
+  const relPkgCandidates = [
+    (scriptRel ? `${scriptRel}/${modLower}/__init__.py` : `${modLower}/__init__.py`),
+    (parentRel ? `${parentRel}/${modLower}/__init__.py` : `../${modLower}/__init__.py`)
+  ];
+  for (const rel of relPkgCandidates){
+    const ok = await tryFetchToRepo(py, rel, `${modLower}/__init__.py`);
+    if (ok){ written.push(ok); hasInit = true; break; }
   }
 
-  // 2) Fallback: häufige Pfade direkt versuchen
-  if(written.length===0){
-    const fileCandidates = [
-      `${modLower}.py`,
-      `assets/${modLower}.py`,
-      `assets/python/${modLower}.py`,
-      `python/${modLower}.py`,
-      `py/${modLower}.py`,
-      `lib/${modLower}.py`,
-      `scripts/${modLower}.py`,
-      `src/${modLower}.py`
+  // 2) Wenn Paket-Root gefunden → restlichen Baum über Manifest kopieren (unterhalb scriptRel + parentRel)
+  async function copyTreeFromManifest(rootBaseRel){
+    const root = norm(rootBaseRel);
+    const prefix = (root ? `${root}/${modLower}/` : `${modLower}/`).toLowerCase();
+    for (const n of NODES.values()){
+      if (n.type !== "file") continue;
+      const pLower = norm(n.path).toLowerCase();
+      if (pLower.startsWith(prefix)){
+        const tail = n.path.slice((root ? (root + "/") : "").length + (modLower.length + 1)); // hinter "<root>/<mod>/"
+        const dest = `${pkgRoot}/${tail}`;
+        try{
+          const txt = await fetchText(urlFor(n.path));
+          const dir = dest.split("/").slice(0,-1).join("/");
+          try{ py.FS.mkdirTree(dir); }catch{}
+          py.FS.writeFile(dest, new TextEncoder().encode(txt));
+          written.push(dest);
+          if (tail === "__init__.py") hasInit = true;
+        }catch{}
+      }
+    }
+  }
+  if (written.length){
+    if (scriptRel) await copyTreeFromManifest(scriptRel);
+    if (parentRel) await copyTreeFromManifest(parentRel);
+  }
+
+  // 3) Falls noch nichts: relative Einzelmodul-Datei prüfen (<script>/<mod>.py, ../<mod>.py)
+  if (written.length === 0){
+    const relFileCandidates = [
+      (scriptRel ? `${scriptRel}/${modLower}.py` : `${modLower}.py`),
+      (parentRel ? `${parentRel}/${modLower}.py` : `../${modLower}.py`)
     ];
-    for(const rel of fileCandidates){
-      const dest = await tryFetchToRepo(py, rel, `${modLower}.py`);
-      if(dest){ written.push(dest); break; }
+    for (const rel of relFileCandidates){
+      const ok = await tryFetchToRepo(py, rel, `${modLower}.py`);
+      if (ok){ written.push(ok); break; }
     }
   }
-  if(written.length===0){
+
+  // 4) Wenn immer noch nichts: global über Manifest (ganzer Baum irgendwo)
+  if (written.length === 0){
+    for (const n of NODES.values()){
+      if (n.type !== "file") continue;
+      const pLower = n.path.toLowerCase();
+      const parts  = pLower.split("/");
+      const idx    = parts.indexOf(modLower);
+      if (idx >= 0){
+        const tail = n.path.split("/").slice(idx+1).join("/");
+        const dest = `${pkgRoot}/${tail}`;
+        try{
+          const txt = await fetchText(urlFor(n.path));
+          const dir = dest.split("/").slice(0,-1).join("/");
+          try{ py.FS.mkdirTree(dir);}catch{}
+          py.FS.writeFile(dest, new TextEncoder().encode(txt));
+          written.push(dest);
+          if (tail === "__init__.py") hasInit = true;
+        }catch{}
+      }
+    }
+  }
+
+  // 5) Letzter Fallback: harte Pfade
+  if (written.length === 0){
     const pkgCandidates = [
       `assets/${modLower}/__init__.py`,
       `assets/python/${modLower}/__init__.py`,
@@ -551,11 +579,23 @@ async function rebaseModuleToRepo(py, modName){
       `src/${modLower}/__init__.py`,
       `${modLower}/__init__.py`
     ];
-    for(const rel of pkgCandidates){
-      const dest = await tryFetchToRepo(py, rel, `${modLower}/__init__.py`);
-      if(dest){ written.push(dest); break; }
+    for (const rel of pkgCandidates){
+      const ok = await tryFetchToRepo(py, rel, `${modLower}/__init__.py`);
+      if (ok){ written.push(ok); hasInit = true; break; }
     }
   }
+
+  // 6) Namespace-Package ohne __init__ absichern
+  if (written.length > 0 && !hasInit) {
+    const dest = `${pkgRoot}/__init__.py`;
+    try {
+      try { py.FS.mkdirTree(pkgRoot); } catch {}
+      py.FS.writeFile(dest, new TextEncoder().encode(""));
+      written.push(dest);
+      hasInit = true;
+    } catch {}
+  }
+
   return written;
 }
 
@@ -615,7 +655,7 @@ function appendStdout(outEl, chunk){
   }
 }
 
-/* ---- Run Python (mit Modul-Preload & Backendwahl) ---- */
+/* ---- Run Python (mit Modul-Preload & Skriptordner-Priorität) ---- */
 async function runPythonWithProject(code, outEl, buttonEl, contextPath){
   const btn=buttonEl;
   try{
@@ -624,33 +664,42 @@ async function runPythonWithProject(code, outEl, buttonEl, contextPath){
 
     const py=await ensurePyPackages([], code);
 
-    // Lokale Module aus Imports bestimmen & nach /repo spiegeln
+    // Lokale Module bestimmen & rebasen (mit Kontextpfad)
     const importNames = extractImportNames(code);
     const rebased = [];
     for(const name of importNames){
-      const got = await rebaseModuleToRepo(py, name);
+      const got = await rebaseModuleToRepo(py, name, contextPath);
       if(got.length) rebased.push(`${name}(${got.length})`);
     }
 
-    // Backend setzen
+    // sys.path Priorität: /repo/<skriptordner>, /repo/<skript_parent>, /repo, /home/pyodide
+    const scriptRel = pathDir(contextPath||"");
+    const parentRel = pathDir(scriptRel);
+
     const backend = detectMatplotlibBackend(code);
     const prelude = `
-import os, sys, matplotlib
-for p in ["/repo", "${("/repo/"+pathDir(contextPath||"")).replace(/\/$/,"")}", "/home/pyodide"]:
+import os, sys, matplotlib, importlib
+for p in [
+    "${("/repo/"+scriptRel).replace(/\/$/,"")}",
+    "${("/repo/"+parentRel).replace(/\/$/,"")}",
+    "/repo",
+    "/home/pyodide"
+]:
     if p and p not in sys.path:
         sys.path.insert(0, p)
+importlib.invalidate_caches()
 os.environ["MPLBACKEND"] = "${backend}"
 try:
     matplotlib.use("${backend}", force=True)
 except Exception:
-    import importlib
+    import importlib as _il
     if "matplotlib.pyplot" in sys.modules:
         try:
             import matplotlib.pyplot as _plt
             _plt.close("all")
         except Exception: pass
         del sys.modules["matplotlib.pyplot"]
-    importlib.reload(matplotlib)
+    _il.reload(matplotlib)
     matplotlib.use("${backend}", force=True)
 `;
 
@@ -674,7 +723,7 @@ except Exception:
   }
 }
 
-/* ---- Code/Text öffnen (mit Python-Button bei .py) ---- */
+/* ---- Code/Text öffnen (mit Python bei .py) ---- */
 async function openText(path){
   currentRawUrl = urlFor(path);
   const btnRun=document.getElementById("btnRunPy");
@@ -699,8 +748,8 @@ async function openText(path){
     btnRun.onclick = ()=> runPythonWithProject(codeEl.textContent, out, btnRun, path);
     const hint=document.createElement("div"); hint.className="muted"; hint.style.margin="6px 0 2px";
     hint.innerHTML = I18n?.lang==="en"
-      ? `Local imports are mirrored into <code>/repo</code> (tries manifest and common paths like <code>assets/stlib.py</code>). Default Matplotlib backend: <code>Agg</code>. Switch to HTML5 canvas with <code># backend: html5</code> as first line. Files created during the run will be auto-downloaded.`
-      : `Lokale Imports werden nach <code>/repo</code> gespiegelt (nutzt Manifest und gängige Pfade wie <code>assets/stlib.py</code>). Standard-Matplotlib-Backend: <code>Agg</code>. Zu HTML5-Canvas mit <code># backend: html5</code> in der ersten Zeile wechseln. Erzeugte Dateien werden automatisch heruntergeladen.`;
+      ? `Local imports are mirrored from the script's folder (and its parent) into <code>/repo</code>. Default Matplotlib backend: <code>Agg</code>. Switch to HTML5 with <code># backend: html5</code> in the first line. Files created during the run will be auto-downloaded.`
+      : `Lokale Imports werden zuerst relativ zum Skriptordner (und dessen Elternordner) nach <code>/repo</code> gespiegelt. Standard-Matplotlib-Backend: <code>Agg</code>. Zu HTML5 mit <code># backend: html5</code> in der ersten Zeile wechseln. Erzeugte Dateien werden automatisch heruntergeladen.`;
     wrap.appendChild(hint);
     wrap.appendChild(out);
   } else {
