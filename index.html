@@ -95,11 +95,12 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.worker.min.js";
   </script>
 
-  <!-- Pyodide (Python im Browser) -->
+  <!-- Pyodide -->
   <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
   <script>
     let __pyodidePromise = null;
     let __pyInstance = null;
+    let __downloadedThisRun = new Set();
 
     async function loadPyodideOnce() {
       if (!__pyodidePromise) {
@@ -127,9 +128,7 @@
 
     // ---- Matplotlib-Backend: Standard Agg; html5 via Kommentar "# backend: html5" ----
     function detectMatplotlibBackend(code) {
-      // explizite Nutzer-Vorgabe per Kommentar
       if (/\bbackend\s*:\s*html5\b/i.test(code)) return "module://matplotlib_pyodide.html5_canvas_backend";
-      // Default robust für savefig/Exports:
       return "module://matplotlib.backends.backend_agg";
     }
 
@@ -141,6 +140,68 @@
       const toLoad = Array.from(new Set([...base, ...explicit, ...detected]));
       if (toLoad.length) await py.loadPackage(toLoad);
       return py;
+    }
+
+    // ---------- Download-Helpers ----------
+    function resolveFsPath(p) {
+      return p && p.startsWith("/") ? p : `/home/pyodide/${p||""}`;
+    }
+    function guessMimeByExt(path) {
+      const e = (path.split(".").pop()||"").toLowerCase();
+      if (["png"].includes(e)) return "image/png";
+      if (["jpg","jpeg"].includes(e)) return "image/jpeg";
+      if (["gif"].includes(e)) return "image/gif";
+      if (["webp"].includes(e)) return "image/webp";
+      if (["svg"].includes(e)) return "image/svg+xml";
+      if (["pdf"].includes(e)) return "application/pdf";
+      if (["txt","log","md","csv","tsv","json","xml","yml","yaml"].includes(e)) return "text/plain";
+      return "application/octet-stream";
+    }
+    function downloadPath(py, path) {
+      const abs = resolveFsPath(path);
+      try {
+        const data = py.FS.readFile(abs);
+        const blob = new Blob([data], { type: guessMimeByExt(abs) });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = abs.split("/").pop();
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+    function walkFs(py, dir = "/home/pyodide", acc = []) {
+      let list;
+      try { list = py.FS.readdir(dir); } catch { return acc; }
+      for (const name of list) {
+        if (name === "." || name === "..") continue;
+        const p = dir.endsWith("/") ? dir + name : dir + "/" + name;
+        let st; try { st = py.FS.stat(p); } catch { continue; }
+        const isDir = py.FS.isDir ? py.FS.isDir(st.mode) : (st.mode & 0x4000) === 0x4000;
+        if (isDir) walkFs(py, p, acc);
+        else acc.push({ path: p, size: st.size ?? 0, mtime: +new Date(st.mtime || 0) });
+      }
+      return acc;
+    }
+    function snapshotFs(py) {
+      const map = new Map();
+      for (const f of walkFs(py, "/home/pyodide")) {
+        map.set(f.path, { size: f.size, mtime: f.mtime });
+      }
+      return map;
+    }
+    function diffFs(prev, curr) {
+      const changed = [];
+      for (const [p, meta] of curr.entries()) {
+        const old = prev.get(p);
+        if (!old || old.size !== meta.size || old.mtime !== meta.mtime) {
+          changed.push(p);
+        }
+      }
+      return changed;
     }
 
     function appendStdout(outEl, chunk) {
@@ -159,21 +220,11 @@
         }
         const m = line.match(/^WROTE:\s*(.+)$/i);
         if (m && __pyInstance) {
-          try {
-            const path = m[1].trim();
-            const data = __pyInstance.FS.readFile(path);
-            const mime = path.toLowerCase().endsWith(".gif") ? "image/gif"
-                      : path.toLowerCase().endsWith(".png") ? "image/png"
-                      : "application/octet-stream";
-            const blob = new Blob([data], { type: mime });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = path.split("/").pop();
-            a.click();
-          } catch (e) {
-            const span = document.createElement("span");
-            span.textContent = `\nDownload fehlgeschlagen: ${e.message}`;
-            outEl.appendChild(span);
+          const p = m[1].trim();
+          if (!__downloadedThisRun.has(p)) {
+            if (downloadPath(__pyInstance, p)) {
+              __downloadedThisRun.add(p);
+            }
           }
           continue;
         }
@@ -186,11 +237,11 @@
       try {
         if (btn) { btn.disabled = true; btn.textContent = (I18n?.lang === "en" ? "Running…" : "Läuft…"); }
         outEl.textContent = "";
+        __downloadedThisRun = new Set();
 
         const py = await ensurePyPackages([], code);
         const backend = detectMatplotlibBackend(code);
 
-        // Wichtig: Backend VOR dem ersten pyplot-Import setzen; force=True für Wechsel auch nach vorherigem Import
         const prelude = `
 import os, sys
 import matplotlib
@@ -198,7 +249,6 @@ os.environ["MPLBACKEND"] = "${backend}"
 try:
     matplotlib.use("${backend}", force=True)
 except Exception:
-    # Fallback: Versuch, pyplot zu schließen & neu zu laden
     import importlib
     if "matplotlib.pyplot" in sys.modules:
         try:
@@ -210,10 +260,24 @@ except Exception:
     matplotlib.use("${backend}", force=True)
 `;
 
+        // Snapshot VOR dem Lauf
+        const before = snapshotFs(py);
+
         py.setStdout({ batched: s => appendStdout(outEl, s) });
         py.setStderr({ batched: s => appendStdout(outEl, s) });
 
         await py.runPythonAsync(prelude + "\n" + code);
+
+        // Snapshot NACH dem Lauf → neue/geänderte Dateien automatisch downloaden
+        const after = snapshotFs(py);
+        const changed = diffFs(before, after);
+        const remaining = changed.filter(p => !__downloadedThisRun.has(p));
+        if (remaining.length) {
+          outEl.append(document.createTextNode((I18n?.lang==="en"?"Auto-download: ":"Automatischer Download: ")+remaining.length+" file(s)\n"));
+        }
+        for (const p of remaining) {
+          downloadPath(py, p);
+        }
 
       } catch (err) {
         appendStdout(outEl, "\n" + err);
@@ -223,7 +287,7 @@ except Exception:
     }
   </script>
 
-  <!-- i18n runtime -->
+  <!-- i18n -->
   <script src="assets/i18n.js"></script>
 </head>
 <body>
@@ -287,7 +351,7 @@ except Exception:
   </footer>
 
   <script>
-    /* ===== Manifest-basierter Browser + Viewer ===== */
+    // ===== Browser & Viewer & Manifest (unverändert zum letzten Stand, nur gekürzt an irrelevanten Stellen) =====
     let MANIFEST = null;
     let NODES = new Map(), CHILDREN = new Map();
     let cwd = "", lastMdBasePath = null, currentRawUrl = null;
@@ -307,7 +371,6 @@ except Exception:
     async function fetchText(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); }
     async function fetchArrayBuffer(u){ const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer(); }
 
-    // LaTeX-Delimiter-Fix (außerhalb von Code): \(...\)/\[...\] -> $...$/$$...$$
     function convertLatexDelimiters(src) {
       let out="", i=0, inFence=false, inInline=false;
       const starts = s => src.startsWith(s, i);
@@ -325,7 +388,6 @@ except Exception:
       return out;
     }
 
-    // UI-Helfer
     function setRunPyVisible(show){
       const btn = document.getElementById("btnRunPy");
       btn.style.display = show ? "inline-block" : "none";
@@ -406,7 +468,6 @@ except Exception:
       }
     }
 
-    // ---------- Manifest laden (immer frisch) ----------
     async function loadManifest(force=true){
       try {
         updateManifestChip(true);
@@ -517,8 +578,8 @@ except Exception:
         btnRun.onclick = () => runPython(codeEl.textContent, out, btnRun);
         const hint=document.createElement("div"); hint.className="muted"; hint.style.margin="6px 0 2px";
         hint.innerHTML = I18n?.lang==="en"
-          ? `Default backend: <code>Agg</code> (file-safe). Switch to HTML5 canvas by adding <code># backend: html5</code> as the first line.<br>Bilder anzeigen: <code>plt.savefig(buf,...); print("DATA:image/png;base64,"+...)</code>. Für Animationen: <code>PillowWriter</code> + <code>print("WROTE: anim.gif")</code>.`
-          : `Standard-Backend: <code>Agg</code> (export-sicher). Auf HTML5-Canvas umschalten mit <code># backend: html5</code> als erste Zeile.<br>Bilder zeigen: <code>plt.savefig(buf,...); print("DATA:image/png;base64,"+...)</code>. Animationen: <code>PillowWriter</code> + <code>print("WROTE: anim.gif")</code>.`;
+          ? `Default backend: <code>Agg</code> (file-safe). Switch to HTML5 canvas with <code># backend: html5</code> on the first line.<br>Auto-download of files created during the run is enabled.`
+          : `Standard-Backend: <code>Agg</code> (export-sicher). Auf HTML5-Canvas mit <code># backend: html5</code> in der ersten Zeile umschalten.<br>Automatischer Download aller während des Laufs erzeugten Dateien ist aktiviert.`;
         wrap.appendChild(hint);
         wrap.appendChild(out);
       } else {
@@ -617,21 +678,17 @@ except Exception:
       return openRawFile(path);
     }
 
-    // ---- Initiale Vorschau: ST.png anzeigen (falls vorhanden) ----
+    // ---- Manifest / Initial preview ----
+    function existsInManifest(path){ return NODES.has((path||"").replace(/^\/+/,"")); }
     function openInitialPreview(){
       const candidate = "ST.png";
       if (existsInManifest(candidate)) {
-        const item = Array.from(document.querySelectorAll("#list .item"))
-          .find(li => li.dataset.path === candidate);
-        if (item) {
-          document.querySelectorAll("#list .item.active").forEach(n=>n.classList.remove("active"));
-          item.classList.add("active");
-        }
+        const item = Array.from(document.querySelectorAll("#list .item")).find(li => li.dataset.path === candidate);
+        if (item) { document.querySelectorAll("#list .item.active").forEach(n=>n.classList.remove("active")); item.classList.add("active"); }
         openImage(candidate);
       }
     }
 
-    // Events
     document.getElementById("q").addEventListener("input", renderList);
     document.getElementById("langSelect").addEventListener("change", async (e)=>{
       await I18n.set(e.target.value); renderFooter(); updateManifestChip(); if (lastMdBasePath) openMarkdown(lastMdBasePath);
@@ -641,8 +698,6 @@ except Exception:
       await openDir(cwd || "");
       openInitialPreview();
     });
-
-    // Bei jedem Seiten-Load (auch bfcache) Manifest neu holen & indizieren
     window.addEventListener("pageshow", async () => {
       if (location.protocol !== "file:") {
         await loadManifest(true);
@@ -658,9 +713,9 @@ except Exception:
       }
       await I18n.init({ defaultLang: "de" });
       renderFooter();
-      await loadManifest(true);  // ← immer frisch
-      await openDir("");         // Start im Root
-      openInitialPreview();      // ST.png, falls vorhanden
+      await loadManifest(true);
+      await openDir("");
+      openInitialPreview();
     });
   </script>
 </body>
