@@ -15,17 +15,16 @@
     },
     async load(lang) {
       const fallback = "de";
-      try {
-        const res = await fetch(`assets/locales/${lang}.json`, { cache: "no-store" });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        this.dict = await res.json();
-        this.lang = lang;
-      } catch (e) {
+      const res = await fetch(`assets/locales/${lang}.json`, { cache: "no-store" });
+      if (!res.ok) {
         if (lang !== fallback) return this.load(fallback);
+        throw new Error(`Failed to load locale ${lang}`);
       }
+      this.dict = await res.json();
+      this.lang = lang;
     },
     t(key, fallback="") {
-      return key.split(".").reduce((acc,k)=>acc && acc[k], this.dict) || fallback || key;
+      return key.split(".").reduce((acc,k)=>acc && acc[k], this.dict) ?? fallback ?? key;
     },
     apply() {
       document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -61,7 +60,7 @@
       const lang = this.resolveLang() || defaultLang;
       await this.set(lang);
       const sel = document.getElementById("langSelect");
-      if (sel) sel.addEventListener("change", e => this.set(e.target.value));
+      if (sel && sel.value !== this.lang) sel.value = this.lang;
     }
   };
   window.I18n = I18n;
