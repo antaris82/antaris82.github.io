@@ -127,7 +127,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "10ee88793ec42c40892020095847665e678341eb",
+    "sha": "214f999fed90e3eb17747e545bc2317ec8c25305",
     "size": 25613,
     "type": "blob",
     "mode": "100644"
@@ -346,6 +346,13 @@
     "path": "Sierpinski Tetraeder_PoC/C1/files/C1_ST_Simulations_PoC_v1.zip",
     "sha": "80f8e0a299625d3340e97304ce5392e4bef82218",
     "size": 10398,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/C1/files/files.zip",
+    "sha": "418954b1051140d6d0b65faa08c0a34690185472",
+    "size": 23822,
     "type": "blob",
     "mode": "100644"
   },
