@@ -64,15 +64,15 @@
   },
   {
     "path": "assets/locales/de.json",
-    "sha": "fd74ba492b0c0f6d08cb093a99cb5fce612c08fe",
-    "size": 699,
+    "sha": "129071adde4f97e4811caca5037f4daeb604b840",
+    "size": 791,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "assets/locales/en.json",
-    "sha": "a1c0ce5b9de423695453c85528da01ac4cce91c7",
-    "size": 670,
+    "sha": "8f3100af4a2b4d6282e2d106ee48c04b4030d861",
+    "size": 750,
     "type": "blob",
     "mode": "100644"
   },
@@ -120,15 +120,15 @@
   },
   {
     "path": "index.html",
-    "sha": "ee1fc1aa8aca7c39d6ae06ce64ac7bf0b4173843",
-    "size": 38979,
+    "sha": "9c738afce75a7a88028395802268491aa9b06dc3",
+    "size": 41127,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.json",
-    "sha": "214f999fed90e3eb17747e545bc2317ec8c25305",
-    "size": 25613,
+    "sha": "c41203656ec254ce14f92f288db0edfb4fd0fd25",
+    "size": 25796,
     "type": "blob",
     "mode": "100644"
   },
@@ -934,6 +934,13 @@
     "path": "Sierpinski Tetraeder_PoC/README.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski-Tetraeder.png",
+    "sha": "1cf9c904ce3d0b373e2d72bb3488077f9e968baf",
+    "size": 1429005,
     "type": "blob",
     "mode": "100644"
   },
