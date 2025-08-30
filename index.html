@@ -147,6 +147,7 @@
           <div class="muted" id="currentName">—</div>
           <div class="btns">
             <button id="btnOpenRaw" class="btn" data-i18n="viewer.openRaw">Rohdatei öffnen</button>
+            <button id="btnCopyLink" class="btn" data-i18n="viewer.copyLink">Link kopieren</button>
             <button id="btnPdf" class="btn" data-i18n="viewer.downloadPdf">Als PDF exportieren</button>
             <button id="btnRunPy" class="btn" style="display:none" data-i18n="viewer.runPy">Python ausführen</button>
           </div>
@@ -168,7 +169,10 @@
 <script>
 /* ===================== Manifest + Dateibrowser ===================== */
 let MANIFEST=null; let NODES=new Map(), CHILDREN=new Map();
-let cwd="", lastMdBasePath=null, currentRawUrl=null; let lastManifestTs=0;
+let cwd="", lastMdBasePath=null, currentRawUrl=null, currentShareUrl=null; let lastManifestTs=0;
+
+/* ---- Start-Ordner (User-Wunsch) ---- */
+const START_PATH = "Sierpinskir Tetraeder_PoC"; // wird benutzt, falls im Manifest vorhanden
 
 const pathDir=p=> (p.split("/").slice(0,-1).join("/"));
 const baseName=p=> (p.split("/").pop()||"");
@@ -183,6 +187,21 @@ const urlFor=p=> encodeURI((p||"").replace(/^\/+/,""));
 async function fetchJSON(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.json();}
 async function fetchText(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text();}
 async function fetchArrayBuffer(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer();}
+
+/* ---- Share-Link heuristisch bestimmen ---- */
+function computeShareLink(path){
+  const clean = (path||"").replace(/^\/+/,"");
+  const host = location.hostname || "";
+  // GitHub Pages User/Org: <owner>.github.io  -> Repo <owner>.github.io, Branch main (Heuristik)
+  if(/^[\w-]+\.github\.io$/i.test(host)){
+    const owner = host.split(".")[0];
+    const repo  = owner + ".github.io";
+    const branch = "main";
+    return `https://github.com/${owner}/${repo}/blob/${branch}/${encodeURI(clean)}`;
+  }
+  // Fallback: direkte Seiten-URL
+  return `${location.origin}/${encodeURI(clean)}`;
+}
 
 function convertLatexDelimiters(src){
   let out="", i=0, inFence=false, inInline=false; const starts=s=>src.startsWith(s,i);
@@ -201,6 +220,22 @@ function convertLatexDelimiters(src){
 }
 
 function setRunPyVisible(show){const btn=document.getElementById("btnRunPy"); btn.style.display=show?"inline-block":"none"; if(!show) btn.onclick=null;}
+function wireCopyLink(){
+  const btn=document.getElementById("btnCopyLink");
+  if(!btn) return;
+  btn.onclick = async ()=>{
+    if(!currentShareUrl) return;
+    try{
+      await navigator.clipboard.writeText(currentShareUrl);
+      const old = btn.textContent;
+      btn.textContent = I18n.t("viewer.copied","Kopiert!");
+      setTimeout(()=>{ btn.textContent = I18n.t("viewer.copyLink","Link kopieren"); }, 1200);
+    }catch{
+      // Fallback: neues Tab
+      window.open(currentShareUrl, "_blank");
+    }
+  };
+}
 
 function normalizeEntries(raw){
   const out=[]; const take=e=>{let p=e.path||e.file||null; if(!p) return; p=p.replace(/^\/+/,""); let t=e.type; if(t==="blob") t="file"; if(t==="tree") t="dir"; if(!t) t="file"; const n={path:p,name:baseName(p),type:(t==="dir"?"dir":"file")}; if(typeof e.size==="number")n.size=e.size; out.push(n);};
@@ -298,11 +333,13 @@ function showMd(html,titleText){
       {left:"$", right:"$", display:false}
     ], throwOnError:false });
   }catch{}
+  wireCopyLink();
 }
 function showGeneric(node,titleText){
   const md=document.getElementById("md"), gen=document.getElementById("generic");
   md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
   document.getElementById("currentName").textContent=titleText||"—";
+  wireCopyLink();
 }
 function existsInManifest(path){return NODES.has((path||"").replace(/^\/+/,""));}
 
@@ -314,8 +351,10 @@ async function openMarkdown(path){
     if(chosen.endsWith(".de.md")){const cand=path.replace(/\.de\.md$/i,".en.md"); if(existsInManifest(cand)) path=cand;}
   }
   currentRawUrl = urlFor(path);
+  currentShareUrl = computeShareLink(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
+  wireCopyLink();
   try{
     let text = await fetchText(currentRawUrl);
     text = convertLatexDelimiters(text);
@@ -332,8 +371,10 @@ async function openMarkdown(path){
 async function openCsv(path){
   setRunPyVisible(false);
   currentRawUrl = urlFor(path);
+  currentShareUrl = computeShareLink(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
+  wireCopyLink();
   const wrap=document.createElement("div");
   try{
     const text=await fetchText(currentRawUrl); const parsed=Papa.parse(text.trim());
@@ -346,8 +387,10 @@ async function openCsv(path){
 async function openPdf(path){
   setRunPyVisible(false);
   currentRawUrl = urlFor(path);
+  currentShareUrl = computeShareLink(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
+  wireCopyLink();
 
   if(typeof window.pdfjsLib==="undefined"){
     const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=path.split("/").pop(); frame.style.height="78vh";
@@ -375,32 +418,40 @@ async function openPdf(path){
 function openImage(path){
   setRunPyVisible(false);
   currentRawUrl = urlFor(path);
+  currentShareUrl = computeShareLink(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
+  wireCopyLink();
   const img=document.createElement("img"); img.className="preview"; img.src=currentRawUrl; img.alt=path.split("/").pop();
   showGeneric(img, img.alt);
 }
 function openAudio(path){
   setRunPyVisible(false);
   currentRawUrl = urlFor(path);
+  currentShareUrl = computeShareLink(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
+  wireCopyLink();
   const audio=document.createElement("audio"); audio.className="preview"; audio.controls=true; audio.src=currentRawUrl;
   showGeneric(audio, path.split("/").pop());
 }
 function openVideo(path){
   setRunPyVisible(false);
   currentRawUrl = urlFor(path);
+  currentShareUrl = computeShareLink(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
+  wireCopyLink();
   const video=document.createElement("video"); video.className="preview"; video.controls=true; video.src=currentRawUrl;
   showGeneric(video, path.split("/").pop());
 }
 function openRawFile(path){
   setRunPyVisible(false);
   currentRawUrl = urlFor(path);
+  currentShareUrl = computeShareLink(path);
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
+  wireCopyLink();
   const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=path.split("/").pop(); frame.style.height="78vh";
   showGeneric(frame, path.split("/").pop());
 }
@@ -486,7 +537,7 @@ async function tryFetchToRepo(py, relPath, destRel) {
   }
 }
 
-/* ---- NEU: Paket-Rebase priorisiert Skriptordner & Parent ---- */
+/* ---- Paket-Rebase priorisiert Skriptordner & Parent ---- */
 async function rebaseModuleToRepo(py, modName, contextPath){
   const modLower   = (modName||"").toLowerCase();
   const pkgRoot    = `/repo/${modLower}`;
@@ -714,7 +765,7 @@ except Exception:
     const after=snapshotFs(py); const changed=diffFs(before,after);
     const remaining=changed.filter(p=>!__downloadedThisRun.has(p));
     if(remaining.length) outEl.append(document.createTextNode((I18n?.lang==="en"?"Auto-download: ":"Automatischer Download: ")+remaining.length+" file(s)\n"));
-    for(const p of remaining) downloadPath(py,p);
+    for(const p of remaining) downloadPath(__pyInstance,p);
 
   }catch(err){
     appendStdout(outEl,"\n"+err);
@@ -726,9 +777,11 @@ except Exception:
 /* ---- Code/Text öffnen (mit Python bei .py) ---- */
 async function openText(path){
   currentRawUrl = urlFor(path);
+  currentShareUrl = computeShareLink(path);
   const btnRun=document.getElementById("btnRunPy");
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnPdf").onclick=()=>window.print();
+  wireCopyLink();
 
   const pre=document.createElement("pre"); pre.className="codebox";
   const codeEl=document.createElement("code"); pre.appendChild(codeEl);
@@ -758,9 +811,9 @@ async function openText(path){
   showGeneric(wrap, path.split("/").pop());
 }
 
-/* ---- Initial: ST.png anzeigen ---- */
+/* ---- Initial: im gewünschten Startordner öffnen & ST.png dort anzeigen ---- */
 function openInitialPreview(){
-  const candidate="ST.png";
+  const candidate = (cwd ? (cwd.replace(/\/+$/,"") + "/") : "") + "ST.png";
   if(existsInManifest(candidate)){
     const item=[...document.querySelectorAll("#list .item")].find(li=>li.dataset.path===candidate);
     if(item){document.querySelectorAll("#list .item.active").forEach(n=>n.classList.remove("active")); item.classList.add("active");}
@@ -788,8 +841,14 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   await I18n.init({ defaultLang:"de" });
   renderFooter();
   await loadManifest();
-  await openDir("");
+  // Start im gewünschten Ordner, falls vorhanden
+  if (existsInManifest(START_PATH)) {
+    await openDir(START_PATH);
+  } else {
+    await openDir("");
+  }
   openInitialPreview();
+  wireCopyLink();
 });
 </script>
 </body>

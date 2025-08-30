@@ -10,8 +10,11 @@
   },
   "viewer": {
     "openRaw": "Open raw file",
+    "copyLink": "Copy link",
+    "copied": "Copied!",
     "downloadPdf": "Export as PDF",
-    "up": ".. (Parent directory)"
+    "up": ".. (Parent directory)",
+    "runPy": "Run Python"
   },
   "status": {
     "manifestOk": "Manifest found",

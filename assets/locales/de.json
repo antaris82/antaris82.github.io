@@ -10,8 +10,11 @@
   },
   "viewer": {
     "openRaw": "Rohdatei öffnen",
+    "copyLink": "Link kopieren",
+    "copied": "Kopiert!",
     "downloadPdf": "Als PDF exportieren",
-    "up": ".. (Ebene höher)"
+    "up": ".. (Ebene höher)",
+    "runPy": "Python ausführen"
   },
   "status": {
     "manifestOk": "Manifest gefunden",
