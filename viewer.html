@@ -11,7 +11,7 @@
       --content-max:1320px; --content-pad:32px;
     }
     html,body{height:100%}
-    body{margin:0;color:var(--fg);background:linear-gradient(rgba(11,17,23,.9),rgba(11,17,23,.9)),#0b1117;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",Arial}
+    body{margin:0;color:var(--fg);background:#0b1117;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",Arial}
     a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
     .container{width:min(var(--content-max),100% - var(--content-pad)*2);margin:0 auto}
     header{position:sticky;top:0;z-index:3;background:var(--panel);border-bottom:1px solid var(--border)}
@@ -39,10 +39,9 @@
     .btn{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:8px 10px;border-radius:8px;cursor:pointer}
     .btn:hover{background:#122436}
     .md,.generic{max-width:980px;margin:0 auto}
-    .md pre{background:#0f1922;padding:12px;border-radius:10px;overflow:auto;border:1px solid #223042}
     .viewer .preview,.viewer img.preview,.viewer video.preview,.viewer audio.preview{width:100%;max-width:980px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
     .viewer img.preview{height:auto}
-    footer{border-top:1px solid var(--border);padding:10px 0;color:var(--muted);background:var(--panel)} footer .inner{display:flex;align-items:center;justify-content:space-between}
+    footer{border-top:1px solid var(--border);padding:10px 0;color:var(--muted);background:#0f1218} footer .inner{display:flex;align-items:center;justify-content:space-between}
     @media print{header,.left,.viewer .bar,footer{display:none !important}.app{display:block}body{background:#fff;color:#000}}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -52,6 +51,10 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.min.js"></script>
   <script>pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/legacy/build/pdf.worker.min.js";</script>
+  <!-- KaTeX local (no CDN fallback per your simplification) -->
+  <link rel="stylesheet" href="/assets/katex/katex.min.css">
+  <script defer src="/assets/katex/katex.min.js"></script>
+  <script defer src="/assets/katex/contrib/auto-render.min.js"></script>
 </head>
 <body>
 <header>
@@ -104,11 +107,14 @@
 </footer>
 
 <script>
-/* ========= Helpers ========= */
-let MANIFEST=null; let NODES=new Map(), CHILDREN=new Map();
-let cwd="", currentRawUrl=null, currentShareUrl=null, lastManifestTs=0;
+/* ===== Config (strict) ===== */
+const START_DIR   = "Sierpinski Tetraeder_PoC";  // root folder
+const START_IMAGE = "Sierpinski-Tetraeder.png";  // root image
+const READER_BASE = "https://antaris82.github.io/";
 
-const START_PATH = "Sierpinskir Tetraeder_PoC"; // left browser start
+/* ===== State & utils ===== */
+let MANIFEST=null; let NODES=new Map(), CHILDREN=new Map(); let cwd="", currentRawUrl=null, currentShareUrl=null;
+
 const pathDir=p=> (p.split("/").slice(0,-1).join("/"));
 const baseName=p=> (p.split("/").pop()||"");
 const ext=name=> (name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
@@ -119,16 +125,14 @@ const isVideoExt=e=>["mp4","webm","ogv","mov"].includes(e);
 const isPdfExt=e=>e==="pdf";
 const fmtSize=b=>{if(b==null||isNaN(b))return"";const u=["B","KB","MB","GB","TB"];let i=0,n=+b;while(n>=1024&&i<u.length-1){n/=1024;i++;}return (Math.round(n*10)/10)+" "+u[i];};
 const urlFor=p=> encodeURI((p||"").replace(/^\/+/,""));
-const READER_BASE="https://antaris82.github.io/";
 const computeShareLink=path=> READER_BASE + "?path=" + encodeURIComponent((path||"").replace(/^\/+/,""));
 const getQueryPath=()=>{try{const u=new URL(location.href);return u.searchParams.get("path")?decodeURIComponent(u.searchParams.get("path")):null;}catch{return null;}};
 const updateUrlParam=path=>{try{const u=new URL(location.href); if(path){u.searchParams.set("path",path.replace(/^\/+/, ""));} else {u.searchParams.delete("path");} history.replaceState(null,"",u.toString());}catch{}};
 const fetchJSON=async(u)=>{const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();};
 const fetchText=async(u)=>{const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();};
 const fetchArrayBuffer=async(u)=>{const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.arrayBuffer();};
-const fetchExists=async(p)=>{try{const r=await fetch(urlFor(p),{method:"HEAD",cache:"no-store"}); return r.ok;}catch{return false;}};
 
-/* ========= Manifest handling ========= */
+/* ===== Manifest ===== */
 function normalizeEntries(raw){
   const out=[];
   const take=e=>{
@@ -161,40 +165,25 @@ function indexEntries(nodes){
     arr.sort((a,b)=> (a.type!==b.type)?(a.type==="dir"?-1:1):a.name.localeCompare(b.name,undefined,{numeric:true}));
   }
 }
-function updateManifestChip(loading=false){
-  const dot=document.getElementById("manifestDot"), txt=document.getElementById("manifestText");
-  if(loading){dot.className="dot"; txt.textContent="Indiziere…"; return;}
-  try{
-    const files=[...NODES.values()].filter(n=>n.type==="file").length;
-    const dirs=[...NODES.values()].filter(n=>n.type==="dir").length;
-    const t=MANIFEST?.indexedAt||MANIFEST?.generatedAt||MANIFEST?.timestamp||null;
-    const d=t?new Date(t):new Date(lastManifestTs||Date.now());
-    const stamp=d.toLocaleString("de-DE",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
-    txt.textContent=`${files} Dateien • ${dirs} Ordner • Stand: ${stamp}`;
-    dot.className="dot ok";
-  }catch{document.getElementById("manifestDot").className="dot err"; txt.textContent="Manifest ungültig";}
-}
 async function loadManifest(){
   try{
-    updateManifestChip(true);
-    const ts=Date.now();
-    const m=await fetchJSON(`manifest.json?ts=${ts}`);
-    MANIFEST=m; lastManifestTs=ts;
+    const m=await fetchJSON("manifest.json?ts="+Date.now());
+    MANIFEST=m;
     const norm=normalizeEntries(m);
     indexEntries(norm);
-    updateManifestChip(false);
-    return true;
+    const files=[...NODES.values()].filter(n=>n.type==="file").length;
+    const dirs=[...NODES.values()].filter(n=>n.type==="dir").length;
+    document.getElementById("manifestDot").className="dot ok";
+    document.getElementById("manifestText").textContent=`${files} Dateien • ${dirs} Ordner`;
   }catch(e){
-    console.warn("manifest.json nicht geladen:", e);
+    console.error("manifest.json laden fehlgeschlagen:", e);
     MANIFEST={}; NODES.clear(); CHILDREN.clear(); NODES.set("",{path:"",name:"",type:"dir"}); CHILDREN.set("",[]);
-    updateManifestChip(false);
-    const list=document.getElementById("list");
-    if(list) list.innerHTML=`<li class="item"><span class="meta">⚠️</span><span class="name">manifest.json fehlt oder ist nicht erreichbar. Der Viewer funktioniert mit Direktlinks trotzdem.</span><span class="meta"></span><span class="meta"></span></li>`;
-    return false;
+    document.getElementById("manifestDot").className="dot err";
+    document.getElementById("manifestText").textContent="Manifest fehlt";
   }
 }
 
-/* ========= UI: Browser ========= */
+/* ===== Browser UI ===== */
 function crumbHtml(path){const parts=path?path.split("/").filter(Boolean):[]; const items=['<a href="#" data-path="">/</a>']; let acc=""; for(const p of parts){acc=acc?acc+"/"+p:p; items.push(`<a href="#" data-path="${acc}">${p}</a>`);} return items.join(" / ");}
 function renderCrumb(){const el=document.getElementById("crumb"); el.innerHTML=crumbHtml(cwd); el.querySelectorAll("a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault(); openDir(a.dataset.path||"");}));}
 function renderList(){
@@ -231,7 +220,7 @@ function renderList(){
       if(btn){
         btn.addEventListener("click", async (ev)=>{
           ev.stopPropagation();
-          const link=computeShareLink(e.path);
+          const link=READER_BASE + "?path=" + encodeURIComponent(e.path);
           try{ await navigator.clipboard.writeText(link); btn.textContent="✓"; setTimeout(()=>btn.textContent="🔗", 900); }
           catch{ window.open(link, "_blank"); }
         });
@@ -242,10 +231,10 @@ function renderList(){
 }
 async function openDir(path=""){cwd=path; renderCrumb(); renderList();}
 
-/* ========= Viewer ========= */
+/* ===== Viewer ===== */
 function setViewerShare(path){
   currentRawUrl = urlFor(path);
-  currentShareUrl = computeShareLink(path);
+  currentShareUrl = READER_BASE + "?path=" + encodeURIComponent(path.replace(/^\/+/,""));
   document.getElementById("btnOpenRaw").onclick=()=>window.open(currentRawUrl,"_blank");
   document.getElementById("btnCopyLink").onclick=async ()=>{
     try{ await navigator.clipboard.writeText(currentShareUrl); const b=document.getElementById("btnCopyLink"); const old=b.textContent; b.textContent="Kopiert!"; setTimeout(()=>b.textContent="Link kopieren", 900); }
@@ -254,6 +243,11 @@ function setViewerShare(path){
   document.getElementById("btnPdf").onclick=()=>window.print();
   document.getElementById("currentName").textContent = baseName(path)||"—";
   updateUrlParam(path);
+}
+function showGeneric(node,titleText){
+  const md=document.getElementById("md"), gen=document.getElementById("generic");
+  md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
+  document.getElementById("currentName").textContent=titleText||"—";
 }
 async function openMarkdown(path){
   setViewerShare(path);
@@ -264,6 +258,7 @@ async function openMarkdown(path){
     const md=document.getElementById("md"); const gen=document.getElementById("generic");
     gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
+    if (window.renderMathInElement){ renderMathInElement(md,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false},{left:"$",right:"$",display:false}],throwOnError:false}); }
   }catch(e){
     const p=document.createElement("p"); p.style.color="#ff8080"; p.textContent=`Datei konnte nicht geladen werden: ${e.message}`;
     showGeneric(p, baseName(path));
@@ -300,11 +295,6 @@ async function openPdf(path){
     const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=baseName(path); frame.style.height="78vh";
     showGeneric(frame, baseName(path));
   }
-}
-function showGeneric(node,titleText){
-  const md=document.getElementById("md"), gen=document.getElementById("generic");
-  md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
-  document.getElementById("currentName").textContent=titleText||"—";
 }
 function openImage(path){
   setViewerShare(path);
@@ -344,39 +334,16 @@ function openFile(path){
   return openRawFile(path);
 }
 
-/* ========= Boot ========= */
-function existsInManifest(p){return NODES.has((p||"").replace(/^\/+/,""));}
-async function openInitialPreview(){
+/* ===== Boot (strict, no fallbacks) ===== */
+async function boot(){
+  await loadManifest();
+  await openDir(START_DIR);
   const qp = getQueryPath();
-  if (qp) { openFile(qp); return; }
-  // Try hero without manifest dependency
-  const hero = "Sierpinski-Tetraeder.png";
-  if (await fetchExists(hero)) { openImage(hero); return; }
+  if (qp) { openFile(qp); } else { openImage(START_IMAGE); }
 }
 document.getElementById("q").addEventListener("input",renderList);
-document.getElementById("btnRefresh").addEventListener("click", async ()=>{
-  await loadManifest();
-  if (existsInManifest(START_PATH)) await openDir(START_PATH); else await openDir("");
-  openInitialPreview();
-});
-window.addEventListener("pageshow", async ()=>{
-  if(location.protocol!=="file:"){
-    await loadManifest();
-    if (existsInManifest(START_PATH)) await openDir(START_PATH); else await openDir("");
-    openInitialPreview();
-  }
-});
-document.addEventListener("DOMContentLoaded", async ()=>{
-  if(location.protocol==="file:"){
-    const list=document.getElementById("list");
-    if(list) list.innerHTML = `<li class="item"><span class="meta">ℹ️</span><span class="name">Bitte über lokalen Server oder GitHub Pages öffnen. <code>file://</code> blockiert <code>fetch</code>.</span><span class="meta"></span><span class="meta"></span></li>`;
-    return;
-  }
-  document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
-  await loadManifest();
-  if (existsInManifest(START_PATH)) await openDir(START_PATH); else await openDir("");
-  openInitialPreview();
-});
+document.getElementById("btnRefresh").addEventListener("click", ()=>boot());
+document.addEventListener("DOMContentLoaded", ()=>{ boot().catch(err=>console.error(err)); });
 </script>
 </body>
 </html>
