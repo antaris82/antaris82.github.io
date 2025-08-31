@@ -760,10 +760,29 @@ async function openText(path){
 
 /* ---- Initial: ST.png anzeigen ---- */
 function openInitialPreview(){
-  const candidate="ST.png";
-  if(existsInManifest(candidate)){
-    const item=[...document.querySelectorAll("#list .item")].find(li=>li.dataset.path===candidate);
-    if(item){document.querySelectorAll("#list .item.active").forEach(n=>n.classList.remove("active")); item.classList.add("active");}
+  const qp = getQueryPath();
+  if (qp) {
+    const dir = pathDir(qp);
+    // Set browser cwd to the file's folder if known in manifest; otherwise keep current/root
+    if (dir && existsInManifest(dir)) {
+      openDir(dir);
+    }
+    // Try opening directly (works even if manifest is missing/outdated)
+    openFile(qp);
+    return;
+  }
+  // Auto-preview root 'Sierpinski-Tetraeder.png' if present
+  const rootHero = "Sierpinski-Tetraeder.png";
+  if (existsInManifest(rootHero)) {
+    openImage(rootHero);
+    return;
+  }
+  // Fallbacks
+  const candidateA = (cwd ? (cwd.replace(/\/+$/,"") + "/") : "") + "ST.png";
+  if (existsInManifest(candidateA)) {
+    openImage(candidateA); return;
+  }
+}
     openImage(candidate);
   }
 }
