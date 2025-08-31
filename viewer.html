@@ -112,6 +112,39 @@ const START_DIR   = "Sierpinski Tetraeder_PoC";  // root folder
 const START_IMAGE = "Sierpinski-Tetraeder.png";  // root image
 const READER_BASE = "https://antaris82.github.io/";
 
+
+/* ===== KaTeX loader (local-only) ===== */
+function ensureKatexLocal() {
+  if (window.renderMathInElement) return Promise.resolve();
+  // Wait up to ~3s for the already-included <script defer> tags to finish loading
+  return new Promise((resolve, reject) => {
+    let ticks = 0;
+    const step = () => {
+      if (window.renderMathInElement) { resolve(); return; }
+      ticks++;
+      if (ticks > 60) { reject(new Error("KaTeX auto-render not available")); return; }
+      setTimeout(step, 50);
+    };
+    step();
+  });
+}
+function renderMathNow(container){
+  try{
+    if (window.renderMathInElement) {
+      window.renderMathInElement(container, {
+        delimiters:[
+          {left:"$$", right:"$$", display:true},
+          {left:"\\[", right:"\\]", display:true},
+          {left:"\\(", right:"\\)", display:false},
+          {left:"$",  right:"$",  display:false}
+        ],
+        throwOnError:false,
+        strict:"ignore"
+      });
+    }
+  }catch(e){ console.warn("KaTeX render error:", e); }
+}
+
 /* ===== State & utils ===== */
 let MANIFEST=null; let NODES=new Map(), CHILDREN=new Map(); let cwd="", currentRawUrl=null, currentShareUrl=null;
 
@@ -258,6 +291,7 @@ async function openMarkdown(path){
     const md=document.getElementById("md"); const gen=document.getElementById("generic");
     gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
+    try { await ensureKatexLocal(); renderMathNow(md); } catch(e) { console.warn("KaTeX not ready:", e); }
     if (window.renderMathInElement){ renderMathInElement(md,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"\\(",right:"\\)",display:false},{left:"$",right:"$",display:false}],throwOnError:false}); }
   }catch(e){
     const p=document.createElement("p"); p.style.color="#ff8080"; p.textContent=`Datei konnte nicht geladen werden: ${e.message}`;
