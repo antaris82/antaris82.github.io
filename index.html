@@ -179,7 +179,14 @@ const isAudioExt=e=>["mp3","wav","ogg","m4a","aac","flac"].includes(e);
 const isVideoExt=e=>["mp4","webm","ogv","mov"].includes(e);
 const isPdfExt=e=>e==="pdf";
 const fmtSize=b=>{if(b==null||isNaN(b))return"";const u=["B","KB","MB","GB","TB"];let i=0,n=+b;while(n>=1024&&i<u.length-1){n/=1024;i++;}return (Math.round(n*10)/10)+" "+u[i];};
-const urlFor=p=> encodeURI((p||"").replace(/^\/+/,""));
+function normPath(p){
+  return String(p||"").replace(/^(\.\/)+/g,"").replace(/^\/+/g,""); // drop leading ./ and /
+}
+const urlFor = p => {
+  const clean = encodeURI(normPath(p));
+  try { return new URL(clean, location.origin).toString(); }
+  catch { return clean; }
+};
 async function fetchJSON(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.json();}
 async function fetchText(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text();}
 async function fetchArrayBuffer(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.arrayBuffer();}
@@ -242,7 +249,7 @@ function renderList(){
     list.appendChild(li);
   }
 }
-async function openDir(path=""){cwd=path; renderCrumb(); renderList();}
+async function openDir(path=""){cwd=normPath(path); renderCrumb(); renderList();}
 
 function updateManifestChip(loading=false){
   const dot=document.getElementById("manifestDot"), txt=document.getElementById("manifestText");
@@ -760,10 +767,29 @@ async function openText(path){
 
 /* ---- Initial: ST.png anzeigen ---- */
 function openInitialPreview(){
-  const candidate="ST.png";
-  if(existsInManifest(candidate)){
-    const item=[...document.querySelectorAll("#list .item")].find(li=>li.dataset.path===candidate);
-    if(item){document.querySelectorAll("#list .item.active").forEach(n=>n.classList.remove("active")); item.classList.add("active");}
+  const qp = getQueryPath();
+  if (qp) {
+    const dir = pathDir(qp);
+    // Set browser cwd to the file's folder if known in manifest; otherwise keep current/root
+    if (dir && existsInManifest(dir)) {
+      openDir(dir);
+    }
+    // Try opening directly (works even if manifest is missing/outdated)
+    openFile(qp);
+    return;
+  }
+  // Auto-preview root 'Sierpinski-Tetraeder.png' if present
+  const rootHero = "Sierpinski-Tetraeder.png";
+  if (existsInManifest(rootHero)) {
+    openImage(rootHero);
+    return;
+  }
+  // Fallbacks
+  const candidateA = (cwd ? (cwd.replace(/\/+$/,"") + "/") : "") + "ST.png";
+  if (existsInManifest(candidateA)) {
+    openImage(candidateA); return;
+  }
+}
     openImage(candidate);
   }
 }
