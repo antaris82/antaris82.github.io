@@ -104,6 +104,63 @@
 </footer>
 
 <script>
+
+/* ========= KaTeX dynamic loader ========= */
+let __katexPromise = null;
+function loadScript(src){
+  return new Promise((resolve, reject)=>{
+    const s=document.createElement('script');
+    s.src=src; s.defer=true;
+    s.onload=()=>resolve(src);
+    s.onerror=()=>reject(new Error('script load failed: '+src));
+    document.head.appendChild(s);
+  });
+}
+function loadCSS(href){
+  return new Promise((resolve, reject)=>{
+    const l=document.createElement('link');
+    l.rel='stylesheet'; l.href=href;
+    l.onload=()=>resolve(href);
+    l.onerror=()=>reject(new Error('css load failed: '+href));
+    document.head.appendChild(l);
+  });
+}
+function ensureKatex(){
+  if(window.katex && window.renderMathInElement){ return Promise.resolve(); }
+  if(__katexPromise) return __katexPromise;
+  const localCss = "/assets/katex/katex.min.css";
+  const localJs  = "/assets/katex/katex.min.js";
+  const localAuto= "/assets/katex/contrib/auto-render.min.js";
+  const cdnCss   = "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css";
+  const cdnJs    = "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js";
+  const cdnAuto  = "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js";
+  __katexPromise = (async ()=>{
+    // CSS: try local then CDN
+    try{ await loadCSS(localCss); }catch{ await loadCSS(cdnCss); }
+    // JS: core
+    try{ await loadScript(localJs); }catch{ await loadScript(cdnJs); }
+    // JS: auto-render
+    try{ await loadScript(localAuto); }catch{ await loadScript(cdnAuto); }
+  })();
+  return __katexPromise;
+}
+function renderMathNow(container){
+  try{
+    if(window.renderMathInElement){
+      window.renderMathInElement(container, {
+        delimiters:[
+          {left:"$$", right:"$$", display:true},
+          {left:"\\[", right:"\\]", display:true},
+          {left:"\\(", right:"\\)", display:false},
+          {left:"$",  right:"$",  display:false}
+        ],
+        throwOnError:false,
+        strict:"ignore"
+      });
+    }
+  }catch(e){ console.warn("KaTeX render failed:", e); }
+}
+
 /* ========= Core state ========= */
 let MANIFEST=null; let NODES=new Map(), CHILDREN=new Map();
 let cwd="", currentRawUrl=null, currentShareUrl=null, lastManifestTs=0;
@@ -297,6 +354,7 @@ async function openMarkdown(path){
     const md=document.getElementById("md"); const gen=document.getElementById("generic");
     gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
+    try { await ensureKatex(); renderMathNow(md); } catch(e) { console.warn("KaTeX load error:", e); }
   }catch(e){
     const p=document.createElement("p"); p.style.color="#ff8080"; p.textContent=`Datei konnte nicht geladen werden: ${e.message}`;
     showGeneric(p, baseName(path));
