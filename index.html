@@ -44,6 +44,10 @@
     .viewer img.preview{height:auto}
     footer{border-top:1px solid var(--border);padding:10px 0;color:var(--muted);background:#0f1218} footer .inner{display:flex;align-items:center;justify-content:space-between}
     @media print{header,.left,.viewer .bar,footer{display:none !important}.app{display:block}body{background:#fff;color:#000}}
+
+    /* Error banner */
+    #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9999}
+    #err b{color:#fff}
   </style>
 
   <!-- Markdown / sanitize / code highlight -->
@@ -98,6 +102,8 @@
             <button id="btnPdf" class="btn">Als PDF exportieren</button>
           </div>
         </div>
+        <!-- Always show the start image in plain HTML first -->
+        <img id="bootHero" class="preview" src="/Sierpinski-Tetraeder.png" alt="Sierpinski-Tetraeder.png">
         <article id="md" class="md" hidden></article>
         <div id="generic" class="generic" hidden></div>
       </div>
@@ -112,7 +118,20 @@
   </div>
 </footer>
 
+<div id="err"></div>
+
 <script>
+/* ===== Error banner to avoid silent blank page ===== */
+(function(){
+  function showErr(msg){
+    var el=document.getElementById("err");
+    el.innerHTML="<b>Fehler:</b> "+String(msg);
+    el.style.display="block";
+  }
+  window.addEventListener("error", e=>{ showErr(e.message||e.error||e); });
+  window.addEventListener("unhandledrejection", e=>{ showErr(e.reason||e); });
+})();
+
 /* ===== Konfiguration ===== */
 const START_DIR   = "Sierpinski Tetraeder_PoC";    // Root-Ordner
 const START_IMAGE = "Sierpinski-Tetraeder.png";    // Root-Bild
@@ -338,27 +357,33 @@ async function openPdf(path){
 function openImage(path){
   setViewerShare(path);
   const img=document.createElement("img"); img.className="preview"; img.src=currentRawUrl; img.alt=baseName(path);
+  // hide boot hero if present
+  const boot=document.getElementById("bootHero"); if(boot) boot.remove();
   showGeneric(img, img.alt);
 }
 function openAudio(path){
   setViewerShare(path);
   const audio=document.createElement("audio"); audio.className="preview"; audio.controls=true; audio.src=currentRawUrl;
+  const boot=document.getElementById("bootHero"); if(boot) boot.remove();
   showGeneric(audio, baseName(path));
 }
 function openVideo(path){
   setViewerShare(path);
   const video=document.createElement("video"); video.className="preview"; video.controls=true; video.src=currentRawUrl;
+  const boot=document.getElementById("bootHero"); if(boot) boot.remove();
   showGeneric(video, baseName(path));
 }
 function openRawFile(path){
   setViewerShare(path);
   const frame=document.createElement("iframe"); frame.className="preview"; frame.src=currentRawUrl; frame.title=baseName(path); frame.style.height="78vh";
+  const boot=document.getElementById("bootHero"); if(boot) boot.remove();
   showGeneric(frame, baseName(path));
 }
 function openText(path){
   setViewerShare(path);
   const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px";
   fetchText(currentRawUrl).then(txt=>{ pre.textContent=txt; }).catch(e=>{ pre.textContent="Datei konnte nicht geladen werden: "+e.message; });
+  const boot=document.getElementById("bootHero"); if(boot) boot.remove();
   showGeneric(pre, baseName(path));
 }
 function openFile(path){
@@ -375,12 +400,11 @@ function openFile(path){
 
 /* ===== Boot ===== */
 async function boot(){
-  // 1) Always show the start image immediately
-  openImage(START_IMAGE);
-  // 2) Then load manifest and open the start folder
+  // 1) Startbild ist schon als <img> im HTML sichtbar
+  // 2) Manifest laden und Startordner öffnen
   await loadManifest();
   await openDir(START_DIR);
-  // 3) If a direct file is requested, open it
+  // 3) Direktlink?
   const qp = getQueryPath();
   if (qp) { openFile(qp); }
 }
