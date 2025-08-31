@@ -120,15 +120,29 @@
   },
   {
     "path": "index.html",
+    "sha": "189a71ae7cd797b488dff622d62b5c15cb62c95f",
+    "size": 21028,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "manifest.json",
+    "sha": "09c9a233607b660c9c655726a0daada65d7439dd",
+    "size": 25962,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "old/index.html",
     "sha": "f6a11ca28342348cd50d15e3b4f11360b97fa9f2",
     "size": 39375,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "manifest.json",
-    "sha": "6eead42f64c46736bc48f330a8093bf64e0273e7",
-    "size": 25962,
+    "path": "old/viewer.html",
+    "sha": "611f3f0ba7204ad7eb844a821d81ecc8e4a554f7",
+    "size": 2623,
     "type": "blob",
     "mode": "100644"
   },
@@ -946,8 +960,8 @@
   },
   {
     "path": "viewer.html",
-    "sha": "611f3f0ba7204ad7eb844a821d81ecc8e4a554f7",
-    "size": 2623,
+    "sha": "189a71ae7cd797b488dff622d62b5c15cb62c95f",
+    "size": 21028,
     "type": "blob",
     "mode": "100644"
   }
