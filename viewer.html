@@ -42,7 +42,7 @@
     .md pre{background:#0f1922;padding:12px;border-radius:10px;overflow:auto;border:1px solid #223042}
     .viewer .preview,.viewer img.preview,.viewer video.preview,.viewer audio.preview{width:100%;max-width:980px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
     .viewer img.preview{height:auto}
-    footer{border-top:1px solid var(--border);padding:10px 0;color:var(--muted);background:var(--panel)} footer .inner{display:flex;align-items:center;justify-content:space-between}
+    footer{border-top:1px solid var(--border);padding:10px 0;color:var(--muted);background:#0f1218} footer .inner{display:flex;align-items:center;justify-content:space-between}
     @media print{header,.left,.viewer .bar,footer{display:none !important}.app{display:block}body{background:#fff;color:#000}}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -104,11 +104,14 @@
 </footer>
 
 <script>
-/* ========= Helpers ========= */
+/* ========= Core state ========= */
 let MANIFEST=null; let NODES=new Map(), CHILDREN=new Map();
 let cwd="", currentRawUrl=null, currentShareUrl=null, lastManifestTs=0;
 
-const START_PATH = "Sierpinskir Tetraeder_PoC"; // left browser start
+const START_PATH = "Sierpinski Tetraeder_PoC"; // desired start folder
+const READER_BASE="https://antaris82.github.io/";
+
+/* ========= Utils ========= */
 const pathDir=p=> (p.split("/").slice(0,-1).join("/"));
 const baseName=p=> (p.split("/").pop()||"");
 const ext=name=> (name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
@@ -119,7 +122,6 @@ const isVideoExt=e=>["mp4","webm","ogv","mov"].includes(e);
 const isPdfExt=e=>e==="pdf";
 const fmtSize=b=>{if(b==null||isNaN(b))return"";const u=["B","KB","MB","GB","TB"];let i=0,n=+b;while(n>=1024&&i<u.length-1){n/=1024;i++;}return (Math.round(n*10)/10)+" "+u[i];};
 const urlFor=p=> encodeURI((p||"").replace(/^\/+/,""));
-const READER_BASE="https://antaris82.github.io/";
 const computeShareLink=path=> READER_BASE + "?path=" + encodeURIComponent((path||"").replace(/^\/+/,""));
 const getQueryPath=()=>{try{const u=new URL(location.href);return u.searchParams.get("path")?decodeURIComponent(u.searchParams.get("path")):null;}catch{return null;}};
 const updateUrlParam=path=>{try{const u=new URL(location.href); if(path){u.searchParams.set("path",path.replace(/^\/+/, ""));} else {u.searchParams.delete("path");} history.replaceState(null,"",u.toString());}catch{}};
@@ -127,6 +129,38 @@ const fetchJSON=async(u)=>{const r=await fetch(u,{cache:"no-store"}); if(!r.ok) 
 const fetchText=async(u)=>{const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();};
 const fetchArrayBuffer=async(u)=>{const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.arrayBuffer();};
 const fetchExists=async(p)=>{try{const r=await fetch(urlFor(p),{method:"HEAD",cache:"no-store"}); return r.ok;}catch{return false;}};
+
+/* ========= Start dir (fuzzy + override) ========= */
+function _canon(s){return String(s||"").toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
+function _tokens(s){return new Set(_canon(s).split(' ').filter(Boolean));}
+function _findBestDir(target){
+  if(!target) return null;
+  const ttoks = _tokens(target), tcanon=_canon(target);
+  let best=null, score=-1, len=1e9;
+  for(const n of NODES.values()){
+    if(n.type!=="dir") continue;
+    const b=baseName(n.path); const btoks=_tokens(b);
+    let s=0; ttoks.forEach(t=>{ if(btoks.has(t)) s++; });
+    if(_canon(b)===tcanon) s+=100;
+    if(s>score || (s===score && b.length<len)){ best=n.path; score=s; len=b.length; }
+  }
+  return score>0?best:null;
+}
+function _getStartOverride(){
+  try{
+    const u=new URL(location.href);
+    return (u.searchParams.get("cwd") || u.searchParams.get("start") || "").replace(/^\/+/, "");
+  }catch{return null;}
+}
+function pickStartDir(){
+  const ov=_getStartOverride();
+  if(ov && NODES.has(ov)) return ov;
+  if(ov){ const f=_findBestDir(baseName(ov)||ov); if(f) return f; }
+  if(NODES.has(START_PATH)) return START_PATH;
+  const f2=_findBestDir(START_PATH); if(f2) return f2;
+  const f3=_findBestDir(START_PATH.replace(/Sierpinski/i,"Sierpinskir")); if(f3) return f3;
+  return "";
+}
 
 /* ========= Manifest handling ========= */
 function normalizeEntries(raw){
@@ -167,8 +201,7 @@ function updateManifestChip(loading=false){
   try{
     const files=[...NODES.values()].filter(n=>n.type==="file").length;
     const dirs=[...NODES.values()].filter(n=>n.type==="dir").length;
-    const t=MANIFEST?.indexedAt||MANIFEST?.generatedAt||MANIFEST?.timestamp||null;
-    const d=t?new Date(t):new Date(lastManifestTs||Date.now());
+    const d=new Date(lastManifestTs||Date.now());
     const stamp=d.toLocaleString("de-DE",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
     txt.textContent=`${files} Dateien • ${dirs} Ordner • Stand: ${stamp}`;
     dot.className="dot ok";
@@ -179,7 +212,7 @@ async function loadManifest(){
     updateManifestChip(true);
     const ts=Date.now();
     const m=await fetchJSON(`manifest.json?ts=${ts}`);
-    MANIFEST=m; lastManifestTs=ts;
+    lastManifestTs=ts; MANIFEST=m;
     const norm=normalizeEntries(m);
     indexEntries(norm);
     updateManifestChip(false);
@@ -189,7 +222,7 @@ async function loadManifest(){
     MANIFEST={}; NODES.clear(); CHILDREN.clear(); NODES.set("",{path:"",name:"",type:"dir"}); CHILDREN.set("",[]);
     updateManifestChip(false);
     const list=document.getElementById("list");
-    if(list) list.innerHTML=`<li class="item"><span class="meta">⚠️</span><span class="name">manifest.json fehlt oder ist nicht erreichbar. Der Viewer funktioniert mit Direktlinks trotzdem.</span><span class="meta"></span><span class="meta"></span></li>`;
+    if(list) list.innerHTML=`<li class="item"><span class="meta">⚠️</span><span class="name">manifest.json fehlt oder ist nicht erreichbar. Direktlinks & Autovorschau funktionieren dennoch.</span><span class="meta"></span><span class="meta"></span></li>`;
     return false;
   }
 }
@@ -356,13 +389,13 @@ async function openInitialPreview(){
 document.getElementById("q").addEventListener("input",renderList);
 document.getElementById("btnRefresh").addEventListener("click", async ()=>{
   await loadManifest();
-  if (existsInManifest(START_PATH)) await openDir(START_PATH); else await openDir("");
+  await openDir(pickStartDir());
   openInitialPreview();
 });
 window.addEventListener("pageshow", async ()=>{
   if(location.protocol!=="file:"){
     await loadManifest();
-    if (existsInManifest(START_PATH)) await openDir(START_PATH); else await openDir("");
+    await openDir(pickStartDir());
     openInitialPreview();
   }
 });
@@ -374,7 +407,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   }
   document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
   await loadManifest();
-  if (existsInManifest(START_PATH)) await openDir(START_PATH); else await openDir("");
+  await openDir(pickStartDir());
   openInitialPreview();
 });
 </script>
