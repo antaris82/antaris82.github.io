@@ -120,14 +120,14 @@
   },
   {
     "path": "index.html",
-    "sha": "431abf6ef43b16f6adcb018a6ac5970d91feb87a",
-    "size": 20671,
+    "sha": "3b0622b01900da8b16693f936597bddbcb9f2eb5",
+    "size": 21026,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.json",
-    "sha": "17a905799efa21430bb0f0d84a162184f83bf268",
+    "sha": "9933aad654362bcf9c16110463d15388bb0defed",
     "size": 26271,
     "type": "blob",
     "mode": "100644"
@@ -960,8 +960,8 @@
   },
   {
     "path": "viewer.html",
-    "sha": "431abf6ef43b16f6adcb018a6ac5970d91feb87a",
-    "size": 20671,
+    "sha": "3b0622b01900da8b16693f936597bddbcb9f2eb5",
+    "size": 21026,
     "type": "blob",
     "mode": "100644"
   }
