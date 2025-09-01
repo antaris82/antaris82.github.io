@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Viewer</title>
-  <link rel="stylesheet" href="assets/app.css">
   <style>
     body{margin:0;background:#0b1117;color:#e7eef5;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
     .wrap{max-width:900px;margin:0 auto;padding:18px 14px 60px}
@@ -14,6 +13,7 @@
     header a.secondary{background:#26303c}
     .content{background:#0c1218;border:1px solid #1b2632;border-radius:12px;padding:18px}
     .content pre{background:#0f1922;border:1px solid #223042;border-radius:10px;padding:12px;overflow:auto}
+    .preview{width:100%;max-width:900px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
@@ -32,40 +32,62 @@
   </header>
   <div class="wrap">
     <div id="md" class="content">Lade…</div>
+    <div id="stage"></div>
   </div>
 
 <script type="module">
 const qs=new URLSearchParams(location.search);
 const path=qs.get("path")||"";
 const raw="/"+encodeURI(path.replace(/^\/+/,""));
+const name=(path.split("/").pop()||"");
 document.getElementById("raw").href=raw;
 document.getElementById("gh").href="https://github.com/antaris82/antaris82.github.io/blob/main/"+encodeURI(path);
 document.getElementById("path").textContent=path||"—";
 
+const ext=(name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
+const isImg=e=>["png","jpg","jpeg","gif","webp","svg","avif","bmp"].includes(e);
+const isAud=e=>["mp3","wav","ogg","m4a","aac","flac"].includes(e);
+const isVid=e=>["mp4","webm","ogv","mov"].includes(e);
+const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg"].includes(e);
+
 async function fetchText(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 function waitKaTeX(){return new Promise((res,rej)=>{let n=0;(function step(){if(window.renderMathInElement) return res(); if(++n>200) return rej(new Error("KaTeX nicht verfügbar")); setTimeout(step,30);})();});}
 
-async function run(){
+async function showMarkdown(){
+  const text=await fetchText(raw);
+  marked.setOptions({gfm:true, breaks:false});
+  const html=DOMPurify.sanitize(marked.parse(text));
+  const md=document.getElementById("md");
+  md.innerHTML=html;
+  try{ await waitKaTeX(); renderMathInElement(md, {
+    delimiters:[
+      {left:"$$", right:"$$", display:true},
+      {left:"\\[", right:"\\]", display:true},
+      {left:"\\(", right:"\\)", display:false},
+      {left:"$",  right:"$",  display:false}
+    ],
+    throwOnError:false, strict:"ignore"
+  }); }catch(e){ console.warn(e); }
+}
+
+function showImage(){ document.getElementById("md").innerHTML=""; const img=document.createElement("img"); img.className="preview"; img.src=raw; img.alt=name; document.getElementById("stage").replaceChildren(img); }
+function showAudio(){ document.getElementById("md").innerHTML=""; const el=document.createElement("audio"); el.className="preview"; el.controls=true; el.src=raw; document.getElementById("stage").replaceChildren(el); }
+function showVideo(){ document.getElementById("md").innerHTML=""; const el=document.createElement("video"); el.className="preview"; el.controls=true; el.src=raw; document.getElementById("stage").replaceChildren(el); }
+async function showText(){ document.getElementById("md").innerHTML=""; const pre=document.createElement("pre"); pre.className="content"; pre.style.padding="12px"; pre.textContent=await fetchText(raw); document.getElementById("stage").replaceChildren(pre); }
+function showRaw(){ document.getElementById("md").innerHTML=""; const frame=document.createElement("iframe"); frame.className="preview"; frame.src=raw; frame.title=name; frame.style.height="78vh"; document.getElementById("stage").replaceChildren(frame); }
+
+(async function run(){
   try{
-    const text=await fetchText(raw);
-    marked.setOptions({gfm:true, breaks:false});
-    const html=DOMPurify.sanitize(marked.parse(text));
-    const md=document.getElementById("md");
-    md.innerHTML=html;
-    try{ await waitKaTeX(); renderMathInElement(md, {
-      delimiters:[
-        {left:"$$", right:"$$", display:true},
-        {left:"\\[", right:"\\]", display:true},
-        {left:"\\(", right:"\\)", display:false},
-        {left:"$",  right:"$",  display:false}
-      ],
-      throwOnError:false, strict:"ignore"
-    }); }catch(e){ console.warn(e); }
+    if(ext==="md" || ext==="markdown") return await showMarkdown();
+    if(isImg(ext)) return showImage();
+    if(isAud(ext)) return showAudio();
+    if(isVid(ext)) return showVideo();
+    if(isTxt(ext)) return showText();
+    return showRaw();
   }catch(e){
     document.getElementById("md").innerHTML = `<p style="color:#ff9a9a">Datei konnte nicht geladen werden: ${e.message}</p>`;
   }
-}
-run();
+})();
 </script>
 </body>
 </html>

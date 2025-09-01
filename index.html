@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>antaris82 • Sierpinski-Reader</title>
 
-  <!-- Styles: eigene + vorhandene Assets -->
-  <link rel="stylesheet" href="assets/app.css">
   <style>
     :root { --bg:#0b1117; --fg:#e7eef5; --muted:#8aa0b4; --panel:#0e141b; --border:#1b2632; --accent:#5ba8ff; }
     html,body{height:100%} body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
     .container{width:min(1280px,100% - 32px);margin:0 auto}
-    header{position:sticky;top:0;z-index:2;background:var(--panel);border-bottom:1px solid var(--border)}
+    header{position:sticky;top:0;z-index:3;background:var(--panel);border-bottom:1px solid var(--border)}
     header .row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     h1{margin:0;font-size:18px}
     .muted{color:var(--muted)}
+    .chip{display:flex;gap:8px;align-items:center;border:1px solid var(--border);background:#0c131a;padding:6px 10px;border-radius:10px;font-size:12px;color:var(--muted)}
+    .dot{width:8px;height:8px;border-radius:50%;background:#ffb020}.dot.ok{background:#37c978}.dot.err{background:#ff5a5a}
     .app{display:grid;grid-template-columns:360px 1fr;gap:20px;min-height:calc(100vh - 56px);padding:16px 0 28px}
     .card{border:1px solid var(--border);background:#0c1218;border-radius:12px;overflow:auto}
     .left .section{padding:12px 14px;border-bottom:1px solid var(--border)}
@@ -32,6 +33,8 @@
     .preview,.viewer img.preview{width:100%;max-width:980px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
     .md{max-width:980px;margin:0 auto}
     .md pre{background:#0f1922;border:1px solid #223042;border-radius:10px;padding:12px;overflow:auto}
+    footer{border-top:1px solid var(--border);background:#0e141b;color:var(--muted)}
+    footer .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
   </style>
 
@@ -44,20 +47,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-
-  <!-- Deine Module (optional verwendbar) -->
-  <script src="assets/i18n.js"></script>
-  <script src="assets/md.js"></script>
-  <script src="assets/render.js"></script>
 </head>
 <body>
 <header>
   <div class="container row">
-    <div>
+    <div style="display:flex;gap:12px;align-items:baseline">
       <h1>Sierpinski-Tetraeder</h1>
-      <div class="muted">Reader & Dateibrowser</div>
+      <span class="muted">Reader & Dateibrowser</span>
     </div>
-    <button id="refresh" class="btn">↻</button>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="chip"><span id="dot" class="dot"></span><span id="manitxt">Manifest lädt…</span></div>
+      <button id="refresh" class="btn">↻</button>
+    </div>
   </div>
 </header>
 
@@ -87,6 +88,13 @@
   </section>
 </main>
 
+<footer>
+  <div class="container inner">
+    <span id="copyright"></span>
+    <span class="muted">antaris82.github.io</span>
+  </div>
+</footer>
+
 <div id="err"></div>
 
 <script>
@@ -99,7 +107,7 @@
 })();
 
 // ------- config -------
-const START_DIR = "Sierpinski Tetraeder_PoC";    // exakt so wie im manifest.json
+const START_DIR = "Sierpinski Tetraeder_PoC";    // exakt wie in manifest.json
 const READER = (p)=> "https://antaris82.github.io/viewer.html?path="+encodeURIComponent(p);
 const RAW    = (p)=> "/"+encodeURI(String(p||"").replace(/^\/+/,""));
 
@@ -139,22 +147,15 @@ function renderList(){
     li.innerHTML=`<span>${icon}</span><span class="name">${e.name}</span><span class="meta">${extn}</span><span>${btn}</span>`;
     li.onclick=()=>{ if(e.type==="dir") openDir(e.path); else openFile(e.path); };
     if(e.type==="file"){
-      li.querySelector(".copy").onclick = async (ev)=>{
+      const b = li.querySelector(".copy");
+      if (b) b.onclick = async (ev)=>{
         ev.stopPropagation();
         const link = READER(e.path);
-        try{ await navigator.clipboard.writeText(link); ev.target.textContent="✓"; setTimeout(()=>ev.target.textContent="🔗", 1000);}catch{ window.open(link,"_blank"); }
+        try{ await navigator.clipboard.writeText(link); b.textContent="✓"; setTimeout(()=>b.textContent="🔗", 900);}catch{ window.open(link,"_blank"); }
       };
     }
     list.appendChild(li);
   }
-}
-
-async function openDir(path=""){
-  // Sicherstellen, dass es den Ordner im Manifest wirklich gibt
-  if(!CHILDREN.has(path)){
-    console.warn("Ordner nicht im Manifest:", path);
-  }
-  cwd=path; renderCrumb(); renderList();
 }
 
 // ------- viewer -------
@@ -237,21 +238,26 @@ function indexEntries(raw){
   out.forEach(n=>NODES.set(n.path,n));
   for(const n of out){ const parent=dir(n.path); if(!CHILDREN.has(parent)) CHILDREN.set(parent,[]); CHILDREN.get(parent).push(n); }
   for(const [k,a] of CHILDREN){ a.sort((a,b)=> (a.type!==b.type)?(a.type==="dir"?-1:1):a.name.localeCompare(b.name,undefined,{numeric:true})); }
+  // manifest chip
+  const files = out.filter(n=>n.type==="file").length;
+  const dirs  = out.filter(n=>n.type==="dir").length;
+  document.getElementById("dot").className="dot ok";
+  document.getElementById("manitxt").textContent = `${files} Dateien • ${dirs} Ordner`;
 }
 
 async function boot(){
-  const manifestOk = await j("/manifest.json?ts="+Date.now()).then(m=>{indexEntries(m); return true;}).catch(err=>{
+  // Footer copyright
+  document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
+  try{
+    const m = await j("/manifest.json?ts="+Date.now());
+    indexEntries(m);
+  }catch(e){
+    document.getElementById("dot").className="dot err";
+    document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
     document.getElementById("list").innerHTML = '<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
-    console.error(err); return false;
-  });
-  if(manifestOk){
-    // ZWINGEND im Startordner öffnen (ohne Fallbacks)
-    if(!CHILDREN.has(START_DIR)){
-      document.getElementById("list").innerHTML = `<li class="item"><span>⚠️</span><span class="name">Startordner nicht im Manifest: ${START_DIR}</span><span class="meta"></span><span></span></li>`;
-    } else {
-      await openDir(START_DIR);
-    }
   }
+  // ZWINGEND im Startordner öffnen
+  await openDir(START_DIR);
 }
 
 document.getElementById("q").addEventListener("input", renderList);
