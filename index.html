@@ -33,7 +33,7 @@
     .preview,.viewer img.preview{width:100%;max-width:980px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
     .md{max-width:980px;margin:0 auto}
     .md pre{background:#0f1922;border:1px solid #223042;border-radius:10px;padding:12px;overflow:auto}
-    footer{border-top:1px solid var(--border);background:#0e141b;color:var(--muted)}
+    footer{border-top:1px solid var(--border);background:#0e141b;color:#8aa0b4}
     footer .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
   </style>
@@ -116,7 +116,7 @@ const RAW          = (p)=> "/"+encodeURI(String(p||"").replace(/^\/+/,""));
 let NODES=new Map(), CHILDREN=new Map(), cwd="", current=null;
 const base = p => (p||"").split("/").pop()||"";
 const dir  = p => (p||"").split("/").slice(0,-1).join("/");
-const ext  = n => (n.toLowerCase().match(/\\.([a-z0-9]+)$/)?.[1]||"");
+const ext  = n => (n.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
 const isImg = e => ["png","jpg","jpeg","gif","webp","svg","avif","bmp"].includes(e);
 const isAud = e => ["mp3","wav","ogg","m4a","aac","flac"].includes(e);
 const isVid = e => ["mp4","webm","ogv","mov"].includes(e);
@@ -125,22 +125,37 @@ async function j(u){const r=await fetch(u+"?ts="+Date.now(),{cache:"no-store"});
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 function waitKaTeX(){return new Promise((res,rej)=>{let n=0;(function step(){ if(window.renderMathInElement) return res(); if(++n>200) return rej(new Error("KaTeX nicht verfügbar")); setTimeout(step,30); })();});}
 
-// ------- Manifest-Index -------
+// ------- Manifest-Index (erzeugt Ordnerknoten aus Pfadsegmenten) -------
+function normalizeEntries(raw){
+  const src = Array.isArray(raw) ? raw : (raw.entries||raw.tree||raw.items||[]);
+  const items=[], seenDir=new Set();
+  const addDir=(p)=>{ if(!p||seenDir.has(p)) return; seenDir.add(p); items.push({path:p,name:base(p),type:"dir"}); };
+  for(const e of src){
+    let p = (e.path||e.file||e.name||"").replace(/^\/+/,"");
+    if(!p) continue;
+    const typ = (e.type==="tree"||e.type==="dir") ? "dir" : "file";
+    // alle Elternordner anlegen (synthetisch)
+    const parts = p.split("/");
+    for(let i=1;i<parts.length;i++) addDir(parts.slice(0,i).join("/"));
+    if(typ==="dir") addDir(p);
+    else items.push({path:p,name:parts[parts.length-1],type:"file",size:e.size});
+  }
+  return items;
+}
 function indexEntries(raw){
   NODES.clear(); CHILDREN.clear();
-  const items=[];
-  const push=(e)=>{ let p=e.path||e.file||e.name||""; if(!p) return; p=String(p).replace(/^\\/+/,"");
-    const type=(e.type==="tree"||e.type==="dir")?"dir":"file";
-    items.push({path:p,name:base(p),type});
-  };
-  if(Array.isArray(raw)) raw.forEach(push);
-  else if(raw&&typeof raw==="object"){ (raw.entries||raw.tree||raw.items||[]).forEach(push); }
-
-  // Index bauen
-  items.forEach(n=>NODES.set(n.path,n));
-  for(const n of items){ const parent=dir(n.path); if(!CHILDREN.has(parent)) CHILDREN.set(parent,[]); CHILDREN.get(parent).push(n); }
-  for(const [k,a] of CHILDREN){ a.sort((a,b)=> (a.type!==b.type)?(a.type==="dir"?-1:1):a.name.localeCompare(b.name,undefined,{numeric:true})); }
-
+  const items = normalizeEntries(raw);
+  // Knoten ablegen
+  for(const n of items) NODES.set(n.path,n);
+  // Kind-Listen pro Ordner
+  for(const n of items){
+    const parent = dir(n.path);
+    if(!CHILDREN.has(parent)) CHILDREN.set(parent,[]);
+    CHILDREN.get(parent).push(n);
+  }
+  for(const [k,a] of CHILDREN){
+    a.sort((a,b)=> (a.type!==b.type)?(a.type==="dir"?-1:1):a.name.localeCompare(b.name,undefined,{numeric:true}));
+  }
   // Chip
   const files = items.filter(n=>n.type==="file").length;
   const dirs  = items.filter(n=>n.type==="dir").length;
