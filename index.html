@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sierpinski – Reader</title>
+  <title>antaris82 • Sierpinski-Reader</title>
+
+  <!-- Styles: eigene + vorhandene Assets -->
+  <link rel="stylesheet" href="assets/app.css">
   <style>
     :root { --bg:#0b1117; --fg:#e7eef5; --muted:#8aa0b4; --panel:#0e141b; --border:#1b2632; --accent:#5ba8ff; }
     html,body{height:100%} body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
@@ -19,8 +22,9 @@
     .left input{width:100%;padding:10px;border-radius:10px;border:1px solid #24303c;background:#0f1720;color:var(--fg)}
     .crumb{padding:8px 14px;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px}
     .list{list-style:none;margin:0;padding:6px}
-    .item{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;cursor:pointer}
+    .item{display:grid;grid-template-columns:24px 1fr auto auto;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;cursor:pointer}
     .item:hover{background:#111a23}.item .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.item .meta{color:var(--muted);font-size:12px}
+    .copy{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:4px 6px;border-radius:8px;cursor:pointer;font-size:12px}
     .viewer{padding:18px 22px 60px}
     .viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:#0c1218;padding:10px 0;z-index:1}
     .btn{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:8px 10px;border-radius:8px;cursor:pointer}
@@ -31,15 +35,20 @@
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
   </style>
 
-  <!-- Markdown, sanitize, highlight -->
+  <!-- Markdown / sanitize / highlight -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
-  <!-- KaTeX (CDN) -->
+  <!-- KaTeX -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Deine Module (optional verwendbar) -->
+  <script src="assets/i18n.js"></script>
+  <script src="assets/md.js"></script>
+  <script src="assets/render.js"></script>
 </head>
 <body>
 <header>
@@ -66,10 +75,11 @@
         <div class="muted" id="cur">—</div>
         <div>
           <button id="openRaw" class="btn">Rohdatei</button>
+          <button id="copyLink" class="btn">Link kopieren</button>
           <button id="print" class="btn">Als PDF</button>
         </div>
       </div>
-      <!-- Startbild immer sichtbar -->
+      <!-- Startbild: immer sichtbar -->
       <img id="hero" class="preview" src="/Sierpinski-Tetraeder.png" alt="Sierpinski-Tetraeder.png">
       <article id="md" class="md" hidden></article>
       <div id="generic" hidden></div>
@@ -89,8 +99,9 @@
 })();
 
 // ------- config -------
-const START_DIR = "Sierpinski Tetraeder_PoC";
-const urlRaw = p => "/"+encodeURI(String(p||"").replace(/^\/+/,""));
+const START_DIR = "Sierpinski Tetraeder_PoC";    // exakt so wie im manifest.json
+const READER = (p)=> "https://antaris82.github.io/viewer.html?path="+encodeURIComponent(p);
+const RAW    = (p)=> "/"+encodeURI(String(p||"").replace(/^\/+/,""));
 
 let NODES=new Map(), CHILDREN=new Map(), cwd="", current=null;
 
@@ -107,6 +118,8 @@ const isTxt = e => ["txt","log","md","markdown","csv","tsv","json","xml","yml","
 async function j(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 
+function waitKaTeX(){return new Promise((res,rej)=>{let n=0;(function step(){ if(window.renderMathInElement) return res(); if(++n>200) return rej(new Error("KaTeX nicht verfügbar")); setTimeout(step,30); })();});}
+
 function renderCrumb(){const el=document.getElementById("crumb"); const parts=cwd?cwd.split("/").filter(Boolean):[]; const items=['<a href="#" data-path="">/</a>']; let acc=""; for(const p of parts){acc=acc?acc+"/"+p:p; items.push(`<a href="#" data-path="${acc}">${p}</a>`);} el.innerHTML=items.join(" / "); el.querySelectorAll("a").forEach(a=>a.onclick=(e)=>{e.preventDefault(); openDir(a.dataset.path||"");});}
 
 function renderList(){
@@ -114,44 +127,58 @@ function renderList(){
   const list=document.getElementById("list"); list.innerHTML="";
   if(cwd){
     const up=document.createElement("li"); up.className="item";
-    up.innerHTML='<span class="meta">⬆️</span><span class="name">..</span><span class="meta">UP</span>';
+    up.innerHTML='<span class="meta">⬆️</span><span class="name">..</span><span class="meta">UP</span><span></span>';
     up.onclick=()=>openDir(dir(cwd)); list.appendChild(up);
   }
-  const ch=(CHILDREN.get(cwd)||[]).filter(e=>!q||e.name.toLowerCase().includes(q));
-  if(!ch.length){const li=document.createElement("li"); li.className="item"; li.innerHTML='<span class="meta">—</span><span class="name">Keine Dateien</span><span class="meta"></span>'; list.appendChild(li); return;}
-  for(const e of ch){
+  const children=(CHILDREN.get(cwd)||[]).filter(e=>!q||e.name.toLowerCase().includes(q));
+  if(!children.length){const li=document.createElement("li"); li.className="item"; li.innerHTML='<span class="meta">—</span><span class="name">Keine Dateien</span><span class="meta"></span><span></span>'; list.appendChild(li); return;}
+  for(const e of children){
     const li=document.createElement("li"); li.className="item"; li.dataset.path=e.path;
     const icon=e.type==="dir"?"📁":"📄"; const extn=e.type==="dir"?"DIR":(ext(e.name)||"file").toUpperCase();
-    li.innerHTML=`<span>${icon}</span><span class="name">${e.name}</span><span class="meta">${extn}</span>`;
+    const btn = e.type==="file" ? `<button class="copy" title="Viewer-Link kopieren">🔗</button>` : "";
+    li.innerHTML=`<span>${icon}</span><span class="name">${e.name}</span><span class="meta">${extn}</span><span>${btn}</span>`;
     li.onclick=()=>{ if(e.type==="dir") openDir(e.path); else openFile(e.path); };
+    if(e.type==="file"){
+      li.querySelector(".copy").onclick = async (ev)=>{
+        ev.stopPropagation();
+        const link = READER(e.path);
+        try{ await navigator.clipboard.writeText(link); ev.target.textContent="✓"; setTimeout(()=>ev.target.textContent="🔗", 1000);}catch{ window.open(link,"_blank"); }
+      };
+    }
     list.appendChild(li);
   }
 }
 
-async function openDir(path=""){cwd=path; renderCrumb(); renderList();}
-
-function showGeneric(node,title){
-  document.getElementById("hero")?.remove();
-  const md=document.getElementById("md"), gen=document.getElementById("generic");
-  md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
-  document.getElementById("cur").textContent = title||"—";
+async function openDir(path=""){
+  // Sicherstellen, dass es den Ordner im Manifest wirklich gibt
+  if(!CHILDREN.has(path)){
+    console.warn("Ordner nicht im Manifest:", path);
+  }
+  cwd=path; renderCrumb(); renderList();
 }
 
-function waitKatex(){return new Promise((res,rej)=>{let n=0;(function step(){if(window.renderMathInElement) return res(); if(++n>200) return rej(new Error("KaTeX nicht verfügbar")); setTimeout(step,30);})();});}
-
-async function openMarkdown(path){
-  current = path; const raw=urlRaw(path);
+// ------- viewer -------
+function setViewerButtons(path){
+  const raw = RAW(path);
   document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
   document.getElementById("print").onclick=()=>window.print();
+  document.getElementById("copyLink").onclick=async ()=>{
+    const link=READER(path);
+    try{ await navigator.clipboard.writeText(link); const b=document.getElementById("copyLink"); const old=b.textContent; b.textContent="Kopiert!"; setTimeout(()=>b.textContent=old,1000);}catch{ window.open(link,"_blank"); }
+  };
+}
+
+async function openMarkdown(path){
+  setViewerButtons(path);
   try{
-    const txt = await t(raw);
+    const txt = await t(RAW(path));
     marked.setOptions({gfm:true, breaks:false});
     const html = DOMPurify.sanitize(marked.parse(txt));
     document.getElementById("hero")?.remove();
     const md=document.getElementById("md"); const gen=document.getElementById("generic");
     gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
-    try{ await waitKatex(); renderMathInElement(md, {
+    try{ await waitKaTeX(); renderMathInElement(md, {
       delimiters:[
         {left:"$$", right:"$$", display:true},
         {left:"\\[", right:"\\]", display:true},
@@ -167,31 +194,29 @@ async function openMarkdown(path){
   }
 }
 
+function showGeneric(node,title){
+  document.getElementById("hero")?.remove();
+  const md=document.getElementById("md"), gen=document.getElementById("generic");
+  md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
+  document.getElementById("cur").textContent = title||"—";
+}
+
 function openImage(path){
-  current = path; const raw=urlRaw(path);
-  document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
-  document.getElementById("print").onclick=()=>window.print();
-  const img=document.createElement("img"); img.className="preview"; img.src=raw; img.alt=base(path);
+  setViewerButtons(path);
+  const img=document.createElement("img"); img.className="preview"; img.src=RAW(path); img.alt=base(path);
   showGeneric(img, base(path));
 }
-
 function openText(path){
-  current=path; const raw=urlRaw(path);
-  document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
-  document.getElementById("print").onclick=()=>window.print();
+  setViewerButtons(path);
   const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px";
-  t(raw).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message);
+  t(RAW(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message);
   showGeneric(pre, base(path));
 }
-
 function openRaw(path){
-  current=path; const raw=urlRaw(path);
-  document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
-  document.getElementById("print").onclick=()=>window.print();
-  const frame=document.createElement("iframe"); frame.className="preview"; frame.src=raw; frame.title=base(path); frame.style.height="78vh";
+  setViewerButtons(path);
+  const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW(path); frame.title=base(path); frame.style.height="78vh";
   showGeneric(frame, base(path));
 }
-
 function openFile(path){
   const e=ext(path);
   if(e==="md"||e==="markdown") return openMarkdown(path);
@@ -215,13 +240,18 @@ function indexEntries(raw){
 }
 
 async function boot(){
-  try{
-    const m = await j("/manifest.json?ts="+Date.now());
-    indexEntries(m);
-  }catch(e){
-    document.getElementById("list").innerHTML = '<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span></li>';
+  const manifestOk = await j("/manifest.json?ts="+Date.now()).then(m=>{indexEntries(m); return true;}).catch(err=>{
+    document.getElementById("list").innerHTML = '<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
+    console.error(err); return false;
+  });
+  if(manifestOk){
+    // ZWINGEND im Startordner öffnen (ohne Fallbacks)
+    if(!CHILDREN.has(START_DIR)){
+      document.getElementById("list").innerHTML = `<li class="item"><span>⚠️</span><span class="name">Startordner nicht im Manifest: ${START_DIR}</span><span class="meta"></span><span></span></li>`;
+    } else {
+      await openDir(START_DIR);
+    }
   }
-  await openDir(START_DIR);
 }
 
 document.getElementById("q").addEventListener("input", renderList);

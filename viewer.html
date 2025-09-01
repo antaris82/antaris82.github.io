@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Viewer</title>
+  <link rel="stylesheet" href="assets/app.css">
   <style>
     body{margin:0;background:#0b1117;color:#e7eef5;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
     .wrap{max-width:900px;margin:0 auto;padding:18px 14px 60px}
@@ -32,6 +33,7 @@
   <div class="wrap">
     <div id="md" class="content">Lade…</div>
   </div>
+
 <script type="module">
 const qs=new URLSearchParams(location.search);
 const path=qs.get("path")||"";
@@ -41,7 +43,7 @@ document.getElementById("gh").href="https://github.com/antaris82/antaris82.githu
 document.getElementById("path").textContent=path||"—";
 
 async function fetchText(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
-function waitKatex(){return new Promise((res,rej)=>{let n=0;(function step(){if(window.renderMathInElement) return res(); if(++n>200) return rej(new Error("KaTeX nicht verfügbar")); setTimeout(step,30);})();});}
+function waitKaTeX(){return new Promise((res,rej)=>{let n=0;(function step(){if(window.renderMathInElement) return res(); if(++n>200) return rej(new Error("KaTeX nicht verfügbar")); setTimeout(step,30);})();});}
 
 async function run(){
   try{
@@ -50,7 +52,7 @@ async function run(){
     const html=DOMPurify.sanitize(marked.parse(text));
     const md=document.getElementById("md");
     md.innerHTML=html;
-    try{ await waitKatex(); renderMathInElement(md, {
+    try{ await waitKaTeX(); renderMathInElement(md, {
       delimiters:[
         {left:"$$", right:"$$", display:true},
         {left:"\\[", right:"\\]", display:true},
