@@ -78,7 +78,8 @@ async function showMarkdown(){
   const md=document.getElementById("md");
   const html=DOMPurify.sanitize(marked.parse(text));
   md.innerHTML=html;
-  await renderMathSafe(md);                // <<< KaTeX sicher
+  await renderMathSafe(md);                // KaTeX sicher
+  setTimeout(()=>renderMathSafe(md),0);    // zweite Runde, falls DOM nachlädt
 }
 
 function showImage(){ document.getElementById("md").innerHTML=""; const img=document.createElement("img"); img.className="preview"; img.src=raw; img.alt=name; document.getElementById("stage").replaceChildren(img); }
