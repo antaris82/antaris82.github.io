@@ -3,119 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Viewer</title>
+  <title>Viewer → Ordneransicht</title>
+  <meta http-equiv="refresh" content="0;url=/">
   <style>
-    body{margin:0;background:#0b1117;color:#e7eef5;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
-    .wrap{max-width:900px;margin:0 auto;padding:18px 14px 60px}
-    header{position:sticky;top:0;background:#0e141b;border-bottom:1px solid #1b2632}
-    header .row{display:flex;gap:10px;align-items:center;padding:10px 14px}
-    header a,header button{background:#2f81f7;color:#fff;border:0;border-radius:10px;padding:8px 12px;text-decoration:none}
-    header a.secondary{background:#26303c}
-    .content{background:#0c1218;border:1px solid #1b2632;border-radius:12px;padding:18px}
-    .content pre{background:#0f1922;border:1px solid #223042;border-radius:10px;padding:12px;overflow:auto}
-    .preview{width:100%;max-width:900px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
+    body{margin:0;background:#0b1117;color:#e7eef5;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+    .wrap{max-width:900px;margin:20vh auto 0;padding:0 16px;text-align:center}
+    a{color:#5ba8ff}
   </style>
-
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
-  <header>
-    <div class="row">
-      <button onclick="window.print()">Als PDF speichern</button>
-      <a id="raw" target="_blank" rel="noopener">Raw öffnen</a>
-      <a id="gh" target="_blank" rel="noopener" class="secondary">Auf GitHub</a>
-      <div id="path" style="margin-left:auto;color:#8aa0b4;font-family:ui-monospace,Menlo,Consolas,monospace"></div>
-    </div>
-  </header>
-  <div class="wrap">
-    <div id="md" class="content">Lade…</div>
-    <div id="stage"></div>
-  </div>
-
-<script type="module">
-// Query
-const qs=new URLSearchParams(location.search);
-const path=qs.get("path")||"";
-const raw ="/"+encodeURI(path.replace(/^\/+/,""));
-const name=(path.split("/").pop()||"");
-document.getElementById("raw").href=raw;
-document.getElementById("gh").href="https://github.com/antaris82/antaris82.github.io/blob/main/"+encodeURI(path);
-document.getElementById("path").textContent=path||"—";
-
-// Helpers
-const ext=(name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
-const isImg=e=>["png","jpg","jpeg","gif","webp","svg","avif","bmp"].includes(e);
-const isAud=e=>["mp3","wav","ogg","m4a","aac","flac"].includes(e);
-const isVid=e=>["mp4","webm","ogv","mov"].includes(e);
-const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg"].includes(e);
-async function fetchText(u){const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error(r.status+" "+r.statusText);return r.text();}
-
-// Math-Schutz wie in index.html
-function protectMath(text){
-  const blocks=[];
-  const take = m => (blocks.push(m), `%%MATH${blocks.length-1}%%`);
-  text = text.replace(/\$\$([\s\S]+?)\$\$/g, take);
-  text = text.replace(/\\\[[\s\S]*?\\\]/g, take);
-  text = text.replace(/\\\([\s\S]*?\\\)/g, take);
-  text = text.replace(/\$(?!\$)([\s\S]+?)\$(?!\$)/g, take);
-  return {text, blocks};
-}
-function restoreMath(html, blocks){
-  return html.replace(/%%MATH(\d+)%%/g, (_,i)=>{
-    const s=blocks[+i];
-    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
-  });
-}
-async function renderMathSafe(rootEl){
-  for(let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
-    await new Promise(r=>setTimeout(r,30));
-  }
-  if(typeof window.renderMathInElement!=="function") return;
-  window.renderMathInElement(rootEl,{
-    delimiters:[
-      {left:"\\[", right:"\\]", display:true},
-      {left:"$$",  right:"$$",  display:true},
-      {left:"\\(", right:"\\)", display:false},
-      {left:"$",   right:"$",   display:false}
-    ],
-    throwOnError:false,
-    strict:"ignore"
-  });
-}
-
-// Render-Funktionen
-async function showMarkdown(){
-  const src=await fetchText(raw);
-  const {text,blocks}=protectMath(src);
-  const htmlSafe=DOMPurify.sanitize(marked.parse(text));
-  const html=restoreMath(htmlSafe, blocks);
-  const md=document.getElementById("md");
-  md.innerHTML=html;
-  await renderMathSafe(md);
-  setTimeout(()=>renderMathSafe(md),0);
-}
-function showImage(){ document.getElementById("md").innerHTML=""; const img=document.createElement("img"); img.className="preview"; img.src=raw; img.alt=name; document.getElementById("stage").replaceChildren(img); }
-function showAudio(){ document.getElementById("md").innerHTML=""; const el=document.createElement("audio"); el.className="preview"; el.controls=true; el.src=raw; document.getElementById("stage").replaceChildren(el); }
-function showVideo(){ document.getElementById("md").innerHTML=""; const el=document.createElement("video"); el.className="preview"; el.controls=true; el.src=raw; document.getElementById("stage").replaceChildren(el); }
-async function showText(){ document.getElementById("md").innerHTML=""; const pre=document.createElement("pre"); pre.className="content"; pre.style.padding="12px"; pre.textContent=await fetchText(raw); document.getElementById("stage").replaceChildren(pre); }
-function showRaw(){ document.getElementById("md").innerHTML=""; const frame=document.createElement("iframe"); frame.className="preview"; frame.src=raw; frame.title=name; frame.style.height="78vh"; document.getElementById("stage").replaceChildren(frame); }
-
-// Run
-(async function run(){
-  try{
-    if(ext==="md"||ext==="markdown") return await showMarkdown();
-    if(isImg(ext)) return showImage();
-    if(isAud(ext)) return showAudio();
-    if(isVid(ext)) return showVideo();
-    if(isTxt(ext)) return showText();
-    return showRaw();
-  }catch(e){
-    document.getElementById("md").innerHTML=`<p style="color:#ff9a9a">Datei konnte nicht geladen werden: ${e.message}</p>`;
-  }
+<div class="wrap">
+  <p>Weiterleitung zur Ordneransicht…</p>
+  <p><a id="fallback" href="/">Falls nichts passiert, hier klicken.</a></p>
+</div>
+<script>
+(function(){
+  const qs = new URLSearchParams(location.search);
+  const path = qs.get("path") || "";
+  // Ordner = parent von path
+  const parent = path.split("/").slice(0,-1).join("/");
+  const target = `/?dir=${encodeURIComponent(parent)}&open=${encodeURIComponent(path)}`;
+  // Harte Weiterleitung (ersetzt Verlaufseintrag)
+  location.replace(target);
+  // Fallback-Link setzen (für sehr alte Browser)
+  document.getElementById("fallback").href = target;
 })();
 </script>
 </body>
