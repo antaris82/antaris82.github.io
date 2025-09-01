@@ -129,22 +129,30 @@ async function j(u){const r=await fetch(u+"?ts="+Date.now(),{cache:"no-store"});
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 
 // ===== LaTeX sicher ausführen =====
-async function renderMathSafe(rootEl){
-  for (let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
-    await new Promise(r=>setTimeout(r,30));
+  async function renderMathSafe(rootEl){
+    // Warten bis KaTeX auto-render verfügbar ist
+    for (let i = 0; i < 200 && typeof window.renderMathInElement !== "function"; i++) {
+      await new Promise(r => setTimeout(r, 30));
+    }
+    if (typeof window.renderMathInElement !== "function") return;
+
+    // Delimiter: zusätzlich eckige Klammern als Display-Math
+    window.renderMathInElement(rootEl, {
+      delimiters: [
+        // Display
+        { left: "\\[", right: "\\]", display: true },
+        { left: "$$",  right: "$$",  display: true },
+        { left: "[[",  right: "]]",  display: true },   // z.B. [[ … ]]
+        { left: "[ ",  right: " ]",  display: true },   // z.B. [ … ] mit Leerzeichen
+        // Inline
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$",   right: "$",   display: false }
+      ],
+      throwOnError: false,
+      strict: "ignore",
+      // Standardmäßig werden code/pre/script/style etc. ignoriert
+    });
   }
-  if (typeof window.renderMathInElement!=="function") return;
-  window.renderMathInElement(rootEl,{
-    delimiters:[
-      {left:"$$", right:"$$", display:true},
-      {left:"\\[", right:"\\]", display:true},
-      {left:"\\(", right:"\\)", display:false},
-      {left:"$",  right:"$",  display:false}
-    ],
-    throwOnError:false,
-    strict:"ignore"
-  });
-}
 
 // ===== Manifest → Knoten + Ordnerkonstruktion =====
 function normalizeEntries(raw){
