@@ -36,15 +36,15 @@
   </div>
 
 <script type="module">
-const qs=new URLSearchParams(location.search);
-const path=qs.get("path")||"";
-const raw="/"+encodeURI(path.replace(/^\/+/,""));
-const name=(path.split("/").pop()||"");
-document.getElementById("raw").href=raw;
-document.getElementById("gh").href="https://github.com/antaris82/antaris82.github.io/blob/main/"+encodeURI(path);
-document.getElementById("path").textContent=path||"—";
+const qs   = new URLSearchParams(location.search);
+const path = qs.get("path") || "";
+const raw  = "/"+encodeURI(path.replace(/^\/+/,""));
+const name = (path.split("/").pop()||"");
+document.getElementById("raw").href = raw;
+document.getElementById("gh").href  = "https://github.com/antaris82/antaris82.github.io/blob/main/"+encodeURI(path);
+document.getElementById("path").textContent = path || "—";
 
-const ext=(name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
+const ext=(name.toLowerCase().match(/\\.([a-z0-9]+)$/)?.[1]||"");
 const isImg=e=>["png","jpg","jpeg","gif","webp","svg","avif","bmp"].includes(e);
 const isAud=e=>["mp3","wav","ogg","m4a","aac","flac"].includes(e);
 const isVid=e=>["mp4","webm","ogv","mov"].includes(e);
