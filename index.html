@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
 
-  <!-- KaTeX (ohne defer, um Race zu vermeiden) -->
+  <!-- KaTeX (ohne defer, vermeidet Race) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
@@ -84,7 +84,7 @@
           <button id="print" class="btn">Als PDF</button>
         </div>
       </div>
-      <!-- Startbild: immer sichtbar -->
+      <!-- Startbild: sichtbar bis zur ersten Datei -->
       <img id="hero" class="preview" src="/Sierpinski-Tetraeder.png" alt="Sierpinski-Tetraeder.png">
       <article id="md" class="md" hidden></article>
       <div id="generic" hidden></div>
@@ -222,7 +222,8 @@ function setViewerButtons(path){
   };
 }
 function showGeneric(node,title){
-  document.getElementById("hero")?.remove();
+  const hero = document.getElementById("hero");
+  if (hero) hero.remove();                    // Startbild sicher entfernen
   const md=document.getElementById("md"), gen=document.getElementById("generic");
   md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
   document.getElementById("cur").textContent = title||"—";
@@ -235,7 +236,8 @@ async function openMarkdown(path){
     gen.hidden=true; gen.innerHTML=""; md.hidden=false;
     const html = DOMPurify.sanitize(marked.parse(txt));
     md.innerHTML = html;
-    await renderMathSafe(md);                 // <<< KaTeX sicher
+    await renderMathSafe(md);                 // KaTeX sicher
+    setTimeout(()=>renderMathSafe(md),0);     // zweite Runde, falls DOM nachlädt
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
     document.getElementById("cur").textContent = base(path);
   }catch(e){
@@ -246,13 +248,18 @@ async function openMarkdown(path){
 function openImage(path){ setViewerButtons(path); const img=document.createElement("img"); img.className="preview"; img.src=RAW(path); img.alt=base(path); showGeneric(img, base(path)); }
 function openText(path){  setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); }
 function openRaw(path){   setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); }
-function openFile(path){  const e=ext(path); if(e==="md"||e==="markdown") return openMarkdown(path); if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path); }
+function openFile(path){  // Startbild garantiert ausblenden
+  const hero = document.getElementById("hero"); if (hero) hero.remove();
+  const e=ext(path); if(e==="md"||e==="markdown") return openMarkdown(path);
+  if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path);
+}
 
 // ===== Boot =====
 async function boot(){
   // Footer
   document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
-  // Manifest
+
+  // Manifest laden (immer aus Root)
   try{
     const m = await j(MANIFEST_URL);
     indexEntries(m);
@@ -261,6 +268,7 @@ async function boot(){
     document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
     document.getElementById("list").innerHTML = '<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
   }
+
   // ZWINGEND im Startordner öffnen
   await window.openDir(START_DIR);
 }
