@@ -1,0 +1,7 @@
+{
+  "level": 4,
+  "r_estimate": 1.429165249499555,
+  "r_used": 0.6666666666666666,
+  "n_effective": 332,
+  "bc": "dirichlet"
+}

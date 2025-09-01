@@ -1,0 +1,53 @@
+{
+  "traj_vs_ti": {
+    "Dkl": 0.00010255914302794746,
+    "chi2": 0.5257695395535187,
+    "df": 1,
+    "p_value_approx": 0.4683908834184629,
+    "p_chi2_exact": 0.4683908834184629,
+    "p_g": 0.4683258557718417,
+    "clicks_total": 2564,
+    "bins": [
+      {
+        "name": "Port_A",
+        "rel": 0.5206708268330733,
+        "p_ti": 0.5135135135135135,
+        "wilson_low": 0.5013174132578466,
+        "wilson_high": 0.5399623938096354,
+        "count": 1335
+      },
+      {
+        "name": "Port_B",
+        "rel": 0.4793291731669267,
+        "p_ti": 0.4864864864864865,
+        "wilson_low": 0.4600376061903646,
+        "wilson_high": 0.49868258674215327,
+        "count": 1229
+      }
+    ],
+    "passed": true,
+    "criteria": {
+      "Dkl<": 0.02,
+      "p_value>": 0.05
+    },
+    "tost_all_pixels": false,
+    "wilson_all_pixels": true,
+    "alpha": 0.05,
+    "eq_margin_mode": "absolute",
+    "eq_margin_abs_used_per_pixel": [
+      0.02,
+      0.02
+    ],
+    "cramers_V": 0.014319857637518002,
+    "JSD": 2.5643753445682036e-05,
+    "TV": 0.0071573133195598215,
+    "p_binom_two_sided": 0.4769655703564519,
+    "TI_equivalence_pass": false
+  },
+  "spectral_dimension": {
+    "ds_est": 2.816015567759019,
+    "R2": 0.9339667889243009,
+    "t_min": 0.01,
+    "t_max": 1.0
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "clicks": {
+    "Port_A": 1296,
+    "Port_B": 1215
+  },
+  "total": 2511,
+  "lost": 0,
+  "none": 489,
+  "names": [
+    "Port_A",
+    "Port_B"
+  ]
+}

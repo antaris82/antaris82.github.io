@@ -1,0 +1,13 @@
+{
+  "combine": "union",
+  "pixels": [
+    { "name": "Port_A", "efficiency": 0.95,
+      "selectors": [ { "type": "address", "prefix": ["0", "1"] } ] },
+    { "name": "Port_B", "efficiency": 0.90,
+      "selectors": [ { "type": "address", "prefix": ["2", "3"] } ] }
+  ],
+  "unitary": [
+    [ [0.70710678, 0.0], [0.0, 0.70710678] ],
+    [ [0.0, 0.70710678], [0.70710678, 0.0] ]
+  ]
+}
