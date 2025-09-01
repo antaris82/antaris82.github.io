@@ -28,7 +28,9 @@
     .item:hover{background:#111a23}
     .item .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .item .meta{color:var(--muted);font-size:12px}
-    .copy{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:4px 6px;border-radius:8px;cursor:pointer;font-size:12px}
+    .actions{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+    .copy,.btn-mini{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;font-size:12px}
+    .btn-mini{text-decoration:none;display:inline-flex;align-items:center}
     .viewer{padding:18px 22px 60px}
     .viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:#0c1218;padding:10px 0;z-index:1}
     .btn{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:8px 10px;border-radius:8px;cursor:pointer}
@@ -41,12 +43,13 @@
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
   </style>
 
+  <!-- Markdown / Sanitize / Code-Highlight -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
 
-  <!-- KaTeX (ohne defer, damit garantiert geladen ist) -->
+  <!-- KaTeX (ohne defer) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
@@ -83,6 +86,7 @@
           <button id="print" class="btn">Als PDF</button>
         </div>
       </div>
+      <!-- Startbild bis zur ersten Datei -->
       <img id="hero" class="preview" src="/Sierpinski-Tetraeder.png" alt="Sierpinski-Tetraeder.png">
       <article id="md" class="md" hidden></article>
       <div id="generic" hidden></div>
@@ -100,7 +104,7 @@
 <div id="err"></div>
 
 <script>
-// Error-Banner
+// ===== Error-Banner =====
 (function(){
   const E=document.getElementById("err");
   const show=msg=>{E.textContent="Fehler: "+msg;E.style.display="block";};
@@ -108,47 +112,35 @@
   window.addEventListener("unhandledrejection",e=>show(e.reason||e));
 })();
 
-// Config
+// ===== Konfiguration =====
 const MANIFEST_URL="/manifest.json";
 const START_DIR="Sierpinski Tetraeder_PoC";
+const ORIGIN = location.origin; // "https://antaris82.github.io"
+const dirURL = p => `${ORIGIN}/?dir=${encodeURIComponent(p)}`;
+const githubTree = p => `https://github.com/antaris82/antaris82.github.io/tree/main/${encodeURI(p)}`;
+const getStartDir = () => (new URLSearchParams(location.search).get("dir") || START_DIR);
+
 const READER=p=>"https://antaris82.github.io/viewer.html?path="+encodeURIComponent(p);
 const RAW    =p=>"/"+encodeURI(String(p||"").replace(/^\/+/,""));
 
-// State/Utils
+// ===== State / Utils =====
 let NODES=new Map(), CHILDREN=new Map(), cwd="";
 const base=p=>(p||"").split("/").pop()||"";
 const dir =p=>(p||"").split("/").slice(0,-1).join("/");
 const ext =n=>(n.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
 const isImg=e=>["png","jpg","jpeg","gif","webp","svg","avif","bmp"].includes(e);
+const isAud=e=>["mp3","wav","ogg","m4a","aac","flac"].includes(e);
+const isVid=e=>["mp4","webm","ogv","mov"].includes(e);
 const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg","java","c","cpp","h","hpp","cs","go","rs","php","rb","kt","swift","sql","toml"].includes(e);
-async function j(u){const r=await fetch(u+"?ts="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status+" "+r.statusText);return r.json();}
-async function t(u){const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error(r.status+" "+r.statusText);return r.text();}
+async function j(u){const r=await fetch(u+"?ts="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
+async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 
-// --- Math-Schutz: schützt $$…$$, \[...\], \(...\), $...$ vor Markdown ---
-function protectMath(text){
-  const blocks=[];
-  const take = m => (blocks.push(m), `%%MATH${blocks.length-1}%%`);
-  // Reihenfolge wichtig (längere Delimiter zuerst):
-  text = text.replace(/\$\$([\s\S]+?)\$\$/g, take);
-  text = text.replace(/\\\[[\s\S]*?\\\]/g, take);
-  text = text.replace(/\\\([\s\S]*?\\\)/g, take);
-  text = text.replace(/\$(?!\$)([\s\S]+?)\$(?!\$)/g, take);
-  return {text, blocks};
-}
-function restoreMath(html, blocks){
-  return html.replace(/%%MATH(\d+)%%/g, (_,i)=>{
-    const s=blocks[+i];
-    // sicher einsetzen (kein HTML, nur Text)
-    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
-  });
-}
-
-// KaTeX rendern (nach dem Markdown)
+// ===== LaTeX sicher ausführen =====
 async function renderMathSafe(rootEl){
-  for(let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
+  for (let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
     await new Promise(r=>setTimeout(r,30));
   }
-  if(typeof window.renderMathInElement!=="function") return;
+  if (typeof window.renderMathInElement!=="function") return;
   window.renderMathInElement(rootEl,{
     delimiters:[
       {left:"\\[", right:"\\]", display:true},
@@ -161,7 +153,24 @@ async function renderMathSafe(rootEl){
   });
 }
 
-// Manifest → Knoten
+// ===== Math schützen (vor Markdown) =====
+function protectMath(text){
+  const blocks=[];
+  const take = m => (blocks.push(m), `%%MATH${blocks.length-1}%%`);
+  text = text.replace(/\$\$([\s\S]+?)\$\$/g, take);
+  text = text.replace(/\\\[[\s\S]*?\\\]/g, take);
+  text = text.replace(/\\\([\s\S]*?\\\)/g, take);
+  text = text.replace(/\$(?!\$)([\s\S]+?)\$(?!\$)/g, take);
+  return {text, blocks};
+}
+function restoreMath(html, blocks){
+  return html.replace(/%%MATH(\d+)%%/g, (_,i)=>{
+    const s=blocks[+i];
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  });
+}
+
+// ===== Manifest → Knoten + Ordnerkonstruktion =====
 function normalizeEntries(raw){
   const src=Array.isArray(raw)?raw:(raw.entries||raw.tree||raw.items||[]);
   const items=[], seenDir=new Set();
@@ -178,56 +187,112 @@ function normalizeEntries(raw){
   return items;
 }
 function indexEntries(raw){
-  NODES.clear();CHILDREN.clear();
+  NODES.clear(); CHILDREN.clear();
   const items=normalizeEntries(raw);
   items.forEach(n=>NODES.set(n.path,n));
-  for(const n of items){const parent=dir(n.path);if(!CHILDREN.has(parent))CHILDREN.set(parent,[]);CHILDREN.get(parent).push(n);}
-  for(const [k,a] of CHILDREN){a.sort((a,b)=> (a.type!==b.type)?(a.type==="dir"?-1:1):a.name.localeCompare(b.name,undefined,{numeric:true}));}
+  for(const n of items){ const parent=dir(n.path); if(!CHILDREN.has(parent)) CHILDREN.set(parent,[]); CHILDREN.get(parent).push(n); }
+  for(const [k,a] of CHILDREN){
+    a.sort((a,b)=> (a.type!==b.type)?(a.type==="dir"?-1:1):a.name.localeCompare(b.name,undefined,{numeric:true}));
+  }
   const files=items.filter(n=>n.type==="file").length, dirs=items.length-files;
   document.getElementById("dot").className="dot ok";
   document.getElementById("manitxt").textContent=`${files} Dateien • ${dirs} Ordner`;
 }
 
-// Browser-UI
-function crumbHtml(path){const parts=path?path.split("/").filter(Boolean):[];const items=['<a href="#" data-path="">/</a>'];let acc="";for(const p of parts){acc=acc?acc+"/"+p:p;items.push(`<a href="#" data-path="${acc}">${p}</a>`);}return items.join(" / ");}
-function renderCrumb(){const el=document.getElementById("crumb");el.innerHTML=crumbHtml(cwd);el.querySelectorAll("a").forEach(a=>a.onclick=(e)=>{e.preventDefault();window.openDir(a.dataset.path||"");});}
+// ===== Browser UI (mit Deeplinks) =====
+function crumbHtml(path){
+  const parts=path?path.split("/").filter(Boolean):[];
+  const items=[`<a href="${dirURL("")}" data-path="">/</a>`];
+  let acc="";
+  for(const p of parts){ acc=acc?acc+"/"+p:p; items.push(`<a href="${dirURL(acc)}" data-path="${acc}">${p}</a>`); }
+  return items.join(" / ");
+}
+function renderCrumb(){
+  const el=document.getElementById("crumb");
+  el.innerHTML=crumbHtml(cwd);
+  el.querySelectorAll("a").forEach(a=>a.onclick=(e)=>{e.preventDefault(); window.openDir(a.dataset.path||"");});
+}
+
 function renderList(){
   const q=(document.getElementById("q").value||"").trim().toLowerCase();
   const list=document.getElementById("list"); list.innerHTML="";
+
   if(cwd){
     const up=document.createElement("li"); up.className="item";
     up.innerHTML='<span class="meta">⬆️</span><span class="name">..</span><span class="meta">UP</span><span></span>';
     up.onclick=()=>window.openDir(dir(cwd)); list.appendChild(up);
   }
+
   const children=(CHILDREN.get(cwd)||[]).filter(e=>!q||e.name.toLowerCase().includes(q));
-  if(!children.length){const li=document.createElement("li"); li.className="item"; li.innerHTML='<span class="meta">—</span><span class="name">Keine Dateien</span><span class="meta"></span><span></span>'; list.appendChild(li); return;}
+  if(!children.length){
+    const li=document.createElement("li"); li.className="item";
+    li.innerHTML='<span class="meta">—</span><span class="name">Keine Dateien</span><span class="meta"></span><span></span>';
+    list.appendChild(li); return;
+  }
+
   for(const e of children){
     const li=document.createElement("li"); li.className="item"; li.dataset.path=e.path;
-    const icon=e.type==="dir"?"📁":"📄"; const extn=e.type==="dir"?"DIR":(ext(e.name)||"file").toUpperCase();
-    const btn=e.type==="file"?`<button class="copy" title="Viewer-Link kopieren">🔗</button>`:"";
-    li.innerHTML=`<span>${icon}</span><span class="name">${e.name}</span><span class="meta">${extn}</span><span>${btn}</span>`;
+    const icon=e.type==="dir"?"📁":"📄";
+    const extn=e.type==="dir"?"DIR":(ext(e.name)||"file").toUpperCase();
+
+    const nameHTML = (e.type==="dir")
+      ? `<a class="name" href="${dirURL(e.path)}" data-path="${e.path}">${e.name}</a>`
+      : `<span class="name">${e.name}</span>`;
+
+    const actionsHTML = (e.type==="dir")
+      ? `<span class="actions">
+           <button class="copy" title="Ordner-Link kopieren">🔗</button>
+           <a class="btn-mini" href="${githubTree(e.path)}" target="_blank" title="Auf GitHub öffnen">GH</a>
+         </span>`
+      : `<span class="actions">
+           <button class="copy" title="Viewer-Link kopieren">🔗</button>
+         </span>`;
+
+    li.innerHTML = `<span>${icon}</span>${nameHTML}<span class="meta">${extn}</span>${actionsHTML}`;
+
+    // Ganzes Li klicken
     li.onclick=()=>{ if(e.type==="dir") window.openDir(e.path); else openFile(e.path); };
-    if(e.type==="file"){
-      const b=li.querySelector(".copy");
-      if(b) b.onclick=async(ev)=>{ev.stopPropagation();const link=READER(e.path);try{await navigator.clipboard.writeText(link);b.textContent="✓";setTimeout(()=>b.textContent="🔗",900);}catch{window.open(link,"_blank");}};
-    }
+
+    // Name-Anchor: SPA-Navigation; Rechtsklick/Neuer Tab bleibt nativ
+    const a = li.querySelector("a.name");
+    if(a){ a.onclick = ev => { ev.preventDefault(); window.openDir(a.dataset.path); }; }
+
+    // Kopieren
+    const b = li.querySelector(".copy");
+    if(b) b.onclick = async (ev) => {
+      ev.stopPropagation();
+      const link = (e.type==="dir") ? dirURL(e.path) : READER(e.path);
+      try{ await navigator.clipboard.writeText(link); b.textContent="✓"; setTimeout(()=>b.textContent="🔗", 900); }
+      catch{ window.open(link,"_blank"); }
+    };
+
     list.appendChild(li);
   }
 }
-window.openDir=async function(path=""){cwd=path;renderCrumb();renderList();};
 
-// Viewer (rechts)
+// Deeplink-fähig: aktualisiert ?dir=...
+window.openDir = async function(path=""){
+  cwd = path;
+  renderCrumb();
+  renderList();
+  const newQs = `?dir=${encodeURIComponent(cwd)}`;
+  if (location.search !== newQs) history.replaceState(null, "", newQs);
+};
+
+// ===== Viewer (rechts) =====
 function setViewerButtons(path){
   const raw=RAW(path);
   document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
   document.getElementById("print").onclick=()=>window.print();
-  document.getElementById("copyLink").onclick=async()=>{const link=READER(path);try{await navigator.clipboard.writeText(link);const b=document.getElementById("copyLink");const old=b.textContent;b.textContent="Kopiert!";setTimeout(()=>b.textContent=old,1000);}catch{window.open(link,"_blank");}};
+  document.getElementById("copyLink").onclick=async ()=>{ const link=READER(path);
+    try{ await navigator.clipboard.writeText(link); const b=document.getElementById("copyLink"); const old=b.textContent; b.textContent="Kopiert!"; setTimeout(()=>b.textContent=old,1000);}catch{ window.open(link,"_blank"); }
+  };
 }
 function showGeneric(node,title){
   document.getElementById("hero")?.remove();
   const md=document.getElementById("md"), gen=document.getElementById("generic");
   md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
-  document.getElementById("cur").textContent=title||"—";
+  document.getElementById("cur").textContent = title||"—";
 }
 async function openMarkdown(path){
   setViewerButtons(path);
@@ -238,34 +303,33 @@ async function openMarkdown(path){
     const html=restoreMath(htmlSafe, blocks);
     const md=document.getElementById("md"); const gen=document.getElementById("generic");
     gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
-    await renderMathSafe(md);
-    setTimeout(()=>renderMathSafe(md),0);
+    await renderMathSafe(md); setTimeout(()=>renderMathSafe(md),0);
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
-    document.getElementById("cur").textContent=base(path);
+    document.getElementById("cur").textContent = base(path);
   }catch(e){
     const p=document.createElement("p"); p.style.color="#ff9a9a"; p.textContent="Datei konnte nicht geladen werden: "+e.message;
     showGeneric(p, base(path));
   }
 }
-function openImage(path){setViewerButtons(path);const img=document.createElement("img");img.className="preview";img.src=RAW(path);img.alt=base(path);showGeneric(img, base(path));}
-function openText(path){ setViewerButtons(path);const pre=document.createElement("pre");pre.className="md";pre.style.padding="12px";t(RAW(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message);showGeneric(pre, base(path));}
-function openRaw(path){  setViewerButtons(path);const frame=document.createElement("iframe");frame.className="preview";frame.src=RAW(path);frame.title=base(path);frame.style.height="78vh";showGeneric(frame, base(path));}
-function openFile(path){ document.getElementById("hero")?.remove(); const e=ext(path); if(e==="md"||e==="markdown")return openMarkdown(path); if(isImg(e))return openImage(path); if(isTxt(e))return openText(path); return openRaw(path);}
+function openImage(path){ setViewerButtons(path); const img=document.createElement("img"); img.className="preview"; img.src=RAW(path); img.alt=base(path); showGeneric(img, base(path)); }
+function openText(path){  setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); }
+function openRaw(path){   setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); }
+function openFile(path){  document.getElementById("hero")?.remove(); const e=ext(path); if(e==="md"||e==="markdown") return openMarkdown(path); if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path); }
 
-// Boot
+// ===== Boot =====
 async function boot(){
-  document.getElementById("copyright").textContent=`© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
+  document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
   try{ const m=await j(MANIFEST_URL); indexEntries(m); }
   catch(e){
     document.getElementById("dot").className="dot err";
     document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
-    document.getElementById("list").innerHTML='<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
+    document.getElementById("list").innerHTML = '<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
   }
-  await window.openDir(START_DIR);
+  await window.openDir(getStartDir());
 }
-document.getElementById("q").addEventListener("input",renderList);
-document.getElementById("refresh").addEventListener("click",boot);
-document.addEventListener("DOMContentLoaded",boot);
+document.getElementById("q").addEventListener("input", renderList);
+document.getElementById("refresh").addEventListener("click", boot);
+document.addEventListener("DOMContentLoaded", boot);
 </script>
 </body>
 </html>

@@ -112,6 +112,13 @@
     "mode": "100644"
   },
   {
+    "path": "changed.txt",
+    "sha": "4836a12fa8b65fef5390f99c99042138920f9726",
+    "size": 81,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "CITATION.cff",
     "sha": "658d591b4bdffe51fc7ef5f6111fdeb870bf40c4",
     "size": 1074,
@@ -120,15 +127,15 @@
   },
   {
     "path": "index.html",
-    "sha": "86faa4a2f3fcf202ff71bc897b468136f35af709",
-    "size": 14977,
+    "sha": "53ce81078657fb2d0954a73790a4a35ff6ecf9fd",
+    "size": 16729,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.json",
-    "sha": "d8d60955d3527caf843a6315f9763ec4f421010f",
-    "size": 26270,
+    "sha": "be5819f844cb933243136745649a67e2bae58aa3",
+    "size": 45326,
     "type": "blob",
     "mode": "100644"
   },
@@ -941,6 +948,685 @@
     "path": "Sierpinski Tetraeder_PoC/E4/README.md",
     "sha": "7d78727a1d3574a964b6a8eb4dff13a5cfe38dec",
     "size": 2277,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/detector_pixels.json",
+    "sha": "aec6a22eb9ba86996389e2252e41b4851fcce377",
+    "size": 382,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/MANUAL.pdf",
+    "sha": "874331f41699f836d1784687ac538821c559b301",
+    "size": 251908,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/dispersion_width.csv",
+    "sha": "e6d3d9c7d0a397444547aa2031bf940881868d3c",
+    "size": 1515,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/dispersion_width.png",
+    "sha": "a4d67216dc8aae3e71ccaeaf726333134055db6b",
+    "size": 35562,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/eigs_L.csv",
+    "sha": "3f78a674f482b645f236a8ddc1b9b152968d7593",
+    "size": 1218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/eigs_L.png",
+    "sha": "d0db33d4f981642ea8be63e5ff94df506e4f3b9d",
+    "size": 23816,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/heatmap_Kt_log.png",
+    "sha": "5461aba236e5f7e5a1293eff01c0100b8340e4f3",
+    "size": 158758,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/heatmap_L_signed.png",
+    "sha": "6dde6aa3a762b87f3924663dec63b6d806708c70",
+    "size": 41682,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/heatmap_L_sparsity.png",
+    "sha": "ce2ce77aedaedcbd5a4c632343f2b2a338e650bd",
+    "size": 38114,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/metrics.csv",
+    "sha": "02ab287331e152d1465a9c37b10736ec2dbdfe41",
+    "size": 393,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/pixel_probs.csv",
+    "sha": "d9a8ccfec39f981f89037c9802df1f6b7e6beeff",
+    "size": 135,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/result_paths.json",
+    "sha": "2dcbe35721a3db4be9ae9bd78ea13a4122720689",
+    "size": 169,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI_ST_FULL_v14_report.pdf",
+    "sha": "b0628344d80d551ee72010eccd5315536cba23cc",
+    "size": 17017,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/open_dispersion.png",
+    "sha": "6076529a4dccc1a71972fec2ecbd699e915b3425",
+    "size": 50806,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/open_width.csv",
+    "sha": "8769062f07f49418981cc459608e7239a1728cca",
+    "size": 676,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/povm_vs_unitary.png",
+    "sha": "9950f9f95079ebf29650454b12a3ddcfcfe36e68",
+    "size": 41764,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/Refutation_Report.pdf",
+    "sha": "54da86507aa2978fa9a2dd88a6d9787416b1d95f",
+    "size": 19404,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/refutation_summary.json",
+    "sha": "6688e3b9b78e03be343e0573e6ba85673cd6e119",
+    "size": 1288,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/rho_abs_log.png",
+    "sha": "214fdb4048909bd4917990473fa1e15eb2af0a7a",
+    "size": 145747,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/TI_comparison.pdf",
+    "sha": "24405606d8165255d08ae8cb4f17c7a0b7d7c199",
+    "size": 314215,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/traj_hist_vs_TI.png",
+    "sha": "20fdf8fee8d4b6091f7be6e2f00a6e04e7e361fe",
+    "size": 30974,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/traj_hist.json",
+    "sha": "d4e5ef316300cdf183757ca0cb8880cf9af99ef8",
+    "size": 150,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/traj_times.png",
+    "sha": "1e4ab61c1be7ac1a4fef6cd33dbbb8eb4e6d8b21",
+    "size": 20907,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed11/TI/traj_vs_povm.csv",
+    "sha": "bb8af4ad16bb44fb61c3124f1a85cc3ec14f4996",
+    "size": 111,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/dispersion_width.csv",
+    "sha": "e6d3d9c7d0a397444547aa2031bf940881868d3c",
+    "size": 1515,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/dispersion_width.png",
+    "sha": "a4d67216dc8aae3e71ccaeaf726333134055db6b",
+    "size": 35562,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/eigs_L.csv",
+    "sha": "3f78a674f482b645f236a8ddc1b9b152968d7593",
+    "size": 1218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/eigs_L.png",
+    "sha": "d0db33d4f981642ea8be63e5ff94df506e4f3b9d",
+    "size": 23816,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/heatmap_Kt_log.png",
+    "sha": "5461aba236e5f7e5a1293eff01c0100b8340e4f3",
+    "size": 158758,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/heatmap_L_signed.png",
+    "sha": "6dde6aa3a762b87f3924663dec63b6d806708c70",
+    "size": 41682,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/heatmap_L_sparsity.png",
+    "sha": "ce2ce77aedaedcbd5a4c632343f2b2a338e650bd",
+    "size": 38114,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/metrics.csv",
+    "sha": "02ab287331e152d1465a9c37b10736ec2dbdfe41",
+    "size": 393,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/pixel_probs.csv",
+    "sha": "d9a8ccfec39f981f89037c9802df1f6b7e6beeff",
+    "size": 135,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/result_paths.json",
+    "sha": "0b08775afee86cda05d7c9b4ee04e08ef4b4faa4",
+    "size": 169,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI_ST_FULL_v14_report.pdf",
+    "sha": "b498876dbb1e78be712d61e07f919be4aea6870b",
+    "size": 17017,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/open_dispersion.png",
+    "sha": "6076529a4dccc1a71972fec2ecbd699e915b3425",
+    "size": 50806,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/open_width.csv",
+    "sha": "8769062f07f49418981cc459608e7239a1728cca",
+    "size": 676,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/povm_vs_unitary.png",
+    "sha": "9950f9f95079ebf29650454b12a3ddcfcfe36e68",
+    "size": 41764,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/Refutation_Report.pdf",
+    "sha": "2da453eb3e9a9efd660e361794f3d7c1670c839f",
+    "size": 19414,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/refutation_summary.json",
+    "sha": "5c4f2e7e38dd3a9cce4c900a423de4a3774bea67",
+    "size": 1292,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/rho_abs_log.png",
+    "sha": "214fdb4048909bd4917990473fa1e15eb2af0a7a",
+    "size": 145747,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/TI_comparison.pdf",
+    "sha": "43ab66fbe929735bdbacd1e33f89d82df7906022",
+    "size": 314104,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/traj_hist_vs_TI.png",
+    "sha": "7252b158fa2fd4ab459ef447850c7cf100870e96",
+    "size": 31062,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/traj_hist.json",
+    "sha": "d23d1cc9d52bd91ca76165390d34988fd1186215",
+    "size": 150,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/traj_times.png",
+    "sha": "c34dd28e91bbdcc2ed6715e830dc2f9e59586f6c",
+    "size": 20956,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed13/TI/traj_vs_povm.csv",
+    "sha": "f463306e9212bb4ccfb6ac2f899d6ec58a23f843",
+    "size": 111,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/dispersion_width.csv",
+    "sha": "e6d3d9c7d0a397444547aa2031bf940881868d3c",
+    "size": 1515,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/dispersion_width.png",
+    "sha": "a4d67216dc8aae3e71ccaeaf726333134055db6b",
+    "size": 35562,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/eigs_L.csv",
+    "sha": "3f78a674f482b645f236a8ddc1b9b152968d7593",
+    "size": 1218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/eigs_L.png",
+    "sha": "d0db33d4f981642ea8be63e5ff94df506e4f3b9d",
+    "size": 23816,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/heatmap_Kt_log.png",
+    "sha": "5461aba236e5f7e5a1293eff01c0100b8340e4f3",
+    "size": 158758,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/heatmap_L_signed.png",
+    "sha": "6dde6aa3a762b87f3924663dec63b6d806708c70",
+    "size": 41682,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/heatmap_L_sparsity.png",
+    "sha": "ce2ce77aedaedcbd5a4c632343f2b2a338e650bd",
+    "size": 38114,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/metrics.csv",
+    "sha": "02ab287331e152d1465a9c37b10736ec2dbdfe41",
+    "size": 393,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/pixel_probs.csv",
+    "sha": "d9a8ccfec39f981f89037c9802df1f6b7e6beeff",
+    "size": 135,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/result_paths.json",
+    "sha": "206bf4b5264fbb0fd8a0e10ea6eaf3aad996b775",
+    "size": 169,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI_ST_FULL_v14_report.pdf",
+    "sha": "0f5334fac10acedeeae1e76c2ee236ffce36d825",
+    "size": 17017,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/open_dispersion.png",
+    "sha": "6076529a4dccc1a71972fec2ecbd699e915b3425",
+    "size": 50806,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/open_width.csv",
+    "sha": "8769062f07f49418981cc459608e7239a1728cca",
+    "size": 676,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/povm_vs_unitary.png",
+    "sha": "9950f9f95079ebf29650454b12a3ddcfcfe36e68",
+    "size": 41764,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/Refutation_Report.pdf",
+    "sha": "7be533e6b31280086fef814396082c766d3cada3",
+    "size": 19416,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/refutation_summary.json",
+    "sha": "351efb64a49982d78cc3dc5e098d963a9c3864d6",
+    "size": 1290,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/rho_abs_log.png",
+    "sha": "214fdb4048909bd4917990473fa1e15eb2af0a7a",
+    "size": 145747,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/TI_comparison.pdf",
+    "sha": "fe2f0ab0ca1192655e63c43087115efe293126f1",
+    "size": 314240,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/traj_hist_vs_TI.png",
+    "sha": "0e0098a042369bfbe9974dae46e0432037c17b04",
+    "size": 31108,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/traj_hist.json",
+    "sha": "19cfff1745e447d7986131aa39062368784b1763",
+    "size": 150,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/traj_times.png",
+    "sha": "309d70a7787e6a4e35c941eb6e9b5e983ab25128",
+    "size": 20928,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ANA_L4_TI_seed19/TI/traj_vs_povm.csv",
+    "sha": "58dd784486482e1c5ac180cf467183d814d2634a",
+    "size": 112,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/A.npy",
+    "sha": "a4b152493ebf2981b3c977a66d280be43a2144c0",
+    "size": 881920,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/addresses.json",
+    "sha": "4858e99efae54dc33e72e18059b4221e429ee1e5",
+    "size": 4007,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/coords.npy",
+    "sha": "d5777e378c8f544b5b78e71a589aeb7a6a93ce98",
+    "size": 8096,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/K_s.npy",
+    "sha": "2bef827d2c132ca113d80794c48ccd8fb8d7375c",
+    "size": 881920,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/K_t.npy",
+    "sha": "ebd8f06f78842217e45e3fe1b23a2731cc054a4c",
+    "size": 881920,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/K_ts.npy",
+    "sha": "eedcfc15bd9e98e43a1ea244b3ef78df7316f292",
+    "size": 881920,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/L.npy",
+    "sha": "265f4e4363d0040403ca28fbf73ba5eb27dd0fea",
+    "size": 881920,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/P_t.npy",
+    "sha": "6b0fa99f262567075a11fc94e3bb66fc866b07d8",
+    "size": 881920,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/rho_beta.npy",
+    "sha": "c4aa047fd297721f9c6b53b2839edcfce6b87d81",
+    "size": 1763712,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/sigma.npy",
+    "sha": "7443b8baef9d9336cc9431763defe21d644282d7",
+    "size": 192,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/summary.json",
+    "sha": "dcac429ea989f7ae284d0755f84bd873c01d4447",
+    "size": 126,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/run_pipeline_full_open_systems_v14.6.py",
+    "sha": "3c7291852e328a13465b124843346ca07bb79f7c",
+    "size": 62424,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/START.en.md",
+    "sha": "11c2918233f28f541fffdd243330bbaf5b405619",
+    "size": 5266,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/START.md",
+    "sha": "903878e81ab98118572ae20611fe7e57150bbb6e",
+    "size": 5139,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/__init__.py",
+    "sha": "9357faf11eeefcf415fa7baa917ac07553105382",
+    "size": 2550,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/address.py",
+    "sha": "6a112cd9f77bc10e6368f5528ac7ba4e8aac06f6",
+    "size": 1203,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/demo_min.py",
+    "sha": "45d635252c902569e96b16391a8e2f7ec10be212",
+    "size": 580,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/dynamics_td.py",
+    "sha": "fde0b42c869699bd7eb791cd15029421d1e7f18f",
+    "size": 1910,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/dynamics.py",
+    "sha": "3c376a1c2d241fa2bef8a795df5994455858da2d",
+    "size": 2061,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/generator.py",
+    "sha": "fdfd326038a96518022b7b0684fcdc22f521e34b",
+    "size": 4994,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/hilbert.py",
+    "sha": "0292497b88c5731d8b6b8b48f879216c8a147949",
+    "size": 2688,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/io.py",
+    "sha": "deaab627c26c0d3067f678c42420065a0ee41df0",
+    "size": 560,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/measurement.py",
+    "sha": "0b188bead7f13c29ef4db0056f178c1e458691e6",
+    "size": 4102,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/README.en.md",
+    "sha": "628522073a10f85cc5a85488ff88d100c8fc383c",
+    "size": 5277,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/README.md",
+    "sha": "0f1d72087c44c5f5b3fd1f3f9dcbd5e69a95c72f",
+    "size": 5267,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/renorm_effective.py",
+    "sha": "5ac0e648b9b842466159992fb6f475a9abfa483d",
+    "size": 5197,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/renorm.py",
+    "sha": "3744182c768ef7087f704e110c761b2c8a8fdbe8",
+    "size": 2916,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/ST.py",
+    "sha": "c1806bf154b5347ea3b9795d7904e5b9e4746648",
+    "size": 2994,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/stlib/trace.py",
+    "sha": "4c3e00a748f736614aaab9d0e41dae3eb8a4907f",
+    "size": 1686,
     "type": "blob",
     "mode": "100644"
   },
