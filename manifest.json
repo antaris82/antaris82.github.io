@@ -127,7 +127,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "d5661e9e0b84327f8361b3cfc074e06fea4a0cec",
+    "sha": "f7b58eb74dc4bce126160f88381b804b1cd11c65",
     "size": 26270,
     "type": "blob",
     "mode": "100644"
@@ -960,8 +960,8 @@
   },
   {
     "path": "viewer.html",
-    "sha": "bd5d2ba5602e588a011aef4091b30280a8ab8861",
-    "size": 5377,
+    "sha": "11353c660f15aab83858f4bf103ab06ba4e37879",
+    "size": 5400,
     "type": "blob",
     "mode": "100644"
   }
