@@ -134,8 +134,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "be5819f844cb933243136745649a67e2bae58aa3",
-    "size": 45326,
+    "sha": "8d5b6fe33efa9d3657158d37e095366084477cf0",
+    "size": 45837,
     "type": "blob",
     "mode": "100644"
   },
@@ -1501,6 +1501,13 @@
     "path": "Sierpinski Tetraeder_PoC/E5/out/ART_L4/summary.json",
     "sha": "dcac429ea989f7ae284d0755f84bd873c01d4447",
     "size": 126,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/package_full_open_systems_v14.6.zip",
+    "sha": "6d1530380a63db5352f927ab775fa34888d4d1af",
+    "size": 40220,
     "type": "blob",
     "mode": "100644"
   },
