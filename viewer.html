@@ -9,15 +9,15 @@
     :root { --bg:#0b0f14; --fg:#e6edf3; --muted:#9aa4b2; --card:#10161d; --accent:#2f81f7; }
     html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font:16px/1.55 system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Arial,sans-serif; }
     .wrap { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
-    header { position: sticky; top:0; background:rgba(11,15,20,9); border-bottom:1px solid #1e2630; backdrop-filter: blur(6px); }
+    header { position: sticky; top:0; background:rgba(11,15,20,.9); border-bottom:1px solid #1e2630; backdrop-filter: blur(6px); }
     header .row { display:flex; gap:10px; align-items:center; padding:10px 16px; }
     header button, header a { background:var(--accent); color:#fff; border:0; border-radius:10px; padding:8px 12px; text-decoration:none; }
     header a.secondary { background:#26303c; }
     .content { background:var(--card); border:1px solid #1e2630; border-radius:12px; padding:20px; }
-    .content h1,content h2,content h3 { margin: 0.8em 0 0.4em; }
+    .content h1,.content h2,.content h3 { margin: 0.8em 0 0.4em; }
     .content pre { background:#0b1016; padding:12px; border-radius:8px; overflow:auto; }
     .content table { border-collapse:collapse; border:1px solid #26303c; }
-    .content th,content td { border:1px solid #26303c; padding:6px 8px; }
+    .content th,.content td { border:1px solid #26303c; padding:6px 8px; }
     .content a { color:#9cc2ff; }
     #path { margin-left:auto;color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace }
     @media print {
@@ -45,37 +45,17 @@
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-  <script type="module">
-    const qs = new URLSearchParams(location.search);
-    const path = qs.get("path") || "";
-    const raw = "/"+encodeURI(path.replace(/^\/+/,""));
-    const md = document.getElementById("md");
-    document.getElementById("openRaw").href = raw;
-    document.getElementById("openGitHub").href = "https://github.com/antaris82/antaris82.github.io/blob/main/"+encodeURI(path);
-    document.getElementById("path").textContent = path||"—";
-
-    async function fetchText(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
-
-    async function run(){
-      try{
-        let text = await fetchText(raw);
-        marked.setOptions({gfm:true, breaks:false});
-        const html = DOMPurify.sanitize(marked.parse(text));
-        md.innerHTML = html;
-        renderMathInElement(md, {
-          delimiters:[
-            {left:"$$", right:"$$", display:true},
-            {left:"\\[", right:"\\]", display:true},
-            {left:"\\(", right:"\\)", display:false},
-            {left:"$",  right:"$",  display:false}
-          ],
-          throwOnError:false
-        });
-      }catch(e){
-        md.innerHTML = `<p style="color:#ff9a9a">Datei konnte nicht geladen werden: ${e.message}</p>`;
-      }
+  <script type="module" src="./assets/viewer.js">
+  <script>
+    function ensureKatexReady(){
+      if (window.renderMathInElement) return Promise.resolve();
+      return new Promise((resolve,reject)=>{
+        let n=0;(function step(){ if(window.renderMathInElement) return resolve();
+          if(++n>200) return reject(new Error("KaTeX auto-render nicht verfügbar"));
+          setTimeout(step,30);
+        })();
+      });
     }
-    run();
   </script>
 </body>
 </html>
