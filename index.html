@@ -7,7 +7,8 @@
 
   <style>
     :root { --bg:#0b1117; --fg:#e7eef5; --muted:#8aa0b4; --panel:#0e141b; --border:#1b2632; --accent:#5ba8ff; }
-    html,body{height:100%} body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
     a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
     .container{width:min(1280px,100% - 32px);margin:0 auto}
     header{position:sticky;top:0;z-index:3;background:var(--panel);border-bottom:1px solid var(--border)}
@@ -24,7 +25,9 @@
     .crumb{padding:8px 14px;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px}
     .list{list-style:none;margin:0;padding:6px}
     .item{display:grid;grid-template-columns:24px 1fr auto auto;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;cursor:pointer}
-    .item:hover{background:#111a23}.item .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.item .meta{color:var(--muted);font-size:12px}
+    .item:hover{background:#111a23}
+    .item .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .item .meta{color:var(--muted);font-size:12px}
     .copy{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:4px 6px;border-radius:8px;cursor:pointer;font-size:12px}
     .viewer{padding:18px 22px 60px}
     .viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:#0c1218;padding:10px 0;z-index:1}
@@ -43,10 +46,11 @@
   <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
-  <!-- KaTeX -->
+
+  <!-- KaTeX (ohne defer, um Race zu vermeiden) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
 <header>
@@ -98,7 +102,7 @@
 <div id="err"></div>
 
 <script>
-// ------- Error-Banner -------
+// ===== Error-Banner =====
 (function(){
   const E = document.getElementById("err");
   const show = msg => { E.textContent = "Fehler: " + msg; E.style.display="block"; };
@@ -106,14 +110,14 @@
   window.addEventListener("unhandledrejection", e => show(e.reason || e));
 })();
 
-// ------- Konfiguration -------
+// ===== Konfiguration =====
 const MANIFEST_URL = "/manifest.json";
 const START_DIR    = "Sierpinski Tetraeder_PoC";
 const READER       = (p)=> "https://antaris82.github.io/viewer.html?path="+encodeURIComponent(p);
 const RAW          = (p)=> "/"+encodeURI(String(p||"").replace(/^\/+/,""));
 
-// ------- State / Utils -------
-let NODES=new Map(), CHILDREN=new Map(), cwd="", current=null;
+// ===== State / Utils =====
+let NODES=new Map(), CHILDREN=new Map(), cwd="";
 const base = p => (p||"").split("/").pop()||"";
 const dir  = p => (p||"").split("/").slice(0,-1).join("/");
 const ext  = n => (n.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
@@ -123,9 +127,26 @@ const isVid = e => ["mp4","webm","ogv","mov"].includes(e);
 const isTxt = e => ["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg","java","c","cpp","h","hpp","cs","go","rs","php","rb","kt","swift","sql","toml"].includes(e);
 async function j(u){const r=await fetch(u+"?ts="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
-function waitKaTeX(){return new Promise((res,rej)=>{let n=0;(function step(){ if(window.renderMathInElement) return res(); if(++n>200) return rej(new Error("KaTeX nicht verfügbar")); setTimeout(step,30); })();});}
 
-// ------- Manifest-Index (erzeugt Ordnerknoten aus Pfadsegmenten) -------
+// ===== LaTeX sicher ausführen =====
+async function renderMathSafe(rootEl){
+  for (let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
+    await new Promise(r=>setTimeout(r,30));
+  }
+  if (typeof window.renderMathInElement!=="function") return;
+  window.renderMathInElement(rootEl,{
+    delimiters:[
+      {left:"$$", right:"$$", display:true},
+      {left:"\\[", right:"\\]", display:true},
+      {left:"\\(", right:"\\)", display:false},
+      {left:"$",  right:"$",  display:false}
+    ],
+    throwOnError:false,
+    strict:"ignore"
+  });
+}
+
+// ===== Manifest → Knoten + Ordnerkonstruktion =====
 function normalizeEntries(raw){
   const src = Array.isArray(raw) ? raw : (raw.entries||raw.tree||raw.items||[]);
   const items=[], seenDir=new Set();
@@ -134,8 +155,8 @@ function normalizeEntries(raw){
     let p = (e.path||e.file||e.name||"").replace(/^\/+/,"");
     if(!p) continue;
     const typ = (e.type==="tree"||e.type==="dir") ? "dir" : "file";
-    // alle Elternordner anlegen (synthetisch)
     const parts = p.split("/");
+    // alle Elternordner synthetisch
     for(let i=1;i<parts.length;i++) addDir(parts.slice(0,i).join("/"));
     if(typ==="dir") addDir(p);
     else items.push({path:p,name:parts[parts.length-1],type:"file",size:e.size});
@@ -145,9 +166,7 @@ function normalizeEntries(raw){
 function indexEntries(raw){
   NODES.clear(); CHILDREN.clear();
   const items = normalizeEntries(raw);
-  // Knoten ablegen
-  for(const n of items) NODES.set(n.path,n);
-  // Kind-Listen pro Ordner
+  items.forEach(n=>NODES.set(n.path,n));
   for(const n of items){
     const parent = dir(n.path);
     if(!CHILDREN.has(parent)) CHILDREN.set(parent,[]);
@@ -156,14 +175,14 @@ function indexEntries(raw){
   for(const [k,a] of CHILDREN){
     a.sort((a,b)=> (a.type!==b.type)?(a.type==="dir"?-1:1):a.name.localeCompare(b.name,undefined,{numeric:true}));
   }
-  // Chip
+  // Manifest-Chip
   const files = items.filter(n=>n.type==="file").length;
   const dirs  = items.filter(n=>n.type==="dir").length;
   document.getElementById("dot").className="dot ok";
   document.getElementById("manitxt").textContent = `${files} Dateien • ${dirs} Ordner`;
 }
 
-// ------- Browser UI -------
+// ===== Browser UI =====
 function crumbHtml(path){const parts=path?path.split("/").filter(Boolean):[]; const items=['<a href="#" data-path="">/</a>']; let acc=""; for(const p of parts){acc=acc?acc+"/"+p:p; items.push(`<a href="#" data-path="${acc}">${p}</a>`);} return items.join(" / ");}
 function renderCrumb(){const el=document.getElementById("crumb"); el.innerHTML=crumbHtml(cwd); el.querySelectorAll("a").forEach(a=>a.onclick=(e)=>{e.preventDefault(); window.openDir(a.dataset.path||"");});}
 function renderList(){
@@ -193,7 +212,7 @@ function renderList(){
 }
 window.openDir = async function(path=""){ cwd=path; renderCrumb(); renderList(); };
 
-// ------- Viewer -------
+// ===== Viewer (rechts) =====
 function setViewerButtons(path){
   const raw = RAW(path);
   document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
@@ -212,21 +231,12 @@ async function openMarkdown(path){
   setViewerButtons(path);
   try{
     const txt = await t(RAW(path));
-    marked.setOptions({gfm:true, breaks:false});
-    const html = DOMPurify.sanitize(marked.parse(txt));
-    document.getElementById("hero")?.remove();
     const md=document.getElementById("md"); const gen=document.getElementById("generic");
-    gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
+    gen.hidden=true; gen.innerHTML=""; md.hidden=false;
+    const html = DOMPurify.sanitize(marked.parse(txt));
+    md.innerHTML = html;
+    await renderMathSafe(md);                 // <<< KaTeX sicher
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
-    try{ await waitKaTeX(); renderMathInElement(md, {
-      delimiters:[
-        {left:"$$", right:"$$", display:true},
-        {left:"\\[", right:"\\]", display:true},
-        {left:"\\(", right:"\\)", display:false},
-        {left:"$",  right:"$",  display:false}
-      ],
-      throwOnError:false, strict:"ignore"
-    }); }catch(e){ console.warn(e); }
     document.getElementById("cur").textContent = base(path);
   }catch(e){
     const p=document.createElement("p"); p.style.color="#ff9a9a"; p.textContent="Datei konnte nicht geladen werden: "+e.message;
@@ -234,16 +244,15 @@ async function openMarkdown(path){
   }
 }
 function openImage(path){ setViewerButtons(path); const img=document.createElement("img"); img.className="preview"; img.src=RAW(path); img.alt=base(path); showGeneric(img, base(path)); }
-function openText(path){ setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); }
-function openRaw(path){  setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); }
-function openFile(path){ const e=ext(path); if(e==="md"||e==="markdown") return openMarkdown(path); if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path); }
+function openText(path){  setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); }
+function openRaw(path){   setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); }
+function openFile(path){  const e=ext(path); if(e==="md"||e==="markdown") return openMarkdown(path); if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path); }
 
-// ------- Boot -------
+// ===== Boot =====
 async function boot(){
   // Footer
   document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
-
-  // Manifest laden (immer aus Root)
+  // Manifest
   try{
     const m = await j(MANIFEST_URL);
     indexEntries(m);
@@ -252,7 +261,6 @@ async function boot(){
     document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
     document.getElementById("list").innerHTML = '<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
   }
-
   // ZWINGEND im Startordner öffnen
   await window.openDir(START_DIR);
 }
