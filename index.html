@@ -112,16 +112,17 @@
   window.addEventListener("unhandledrejection",e=>show(e.reason||e));
 })();
 
-// ===== Konfiguration =====
+// ===== Konfiguration / Deeplinks =====
 const MANIFEST_URL="/manifest.json";
 const START_DIR="Sierpinski Tetraeder_PoC";
-const ORIGIN = location.origin; // "https://antaris82.github.io"
+const ORIGIN = location.origin; // https://antaris82.github.io
 const dirURL = p => `${ORIGIN}/?dir=${encodeURIComponent(p)}`;
-const githubTree = p => `https://github.com/antaris82/antaris82.github.io/tree/main/${encodeURI(p)}`;
-const getStartDir = () => (new URLSearchParams(location.search).get("dir") || START_DIR);
+const getStartDir = () => (new URLSearchParams(location.search).get("dir") ?? START_DIR);
+const getOpenPath = () => new URLSearchParams(location.search).get("open");
 
-const READER=p=>"https://antaris82.github.io/viewer.html?path="+encodeURIComponent(p);
+const READER=p=>`${ORIGIN}/viewer.html?path=${encodeURIComponent(p)}`; // (nur für Kompatibilität)
 const RAW    =p=>"/"+encodeURI(String(p||"").replace(/^\/+/,""));
+const fileURL = p => `${ORIGIN}/?dir=${encodeURIComponent(dir(p))}&open=${encodeURIComponent(p)}`;
 
 // ===== State / Utils =====
 let NODES=new Map(), CHILDREN=new Map(), cwd="";
@@ -200,6 +201,7 @@ function indexEntries(raw){
 }
 
 // ===== Browser UI (mit Deeplinks) =====
+const toQS = (p) => `?dir=${encodeURIComponent(p)}` + (getOpenPath()?`&open=${encodeURIComponent(getOpenPath())}`:"");
 function crumbHtml(path){
   const parts=path?path.split("/").filter(Boolean):[];
   const items=[`<a href="${dirURL("")}" data-path="">/</a>`];
@@ -242,10 +244,9 @@ function renderList(){
     const actionsHTML = (e.type==="dir")
       ? `<span class="actions">
            <button class="copy" title="Ordner-Link kopieren">🔗</button>
-           <a class="btn-mini" href="${githubTree(e.path)}" target="_blank" title="Auf GitHub öffnen">GH</a>
          </span>`
       : `<span class="actions">
-           <button class="copy" title="Viewer-Link kopieren">🔗</button>
+           <button class="copy" title="Link kopieren (Ordner+Datei)">🔗</button>
          </span>`;
 
     li.innerHTML = `<span>${icon}</span>${nameHTML}<span class="meta">${extn}</span>${actionsHTML}`;
@@ -261,7 +262,7 @@ function renderList(){
     const b = li.querySelector(".copy");
     if(b) b.onclick = async (ev) => {
       ev.stopPropagation();
-      const link = (e.type==="dir") ? dirURL(e.path) : READER(e.path);
+      const link = (e.type==="dir") ? dirURL(e.path) : fileURL(e.path);
       try{ await navigator.clipboard.writeText(link); b.textContent="✓"; setTimeout(()=>b.textContent="🔗", 900); }
       catch{ window.open(link,"_blank"); }
     };
@@ -270,12 +271,12 @@ function renderList(){
   }
 }
 
-// Deeplink-fähig: aktualisiert ?dir=...
+// Deeplink-fähig: aktualisiert ?dir=... (&open bleibt erhalten)
 window.openDir = async function(path=""){
   cwd = path;
   renderCrumb();
   renderList();
-  const newQs = `?dir=${encodeURIComponent(cwd)}`;
+  const newQs = `?dir=${encodeURIComponent(cwd)}` + (getOpenPath()?`&open=${encodeURIComponent(getOpenPath())}`:"");
   if (location.search !== newQs) history.replaceState(null, "", newQs);
 };
 
@@ -284,7 +285,9 @@ function setViewerButtons(path){
   const raw=RAW(path);
   document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
   document.getElementById("print").onclick=()=>window.print();
-  document.getElementById("copyLink").onclick=async ()=>{ const link=READER(path);
+  document.getElementById("copyLink").onclick=async ()=>{ 
+    // Datei-Link kopiert jetzt Ordner+Datei (öffnet Index mit Ordner & Viewer)
+    const link=fileURL(path);
     try{ await navigator.clipboard.writeText(link); const b=document.getElementById("copyLink"); const old=b.textContent; b.textContent="Kopiert!"; setTimeout(()=>b.textContent=old,1000);}catch{ window.open(link,"_blank"); }
   };
 }
@@ -325,7 +328,10 @@ async function boot(){
     document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
     document.getElementById("list").innerHTML = '<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
   }
-  await window.openDir(getStartDir());
+  const startDir = getStartDir();
+  await window.openDir(startDir);
+  const toOpen = getOpenPath();
+  if (toOpen) { openFile(toOpen); }
 }
 document.getElementById("q").addEventListener("input", renderList);
 document.getElementById("refresh").addEventListener("click", boot);
