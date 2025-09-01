@@ -28,13 +28,6 @@
     "mode": "100644"
   },
   {
-    "path": "assets.zip",
-    "sha": "649cd8f04129456ae5c3205d46813a6fbfbd5cf9",
-    "size": 15363,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "assets/api.js",
     "sha": "8a331aa4adbe0859f55a51390979b36d19939a65",
     "size": 2096,
@@ -127,15 +120,15 @@
   },
   {
     "path": "index.html",
-    "sha": "57958a57d25993f155bc420a854ebfa692d9bdd3",
-    "size": 13625,
+    "sha": "634d72db06fe7089e082e42279ca6c6733b9cc7a",
+    "size": 14296,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.json",
-    "sha": "7fe1c78480beb71e2a661b83e89d74764849a88f",
-    "size": 26270,
+    "sha": "2d53ba8f120b92af2e306c55aa4fb35742801657",
+    "size": 26420,
     "type": "blob",
     "mode": "100644"
   },
@@ -967,8 +960,8 @@
   },
   {
     "path": "viewer.html",
-    "sha": "106acdde786c7fd8d1ed2667547eefd2803ec952",
-    "size": 3393,
+    "sha": "bd5d2ba5602e588a011aef4091b30280a8ab8861",
+    "size": 5377,
     "type": "blob",
     "mode": "100644"
   }
