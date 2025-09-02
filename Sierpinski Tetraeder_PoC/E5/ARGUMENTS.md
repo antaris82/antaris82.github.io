@@ -300,7 +300,7 @@ Vollständige Referenz der Kommandozeilen-Argumente für
 
 ### Glossar (Kurz)
 
-* **TI:** Translationsinvarianz; hier als Übereinstimmung der **empirischen Pixel-Häufigkeiten** mit **POVM-Vorhersagen** verstanden.
+* **TI:** Thermal Interpretation; hier als Übereinstimmung der **empirischen Pixel-Häufigkeiten** mit **POVM-Vorhersagen** verstanden.
 * **MCWF/Quantum Jumps:** Stochastische Wellenfunktions-Methode, äquivalent zur GKSL-Mastergleichung auf Ensemble-Ebene. ([Physical Review][10])
 * **Auto-ε:** Datengetriebene, strenge Äquivalenzmarge $\varepsilon\approx 1.96\cdot\mathrm{SE}$; bei großem $N$ **enger**. (Intervall-Logik: Brown–Cai–DasGupta; TOST-Design: Wellek.) ([projecteuclid.org][5], [Taylor & Francis][9])
 
