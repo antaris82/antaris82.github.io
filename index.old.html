@@ -11,13 +11,13 @@
     body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
     a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
     .container{width:min(1280px,100% - 32px);margin:0 auto}
-    header{position:sticky;top:0;z-index:2;background:var(--panel);border-bottom:1px solid var(--border)}
+    header{position:sticky;top:0;z-index:3;background:var(--panel);border-bottom:1px solid var(--border)}
     header .row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     h1{margin:0;font-size:18px}
     .muted{color:var(--muted)}
     .chip{display:flex;gap:8px;align-items:center;border:1px solid var(--border);background:#0c131a;padding:6px 10px;border-radius:10px;font-size:12px;color:var(--muted)}
     .dot{width:8px;height:8px;border-radius:50%;background:#ffb020}.dot.ok{background:#37c978}.dot.err{background:#ff5a5a}
-    .app{position:relative;z-index:2;display:grid;grid-template-columns:360px 1fr;gap:20px;min-height:calc(100vh - 56px);padding:16px 0 28px}
+    .app{display:grid;grid-template-columns:360px 1fr;gap:20px;min-height:calc(100vh - 56px);padding:16px 0 28px}
     .card{border:1px solid var(--border);background:#0c1218;border-radius:12px;overflow:auto}
     .left .section{padding:12px 14px;border-bottom:1px solid var(--border)}
     .left .search{padding:10px 14px;border-bottom:1px solid var(--border)}
@@ -38,24 +38,9 @@
     .preview,.viewer img.preview{width:100%;max-width:980px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
     .md{max-width:980px;margin:0 auto}
     .md pre{background:#0f1922;border:1px solid #223042;border-radius:10px;padding:12px;overflow:auto}
-    footer{position:relative;z-index:2;border-top:1px solid var(--border);background:#0e141b;color:#8aa0b4}
+    footer{border-top:1px solid var(--border);background:#0e141b;color:#8aa0b4}
     footer .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
-
-    /* ✨ dezente, fixe Seitenstreifen für die Tetraeder-Animation */
-    .fx{
-      position:fixed; top:0; height:100vh; pointer-events:none; z-index:1;
-      opacity:.22; /* unaufdringlich */
-      filter:saturate(1.05) contrast(1.06);
-    }
-    .fx.left  { left:0;  width:9vw;  min-width:72px; max-width:150px; }
-    .fx.right { right:0; width:9vw;  min-width:72px; max-width:150px; }
-    @media (max-width: 980px){
-      .fx.left,.fx.right{ opacity:.16; } /* auf kleineren Screens noch dezenter */
-    }
-    @media (prefers-reduced-motion: reduce){
-      .fx.left,.fx.right{ opacity:.10; }
-    }
   </style>
 
   <!-- Markdown / Sanitize / Code-Highlight -->
@@ -64,16 +49,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
 
-  <!-- KaTeX (ohne defer → kein Race) -->
+  <!-- KaTeX (ohne defer) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
-  <!-- ✨ Hintergrund-Canvas: links & rechts -->
-  <canvas id="fxL" class="fx left" aria-hidden="true"></canvas>
-  <canvas id="fxR" class="fx right" aria-hidden="true"></canvas>
-
 <header>
   <div class="container row">
     <div style="display:flex;gap:12px;align-items:baseline">
@@ -123,7 +104,7 @@
 <div id="err"></div>
 
 <script>
-// ===== Fehlerbanner =====
+// ===== Error-Banner =====
 (function(){
   const E=document.getElementById("err");
   const show=msg=>{E.textContent="Fehler: "+msg;E.style.display="block";};
@@ -134,18 +115,14 @@
 // ===== Konfiguration / Deeplinks =====
 const MANIFEST_URL="/manifest.json";
 const START_DIR="Sierpinski Tetraeder_PoC";
-
 const ORIGIN = location.origin; // https://antaris82.github.io
 const dirURL = p => `${ORIGIN}/?dir=${encodeURIComponent(p)}`;
-const githubTree = p => `https://github.com/antaris82/antaris82.github.io/tree/main/${encodeURI(p)}`;
-const qs = () => new URLSearchParams(location.search);
-const getStartDir = () => (qs().get("dir") || START_DIR);
-const getOpenPath = () => qs().get("open");
+const getStartDir = () => (new URLSearchParams(location.search).get("dir") ?? START_DIR);
+const getOpenPath = () => new URLSearchParams(location.search).get("open");
 
-// Datei-URLs
-const RAW_SITE = (p) => "/" + encodeURI(String(p || "").replace(/^\/+/, ""));
-const RAW_GH   = (p) => "https://raw.githubusercontent.com/antaris82/antaris82.github.io/main/" + encodeURI(String(p || "").replace(/^\/+/, ""));
-const fileURL  = (p) => `${ORIGIN}/?dir=${encodeURIComponent(dir(p))}&open=${encodeURIComponent(p)}`;
+const READER=p=>`${ORIGIN}/viewer.html?path=${encodeURIComponent(p)}`; // (nur für Kompatibilität)
+const RAW    =p=>"/"+encodeURI(String(p||"").replace(/^\/+/,""));
+const fileURL = p => `${ORIGIN}/?dir=${encodeURIComponent(dir(p))}&open=${encodeURIComponent(p)}`;
 
 // ===== State / Utils =====
 let NODES=new Map(), CHILDREN=new Map(), cwd="";
@@ -159,10 +136,22 @@ const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml
 async function j(u){const r=await fetch(u+"?ts="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 
-// ===== Markdown laden mit .md-Fallback (gegen Pages/Jekyll 404) =====
-async function getMdText(path){
-  try { return await t(RAW_SITE(path)); }     // Versuch 1: von der Seite
-  catch(_e){ return await t(RAW_GH(path)); }  // Fallback: Raw GitHub (immer verfügbar)
+// ===== LaTeX sicher ausführen =====
+async function renderMathSafe(rootEl){
+  for (let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
+    await new Promise(r=>setTimeout(r,30));
+  }
+  if (typeof window.renderMathInElement!=="function") return;
+  window.renderMathInElement(rootEl,{
+    delimiters:[
+      {left:"\\[", right:"\\]", display:true},
+      {left:"$$",  right:"$$",  display:true},
+      {left:"\\(", right:"\\)", display:false},
+      {left:"$",   right:"$",   display:false}
+    ],
+    throwOnError:false,
+    strict:"ignore"
+  });
 }
 
 // ===== Math schützen (vor Markdown) =====
@@ -179,24 +168,6 @@ function restoreMath(html, blocks){
   return html.replace(/%%MATH(\d+)%%/g, (_,i)=>{
     const s=blocks[+i];
     return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
-  });
-}
-
-// ===== KaTeX sicher ausführen =====
-async function renderMathSafe(rootEl){
-  for (let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
-    await new Promise(r=>setTimeout(r,30));
-  }
-  if (typeof window.renderMathInElement!=="function") return;
-  window.renderMathInElement(rootEl,{
-    delimiters:[
-      {left:"\\[", right:"\\]", display:true},
-      {left:"$$",  right:"$$",  display:true},
-      {left:"\\(", right:"\\)", display:false},
-      {left:"$",   right:"$",   display:false}
-    ],
-    throwOnError:false,
-    strict:"ignore"
   });
 }
 
@@ -229,17 +200,8 @@ function indexEntries(raw){
   document.getElementById("manitxt").textContent=`${files} Dateien • ${dirs} Ordner`;
 }
 
-// ===== QS-Update-Helfer =====
-function updateQS(newDir, newOpen){
-  const params = new URLSearchParams();
-  if (newDir!==undefined) params.set("dir", newDir);
-  const openVal = (newOpen || "");
-  if (openVal) params.set("open", openVal);
-  const qsNew = "?" + params.toString();
-  if (location.search !== qsNew) history.replaceState(null, "", qsNew);
-}
-
 // ===== Browser UI (mit Deeplinks) =====
+const toQS = (p) => `?dir=${encodeURIComponent(p)}` + (getOpenPath()?`&open=${encodeURIComponent(getOpenPath())}`:"");
 function crumbHtml(path){
   const parts=path?path.split("/").filter(Boolean):[];
   const items=[`<a href="${dirURL("")}" data-path="">/</a>`];
@@ -253,7 +215,7 @@ function renderCrumb(){
   el.querySelectorAll("a").forEach(a=>a.onclick=(e)=>{e.preventDefault(); window.openDir(a.dataset.path||"");});
 }
 
-async function renderList(){
+function renderList(){
   const q=(document.getElementById("q").value||"").trim().toLowerCase();
   const list=document.getElementById("list"); list.innerHTML="";
 
@@ -280,16 +242,23 @@ async function renderList(){
       : `<span class="name">${e.name}</span>`;
 
     const actionsHTML = (e.type==="dir")
-      ? `<span class="actions"><button class="copy" title="Ordner-Link kopieren">🔗</button></span>`
-      : `<span class="actions"><button class="copy" title="Link kopieren (Ordner+Datei)">🔗</button></span>`;
+      ? `<span class="actions">
+           <button class="copy" title="Ordner-Link kopieren">🔗</button>
+         </span>`
+      : `<span class="actions">
+           <button class="copy" title="Link kopieren (Ordner+Datei)">🔗</button>
+         </span>`;
 
     li.innerHTML = `<span>${icon}</span>${nameHTML}<span class="meta">${extn}</span>${actionsHTML}`;
 
+    // Ganzes Li klicken
     li.onclick=()=>{ if(e.type==="dir") window.openDir(e.path); else openFile(e.path); };
 
+    // Name-Anchor: SPA-Navigation; Rechtsklick/Neuer Tab bleibt nativ
     const a = li.querySelector("a.name");
     if(a){ a.onclick = ev => { ev.preventDefault(); window.openDir(a.dataset.path); }; }
 
+    // Kopieren
     const b = li.querySelector(".copy");
     if(b) b.onclick = async (ev) => {
       ev.stopPropagation();
@@ -302,69 +271,52 @@ async function renderList(){
   }
 }
 
-// Deeplink-fähig: beim Ordnerwechsel URL auf ?dir=… setzen (open wird gelöscht)
+// Deeplink-fähig: aktualisiert ?dir=... (&open bleibt erhalten)
 window.openDir = async function(path=""){
   cwd = path;
-  const q = document.getElementById("q"); if (q && q.value) q.value = ""; // Filter leeren
   renderCrumb();
   renderList();
-  updateQS(cwd, ""); // open beim Ordnerwechsel zurücksetzen
+  const newQs = `?dir=${encodeURIComponent(cwd)}` + (getOpenPath()?`&open=${encodeURIComponent(getOpenPath())}`:"");
+  if (location.search !== newQs) history.replaceState(null, "", newQs);
 };
 
 // ===== Viewer (rechts) =====
 function setViewerButtons(path){
-  const e = ext(path);
-  const rawSite = RAW_SITE(path);
-  const rawGh   = RAW_GH(path);
-
-  // .md → Raw von GitHub; andere → von der Seite
-  document.getElementById("openRaw").onclick = () =>
-    window.open((e==="md"||e==="markdown") ? rawGh : rawSite, "_blank");
-
+  const raw=RAW(path);
+  document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
   document.getElementById("print").onclick=()=>window.print();
-
-  // Deeplink (Ordner+Datei)
   document.getElementById("copyLink").onclick=async ()=>{ 
+    // Datei-Link kopiert jetzt Ordner+Datei (öffnet Index mit Ordner & Viewer)
     const link=fileURL(path);
-    try{ await navigator.clipboard.writeText(link);
-      const b=document.getElementById("copyLink"); const old=b.textContent; b.textContent="Kopiert!";
-      setTimeout(()=>b.textContent=old,1000);
-    }catch{ window.open(link,"_blank"); }
+    try{ await navigator.clipboard.writeText(link); const b=document.getElementById("copyLink"); const old=b.textContent; b.textContent="Kopiert!"; setTimeout(()=>b.textContent=old,1000);}catch{ window.open(link,"_blank"); }
   };
 }
-
 function showGeneric(node,title){
   document.getElementById("hero")?.remove();
   const md=document.getElementById("md"), gen=document.getElementById("generic");
   md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
   document.getElementById("cur").textContent = title||"—";
 }
-
 async function openMarkdown(path){
   setViewerButtons(path);
   try{
-    const src=await getMdText(path);                    // << .md Fallback
-    const {text,blocks}=protectMath(src);
+    const rawTxt=await t(RAW(path));
+    const {text,blocks}=protectMath(rawTxt);
     const htmlSafe=DOMPurify.sanitize(marked.parse(text));
     const html=restoreMath(htmlSafe, blocks);
-
     const md=document.getElementById("md"); const gen=document.getElementById("generic");
     gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
-
     await renderMathSafe(md); setTimeout(()=>renderMathSafe(md),0);
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
     document.getElementById("cur").textContent = base(path);
-
-    // URL inkl. open aktualisieren (teilbar)
-    updateQS(cwd, path);
   }catch(e){
     const p=document.createElement("p"); p.style.color="#ff9a9a"; p.textContent="Datei konnte nicht geladen werden: "+e.message;
     showGeneric(p, base(path));
   }
 }
-function openImage(path){ setViewerButtons(path); const img=document.createElement("img"); img.className="preview"; img.src=RAW_SITE(path); img.alt=base(path); showGeneric(img, base(path)); updateQS(cwd, path); }
-function openText(path){  setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW_SITE(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); updateQS(cwd, path); }
-function openRaw(path){   setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW_SITE(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); updateQS(cwd, path); }
+function openImage(path){ setViewerButtons(path); const img=document.createElement("img"); img.className="preview"; img.src=RAW(path); img.alt=base(path); showGeneric(img, base(path)); }
+function openText(path){  setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); }
+function openRaw(path){   setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); }
 function openFile(path){  document.getElementById("hero")?.remove(); const e=ext(path); if(e==="md"||e==="markdown") return openMarkdown(path); if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path); }
 
 // ===== Boot =====
@@ -379,123 +331,11 @@ async function boot(){
   const startDir = getStartDir();
   await window.openDir(startDir);
   const toOpen = getOpenPath();
-  if (toOpen) { openFile(toOpen); }         // Datei automatisch öffnen (deeplink)
+  if (toOpen) { openFile(toOpen); }
 }
 document.getElementById("q").addEventListener("input", renderList);
 document.getElementById("refresh").addEventListener("click", boot);
 document.addEventListener("DOMContentLoaded", boot);
-</script>
-
-<!-- ✨ Zusatz-Script: sehr dezente Sierpiński-Tetraeder-Animation (Chaos Game, isometrisch) -->
-<script>
-(function(){
-  const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-  const cos30 = Math.sqrt(3)/2, sin30 = 0.5; // isometrische Projektion :contentReference[oaicite:1]{index=1}
-
-  // 3D→isometrisch 2D
-  function proj3Dto2D(x,y,z){
-    // x' = (x - z)*cos30 ; y' = y + (x + z)*sin30  (eine gängige iso-Variante) :contentReference[oaicite:2]{index=2}
-    return [(x - z)*cos30, y + (x + z)*sin30];
-  }
-
-  function makeStrip(canvas, palette){
-    const ctx = canvas.getContext('2d', { alpha:true });
-
-    function fit(){
-      const r = canvas.getBoundingClientRect();
-      canvas.width  = Math.floor(r.width  * DPR);
-      canvas.height = Math.floor(r.height * DPR);
-      ctx.setTransform(DPR,0,0,DPR,0,0);
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      recomputeSpace();
-    }
-
-    // Regularer Tetraeder (in den Würfel eingebettet) :contentReference[oaicite:3]{index=3}
-    const V3 = [
-      [ 1,  1,  1],
-      [ 1, -1, -1],
-      [-1,  1, -1],
-      [-1, -1,  1]
-    ];
-
-    let s=1, ox=0, oy=0;
-    function recomputeSpace(){
-      const P = V3.map(v => proj3Dto2D(v[0],v[1],v[2]));
-      const xs=P.map(p=>p[0]), ys=P.map(p=>p[1]);
-      const minx=Math.min(...xs), maxx=Math.max(...xs);
-      const miny=Math.min(...ys), maxy=Math.max(...ys);
-      const pad = 10;
-      const W = canvas.width/DPR, H=canvas.height/DPR;
-      const sx = (W-2*pad)/(maxx-minx);
-      const sy = (H-2*pad)/(maxy-miny);
-      s = Math.min(sx, sy);
-      ox = pad - minx*s;
-      oy = pad - miny*s;
-    }
-    function map2d(x,y){ return [x*s+ox, y*s+oy]; }
-
-    fit();
-    let resizeTO;
-    addEventListener('resize', ()=>{ clearTimeout(resizeTO); resizeTO = setTimeout(fit,120); });
-
-    // Startpunkt (im Inneren)
-    let px=0, py=0, pz=0;
-    let burn=180;
-
-    // Bewegung sanft halten
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const STEPS = reduce ? 160 : 460;
-
-    // zart zeichnen
-    ctx.globalAlpha = 0.23;
-
-    function tick(){
-      if (document.hidden) { requestAnimationFrame(tick); return; }
-
-      for (let i=0;i<STEPS;i++){
-        const k = (Math.random()*4)|0;
-        // halber Schritt Richtung gewählter Ecke (Chaos Game) :contentReference[oaicite:4]{index=4}
-        px = (px + V3[k][0]) * 0.5;
-        py = (py + V3[k][1]) * 0.5;
-        pz = (pz + V3[k][2]) * 0.5;
-
-        if (burn>0){ burn--; continue; } // Einbrennphase überspringen
-
-        const p2 = proj3Dto2D(px,py,pz);
-        const m  = map2d(p2[0], p2[1]);
-        ctx.fillStyle = palette[k];
-        // 1×1-Pixel-Funken (sehr dezent)
-        ctx.fillRect(m[0], m[1], 1, 1);
-      }
-
-      // ganz selten eine hauchdünne Kontur (Augenzwinkern)
-      if (Math.random() < 0.02){
-        const A = V3.map(v => map2d(...proj3Dto2D(v[0],v[1],v[2])));
-        ctx.save();
-        ctx.globalAlpha = 0.08;
-        ctx.strokeStyle = "#ffffff";
-        ctx.lineWidth = 0.8;
-        ctx.beginPath();
-        ctx.moveTo(A[0][0],A[0][1]); ctx.lineTo(A[1][0],A[1][1]);
-        ctx.lineTo(A[3][0],A[3][1]); ctx.closePath(); ctx.stroke(); // kleine Facette
-        ctx.restore();
-      }
-
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  addEventListener('DOMContentLoaded', ()=>{
-    const L = document.getElementById('fxL');
-    const R = document.getElementById('fxR');
-    if (!L || !R) return;
-    // Pastell: GREEN / YELLOW / RED / BLUE – zart & konsistent mit „exclusive rule“
-    const pal = ["#23e066", "#ffd166", "#ff4d4d", "#61a8ff"];
-    makeStrip(L, pal);
-    makeStrip(R, pal.slice().reverse());
-  });
-})();
 </script>
 </body>
 </html>
