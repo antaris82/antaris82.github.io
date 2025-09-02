@@ -31,7 +31,7 @@
     .actions{display:flex;gap:6px;align-items:center;justify-content:flex-end}
     .copy,.btn-mini{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;font-size:12px}
     .btn-mini{text-decoration:none;display:inline-flex;align-items:center}
-    .viewer{position:relative; z-index:5; padding:18px 22px 60px} /* aktiv sichtbar; wird im Idle überdeckt */
+    .viewer{position:relative; z-index:5; padding:18px 22px 60px} /* aktiv sichtbar; wird im Idle visuell überdeckt */
     .viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:#0c1218;padding:10px 0;z-index:1}
     .btn{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:8px 10px;border-radius:8px;cursor:pointer}
     .btn:hover{background:#122436}
@@ -49,7 +49,7 @@
       z-index:1; opacity:.14; filter:contrast(1.04) saturate(1.02);
       transition: opacity 600ms ease, z-index 0s linear 0s;
     }
-    /* Idle → Gasket vorn (überdeckt alles, aber Events gehen durch), Viewer bleibt klickbar */
+    /* Idle → Gasket vorn (überdeckt auch Viewer optisch), Events gehen durch */
     .fxbg.front{ z-index:6; opacity:.30; transition: opacity 600ms ease }
     @media (max-width: 980px){ .fxbg{ opacity:.12 } .fxbg.front{ opacity:.24 } }
     @media (prefers-reduced-motion: reduce){ .fxbg{ opacity:.10 } .fxbg.front{ opacity:.14 } }
@@ -195,7 +195,7 @@ async function renderMathSafe(rootEl){
 
 // ===== Manifest → Knoten + Ordnerkonstruktion =====
 function normalizeEntries(raw){
-  const src=Array.isArray(raw)?raw:(raw.entries||raw.tree||raw.items||[]);
+  const src=Array.isArrayArray?raw:(raw.entries||raw.tree||raw.items||[]);
   const items=[], seenDir=new Set();
   const addDir=p=>{if(!p||seenDir.has(p))return;seenDir.add(p);items.push({path:p,name:base(p),type:"dir"});};
   for(const e of src){
@@ -376,8 +376,9 @@ document.getElementById("refresh").addEventListener("click", boot);
 document.addEventListener("DOMContentLoaded", boot);
 </script>
 
-<!-- Vollbild-Sierpiński-Gasket: Zoom + Tiefe (1..10..1), Idle-Foreground-Fade mit gebackenen Layern -->
+<!-- Vollbild-Sierpiński-Gasket: Zoom + Tiefe (1..10..1), Idle-Foreground-Fade — FIXED TDZ -->
 <script>
+/* Vollbild-Sierpiński-Gasket mit Offscreen-/Cache-Layern */
 (function(){
   const C = document.getElementById('fxBG');
   if (!C) return;
@@ -385,8 +386,12 @@ document.addEventListener("DOMContentLoaded", boot);
 
   const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
   const FX = new URLSearchParams(location.search).get('fx'); // ?fx=on / off
-  const RM  = matchMedia('(prefers-reduced-motion: reduce)').matches; // a11y
+  const RM  = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const FX_OFF = (FX === 'off') || (RM && FX !== 'on');
+
+  /* --- Cache zuerst deklarieren (fix für TDZ/ReferenceError) --- */
+  const cache = new Map(); // depth -> {canvas}
+  function invalidateCache(){ cache.clear(); }
 
   /* ==== Resize & canvas fit ==== */
   function fit(){
@@ -430,21 +435,13 @@ document.addEventListener("DOMContentLoaded", boot);
     return { xTop, yTop, side, W, H };
   }
 
-  /* ==== Bake-Layer pro Tiefe (OffscreenCanvas wenn verfügbar) ==== */
-  const cache = new Map(); // depth -> {canvas}
-  function invalidateCache(){ cache.clear(); }
+  /* ==== Bake-Layer pro Tiefe (OffscreenCanvas-Fallback) ==== */
   function makeOffscreen(w,h){
-    try{
-      if (HTMLCanvasElement.prototype.transferControlToOffscreen) {
-        // Hauptvorteil: kann perspektivisch in Worker verschoben werden
-        const oc = new OffscreenCanvas(w,h);
-        return oc;
-      }
-    }catch(_e){}
+    if (typeof OffscreenCanvas !== 'undefined') return new OffscreenCanvas(w,h);
     const c = document.createElement('canvas'); c.width=w; c.height=h; return c;
   }
   function getLayer(depth){
-    const key = `${depth}:${C.width}x${C.height}`;
+    const key = `d${depth}`; // Größe ändert sich nur bei Resize → Cache invalidiert dort
     if (cache.has(key)) return cache.get(key);
     const L = layout(1.02); // minimal größer gegen Randartefakte
     const oc = makeOffscreen(C.width, C.height);
@@ -452,7 +449,6 @@ document.addEventListener("DOMContentLoaded", boot);
     octx.setTransform(DPR,0,0,DPR,0,0);
     octx.clearRect(0,0,L.W,L.H);
     octx.fillStyle = '#e7eef5';
-    octx.globalAlpha = 1; // Alpha wird beim Haupt-Blit geregelt
     drawGasketTo(octx, L.xTop, L.yTop, L.side, depth);
     const layer = { canvas: oc };
     cache.set(key, layer);
@@ -461,16 +457,16 @@ document.addEventListener("DOMContentLoaded", boot);
 
   /* ==== Animation-Parameter ==== */
   const MAX_DEPTH = 10;               // bis Level 10
-  const BASE_A = 0.06;                // Gesamtalpha (gedämpft zusätzlich per .fxbg Opazität)
+  const BASE_A = 0.06;                // Grundalpha (Canvas selbst ist zusätzlich via CSS gedimmt)
   const PERIOD = 42000;               // 42 s für 1->10->1
   const ZOOM_AMP = 0.10;              // 0.90 .. 1.10
   const IDLE_MS = 10000;              // 10 s bis Vordergrund-Fade
-  const FPS_LIMIT = 28;               // leicht gedrosselt
+  const FPS_LIMIT = 28;
   const ease = x => 0.5 - 0.5*Math.cos(Math.PI*x);
 
   let t0 = performance.now(), last = 0, lastAct = performance.now(), isFront=false;
 
-  // Idle-Erkennung: jede Aktivität schickt Gasket in den Hintergrund
+  // Idle-Erkennung: eine Mausbewegung reicht, um zurückzuschicken
   function markAct(){ lastAct = performance.now(); if(isFront){ isFront=false; C.classList.remove('front'); } }
   ['pointermove','pointerdown','wheel','keydown','touchstart','scroll'].forEach(ev => addEventListener(ev, markAct, {passive:true}));
 
@@ -479,7 +475,6 @@ document.addEventListener("DOMContentLoaded", boot);
     const L = layout(1.0);
     ctx.clearRect(0,0,L.W,L.H);
     const layer = getLayer(d).canvas;
-    // keine Skalierung; Alpha via globalAlpha
     ctx.globalAlpha = BASE_A;
     ctx.drawImage(layer, 0, 0);
     ctx.globalAlpha = 1;
@@ -488,7 +483,7 @@ document.addEventListener("DOMContentLoaded", boot);
   function tick(t){
     if (document.hidden){ requestAnimationFrame(tick); return; }
 
-    // Idle → Gasket nach vorn (überdeckt Viewer), Aktivität → zurück
+    // Idle → Gasket nach vorn (überdeckt), Aktivität → zurück
     const idle = (t - lastAct) > IDLE_MS;
     if (idle && !isFront){ isFront=true; C.classList.add('front'); }
     else if (!idle && isFront){ isFront=false; C.classList.remove('front'); }
@@ -499,15 +494,13 @@ document.addEventListener("DOMContentLoaded", boot);
     if (t - last < frameInterval){ requestAnimationFrame(tick); return; }
     last = t;
 
-    // Tiefe 1↔MAX_DEPTH als Dreieckswelle
-    const cyc = ((t - t0) % PERIOD) / PERIOD;           // 0..1
-    const ramp = cyc < 0.5 ? (cyc*2) : (1 - (cyc-0.5)*2); // 0→1→0
-    const exactDepth = 1 + (MAX_DEPTH-1) * ease(ramp);
+    // Tiefe 1↔MAX_DEPTH als Dreieckswelle + sanfter Zoom
+    const cyc = ((t - t0) % PERIOD) / PERIOD;               // 0..1
+    const ramp = cyc < 0.5 ? (cyc*2) : (1 - (cyc-0.5)*2);   // 0→1→0
+    const exactDepth = 1 + (MAX_DEPTH-1) * ease(ramp);      // weich
     const d0 = Math.floor(exactDepth);
     const frac = exactDepth - d0;
-
-    // ruhiger Zoom
-    const z = 0.90 + ZOOM_AMP * (1 + Math.sin(t*0.0007)); // 0.90..1.10
+    const z = 0.90 + ZOOM_AMP * (1 + Math.sin(t*0.0007));   // 0.90..1.10
 
     const L = layout(z);
     ctx.clearRect(0,0,L.W,L.H);
@@ -515,16 +508,13 @@ document.addEventListener("DOMContentLoaded", boot);
     // zwei Layer (d0, d0+1) weich überblenden
     const A0 = BASE_A * (1-frac);
     const A1 = BASE_A * frac;
-
     const layer0 = getLayer(d0).canvas;
     const layer1 = getLayer(Math.min(MAX_DEPTH, d0+1)).canvas;
 
-    // skaliert in die Mitte blitten
     ctx.save();
     ctx.translate(L.W/2, L.H/2);
     ctx.scale(z, z);
     ctx.translate(-L.W/2, -L.H/2);
-
     ctx.globalAlpha = A0; ctx.drawImage(layer0, 0, 0);
     ctx.globalAlpha = A1; ctx.drawImage(layer1, 0, 0);
     ctx.restore();
