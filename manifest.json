@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "3f7e01ae7a15db426284fd5500c91ead92112be9",
-    "size": 44,
+    "sha": "38f47aabb74651c719f1b021d373fcbef52ef456",
+    "size": 41,
     "type": "blob",
     "mode": "100644"
   },
@@ -127,14 +127,14 @@
   },
   {
     "path": "index.html",
-    "sha": "9489816377fd58a4410feacc82c448986fe151d6",
-    "size": 17118,
+    "sha": "2753bb274dc45b5e9f93ecaa87a7d745f88fdebd",
+    "size": 18058,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.json",
-    "sha": "44edb96edd78c76257cf5feb2d4ed99e8a73700a",
+    "sha": "99b06e949d48df0af62a758b811cd02c28578287",
     "size": 46403,
     "type": "blob",
     "mode": "100644"
@@ -953,8 +953,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/E5/ARGUMENTS.en.md",
-    "sha": "ffbcf51beb5cfd35df1864954c9be286aa4738a6",
-    "size": 14501,
+    "sha": "4493621153da99b81b786997841dae8f33a11e7c",
+    "size": 14487,
     "type": "blob",
     "mode": "100644"
   },
