@@ -12,7 +12,6 @@
     a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
     .container{width:min(1280px,100% - 32px);margin:0 auto}
 
-    /* Header/Layout ohne z-index, damit Overlay sie überdecken kann */
     header{position:sticky;top:0;background:var(--panel);border-bottom:1px solid var(--border)}
     header .row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     h1{margin:0;font-size:18px}
@@ -35,7 +34,7 @@
     .copy,.btn-mini{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;font-size:12px}
     .btn-mini{text-decoration:none;display:inline-flex;align-items:center}
 
-    /* WICHTIG: kein z-index auf .viewer */
+    /* kein z-index auf .viewer, damit Overlays sie überdecken können */
     .viewer{position:relative;padding:18px 22px 60px}
     .viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:#0c1218;padding:10px 0}
     .btn{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:8px 10px;border-radius:8px;cursor:pointer}
@@ -48,19 +47,28 @@
     footer .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:999999999}
 
-    /* Vollbild-Gasket-Canvas – bei Inaktivität ÜBER ALLEM (auch Viewer) */
+    /* Hintergrund-Gasket (hinten) */
     .fxbg{
       position:fixed; inset:0; pointer-events:none;
-      width:100vw;height:100vh;
       z-index:1; opacity:.14; filter:contrast(1.04) saturate(1.02);
-      transition:opacity 600ms ease, z-index 0s linear 0s;
+      transition:opacity 600ms ease;
     }
-    .fxbg.front{
-      z-index:2147483647; /* praktisch maximal */
-      opacity:.55;        /* deutlicher sichtbar */
+
+    /* Vordergrund-Gasket: echtes Top-Layer via <dialog> */
+    .fxdlg{ 
+      border:none; padding:0; margin:0; 
+      position:fixed; inset:0; background:transparent;
+      width:100vw; height:100vh;
+      pointer-events:none;           /* visuell überdecken, aber klicks durchlassen */
     }
-    @media (max-width: 980px){ .fxbg{ opacity:.12 } .fxbg.front{ opacity:.40 } }
-    @media (prefers-reduced-motion: reduce){ .fxbg{ opacity:.10 } .fxbg.front{ opacity:.18 } }
+    .fxdlg[open]{ display:block }    /* Sicherheitsnetz für Browser */
+    .fxdlg::backdrop{
+      background:rgba(8,12,18,.28);  /* dezente Abdunklung */
+      transition:opacity .6s ease;
+      opacity:0;
+    }
+    .fxdlg.front::backdrop{ opacity:1 } /* wenn „Front“, Backdrop sichtbar */
+    #fxFront{ width:100%; height:100%; display:block }
   </style>
 
   <!-- Markdown / Sanitize / Code-Highlight -->
@@ -75,6 +83,7 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
+
 <header>
   <div class="container row">
     <div style="display:flex;gap:12px;align-items:baseline">
@@ -122,34 +131,37 @@
 
 <div id="err"></div>
 
-<!-- ===== Overlay-Canvas GANZ AM ENDE DES BODY ===== -->
-<canvas id="fxBG" class="fxbg" aria-hidden="true"></canvas>
+<!-- Hintergrund-Canvas (bleibt dauerhaft hinten) -->
+<canvas id="fxBack" class="fxbg" aria-hidden="true"></canvas>
+
+<!-- Vordergrund-Overlay im TOP-LAYER -->
+<dialog id="fxDlg" class="fxdlg" aria-hidden="true" tabindex="-1">
+  <canvas id="fxFront"></canvas>
+</dialog>
 
 <script>
-// ===== Fehlerbanner =====
+/* ==== Fehlerbanner ==== */
 (function(){
   const E=document.getElementById("err");
   const show=msg=>{E.textContent="Fehler: "+msg;E.style.display="block";};
-  window.addEventListener("error",e=>show(e.message||e.error||e));
-  window.addEventListener("unhandledrejection",e=>show(e.reason||e));
+  addEventListener("error",e=>show(e.message||e.error||e));
+  addEventListener("unhandledrejection",e=>show(e.reason||e));
 })();
 
-// ===== Konfiguration / Deeplinks =====
+/* ==== Konfiguration / Deeplinks ==== */
 const MANIFEST_URL="/manifest.json";
 const MANIFEST_RAW="https://raw.githubusercontent.com/antaris82/antaris82.github.io/main/manifest.json";
 const START_DIR="Sierpinski Tetraeder_PoC";
 const ORIGIN = location.origin;
 const dirURL = p => `${ORIGIN}/?dir=${encodeURIComponent(p)}`;
-const qs = () => new URLSearchParams(location.search);
+const qs     = () => new URLSearchParams(location.search);
 const getStartDir = () => (qs().get("dir") || START_DIR);
 const getOpenPath = () => qs().get("open");
-
-// Datei-URLs
-const RAW_SITE = (p) => "/" + encodeURI(String(p || "").replace(/^\/+/, ""));
-const RAW_GH   = (p) => "https://raw.githubusercontent.com/antaris82/antaris82.github.io/main/" + encodeURI(String(p || "").replace(/^\/+/, ""));
+const RAW_SITE = (p) => "/" + encodeURI(String(p||"").replace(/^\/+/, ""));
+const RAW_GH   = (p) => "https://raw.githubusercontent.com/antaris82/antaris82.github.io/main/" + encodeURI(String(p||"").replace(/^\/+/, ""));
 const fileURL  = (p) => `${ORIGIN}/?dir=${encodeURIComponent(dir(p))}&open=${encodeURIComponent(p)}`;
 
-// ===== State / Utils =====
+/* ==== State / Utils ==== */
 let NODES=new Map(), CHILDREN=new Map(), cwd="";
 const base=p=>(p||"").split("/").pop()||"";
 const dir =p=>(p||"").split("/").slice(0,-1).join("/");
@@ -159,48 +171,36 @@ const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml
 async function j(u){const r=await fetch(u+(u.includes('?')?'&':'?')+"ts="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 
-// ===== Markdown (.md) + KaTeX =====
+/* ==== Markdown + KaTeX ==== */
 async function getMdText(path){ try { return await t(RAW_SITE(path)); } catch{ return await t(RAW_GH(path)); } }
 function protectMath(text){
   const blocks=[]; const take=m=>(blocks.push(m),`%%MATH${blocks.length-1}%%`);
-  text=text.replace(/\$\$([\s\S]+?)\$\$/g,take)
-           .replace(/\\\[[\s\S]*?\\\]/g,take)
-           .replace(/\\\([\s\S]*?\\\)/g,take)
-           .replace(/\$(?!\$)([\s\S]+?)\$(?!\$)/g,take);
+  text=text.replace(/\$\$([\s\S]+?)\$\$/g,take).replace(/\\\[[\s\S]*?\\\]/g,take)
+           .replace(/\\\([\s\S]*?\\\)/g,take).replace(/\$(?!\$)([\s\S]+?)\$(?!\$)/g,take);
   return {text,blocks};
 }
-function restoreMath(html,blocks){
-  return html.replace(/%%MATH(\d+)%%/g,(_,i)=>blocks[+i].replace(/&/g,"&amp;").replace(/</g,"&lt;"));
-}
+function restoreMath(html,blocks){ return html.replace(/%%MATH(\d+)%%/g,(_,i)=>blocks[+i].replace(/&/g,"&amp;").replace(/</g,"&lt;")); }
 async function renderMathSafe(rootEl){
   for(let i=0;i<200 && typeof window.renderMathInElement!=="function";i++) await new Promise(r=>setTimeout(r,30));
   if(typeof window.renderMathInElement!=="function")return;
-  window.renderMathInElement(rootEl,{
-    delimiters:[
+  window.renderMathInElement(rootEl,{ delimiters:[
       {left:"\\[", right:"\\]", display:true},
       {left:"$$",  right:"$$",  display:true},
       {left:"\\(", right:"\\)", display:false},
       {left:"$",   right:"$",   display:false}
-    ],
-    throwOnError:false, strict:"ignore"
+    ], throwOnError:false, strict:"ignore"
   });
 }
 
-// ===== Manifest laden (mit Raw-Fallback) =====
-async function loadManifest(){
-  try { return await j(MANIFEST_URL); }
-  catch(e1){ console.warn("Pages-Manifest 404, fallback raw:", e1); return await j(MANIFEST_RAW); }
-}
-
-// ===== Manifest → Knoten + Ordner =====
+/* ==== Manifest laden (mit Raw-Fallback) ==== */
+async function loadManifest(){ try { return await j(MANIFEST_URL); } catch(e){ return await j(MANIFEST_RAW); } }
 function normalizeEntries(raw){
   const src = Array.isArray(raw) ? raw : (raw.entries || raw.tree || raw.items || []);
-  const items=[], seenDir=new Set();
-  const addDir=p=>{ if(!p||seenDir.has(p))return; seenDir.add(p); items.push({path:p,name:base(p),type:"dir"}); };
+  const items=[], seen=new Set();
+  const addDir=p=>{ if(!p||seen.has(p))return; seen.add(p); items.push({path:p,name:base(p),type:"dir"}); };
   for(const e of src){
     let p=(e.path||e.file||e.name||"").replace(/^\/+/,""); if(!p) continue;
-    const typ=(e.type==="tree"||e.type==="dir")?"dir":"file";
-    const parts=p.split("/");
+    const typ=(e.type==="tree"||e.type==="dir")?"dir":"file"; const parts=p.split("/");
     for(let i=1;i<parts.length;i++) addDir(parts.slice(0,i).join("/"));
     if(typ==="dir") addDir(p); else items.push({path:p,name:parts.at(-1),type:"file"});
   }
@@ -217,100 +217,47 @@ function indexEntries(raw){
   document.getElementById("manitxt").textContent=`${files} Dateien • ${dirs} Ordner`;
 }
 
-// ===== QS-Update =====
-function updateQS(newDir, newOpen){
-  const params=new URLSearchParams();
-  if(newDir!==undefined) params.set("dir", newDir);
-  if(newOpen) params.set("open", newOpen);
-  const qsNew="?"+params.toString();
-  if(location.search!==qsNew) history.replaceState(null,"",qsNew);
-}
-
-// ===== Browser UI =====
-function crumbHtml(path){
-  const parts=path?path.split("/").filter(Boolean):[];
-  const items=[`<a href="${dirURL("")}" data-path="">/</a>`];
-  let acc=""; for(const p of parts){ acc=acc?acc+"/"+p:p; items.push(`<a href="${dirURL(acc)}" data-path="${acc}">${p}</a>`); }
-  return items.join(" / ");
-}
-function renderCrumb(){
-  const el=document.getElementById("crumb");
-  el.innerHTML=crumbHtml(cwd);
-  el.querySelectorAll("a").forEach(a=>a.onclick=(e)=>{e.preventDefault(); window.openDir(a.dataset.path||"");});
-}
+/* ==== QS/Browser ==== */
+function updateQS(newDir, newOpen){ const p=new URLSearchParams(); if(newDir!==undefined) p.set("dir",newDir); if(newOpen) p.set("open",newOpen);
+  const qsNew="?"+p.toString(); if(location.search!==qsNew) history.replaceState(null,"",qsNew); }
+function crumbHtml(path){ const parts=path?path.split("/").filter(Boolean):[]; const items=[`<a href="${dirURL("")}" data-path="">/</a>`];
+  let acc=""; for(const p of parts){ acc=acc?acc+"/"+p:p; items.push(`<a href="${dirURL(acc)}" data-path="${acc}">${p}</a>`); } return items.join(" / "); }
+function renderCrumb(){ const el=document.getElementById("crumb"); el.innerHTML=crumbHtml(cwd);
+  el.querySelectorAll("a").forEach(a=>a.onclick=(e)=>{e.preventDefault(); window.openDir(a.dataset.path||"");}); }
 async function renderList(){
   const q=(document.getElementById("q").value||"").trim().toLowerCase();
   const list=document.getElementById("list"); list.innerHTML="";
-
-  if(cwd){
-    const up=document.createElement("li"); up.className="item";
+  if(cwd){ const up=document.createElement("li"); up.className="item";
     up.innerHTML='<span class="meta">⬆️</span><span class="name">..</span><span class="meta">UP</span><span></span>';
-    up.onclick=()=>window.openDir(dir(cwd)); list.appendChild(up);
-  }
-
+    up.onclick=()=>window.openDir(dir(cwd)); list.appendChild(up); }
   const children=(CHILDREN.get(cwd)||[]).filter(e=>!q||e.name.toLowerCase().includes(q));
-  if(!children.length){
-    const li=document.createElement("li"); li.className="item";
-    li.innerHTML='<span class="meta">—</span><span class="name">Keine Dateien</span><span class="meta"></span><span></span>';
-    list.appendChild(li); return;
-  }
-
+  if(!children.length){ const li=document.createElement("li"); li.className="item";
+    li.innerHTML='<span class="meta">—</span><span class="name">Keine Dateien</span><span class="meta"></span><span></span>'; list.appendChild(li); return; }
   for(const e of children){
     const li=document.createElement("li"); li.className="item"; li.dataset.path=e.path;
-    const icon=e.type==="dir"?"📁":"📄";
-    const extn=e.type==="dir"?"DIR":(ext(e.name)||"file").toUpperCase();
-
-    const nameHTML=(e.type==="dir")
-      ? `<a class="name" href="${dirURL(e.path)}" data-path="${e.path}">${e.name}</a>`
-      : `<span class="name">${e.name}</span>`;
-
-    const actionsHTML=(e.type==="dir")
-      ? `<span class="actions"><button class="copy" title="Ordner-Link kopieren">🔗</button></span>`
-      : `<span class="actions"><button class="copy" title="Link kopieren (Ordner+Datei)">🔗</button></span>`;
-
+    const icon=e.type==="dir"?"📁":"📄"; const extn=e.type==="dir"?"DIR":(ext(e.name)||"file").toUpperCase();
+    const nameHTML=(e.type==="dir")?`<a class="name" href="${dirURL(e.path)}" data-path="${e.path}">${e.name}</a>`:`<span class="name">${e.name}</span>`;
+    const actionsHTML=(e.type==="dir")?`<span class="actions"><button class="copy" title="Ordner-Link kopieren">🔗</button></span>`:`<span class="actions"><button class="copy" title="Link kopieren (Ordner+Datei)">🔗</button></span>`;
     li.innerHTML=`<span>${icon}</span>${nameHTML}<span class="meta">${extn}</span>${actionsHTML}`;
-
     li.onclick=()=>{ if(e.type==="dir") window.openDir(e.path); else openFile(e.path); };
-
-    const a=li.querySelector("a.name");
-    if(a){ a.onclick=ev=>{ ev.preventDefault(); window.openDir(a.dataset.path); }; }
-
-    const b=li.querySelector(".copy");
-    if(b) b.onclick=async (ev)=>{
-      ev.stopPropagation();
-      const link=(e.type==="dir")?dirURL(e.path):fileURL(e.path);
-      try{ await navigator.clipboard.writeText(link); b.textContent="✓"; setTimeout(()=>b.textContent="🔗",900); }
-      catch{ window.open(link,"_blank"); }
-    };
+    const a=li.querySelector("a.name"); if(a){ a.onclick=ev=>{ ev.preventDefault(); window.openDir(a.dataset.path); }; }
+    const b=li.querySelector(".copy"); if(b) b.onclick=async (ev)=>{ ev.stopPropagation(); const link=(e.type==="dir")?dirURL(e.path):fileURL(e.path);
+      try{ await navigator.clipboard.writeText(link); b.textContent="✓"; setTimeout(()=>b.textContent="🔗",900); } catch{ window.open(link,"_blank"); } };
     list.appendChild(li);
   }
 }
+window.openDir = async function(path=""){ cwd=path; const q=document.getElementById("q"); if(q && q.value) q.value=""; renderCrumb(); renderList(); updateQS(cwd,""); };
 
-// ===== Navigation =====
-window.openDir = async function(path=""){
-  cwd=path;
-  const q=document.getElementById("q"); if(q && q.value) q.value="";
-  renderCrumb();
-  renderList();
-  updateQS(cwd,"");
-};
-
-// ===== Viewer =====
+/* ==== Viewer ==== */
 function setViewerButtons(path){
-  const e=ext(path);
-  const rawSite=RAW_SITE(path);
-  const rawGh=RAW_GH(path);
+  const e = ext(path), rawSite=RAW_SITE(path), rawGh=RAW_GH(path);
   document.getElementById("openRaw").onclick=()=>window.open((e==="md"||e==="markdown")?rawGh:rawSite,"_blank");
   document.getElementById("print").onclick=()=>window.print();
-  document.getElementById("copyLink").onclick=async ()=>{
-    const link=fileURL(path);
-    try{ await navigator.clipboard.writeText(link);
-      const b=document.getElementById("copyLink"); const old=b.textContent; b.textContent="Kopiert!"; setTimeout(()=>b.textContent=old,1000);
-    }catch{ window.open(link,"_blank"); }
-  };
+  document.getElementById("copyLink").onclick=async ()=>{ const link=fileURL(path);
+    try{ await navigator.clipboard.writeText(link); const b=document.getElementById("copyLink"), old=b.textContent; b.textContent="Kopiert!"; setTimeout(()=>b.textContent=old,1000); }
+    catch{ window.open(link,"_blank"); } };
 }
-function showGeneric(node,title){
-  document.getElementById("hero")?.remove();
+function showGeneric(node,title){ document.getElementById("hero")?.remove();
   const md=document.getElementById("md"), gen=document.getElementById("generic");
   md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
   document.getElementById("cur").textContent=title||"—";
@@ -318,157 +265,102 @@ function showGeneric(node,title){
 async function openMarkdown(path){
   setViewerButtons(path);
   try{
-    const src=await getMdText(path);
-    const {text,blocks}=protectMath(src);
-    const htmlSafe=DOMPurify.sanitize(marked.parse(text));
-    const html=restoreMath(htmlSafe,blocks);
+    const src=await getMdText(path); const {text,blocks}=protectMath(src);
+    const html=restoreMath(DOMPurify.sanitize(marked.parse(text)),blocks);
     const md=document.getElementById("md"), gen=document.getElementById("generic");
     gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
     await renderMathSafe(md); setTimeout(()=>renderMathSafe(md),0);
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
-    document.getElementById("cur").textContent=base(path);
-    updateQS(cwd,path);
-  }catch(e){
-    const p=document.createElement("p"); p.style.color="#ff9a9a"; p.textContent="Datei konnte nicht geladen werden: "+e.message;
-    showGeneric(p, base(path));
-  }
+    document.getElementById("cur").textContent=base(path); updateQS(cwd,path);
+  }catch(e){ const p=document.createElement("p"); p.style.color="#ff9a9a"; p.textContent="Datei konnte nicht geladen werden: "+e.message; showGeneric(p, base(path)); }
 }
 function openImage(path){ setViewerButtons(path); const img=document.createElement("img"); img.className="preview"; img.src=RAW_SITE(path); img.alt=base(path); showGeneric(img, base(path)); updateQS(cwd,path); }
 function openText(path){  setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW_SITE(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); updateQS(cwd,path); }
-function openRaw(path){   setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW_SITE(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); updateQS(cwd,path); }
-function openFile(path){  document.getElementById("hero")?.remove(); const e=ext(path); if(e==="md"||e==="markdown") return openMarkdown(path); if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path); }
+function openRaw(path){   setViewerButtons(path); const f=document.createElement("iframe"); f.className="preview"; f.src=RAW_SITE(path); f.title=base(path); f.style.height="78vh"; showGeneric(f, base(path)); updateQS(cwd,path); }
+function openFile(path){  document.getElementById("hero")?.remove(); const e=ext(path);
+  if(e==="md"||e==="markdown") return openMarkdown(path); if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path); }
 
-// ===== Boot =====
-async function boot(){
-  // Falls Canvas versehentlich nicht am Ende steht → jetzt dorthin verschieben (Topmost in DOM)
-  const fx=document.getElementById('fxBG'); if(document.body.lastElementChild!==fx){ document.body.appendChild(fx); }
-
-  document.getElementById("copyright").textContent=`© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
-  try{
-    const m=await loadManifest();
-    indexEntries(m);
-  }catch(e){
-    document.getElementById("dot").className="dot err";
-    document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
-    document.getElementById("list").innerHTML='<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
-    console.error("Manifest konnte nicht geladen werden", e);
-  }
-  const startDir=getStartDir();
-  await window.openDir(startDir);
-  const toOpen=getOpenPath();
-  if(toOpen){ openFile(toOpen); }
-
-  // Debug: Taste "F" → Overlay sofort nach vorn/hinten
-  addEventListener('keydown',e=>{
-    if((e.key||'').toLowerCase()==='f'){
-      fx.classList.toggle('front');
-    }
-  });
-}
-document.getElementById("q").addEventListener("input", renderList);
-document.getElementById("refresh").addEventListener("click", boot);
-document.addEventListener("DOMContentLoaded", boot);
-</script>
-
-<!-- Vollbild-Sierpiński-Gasket: Zoom + 1..10..1, Idle-Overlay über allem -->
-<script>
-(function(){
-  const C=document.getElementById('fxBG'); if(!C) return;
-  const ctx=C.getContext('2d',{alpha:true});
+/* ==== Sierpinski-Gasket Renderer (für Back & Front) ==== */
+function startGasket(canvas,{idleTarget=null, idleMs=10000, baseAlpha=.06, maxDepth=10, zoomAmp=.10, periodMs=42000, brighten=.0}={}){
+  const ctx=canvas.getContext('2d',{alpha:true});
   const DPR=Math.max(1,Math.min(2,window.devicePixelRatio||1));
-  const FX=new URLSearchParams(location.search).get('fx');
-  const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const FX_OFF=(FX==='off')||(RM&&FX!=='on');
+  const SQ3_2=Math.sqrt(3)/2;
 
-  // Cache
-  const cache=new Map();
-  function invalidateCache(){ cache.clear(); }
-
-  // Resize
+  const cache=new Map(); // depth -> {canvas}
+  function invalidate(){ cache.clear(); }
   function fit(){
     const w=innerWidth,h=innerHeight;
-    C.width=Math.floor(w*DPR); C.height=Math.floor(h*DPR);
-    ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,w,h);
-    invalidateCache();
+    canvas.width=Math.floor(w*DPR); canvas.height=Math.floor(h*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,w,h); invalidate();
   }
   addEventListener('resize',()=>{ clearTimeout(fit._t); fit._t=setTimeout(fit,100); });
   fit();
 
-  // Triangles
-  const SQ3_2=Math.sqrt(3)/2;
-  function fillTriTo(g,xTop,yTop,side){ const h=side*SQ3_2; g.beginPath(); g.moveTo(xTop,yTop); g.lineTo(xTop-side/2,yTop+h); g.lineTo(xTop+side/2,yTop+h); g.closePath(); g.fill(); }
-  function drawGasketTo(g,xTop,yTop,side,depth){
-    if(depth<=0){ fillTriTo(g,xTop,yTop,side); return; }
-    const s2=side/2,h2=(side*SQ3_2)/2;
-    drawGasketTo(g,xTop       ,yTop    ,s2,depth-1);
-    drawGasketTo(g,xTop-s2/2  ,yTop+h2 ,s2,depth-1);
-    drawGasketTo(g,xTop+s2/2  ,yTop+h2 ,s2,depth-1);
-  }
-  function layout(scale=1){
-    const W=C.width/DPR,H=C.height/DPR,pad=24;
-    const sideMax=Math.min(W-2*pad,(H-2*pad)/SQ3_2);
-    const side=sideMax*scale, height=side*SQ3_2;
-    return {xTop:W/2,yTop:(H-height)/2,side,W,H};
-  }
-  function makeOffscreen(w,h){ if(typeof OffscreenCanvas!=='undefined') return new OffscreenCanvas(w,h); const c=document.createElement('canvas'); c.width=w;c.height=h; return c; }
-  function getLayer(depth){
+  function fillTri(g,xTop,yTop,side){ const h=side*SQ3_2; g.beginPath(); g.moveTo(xTop,yTop); g.lineTo(xTop-side/2,yTop+h); g.lineTo(xTop+side/2,yTop+h); g.closePath(); g.fill(); }
+  function drawTo(g,xTop,yTop,side,d){ if(d<=0){ fillTri(g,xTop,yTop,side); return; }
+    const s2=side/2,h2=(side*SQ3_2)/2; drawTo(g,xTop,yTop,s2,d-1); drawTo(g,xTop-s2/2,yTop+h2,s2,d-1); drawTo(g,xTop+s2/2,yTop+h2,s2,d-1); }
+  function layout(scale=1){ const W=canvas.width/DPR,H=canvas.height/DPR,pad=24;
+    const sideMax=Math.min(W-2*pad,(H-2*pad)/SQ3_2), side=sideMax*scale, height=side*SQ3_2;
+    return {xTop:W/2,yTop:(H-height)/2,side,W,H}; }
+  function offscreen(w,h){ if(typeof OffscreenCanvas!=='undefined') return new OffscreenCanvas(w,h); const c=document.createElement('canvas'); c.width=w; c.height=h; return c; }
+  function layer(depth){
     const key=`d${depth}`; if(cache.has(key)) return cache.get(key);
-    const L=layout(1.02), oc=makeOffscreen(C.width,C.height), g=oc.getContext('2d',{alpha:true});
-    g.setTransform(DPR,0,0,DPR,0,0); g.clearRect(0,0,L.W,L.H); g.fillStyle='#e7eef5';
-    drawGasketTo(g,L.xTop,L.yTop,L.side,depth);
-    const layer={canvas:oc}; cache.set(key,layer); return layer;
+    const L=layout(1.02), oc=offscreen(canvas.width,canvas.height), g=oc.getContext('2d',{alpha:true});
+    g.setTransform(DPR,0,0,DPR,0,0); g.clearRect(0,0,L.W,L.H); g.fillStyle='#e7eef5'; drawTo(g,L.xTop,L.yTop,L.side,depth);
+    const Lyr={canvas:oc}; cache.set(key,Lyr); return Lyr;
   }
 
-  // Animation
-  const MAX_DEPTH=10, BASE_A=0.06, PERIOD=42000, ZOOM_AMP=0.10, IDLE_MS=3000, FPS_LIMIT=28;
-  const ease=x=>0.5-0.5*Math.cos(Math.PI*x);
-  let t0=performance.now(), last=0, lastAct=performance.now(), isFront=false;
+  let t0=performance.now(), last=0, lastAct=performance.now();
+  const FPS=28, ease=x=>0.5-0.5*Math.cos(Math.PI*x);
 
-  function markAct(){ lastAct=performance.now(); if(isFront){ isFront=false; C.classList.remove('front'); } }
+  function markAct(){ lastAct=performance.now(); if(idleTarget?.open){ idleTarget.classList.remove('front'); idleTarget.close(); } }
   ['pointermove','pointerdown','wheel','keydown','touchstart','scroll'].forEach(ev=>addEventListener(ev,markAct,{passive:true}));
 
-  function renderStatic(){
-    const d=Math.min(6,MAX_DEPTH), L=layout(1.0);
-    ctx.clearRect(0,0,L.W,L.H);
-    // Abdunklung fürs „Überdecken“-Gefühl
-    ctx.save(); ctx.fillStyle='rgba(8,12,18,0.28)'; ctx.fillRect(0,0,L.W,L.H); ctx.restore();
-    ctx.globalAlpha=BASE_A; ctx.drawImage(getLayer(d).canvas,0,0); ctx.globalAlpha=1;
-  }
-
   function tick(t){
-    if(document.hidden){ requestAnimationFrame(tick); return; }
+    const frameInt=1000/FPS; if(t-last<frameInt){ requestAnimationFrame(tick); return; } last=t;
 
-    const idle=(t-lastAct)>IDLE_MS;
-    if(idle && !isFront){ isFront=true; C.classList.add('front'); }
-    else if(!idle && isFront){ isFront=false; C.classList.remove('front'); }
-
-    if(FX_OFF){ renderStatic(); return; }
-
-    const frameInterval=1000/FPS_LIMIT; if(t-last<frameInterval){ requestAnimationFrame(tick); return; } last=t;
-
-    const cyc=((t-t0)%PERIOD)/PERIOD, ramp=cyc<0.5?(cyc*2):(1-(cyc-0.5)*2);
-    const exactDepth=1+(MAX_DEPTH-1)*ease(ramp), d0=Math.floor(exactDepth), frac=exactDepth-d0;
-    const z=0.90+ZOOM_AMP*(1+Math.sin(t*0.0007));
+    const cyc=((t-t0)%periodMs)/periodMs, ramp=cyc<0.5?(cyc*2):(1-(cyc-0.5)*2);
+    const exact=1+(maxDepth-1)*ease(ramp), d0=Math.floor(exact), frac=exact-d0;
+    const z=0.90+zoomAmp*(1+Math.sin(t*0.0007));
     const L=layout(z); ctx.clearRect(0,0,L.W,L.H);
 
-    // Abdunklung vor dem Muster
-    ctx.save(); ctx.fillStyle='rgba(8,12,18,0.28)'; ctx.fillRect(0,0,L.W,L.H); ctx.restore();
+    if(brighten>0){ ctx.save(); ctx.fillStyle=`rgba(8,12,18,${brighten})`; ctx.fillRect(0,0,L.W,L.H); ctx.restore(); }
 
-    const A0=BASE_A*(1-frac), A1=BASE_A*frac;
-    const layer0=getLayer(d0).canvas, layer1=getLayer(Math.min(MAX_DEPTH,d0+1)).canvas;
+    const A0=baseAlpha*(1-frac), A1=baseAlpha*frac;
+    const l0=layer(d0).canvas, l1=layer(Math.min(maxDepth,d0+1)).canvas;
 
-    ctx.save();
-    ctx.translate(L.W/2,L.H/2); ctx.scale(z,z); ctx.translate(-L.W/2,-L.H/2);
-    ctx.globalAlpha=A0; ctx.drawImage(layer0,0,0);
-    ctx.globalAlpha=A1; ctx.drawImage(layer1,0,0);
+    ctx.save(); ctx.translate(L.W/2,L.H/2); ctx.scale(z,z); ctx.translate(-L.W/2,-L.H/2);
+    ctx.globalAlpha=A0; ctx.drawImage(l0,0,0); ctx.globalAlpha=A1; ctx.drawImage(l1,0,0);
     ctx.restore(); ctx.globalAlpha=1;
 
+    // Idle → Top-Layer-Dialog öffnen (steht ÜBER allem, inkl. iframes) – siehe MDN/Top Layer
+    const idle = idleTarget && (t - lastAct) > idleMs;
+    if(idle && !idleTarget.open){ idleTarget.showModal(); idleTarget.classList.add('front'); }
     requestAnimationFrame(tick);
   }
-
-  if(FX_OFF){ renderStatic(); }
   requestAnimationFrame(tick);
-})();
+}
+
+/* ==== Boot ==== */
+async function boot(){
+  document.getElementById("copyright").textContent=`© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
+  try{ const m=await loadManifest(); indexEntries(m); }
+  catch(e){ document.getElementById("dot").className="dot err"; document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
+    document.getElementById("list").innerHTML='<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>'; }
+
+  await window.openDir(getStartDir());
+  const toOpen=getOpenPath(); if(toOpen){ openFile(toOpen); }
+
+  // Gasket starten: hinten (dezent) + vorn (Top-Layer bei Idle)
+  startGasket(document.getElementById('fxBack'), { baseAlpha:.06, maxDepth:10, brighten:0.00 });
+  startGasket(document.getElementById('fxFront'), { baseAlpha:.10, maxDepth:10, brighten:0.18, idleTarget:document.getElementById('fxDlg'), idleMs:10000 });
+
+  // Test-Hotkey: "F" toggelt Front-Overlay manuell
+  addEventListener('keydown',e=>{ if((e.key||'').toLowerCase()==='f'){ const d=document.getElementById('fxDlg'); d.open?d.close():d.showModal(); d.classList.toggle('front', d.open); }});
+}
+document.getElementById("q").addEventListener("input", renderList);
+document.getElementById("refresh").addEventListener("click", boot);
+document.addEventListener("DOMContentLoaded", boot);
 </script>
 </body>
 </html>
