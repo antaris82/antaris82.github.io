@@ -133,8 +133,15 @@
     "mode": "100644"
   },
   {
+    "path": "index.old.html",
+    "sha": "9489816377fd58a4410feacc82c448986fe151d6",
+    "size": 17118,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "manifest.json",
-    "sha": "99b06e949d48df0af62a758b811cd02c28578287",
+    "sha": "bc77407105faea3bd3b9cb891267b63643a7aaba",
     "size": 46403,
     "type": "blob",
     "mode": "100644"
