@@ -11,6 +11,8 @@
     body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
     a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
     .container{width:min(1280px,100% - 32px);margin:0 auto}
+
+    /* Header/Layout ohne z-index, damit Overlay sie überdecken kann */
     header{position:sticky;top:0;background:var(--panel);border-bottom:1px solid var(--border)}
     header .row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     h1{margin:0;font-size:18px}
@@ -33,7 +35,7 @@
     .copy,.btn-mini{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;font-size:12px}
     .btn-mini{text-decoration:none;display:inline-flex;align-items:center}
 
-    /* WICHTIG: kein z-index mehr auf .viewer, damit Overlay sie überdecken kann */
+    /* WICHTIG: kein z-index auf .viewer */
     .viewer{position:relative;padding:18px 22px 60px}
     .viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:#0c1218;padding:10px 0}
     .btn{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:8px 10px;border-radius:8px;cursor:pointer}
@@ -49,14 +51,15 @@
     /* Vollbild-Gasket-Canvas – bei Inaktivität ÜBER ALLEM (auch Viewer) */
     .fxbg{
       position:fixed; inset:0; pointer-events:none;
+      width:100vw;height:100vh;
       z-index:1; opacity:.14; filter:contrast(1.04) saturate(1.02);
       transition:opacity 600ms ease, z-index 0s linear 0s;
     }
     .fxbg.front{
-      z-index:2147483647; /* praktisch „maximal“ */
-      opacity:.45;
+      z-index:2147483647; /* praktisch maximal */
+      opacity:.55;        /* deutlicher sichtbar */
     }
-    @media (max-width: 980px){ .fxbg{ opacity:.12 } .fxbg.front{ opacity:.35 } }
+    @media (max-width: 980px){ .fxbg{ opacity:.12 } .fxbg.front{ opacity:.40 } }
     @media (prefers-reduced-motion: reduce){ .fxbg{ opacity:.10 } .fxbg.front{ opacity:.18 } }
   </style>
 
@@ -72,9 +75,6 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
-  <!-- Overlay-Canvas -->
-  <canvas id="fxBG" class="fxbg" aria-hidden="true"></canvas>
-
 <header>
   <div class="container row">
     <div style="display:flex;gap:12px;align-items:baseline">
@@ -122,6 +122,9 @@
 
 <div id="err"></div>
 
+<!-- ===== Overlay-Canvas GANZ AM ENDE DES BODY ===== -->
+<canvas id="fxBG" class="fxbg" aria-hidden="true"></canvas>
+
 <script>
 // ===== Fehlerbanner =====
 (function(){
@@ -156,7 +159,7 @@ const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml
 async function j(u){const r=await fetch(u+(u.includes('?')?'&':'?')+"ts="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 
-// ===== Markdown (.md) mit KaTeX =====
+// ===== Markdown (.md) + KaTeX =====
 async function getMdText(path){ try { return await t(RAW_SITE(path)); } catch{ return await t(RAW_GH(path)); } }
 function protectMath(text){
   const blocks=[]; const take=m=>(blocks.push(m),`%%MATH${blocks.length-1}%%`);
@@ -337,6 +340,9 @@ function openFile(path){  document.getElementById("hero")?.remove(); const e=ext
 
 // ===== Boot =====
 async function boot(){
+  // Falls Canvas versehentlich nicht am Ende steht → jetzt dorthin verschieben (Topmost in DOM)
+  const fx=document.getElementById('fxBG'); if(document.body.lastElementChild!==fx){ document.body.appendChild(fx); }
+
   document.getElementById("copyright").textContent=`© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
   try{
     const m=await loadManifest();
@@ -351,6 +357,13 @@ async function boot(){
   await window.openDir(startDir);
   const toOpen=getOpenPath();
   if(toOpen){ openFile(toOpen); }
+
+  // Debug: Taste "F" → Overlay sofort nach vorn/hinten
+  addEventListener('keydown',e=>{
+    if((e.key||'').toLowerCase()==='f'){
+      fx.classList.toggle('front');
+    }
+  });
 }
 document.getElementById("q").addEventListener("input", renderList);
 document.getElementById("refresh").addEventListener("click", boot);
@@ -367,7 +380,7 @@ document.addEventListener("DOMContentLoaded", boot);
   const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const FX_OFF=(FX==='off')||(RM&&FX!=='on');
 
-  // Cache (TDZ-fest)
+  // Cache
   const cache=new Map();
   function invalidateCache(){ cache.clear(); }
 
@@ -407,7 +420,7 @@ document.addEventListener("DOMContentLoaded", boot);
   }
 
   // Animation
-  const MAX_DEPTH=10, BASE_A=0.06, PERIOD=42000, ZOOM_AMP=0.10, IDLE_MS=10000, FPS_LIMIT=28;
+  const MAX_DEPTH=10, BASE_A=0.06, PERIOD=42000, ZOOM_AMP=0.10, IDLE_MS=3000, FPS_LIMIT=28;
   const ease=x=>0.5-0.5*Math.cos(Math.PI*x);
   let t0=performance.now(), last=0, lastAct=performance.now(), isFront=false;
 
@@ -417,8 +430,8 @@ document.addEventListener("DOMContentLoaded", boot);
   function renderStatic(){
     const d=Math.min(6,MAX_DEPTH), L=layout(1.0);
     ctx.clearRect(0,0,L.W,L.H);
-    // leichte Abdunklung, damit die Überlagerung sichtbar wird
-    ctx.save(); ctx.fillStyle='rgba(8,12,18,0.25)'; ctx.fillRect(0,0,L.W,L.H); ctx.restore();
+    // Abdunklung fürs „Überdecken“-Gefühl
+    ctx.save(); ctx.fillStyle='rgba(8,12,18,0.28)'; ctx.fillRect(0,0,L.W,L.H); ctx.restore();
     ctx.globalAlpha=BASE_A; ctx.drawImage(getLayer(d).canvas,0,0); ctx.globalAlpha=1;
   }
 
@@ -438,8 +451,8 @@ document.addEventListener("DOMContentLoaded", boot);
     const z=0.90+ZOOM_AMP*(1+Math.sin(t*0.0007));
     const L=layout(z); ctx.clearRect(0,0,L.W,L.H);
 
-    // Abdunklung fürs „Überdecken“-Gefühl
-    ctx.save(); ctx.fillStyle='rgba(8,12,18,0.25)'; ctx.fillRect(0,0,L.W,L.H); ctx.restore();
+    // Abdunklung vor dem Muster
+    ctx.save(); ctx.fillStyle='rgba(8,12,18,0.28)'; ctx.fillRect(0,0,L.W,L.H); ctx.restore();
 
     const A0=BASE_A*(1-frac), A1=BASE_A*frac;
     const layer0=getLayer(d0).canvas, layer1=getLayer(Math.min(MAX_DEPTH,d0+1)).canvas;
