@@ -31,7 +31,7 @@
     .actions{display:flex;gap:6px;align-items:center;justify-content:flex-end}
     .copy,.btn-mini{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;font-size:12px}
     .btn-mini{text-decoration:none;display:inline-flex;align-items:center}
-    .viewer{padding:18px 22px 60px}
+    .viewer{position:relative; z-index:5; padding:18px 22px 60px} /* immer ganz oben */
     .viewer .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;background:#0c1218;padding:10px 0;z-index:1}
     .btn{background:#0f1922;border:1px solid #26303c;color:var(--fg);padding:8px 10px;border-radius:8px;cursor:pointer}
     .btn:hover{background:#122436}
@@ -42,14 +42,17 @@
     footer .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
 
-    /* Vollbild-Gasket im Hintergrund – dezent in Grau */
+    /* Vollbild-Gasket-Canvas */
     header, main, footer { position: relative; z-index: 2; }
     .fxbg{
-      position:fixed; inset:0; z-index:1; pointer-events:none;
-      opacity:.16; filter: contrast(1.04) saturate(1.02);
+      position:fixed; inset:0; pointer-events:none;
+      z-index:1; opacity:.14; filter:contrast(1.04) saturate(1.02);
+      transition: opacity 600ms ease; /* sanftes Fading */
     }
-    @media (max-width: 980px){ .fxbg{ opacity:.12; } }
-    @media (prefers-reduced-motion: reduce){ .fxbg{ opacity:.10; } }
+    /* Inaktiv → Gasket vor Sidebar/Header, aber unter Viewer */
+    .fxbg.front{ z-index:3; opacity:.26; }
+    @media (max-width: 980px){ .fxbg{ opacity:.12 } .fxbg.front{ opacity:.22 } }
+    @media (prefers-reduced-motion: reduce){ .fxbg{ opacity:.10 } .fxbg.front{ opacity:.14 } }
   </style>
 
   <!-- Markdown / Sanitize / Code-Highlight -->
@@ -373,7 +376,7 @@ document.getElementById("refresh").addEventListener("click", boot);
 document.addEventListener("DOMContentLoaded", boot);
 </script>
 
-<!-- Vollbild-Sierpiński-Gasket (dezent, grau; „wachsend“) -->
+<!-- Vollbild-Sierpiński-Gasket: Zoom + „atmen“ (Tiefe), Idle-Foreground-Fade -->
 <script>
 (function(){
   const C = document.getElementById('fxBG');
@@ -382,9 +385,10 @@ document.addEventListener("DOMContentLoaded", boot);
 
   const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
   const FX = new URLSearchParams(location.search).get('fx'); // ?fx=on / off
-  const RM  = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const RM  = matchMedia('(prefers-reduced-motion: reduce)').matches; // a11y :contentReference[oaicite:1]{index=1}
   const FX_OFF = (FX === 'off') || (RM && FX !== 'on');
 
+  /* ==== Resize & canvas fit ==== */
   function fit(){
     const w = innerWidth, h = innerHeight;
     C.width  = Math.floor(w * DPR);
@@ -395,8 +399,8 @@ document.addEventListener("DOMContentLoaded", boot);
   addEventListener('resize', () => { clearTimeout(fit._t); fit._t = setTimeout(fit, 100); });
   fit();
 
+  /* ==== Sierpiński-Gasket (Remove-middle-triangle recursion) ==== */ // :contentReference[oaicite:2]{index=2}
   const SQ3_2 = Math.sqrt(3)/2;
-
   function fillTri(xTop, yTop, side, a){
     const h = side * SQ3_2;
     ctx.globalAlpha = a;
@@ -407,18 +411,15 @@ document.addEventListener("DOMContentLoaded", boot);
     ctx.closePath();
     ctx.fill();
   }
-
   function drawGasket(xTop, yTop, side, depth, alpha){
-    if (depth <= 0){
-      fillTri(xTop, yTop, side, alpha);
-      return;
-    }
+    if (depth <= 0){ fillTri(xTop, yTop, side, alpha); return; }
     const s2 = side/2, h2 = (side * SQ3_2)/2;
-    drawGasket(xTop,           yTop,        s2, depth-1, alpha);
-    drawGasket(xTop - s2/2,    yTop + h2,   s2, depth-1, alpha);
-    drawGasket(xTop + s2/2,    yTop + h2,   s2, depth-1, alpha);
+    drawGasket(xTop,         yTop,      s2, depth-1, alpha);
+    drawGasket(xTop - s2/2,  yTop+h2,   s2, depth-1, alpha);
+    drawGasket(xTop + s2/2,  yTop+h2,   s2, depth-1, alpha);
   }
 
+  /* ==== Layout (zentrierter größtmöglicher Dreieckrahmen) ==== */
   function layout(scale=1){
     const W = C.width/DPR, H = C.height/DPR;
     const pad = 24;
@@ -430,53 +431,66 @@ document.addEventListener("DOMContentLoaded", boot);
     return { xTop, yTop, side, W, H };
   }
 
-  // Parameter
-  const MAX_DEPTH = 7;
+  /* ==== Animation-Parameter ==== */
   const FG = '#e7eef5';
-  const BASE_A = 0.06;                // kräftiger als zuvor (aber via .fxbg Opazität gedämpft)
-  const GROW_MS = 22000;              // Dauer bis max. Tiefe erreicht ist
-  const SCALE_AMP = 0.05;             // 0.95 .. 1.05
-  const ease = x => 0.5 - 0.5*Math.cos(Math.PI*x); // smoothstep ähnlich
+  const BASE_A = 0.06;               // Füllalpha je Patch (Canvas-Opacity dämpft zusätzlich)
+  const PERIOD = 36000;              // 36 s für Hin- & Rückweg (Tiefe 1→7→1)
+  const ZOOM_AMP = 0.10;             // Zoom 0.90 .. 1.10
+  const IDLE_MS = 10000;             // 10 s bis Vordergrund-Fade
+  const FPS_LIMIT = 28;              // leicht gedrosselt (rAF + Throttle) :contentReference[oaicite:3]{index=3}
+  const ease = x => 0.5 - 0.5*Math.cos(Math.PI*x); // smooth (cosine-ease)
 
-  let t0 = performance.now(), last = 0;
+  let t0 = performance.now(), last = 0, lastAct = performance.now(), isFront=false;
 
+  /* ==== Aktivitäts-Erkennung (idle) ==== */  // Grundprinzip: Timer reset bei Events :contentReference[oaicite:4]{index=4}
+  function markAct(){ lastAct = performance.now(); if(isFront){ isFront=false; C.classList.remove('front'); } }
+  ['pointermove','pointerdown','wheel','keydown','touchstart','scroll'].forEach(ev => addEventListener(ev, markAct, {passive:true}));
+
+  /* ==== Statisches Bild für reduced-motion ==== */
   function renderStatic(){
-    ctx.clearRect(0,0,C.width/DPR,C.height/DPR);
+    const L = layout(1.0);
+    ctx.clearRect(0,0,L.W,L.H);
     ctx.fillStyle = FG;
-    const L = layout(1.02);
     drawGasket(L.xTop, L.yTop, L.side, 6, BASE_A);
   }
 
   function tick(t){
     if (document.hidden){ requestAnimationFrame(tick); return; }
 
-    // statisch bei reduzierter Bewegung (sofern nicht ?fx=on)
+    // idle → in den Vordergrund faden (unter Viewer), aktiv → zurück
+    const idle = (t - lastAct) > IDLE_MS;
+    if (idle && !isFront){ isFront=true; C.classList.add('front'); }
+    else if (!idle && isFront){ isFront=false; C.classList.remove('front'); }
+
     if (FX_OFF){ renderStatic(); return; }
 
-    // ~28 fps
-    if (t - last < 36){ requestAnimationFrame(tick); return; }
+    // Throttle FPS
+    const frameInterval = 1000 / FPS_LIMIT;
+    if (t - last < frameInterval){ requestAnimationFrame(tick); return; }
     last = t;
 
-    const prog = Math.min(1, (t - t0) / GROW_MS);           // 0..1
-    const exact = 1 + (MAX_DEPTH-1) * ease(prog);           // sanft wachsend
-    const d0 = Math.floor(exact);
-    const frac = exact - d0;
+    // „Atmende“ Tiefe 1↔7 als Dreieckswelle
+    const cyc = ((t - t0) % PERIOD) / PERIOD;         // 0..1
+    const ramp = cyc < 0.5 ? (cyc*2) : (1 - (cyc-0.5)*2); // 0→1→0
+    const exactDepth = 1 + 6 * ease(ramp);           // 1..7..1 (weich)
+    const d0 = Math.floor(exactDepth);
+    const frac = exactDepth - d0;
 
-    const scale = 1 - SCALE_AMP + 2*SCALE_AMP * ease((Math.sin(t*0.0007)+1)/2);
+    // Sanfter Zoom (cosine) 0.90..1.10
+    const z = 0.90 + ZOOM_AMP * (1 + Math.sin(t*0.0007)); // ~0.90..1.10
 
-    const L = layout(scale);
+    const L = layout(z);
     ctx.clearRect(0,0,L.W,L.H);
     ctx.fillStyle = FG;
 
-    // weiche Überblendung zwischen d0 und d0+1 → wahrnehmbares, aber sanftes Wachstum
+    // Überblendung zwischen d0 und d0+1 (kontinuierliches „Wachsen“)
     drawGasket(L.xTop, L.yTop, L.side, d0, BASE_A * (1-frac));
-    if (d0 < MAX_DEPTH){
-      drawGasket(L.xTop, L.yTop, L.side, d0+1, BASE_A * frac);
-    }
+    drawGasket(L.xTop, L.yTop, L.side, Math.min(7, d0+1), BASE_A * frac);
 
     requestAnimationFrame(tick);
   }
 
+  if (FX_OFF){ renderStatic(); }
   requestAnimationFrame(tick);
 })();
 </script>
