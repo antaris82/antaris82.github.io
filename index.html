@@ -42,16 +42,16 @@
     footer .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
 
-    /* Vollbild-Gasket-Canvas (überdeckt bei Inaktivität) */
+    /* Vollbild-Gasket-Canvas – kommt bei Inaktivität VOR alles (auch Viewer) */
     header, main, footer { position: relative; z-index: 2; }
     .fxbg{
       position:fixed; inset:0; pointer-events:none;
       z-index:1; opacity:.14; filter:contrast(1.04) saturate(1.02);
       transition: opacity 600ms ease, z-index 0s linear 0s;
     }
-    .fxbg.front{ z-index:6; opacity:.30; transition: opacity 600ms ease }
-    @media (max-width: 980px){ .fxbg{ opacity:.12 } .fxbg.front{ opacity:.24 } }
-    @media (prefers-reduced-motion: reduce){ .fxbg{ opacity:.10 } .fxbg.front{ opacity:.14 } }
+    .fxbg.front{ z-index:9999; opacity:.45; transition: opacity 600ms ease } /* überdeckt auch Viewer */
+    @media (max-width: 980px){ .fxbg{ opacity:.12 } .fxbg.front{ opacity:.35 } }
+    @media (prefers-reduced-motion: reduce){ .fxbg{ opacity:.10 } .fxbg.front{ opacity:.18 } }
   </style>
 
   <!-- Markdown / Sanitize / Code-Highlight -->
@@ -145,8 +145,6 @@ const base=p=>(p||"").split("/").pop()||"";
 const dir =p=>(p||"").split("/").slice(0,-1).join("/");
 const ext =n=>(n.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
 const isImg=e=>["png","jpg","jpeg","gif","webp","svg","avif","bmp"].includes(e);
-const isAud=e=>["mp3","wav","ogg","m4a","aac","flac"].includes(e);
-const isVid=e=>["mp4","webm","ogv","mov"].includes(e);
 const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg","java","c","cpp","h","hpp","cs","go","rs","php","rb","kt","swift","sql","toml"].includes(e);
 async function j(u){const r=await fetch(u+(u.includes('?')?'&':'?')+"ts="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
@@ -194,17 +192,13 @@ async function renderMathSafe(rootEl){
 
 // ===== Manifest laden (mit Raw-Fallback) =====
 async function loadManifest(){
-  try {
-    return await j(MANIFEST_URL);
-  } catch(e1){
-    console.warn("manifest.json vom Pages-Root nicht gefunden, versuche Raw:", e1);
-    return await j(MANIFEST_RAW);
-  }
+  try { return await j(MANIFEST_URL); }
+  catch(e1){ console.warn("Pages-Manifest 404, fallback raw:", e1); return await j(MANIFEST_RAW); }
 }
 
 // ===== Manifest → Knoten + Ordnerkonstruktion =====
 function normalizeEntries(raw){
-  const src = Array.isArray(raw) ? raw : (raw.entries || raw.tree || raw.items || []); // FIX
+  const src = Array.isArray(raw) ? raw : (raw.entries || raw.tree || raw.items || []);
   const items=[], seenDir=new Set();
   const addDir=p=>{if(!p||seenDir.has(p))return;seenDir.add(p);items.push({path:p,name:base(p),type:"dir"});};
   for(const e of src){
@@ -388,7 +382,7 @@ document.getElementById("refresh").addEventListener("click", boot);
 document.addEventListener("DOMContentLoaded", boot);
 </script>
 
-<!-- Vollbild-Sierpiński-Gasket (Zoom + 1..10..1, Idle-Foreground-Fade; FIXED TDZ) -->
+<!-- Vollbild-Sierpiński-Gasket: Zoom + 1..10..1, Idle-Foreground-Fade (überdeckt auch Viewer) -->
 <script>
 (function(){
   const C = document.getElementById('fxBG');
