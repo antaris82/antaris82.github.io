@@ -42,20 +42,14 @@
     footer .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
 
-    /* ✨ dezente, fixe Seitenstreifen für die Tetraeder-Animation */
-    .fx{
-      position:fixed; top:0; height:100vh; pointer-events:none; z-index:1;
-      opacity:.22; /* unaufdringlich */
-      filter:saturate(1.05) contrast(1.06);
+    /* Vollbild-Gasket im Hintergrund – dezent in Grau */
+    header, main, footer { position: relative; z-index: 2; }
+    .fxbg{
+      position:fixed; inset:0; z-index:1; pointer-events:none;
+      opacity:.12; filter: contrast(1.04) saturate(1.02);
     }
-    .fx.left  { left:0;  width:9vw;  min-width:72px; max-width:150px; }
-    .fx.right { right:0; width:9vw;  min-width:72px; max-width:150px; }
-    @media (max-width: 980px){
-      .fx.left,.fx.right{ opacity:.16; } /* auf kleineren Screens noch dezenter */
-    }
-    @media (prefers-reduced-motion: reduce){
-      .fx.left,.fx.right{ opacity:.10; }
-    }
+    @media (max-width: 980px){ .fxbg{ opacity:.10; } }
+    @media (prefers-reduced-motion: reduce){ .fxbg{ opacity:.08; } }
   </style>
 
   <!-- Markdown / Sanitize / Code-Highlight -->
@@ -70,9 +64,8 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
-  <!-- ✨ Hintergrund-Canvas: links & rechts -->
-  <canvas id="fxL" class="fx left" aria-hidden="true"></canvas>
-  <canvas id="fxR" class="fx right" aria-hidden="true"></canvas>
+  <!-- Hintergrund-Canvas -->
+  <canvas id="fxBG" class="fxbg" aria-hidden="true"></canvas>
 
 <header>
   <div class="container row">
@@ -137,7 +130,6 @@ const START_DIR="Sierpinski Tetraeder_PoC";
 
 const ORIGIN = location.origin; // https://antaris82.github.io
 const dirURL = p => `${ORIGIN}/?dir=${encodeURIComponent(p)}`;
-const githubTree = p => `https://github.com/antaris82/antaris82.github.io/tree/main/${encodeURI(p)}`;
 const qs = () => new URLSearchParams(location.search);
 const getStartDir = () => (qs().get("dir") || START_DIR);
 const getOpenPath = () => qs().get("open");
@@ -343,7 +335,7 @@ function showGeneric(node,title){
 async function openMarkdown(path){
   setViewerButtons(path);
   try{
-    const src=await getMdText(path);                    // << .md Fallback
+    const src=await getMdText(path);
     const {text,blocks}=protectMath(src);
     const htmlSafe=DOMPurify.sanitize(marked.parse(text));
     const html=restoreMath(htmlSafe, blocks);
@@ -355,7 +347,6 @@ async function openMarkdown(path){
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
     document.getElementById("cur").textContent = base(path);
 
-    // URL inkl. open aktualisieren (teilbar)
     updateQS(cwd, path);
   }catch(e){
     const p=document.createElement("p"); p.style.color="#ff9a9a"; p.textContent="Datei konnte nicht geladen werden: "+e.message;
@@ -386,115 +377,95 @@ document.getElementById("refresh").addEventListener("click", boot);
 document.addEventListener("DOMContentLoaded", boot);
 </script>
 
-<!-- ✨ Zusatz-Script: sehr dezente Sierpiński-Tetraeder-Animation (Chaos Game, isometrisch) -->
+<!-- Vollbild-Sierpiński-Gasket (dezent, grau; „wachsend“) -->
 <script>
 (function(){
+  const C = document.getElementById('fxBG');
+  if (!C) return;
+  const ctx = C.getContext('2d', { alpha: true });
   const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-  const cos30 = Math.sqrt(3)/2, sin30 = 0.5; // isometrische Projektion :contentReference[oaicite:1]{index=1}
+  const RM  = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 3D→isometrisch 2D
-  function proj3Dto2D(x,y,z){
-    // x' = (x - z)*cos30 ; y' = y + (x + z)*sin30  (eine gängige iso-Variante) :contentReference[oaicite:2]{index=2}
-    return [(x - z)*cos30, y + (x + z)*sin30];
+  function fit(){
+    const w = innerWidth, h = innerHeight;
+    C.width  = Math.floor(w * DPR);
+    C.height = Math.floor(h * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.clearRect(0,0,w,h);
+  }
+  addEventListener('resize', () => { clearTimeout(fit._t); fit._t = setTimeout(fit, 100); });
+  fit();
+
+  const SQ3_2 = Math.sqrt(3)/2;
+  function fillTri(xTop, yTop, side, a){
+    const h = side * SQ3_2;
+    ctx.globalAlpha = a;
+    ctx.beginPath();
+    ctx.moveTo(xTop, yTop);
+    ctx.lineTo(xTop - side/2, yTop + h);
+    ctx.lineTo(xTop + side/2, yTop + h);
+    ctx.closePath();
+    ctx.fill();
+  }
+  function drawGasket(xTop, yTop, side, depth, alpha){
+    if (depth <= 0){
+      fillTri(xTop, yTop, side, alpha);
+      return;
+    }
+    const s2 = side/2, h2 = (side * SQ3_2)/2;
+    drawGasket(xTop,           yTop,        s2, depth-1, alpha);
+    drawGasket(xTop - s2/2,    yTop + h2,   s2, depth-1, alpha);
+    drawGasket(xTop + s2/2,    yTop + h2,   s2, depth-1, alpha);
+  }
+  function triLayout(scale=1){
+    const W = C.width/DPR, H = C.height/DPR;
+    const pad = 24;
+    const sideMax = Math.min(W - 2*pad, (H - 2*pad) / SQ3_2);
+    const side = sideMax * scale;
+    const height = side * SQ3_2;
+    const xTop = W/2;
+    const yTop = (H - height)/2;
+    return { xTop, yTop, side };
   }
 
-  function makeStrip(canvas, palette){
-    const ctx = canvas.getContext('2d', { alpha:true });
+  const MAX_DEPTH = 7;
+  const FG = '#ffffff';
+  const BASE_A = 0.035;
 
-    function fit(){
-      const r = canvas.getBoundingClientRect();
-      canvas.width  = Math.floor(r.width  * DPR);
-      canvas.height = Math.floor(r.height * DPR);
-      ctx.setTransform(DPR,0,0,DPR,0,0);
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      recomputeSpace();
+  let start = performance.now(), lastDraw = 0;
+
+  function depthAt(t){
+    const k = Math.min(1, (t - start) / (3200 * (MAX_DEPTH-1)));
+    return 1 + Math.floor(k * (MAX_DEPTH-1));
+  }
+
+  function tick(t){
+    if (document.hidden){ requestAnimationFrame(tick); return; }
+
+    if (RM){
+      ctx.clearRect(0,0,C.width/DPR,C.height/DPR);
+      ctx.fillStyle = FG;
+      const L = triLayout(1.02);
+      drawGasket(L.xTop, L.yTop, L.side, 6, BASE_A);
+      return;
     }
 
-    // Regularer Tetraeder (in den Würfel eingebettet) :contentReference[oaicite:3]{index=3}
-    const V3 = [
-      [ 1,  1,  1],
-      [ 1, -1, -1],
-      [-1,  1, -1],
-      [-1, -1,  1]
-    ];
+    if (t - lastDraw < 36){ requestAnimationFrame(tick); return; }
+    lastDraw = t;
 
-    let s=1, ox=0, oy=0;
-    function recomputeSpace(){
-      const P = V3.map(v => proj3Dto2D(v[0],v[1],v[2]));
-      const xs=P.map(p=>p[0]), ys=P.map(p=>p[1]);
-      const minx=Math.min(...xs), maxx=Math.max(...xs);
-      const miny=Math.min(...ys), maxy=Math.max(...ys);
-      const pad = 10;
-      const W = canvas.width/DPR, H=canvas.height/DPR;
-      const sx = (W-2*pad)/(maxx-minx);
-      const sy = (H-2*pad)/(maxy-miny);
-      s = Math.min(sx, sy);
-      ox = pad - minx*s;
-      oy = pad - miny*s;
-    }
-    function map2d(x,y){ return [x*s+ox, y*s+oy]; }
+    const d = depthAt(t);
+    const scale = 1.0 + 0.035 * Math.sin(t*0.0007);
 
-    fit();
-    let resizeTO;
-    addEventListener('resize', ()=>{ clearTimeout(resizeTO); resizeTO = setTimeout(fit,120); });
+    const W = C.width/DPR, H = C.height/DPR;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = FG;
 
-    // Startpunkt (im Inneren)
-    let px=0, py=0, pz=0;
-    let burn=180;
+    const L = triLayout(scale);
+    drawGasket(L.xTop, L.yTop, L.side, d, BASE_A);
 
-    // Bewegung sanft halten
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const STEPS = reduce ? 160 : 460;
-
-    // zart zeichnen
-    ctx.globalAlpha = 0.23;
-
-    function tick(){
-      if (document.hidden) { requestAnimationFrame(tick); return; }
-
-      for (let i=0;i<STEPS;i++){
-        const k = (Math.random()*4)|0;
-        // halber Schritt Richtung gewählter Ecke (Chaos Game) :contentReference[oaicite:4]{index=4}
-        px = (px + V3[k][0]) * 0.5;
-        py = (py + V3[k][1]) * 0.5;
-        pz = (pz + V3[k][2]) * 0.5;
-
-        if (burn>0){ burn--; continue; } // Einbrennphase überspringen
-
-        const p2 = proj3Dto2D(px,py,pz);
-        const m  = map2d(p2[0], p2[1]);
-        ctx.fillStyle = palette[k];
-        // 1×1-Pixel-Funken (sehr dezent)
-        ctx.fillRect(m[0], m[1], 1, 1);
-      }
-
-      // ganz selten eine hauchdünne Kontur (Augenzwinkern)
-      if (Math.random() < 0.02){
-        const A = V3.map(v => map2d(...proj3Dto2D(v[0],v[1],v[2])));
-        ctx.save();
-        ctx.globalAlpha = 0.08;
-        ctx.strokeStyle = "#ffffff";
-        ctx.lineWidth = 0.8;
-        ctx.beginPath();
-        ctx.moveTo(A[0][0],A[0][1]); ctx.lineTo(A[1][0],A[1][1]);
-        ctx.lineTo(A[3][0],A[3][1]); ctx.closePath(); ctx.stroke(); // kleine Facette
-        ctx.restore();
-      }
-
-      requestAnimationFrame(tick);
-    }
     requestAnimationFrame(tick);
   }
-
-  addEventListener('DOMContentLoaded', ()=>{
-    const L = document.getElementById('fxL');
-    const R = document.getElementById('fxR');
-    if (!L || !R) return;
-    // Pastell: GREEN / YELLOW / RED / BLUE – zart & konsistent mit „exclusive rule“
-    const pal = ["#23e066", "#ffd166", "#ff4d4d", "#61a8ff"];
-    makeStrip(L, pal);
-    makeStrip(R, pal.slice().reverse());
-  });
+  requestAnimationFrame(tick);
 })();
 </script>
 </body>
