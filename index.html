@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
 
-  <!-- KaTeX (ohne defer) -->
+  <!-- KaTeX (ohne defer → kein Race) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
@@ -104,7 +104,7 @@
 <div id="err"></div>
 
 <script>
-// ===== Error-Banner =====
+// ===== Fehlerbanner =====
 (function(){
   const E=document.getElementById("err");
   const show=msg=>{E.textContent="Fehler: "+msg;E.style.display="block";};
@@ -115,14 +115,18 @@
 // ===== Konfiguration / Deeplinks =====
 const MANIFEST_URL="/manifest.json";
 const START_DIR="Sierpinski Tetraeder_PoC";
+
 const ORIGIN = location.origin; // https://antaris82.github.io
 const dirURL = p => `${ORIGIN}/?dir=${encodeURIComponent(p)}`;
-const getStartDir = () => (new URLSearchParams(location.search).get("dir") ?? START_DIR);
-const getOpenPath = () => new URLSearchParams(location.search).get("open");
+const githubTree = p => `https://github.com/antaris82/antaris82.github.io/tree/main/${encodeURI(p)}`;
+const qs = () => new URLSearchParams(location.search);
+const getStartDir = () => (qs().get("dir") || START_DIR);
+const getOpenPath = () => qs().get("open");
 
-const READER=p=>`${ORIGIN}/viewer.html?path=${encodeURIComponent(p)}`; // (nur für Kompatibilität)
-const RAW    =p=>"/"+encodeURI(String(p||"").replace(/^\/+/,""));
-const fileURL = p => `${ORIGIN}/?dir=${encodeURIComponent(dir(p))}&open=${encodeURIComponent(p)}`;
+// Datei-URLs
+const RAW_SITE = (p) => "/" + encodeURI(String(p || "").replace(/^\/+/, ""));
+const RAW_GH   = (p) => "https://raw.githubusercontent.com/antaris82/antaris82.github.io/main/" + encodeURI(String(p || "").replace(/^\/+/, ""));
+const fileURL  = (p) => `${ORIGIN}/?dir=${encodeURIComponent(dir(p))}&open=${encodeURIComponent(p)}`;
 
 // ===== State / Utils =====
 let NODES=new Map(), CHILDREN=new Map(), cwd="";
@@ -136,22 +140,10 @@ const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml
 async function j(u){const r=await fetch(u+"?ts="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 
-// ===== LaTeX sicher ausführen =====
-async function renderMathSafe(rootEl){
-  for (let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
-    await new Promise(r=>setTimeout(r,30));
-  }
-  if (typeof window.renderMathInElement!=="function") return;
-  window.renderMathInElement(rootEl,{
-    delimiters:[
-      {left:"\\[", right:"\\]", display:true},
-      {left:"$$",  right:"$$",  display:true},
-      {left:"\\(", right:"\\)", display:false},
-      {left:"$",   right:"$",   display:false}
-    ],
-    throwOnError:false,
-    strict:"ignore"
-  });
+// ===== Markdown laden mit .md-Fallback (gegen Pages/Jekyll 404) =====
+async function getMdText(path){
+  try { return await t(RAW_SITE(path)); }     // Versuch 1: von der Seite
+  catch(_e){ return await t(RAW_GH(path)); }  // Fallback: Raw GitHub (immer verfügbar)
 }
 
 // ===== Math schützen (vor Markdown) =====
@@ -168,6 +160,24 @@ function restoreMath(html, blocks){
   return html.replace(/%%MATH(\d+)%%/g, (_,i)=>{
     const s=blocks[+i];
     return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  });
+}
+
+// ===== KaTeX sicher ausführen =====
+async function renderMathSafe(rootEl){
+  for (let i=0;i<200 && typeof window.renderMathInElement!=="function";i++){
+    await new Promise(r=>setTimeout(r,30));
+  }
+  if (typeof window.renderMathInElement!=="function") return;
+  window.renderMathInElement(rootEl,{
+    delimiters:[
+      {left:"\\[", right:"\\]", display:true},
+      {left:"$$",  right:"$$",  display:true},
+      {left:"\\(", right:"\\)", display:false},
+      {left:"$",   right:"$",   display:false}
+    ],
+    throwOnError:false,
+    strict:"ignore"
   });
 }
 
@@ -200,8 +210,17 @@ function indexEntries(raw){
   document.getElementById("manitxt").textContent=`${files} Dateien • ${dirs} Ordner`;
 }
 
+// ===== QS-Update-Helfer =====
+function updateQS(newDir, newOpen){
+  const params = new URLSearchParams();
+  if (newDir!==undefined) params.set("dir", newDir);
+  const openVal = (newOpen || "");
+  if (openVal) params.set("open", openVal);
+  const qsNew = "?" + params.toString();
+  if (location.search !== qsNew) history.replaceState(null, "", qsNew);
+}
+
 // ===== Browser UI (mit Deeplinks) =====
-const toQS = (p) => `?dir=${encodeURIComponent(p)}` + (getOpenPath()?`&open=${encodeURIComponent(getOpenPath())}`:"");
 function crumbHtml(path){
   const parts=path?path.split("/").filter(Boolean):[];
   const items=[`<a href="${dirURL("")}" data-path="">/</a>`];
@@ -215,7 +234,7 @@ function renderCrumb(){
   el.querySelectorAll("a").forEach(a=>a.onclick=(e)=>{e.preventDefault(); window.openDir(a.dataset.path||"");});
 }
 
-function renderList(){
+async function renderList(){
   const q=(document.getElementById("q").value||"").trim().toLowerCase();
   const list=document.getElementById("list"); list.innerHTML="";
 
@@ -242,23 +261,16 @@ function renderList(){
       : `<span class="name">${e.name}</span>`;
 
     const actionsHTML = (e.type==="dir")
-      ? `<span class="actions">
-           <button class="copy" title="Ordner-Link kopieren">🔗</button>
-         </span>`
-      : `<span class="actions">
-           <button class="copy" title="Link kopieren (Ordner+Datei)">🔗</button>
-         </span>`;
+      ? `<span class="actions"><button class="copy" title="Ordner-Link kopieren">🔗</button></span>`
+      : `<span class="actions"><button class="copy" title="Link kopieren (Ordner+Datei)">🔗</button></span>`;
 
     li.innerHTML = `<span>${icon}</span>${nameHTML}<span class="meta">${extn}</span>${actionsHTML}`;
 
-    // Ganzes Li klicken
     li.onclick=()=>{ if(e.type==="dir") window.openDir(e.path); else openFile(e.path); };
 
-    // Name-Anchor: SPA-Navigation; Rechtsklick/Neuer Tab bleibt nativ
     const a = li.querySelector("a.name");
     if(a){ a.onclick = ev => { ev.preventDefault(); window.openDir(a.dataset.path); }; }
 
-    // Kopieren
     const b = li.querySelector(".copy");
     if(b) b.onclick = async (ev) => {
       ev.stopPropagation();
@@ -271,52 +283,70 @@ function renderList(){
   }
 }
 
-// Deeplink-fähig: aktualisiert ?dir=... (&open bleibt erhalten)
+// Deeplink-fähig: beim Ordnerwechsel URL auf ?dir=… setzen (open wird gelöscht)
 window.openDir = async function(path=""){
   cwd = path;
+  // Suchfeld zurücksetzen, damit nichts weggefiltert wird
+  const q = document.getElementById("q"); if (q && q.value) q.value = "";
   renderCrumb();
   renderList();
-  const newQs = `?dir=${encodeURIComponent(cwd)}` + (getOpenPath()?`&open=${encodeURIComponent(getOpenPath())}`:"");
-  if (location.search !== newQs) history.replaceState(null, "", newQs);
+  updateQS(cwd, ""); // open beim Ordnerwechsel zurücksetzen
 };
 
 // ===== Viewer (rechts) =====
 function setViewerButtons(path){
-  const raw=RAW(path);
-  document.getElementById("openRaw").onclick=()=>window.open(raw,"_blank");
+  const e = ext(path);
+  const rawSite = RAW_SITE(path);
+  const rawGh   = RAW_GH(path);
+
+  // .md → Raw von GitHub; andere → von der Seite
+  document.getElementById("openRaw").onclick = () =>
+    window.open((e==="md"||e==="markdown") ? rawGh : rawSite, "_blank");
+
   document.getElementById("print").onclick=()=>window.print();
+
+  // Deeplink (Ordner+Datei)
   document.getElementById("copyLink").onclick=async ()=>{ 
-    // Datei-Link kopiert jetzt Ordner+Datei (öffnet Index mit Ordner & Viewer)
     const link=fileURL(path);
-    try{ await navigator.clipboard.writeText(link); const b=document.getElementById("copyLink"); const old=b.textContent; b.textContent="Kopiert!"; setTimeout(()=>b.textContent=old,1000);}catch{ window.open(link,"_blank"); }
+    try{ await navigator.clipboard.writeText(link);
+      const b=document.getElementById("copyLink"); const old=b.textContent; b.textContent="Kopiert!";
+      setTimeout(()=>b.textContent=old,1000);
+    }catch{ window.open(link,"_blank"); }
   };
 }
+
 function showGeneric(node,title){
   document.getElementById("hero")?.remove();
   const md=document.getElementById("md"), gen=document.getElementById("generic");
   md.hidden=true; md.innerHTML=""; gen.hidden=false; gen.innerHTML=""; gen.appendChild(node);
   document.getElementById("cur").textContent = title||"—";
 }
+
 async function openMarkdown(path){
   setViewerButtons(path);
   try{
-    const rawTxt=await t(RAW(path));
-    const {text,blocks}=protectMath(rawTxt);
+    const src=await getMdText(path);                    // << .md Fallback
+    const {text,blocks}=protectMath(src);
     const htmlSafe=DOMPurify.sanitize(marked.parse(text));
     const html=restoreMath(htmlSafe, blocks);
+
     const md=document.getElementById("md"); const gen=document.getElementById("generic");
     gen.hidden=true; gen.innerHTML=""; md.hidden=false; md.innerHTML=html;
+
     await renderMathSafe(md); setTimeout(()=>renderMathSafe(md),0);
     document.querySelectorAll("#md pre code").forEach(b=>hljs.highlightElement(b));
     document.getElementById("cur").textContent = base(path);
+
+    // URL inkl. open aktualisieren (teilbar)
+    updateQS(cwd, path);
   }catch(e){
     const p=document.createElement("p"); p.style.color="#ff9a9a"; p.textContent="Datei konnte nicht geladen werden: "+e.message;
     showGeneric(p, base(path));
   }
 }
-function openImage(path){ setViewerButtons(path); const img=document.createElement("img"); img.className="preview"; img.src=RAW(path); img.alt=base(path); showGeneric(img, base(path)); }
-function openText(path){  setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); }
-function openRaw(path){   setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); }
+function openImage(path){ setViewerButtons(path); const img=document.createElement("img"); img.className="preview"; img.src=RAW_SITE(path); img.alt=base(path); showGeneric(img, base(path)); updateQS(cwd, path); }
+function openText(path){  setViewerButtons(path); const pre=document.createElement("pre"); pre.className="md"; pre.style.padding="12px"; t(RAW_SITE(path)).then(v=>pre.textContent=v).catch(e=>pre.textContent="Datei konnte nicht geladen werden: "+e.message); showGeneric(pre, base(path)); updateQS(cwd, path); }
+function openRaw(path){   setViewerButtons(path); const frame=document.createElement("iframe"); frame.className="preview"; frame.src=RAW_SITE(path); frame.title=base(path); frame.style.height="78vh"; showGeneric(frame, base(path)); updateQS(cwd, path); }
 function openFile(path){  document.getElementById("hero")?.remove(); const e=ext(path); if(e==="md"||e==="markdown") return openMarkdown(path); if(isImg(e)) return openImage(path); if(isTxt(e)) return openText(path); return openRaw(path); }
 
 // ===== Boot =====
@@ -331,7 +361,7 @@ async function boot(){
   const startDir = getStartDir();
   await window.openDir(startDir);
   const toOpen = getOpenPath();
-  if (toOpen) { openFile(toOpen); }
+  if (toOpen) { openFile(toOpen); }         // Datei automatisch öffnen (deeplink)
 }
 document.getElementById("q").addEventListener("input", renderList);
 document.getElementById("refresh").addEventListener("click", boot);
