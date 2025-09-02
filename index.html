@@ -11,13 +11,13 @@
     body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
     a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
     .container{width:min(1280px,100% - 32px);margin:0 auto}
-    header{position:sticky;top:0;z-index:3;background:var(--panel);border-bottom:1px solid var(--border)}
+    header{position:sticky;top:0;z-index:2;background:var(--panel);border-bottom:1px solid var(--border)}
     header .row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     h1{margin:0;font-size:18px}
     .muted{color:var(--muted)}
     .chip{display:flex;gap:8px;align-items:center;border:1px solid var(--border);background:#0c131a;padding:6px 10px;border-radius:10px;font-size:12px;color:var(--muted)}
     .dot{width:8px;height:8px;border-radius:50%;background:#ffb020}.dot.ok{background:#37c978}.dot.err{background:#ff5a5a}
-    .app{display:grid;grid-template-columns:360px 1fr;gap:20px;min-height:calc(100vh - 56px);padding:16px 0 28px}
+    .app{position:relative;z-index:2;display:grid;grid-template-columns:360px 1fr;gap:20px;min-height:calc(100vh - 56px);padding:16px 0 28px}
     .card{border:1px solid var(--border);background:#0c1218;border-radius:12px;overflow:auto}
     .left .section{padding:12px 14px;border-bottom:1px solid var(--border)}
     .left .search{padding:10px 14px;border-bottom:1px solid var(--border)}
@@ -38,9 +38,24 @@
     .preview,.viewer img.preview{width:100%;max-width:980px;border:1px solid #223042;border-radius:10px;background:#0f1922;display:block;margin:0 auto}
     .md{max-width:980px;margin:0 auto}
     .md pre{background:#0f1922;border:1px solid #223042;border-radius:10px;padding:12px;overflow:auto}
-    footer{border-top:1px solid var(--border);background:#0e141b;color:#8aa0b4}
+    footer{position:relative;z-index:2;border-top:1px solid var(--border);background:#0e141b;color:#8aa0b4}
     footer .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     #err{position:fixed;left:0;right:0;bottom:0;background:#3a1116;color:#ffd6d6;border-top:1px solid #6b1a23;padding:8px 14px;font-size:12px;display:none;z-index:9}
+
+    /* ✨ dezente, fixe Seitenstreifen für die Tetraeder-Animation */
+    .fx{
+      position:fixed; top:0; height:100vh; pointer-events:none; z-index:1;
+      opacity:.22; /* unaufdringlich */
+      filter:saturate(1.05) contrast(1.06);
+    }
+    .fx.left  { left:0;  width:9vw;  min-width:72px; max-width:150px; }
+    .fx.right { right:0; width:9vw;  min-width:72px; max-width:150px; }
+    @media (max-width: 980px){
+      .fx.left,.fx.right{ opacity:.16; } /* auf kleineren Screens noch dezenter */
+    }
+    @media (prefers-reduced-motion: reduce){
+      .fx.left,.fx.right{ opacity:.10; }
+    }
   </style>
 
   <!-- Markdown / Sanitize / Code-Highlight -->
@@ -55,6 +70,10 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
+  <!-- ✨ Hintergrund-Canvas: links & rechts -->
+  <canvas id="fxL" class="fx left" aria-hidden="true"></canvas>
+  <canvas id="fxR" class="fx right" aria-hidden="true"></canvas>
+
 <header>
   <div class="container row">
     <div style="display:flex;gap:12px;align-items:baseline">
@@ -286,8 +305,7 @@ async function renderList(){
 // Deeplink-fähig: beim Ordnerwechsel URL auf ?dir=… setzen (open wird gelöscht)
 window.openDir = async function(path=""){
   cwd = path;
-  // Suchfeld zurücksetzen, damit nichts weggefiltert wird
-  const q = document.getElementById("q"); if (q && q.value) q.value = "";
+  const q = document.getElementById("q"); if (q && q.value) q.value = ""; // Filter leeren
   renderCrumb();
   renderList();
   updateQS(cwd, ""); // open beim Ordnerwechsel zurücksetzen
@@ -366,6 +384,118 @@ async function boot(){
 document.getElementById("q").addEventListener("input", renderList);
 document.getElementById("refresh").addEventListener("click", boot);
 document.addEventListener("DOMContentLoaded", boot);
+</script>
+
+<!-- ✨ Zusatz-Script: sehr dezente Sierpiński-Tetraeder-Animation (Chaos Game, isometrisch) -->
+<script>
+(function(){
+  const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  const cos30 = Math.sqrt(3)/2, sin30 = 0.5; // isometrische Projektion :contentReference[oaicite:1]{index=1}
+
+  // 3D→isometrisch 2D
+  function proj3Dto2D(x,y,z){
+    // x' = (x - z)*cos30 ; y' = y + (x + z)*sin30  (eine gängige iso-Variante) :contentReference[oaicite:2]{index=2}
+    return [(x - z)*cos30, y + (x + z)*sin30];
+  }
+
+  function makeStrip(canvas, palette){
+    const ctx = canvas.getContext('2d', { alpha:true });
+
+    function fit(){
+      const r = canvas.getBoundingClientRect();
+      canvas.width  = Math.floor(r.width  * DPR);
+      canvas.height = Math.floor(r.height * DPR);
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      recomputeSpace();
+    }
+
+    // Regularer Tetraeder (in den Würfel eingebettet) :contentReference[oaicite:3]{index=3}
+    const V3 = [
+      [ 1,  1,  1],
+      [ 1, -1, -1],
+      [-1,  1, -1],
+      [-1, -1,  1]
+    ];
+
+    let s=1, ox=0, oy=0;
+    function recomputeSpace(){
+      const P = V3.map(v => proj3Dto2D(v[0],v[1],v[2]));
+      const xs=P.map(p=>p[0]), ys=P.map(p=>p[1]);
+      const minx=Math.min(...xs), maxx=Math.max(...xs);
+      const miny=Math.min(...ys), maxy=Math.max(...ys);
+      const pad = 10;
+      const W = canvas.width/DPR, H=canvas.height/DPR;
+      const sx = (W-2*pad)/(maxx-minx);
+      const sy = (H-2*pad)/(maxy-miny);
+      s = Math.min(sx, sy);
+      ox = pad - minx*s;
+      oy = pad - miny*s;
+    }
+    function map2d(x,y){ return [x*s+ox, y*s+oy]; }
+
+    fit();
+    let resizeTO;
+    addEventListener('resize', ()=>{ clearTimeout(resizeTO); resizeTO = setTimeout(fit,120); });
+
+    // Startpunkt (im Inneren)
+    let px=0, py=0, pz=0;
+    let burn=180;
+
+    // Bewegung sanft halten
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const STEPS = reduce ? 160 : 460;
+
+    // zart zeichnen
+    ctx.globalAlpha = 0.23;
+
+    function tick(){
+      if (document.hidden) { requestAnimationFrame(tick); return; }
+
+      for (let i=0;i<STEPS;i++){
+        const k = (Math.random()*4)|0;
+        // halber Schritt Richtung gewählter Ecke (Chaos Game) :contentReference[oaicite:4]{index=4}
+        px = (px + V3[k][0]) * 0.5;
+        py = (py + V3[k][1]) * 0.5;
+        pz = (pz + V3[k][2]) * 0.5;
+
+        if (burn>0){ burn--; continue; } // Einbrennphase überspringen
+
+        const p2 = proj3Dto2D(px,py,pz);
+        const m  = map2d(p2[0], p2[1]);
+        ctx.fillStyle = palette[k];
+        // 1×1-Pixel-Funken (sehr dezent)
+        ctx.fillRect(m[0], m[1], 1, 1);
+      }
+
+      // ganz selten eine hauchdünne Kontur (Augenzwinkern)
+      if (Math.random() < 0.02){
+        const A = V3.map(v => map2d(...proj3Dto2D(v[0],v[1],v[2])));
+        ctx.save();
+        ctx.globalAlpha = 0.08;
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(A[0][0],A[0][1]); ctx.lineTo(A[1][0],A[1][1]);
+        ctx.lineTo(A[3][0],A[3][1]); ctx.closePath(); ctx.stroke(); // kleine Facette
+        ctx.restore();
+      }
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  addEventListener('DOMContentLoaded', ()=>{
+    const L = document.getElementById('fxL');
+    const R = document.getElementById('fxR');
+    if (!L || !R) return;
+    // Pastell: GREEN / YELLOW / RED / BLUE – zart & konsistent mit „exclusive rule“
+    const pal = ["#23e066", "#ffd166", "#ff4d4d", "#61a8ff"];
+    makeStrip(L, pal);
+    makeStrip(R, pal.slice().reverse());
+  });
+})();
 </script>
 </body>
 </html>
