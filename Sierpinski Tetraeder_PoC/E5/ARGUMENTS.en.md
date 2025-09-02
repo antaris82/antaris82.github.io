@@ -85,7 +85,7 @@ Complete reference of the command line arguments for
 
 ---
 
-## 4) Closed-form dynamics (Schrödinger module)
+## 4) Closed dynamics (Schrödinger module)
 
 ### `--schro {yes|no}`
 
@@ -300,7 +300,7 @@ Complete reference of the command line arguments for
 
 ### Glossary (short)
 
-* **TI:** Thermal Interpretation; understood here as the correspondence of **empirical pixel frequencies** with **POVM predictions**.
+* **TI:** Thermal interpretation; understood here as agreement of **empirical pixel frequencies** with **POVM predictions**.
 * **MCWF/Quantum Jumps:** Stochastic wave function method, equivalent to the GKSL master equation at ensemble level. ([Physical Review][10])
 * **Auto-ε:** Data-driven, strict equivalence margin $\varepsilon\approx 1.96\cdot\mathrm{SE}$; for large $N$ **enger§**. (Interval logic: Brown-Cai-DasGupta; TOST design: Wellek.) ([projecteuclid.org][5], [Taylor & Francis][9])
 
