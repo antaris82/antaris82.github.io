@@ -140,8 +140,11 @@ const getOpenPath = () => qs().get("open");
 // Datei-URLs
 const RAW_SITE = (p) => "/" + encodeURI(String(p || "").replace(/^\/+/, ""));
 const RAW_GH   = (p) => "https://raw.githubusercontent.com/antaris82/antaris82.github.io/main/" + encodeURI(String(p || "").replace(/^\/+/, ""));
-const fileURL  = (p) => `${ORIGIN}/?dir=${encodeURIComponent(dir(p))}&open=${encodeURIComponent(p)}`;
+// ALT:
+// const fileURL  = (p) => `${ORIGIN}/?dir=${encodeURIComponent(dir(p))}&open=${encodeURIComponent(p)}`;
 
+// NEU:
+const fileURL  = (p) => `${ORIGIN}/?open=${encodeURIComponent(p)}`;
 // ===== State / Utils =====
 let NODES=new Map(), CHILDREN=new Map(), cwd="";
 const base=p=>(p||"").split("/").pop()||"";
