@@ -141,7 +141,7 @@
   },
   {
     "path": "manifest.json",
-    "sha": "76f4f774abdbe8baa98af52fc26b2e8c6e5ac522",
+    "sha": "88ccf24ad4fb61a52515500010a4ce59b0a3b77f",
     "size": 46557,
     "type": "blob",
     "mode": "100644"
@@ -1655,6 +1655,13 @@
     "path": "Sierpinski Tetraeder_PoC/E5/stlib/trace.py",
     "sha": "4c3e00a748f736614aaab9d0e41dae3eb8a4907f",
     "size": 1686,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/E5/Supplementary_v14.6.pdf",
+    "sha": "de23d35c3d1219e53e509696282ff71e47da3073",
+    "size": 348072,
     "type": "blob",
     "mode": "100644"
   },
