@@ -12,7 +12,7 @@ This document specifies the checks **§A-E§**, which are displayed as traffic l
 **§Target.** Check whether the one-step map $$\Phi(\cdot)=\sum_i K_i(\cdot)K_i^\dagger$$ ** is completely positive** (CP) and **track-faithful** (TP).
 
 **Metrics.**
-- **Positivity:** $$\lambda_{\min}\!\left(\tfrac{C+C^\dagger}{2}\right)\ge 0,$$ where \(C\) is the **Choi matrix§** of \(\Phi\).  
+- **§Positivity:** $$\lambda_{\min}\!\left(\tfrac{C+C^\dagger}{2}\right)\ge 0,$$ where \(C\) is the **Choi matrix§** of \(\Phi\).  
 - **TP defect:**§ $$\big\|\sum_i K_i^\dagger K_i-\mathbb 1\big\|_2 \approx 0.$$
 
 **§Notes.**
@@ -58,7 +58,7 @@ This document specifies the checks **§A-E§**, which are displayed as traffic l
 - Count **§violations** \( \Delta D = D_{k+1}-D_k > \varepsilon \) (relative \(\varepsilon=10^{-6}\)).  
 - Visualize \(D(\rho_t\Vert\rho_\beta)\) vs. \(t\).
 
-**§Hint.** Calculate log-eigs stable (clipping of minimum eigenvalues).
+**§Hint.** Calculate log-eigs stably (clipping of minimum eigenvalues).
 
 ---
 
