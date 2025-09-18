@@ -1,4 +1,3 @@
-
 <!-- Math uses $$ ... $$ delimiters throughout -->
 
 # INSTALLATION — Voraussetzungen, Installation & Start der **GKSL Measurement App**
@@ -45,7 +44,7 @@ tqdm>=4.66
 
 ## 2) Installation (mit virtuellem Environment)
 
-> **Empfehlung:** Projekt zuerst in einen neuen Ordner legen (z. B. `gksl_app/`) und dort die Dateien **`app_gksl_measurement.py`** und **`gksl.py`** ablegen.
+> **Empfehlung:** Projekt zuerst in einen neuen Ordner legen (z. B. `gksl_app/`) und dort die Dateien **`gksl.py`** ablegen.
 
 ### a) Virtuelle Umgebung anlegen
 
@@ -84,7 +83,7 @@ pip install streamlit numpy scipy plotly pandas
 ### a) Standardstart (lokal)
 
 ```bash
-streamlit run app_gksl_measurement.py
+streamlit run gksl.py
 ```
 
 Öffne im Browser: <http://localhost:8501>  
@@ -94,12 +93,12 @@ Die Tabs **Trace‑out**, **GKSL & Fits**, **Verification Suite** und **Export**
 
 Anderer Port (z. B. 8502):
 ```bash
-streamlit run app_gksl_measurement.py --server.port 8502
+streamlit run gksl.py --server.port 8502
 ```
 
 Headless (z. B. Remote‑Server):
 ```bash
-streamlit run app_gksl_measurement.py --server.headless true --server.port 8501
+streamlit run gksl.py --server.headless true --server.port 8501
 ```
 
 ---
@@ -134,8 +133,7 @@ streamlit run app_gksl_measurement.py --server.headless true --server.port 8501
 
 ```
 gksl_app/
-├─ app_gksl_measurement.py     # Streamlit‑App (Tabs & UI)
-├─ gksl.py                     # GKSL‑Kern (Strang‑Integrator, GADC‑Schritt, Utilities)
+├─ gksl.py     				   # Streamlit‑App (Tabs & UI)
 ├─ requirements.txt            # (optional) Paketliste
 └─ exports/                    # (optional) Ablage für ZIP‑Exporte
 ```
