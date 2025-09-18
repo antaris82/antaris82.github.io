@@ -1,9 +1,8 @@
-
 <!-- Math uses $$ ... $$ delimiters throughout -->
 
 # INSTALLATION - Prerequisites, installation & start of the **GKSL Measurement App**
 
-This file describes **System requirements**, **Installation** (with virtual environment) and **Start** of the app. At the end, you will find brief **troubleshooting instructions** as well as recommended **running settings**.
+This file describes **System requirements**, **Installation** (with virtual environment) and **Start** of the app. At the end, you will find brief **troubleshooting instructions** and recommended **running settings**.
 
 ---
 
@@ -13,7 +12,7 @@ This file describes **System requirements**, **Installation** (with virtual envi
 - Windows 10/11, macOS 12+ or Linux (e.g. Ubuntu 22.04+).
 
 **Python**
-- Recommended: **Python 3.10-3.12** (64-bit). Check version:
+- Recommended: **§Python 3.10-3.12** (64-bit). Check version:
   ```bash
   python --version
   ```
@@ -45,9 +44,9 @@ tqdm>=4.66
 
 ## §2) Installation (with virtual environment)
 
-> **Recommendation:** First place the project in a new folder (e.g. `gksl_app/`) and store the files **`app_gksl_measurement.py`** and **`gksl.py`** there.
+> **§Recommendation:** First place the project in a new folder (e.g. `gksl_app/`) and store the files **`gksl.py`** there.
 
-### a) Create virtual environment
+### a) Creating a virtual environment
 
 **Windows (PowerShell)**
 ```powershell
@@ -84,7 +83,7 @@ pip install streamlit numpy scipy plotly pandas
 ### §a) Standard start (local)
 
 ```bash
-streamlit run app_gksl_measurement.py
+streamlit run gksl.py
 ```
 
 Open in the browser: <http://localhost:8501>  
@@ -94,12 +93,12 @@ The tabs **Trace-out**, **GKSL & Fits**, **Verification Suite** and **§Export**
 
 Other port (e.g. 8502):
 ```bash
-streamlit run app_gksl_measurement.py --server.port 8502
+streamlit run gksl.py --server.port 8502
 ```
 
 Headless (e.g. remote server):
 ```bash
-streamlit run app_gksl_measurement.py --server.headless true --server.port 8501
+streamlit run gksl.py --server.headless true --server.port 8501
 ```
 
 ---
@@ -108,9 +107,9 @@ streamlit run app_gksl_measurement.py --server.headless true --server.port 8501
 
 - **§Integrator (Tab 2):** **§Strand (CPTP, 2nd order)**  
 - **Substeps per \(\Delta t\):**§ **§10-20§** (paper plots: 20-40)
-- **Δt-convergence:** For sweeps $$K=\frac{\sin^2\theta}{\Delta t} \text{ konstant halten}$$§
+- **Δt-convergence:** For sweeps $$K=\frac{\sin^2\theta}{\Delta t} \text{ konstant halten}$$
 - **Expected values:** $$T_1=\frac{1}{\gamma_\downarrow+\gamma_\uparrow},\qquad T_2=2T_1$$
-- **Equilibrium:** $$\rho_\beta \propto e^{-\beta H_S},\quad H_S=\frac{\omega}{2}\sigma_z$$§
+- **Equilibrium:** $$\rho_\beta \propto e^{-\beta H_S},\quad H_S=\frac{\omega}{2}\sigma_z$$
 
 **Export (Tab 4):** generates ZIP (e.g. `export_YYYYMMDD_HHMMSS.zip`) with `settings.md`, `results.md`, `verification.md` + plots (HTML/PNG).
 
@@ -118,7 +117,7 @@ streamlit run app_gksl_measurement.py --server.headless true --server.port 8501
 
 ## 5) Troubleshooting (short)
 
-- **`ModuleNotFoundError`**: Activate virtual Env **§** and execute `pip install ...` again.  
+- **`ModuleNotFoundError`**: Activate virtual Env **§** and execute `pip install ...`§ again.  
 §- **Port occupied**: Select another port (`--server.port 8502`).  
 §- **Plots/status "red" for extreme values**: Increase substeps, \(\Delta t\) reduce, switch to weak coupling regime.  
 - **Power**: Limit BLAS threads (optional):
@@ -126,7 +125,7 @@ streamlit run app_gksl_measurement.py --server.headless true --server.port 8501
   set OMP_NUM_THREADS=4   # Windows
   export OMP_NUM_THREADS=4  # macOS/Linux
   ```
-- **Clear streamlit cache** (if outdated artifacts interfere): select **"Clear cache"** in the app menu.
+- ** Clear streamlit cache** (if outdated artifacts interfere): select **"Clear cache"** in the app menu.
 
 ---
 
@@ -134,8 +133,7 @@ streamlit run app_gksl_measurement.py --server.headless true --server.port 8501
 
 ```
 gksl_app/
-├─ app_gksl_measurement.py     # Streamlit‑App (Tabs & UI)
-├─ gksl.py                     # GKSL‑Kern (Strang‑Integrator, GADC‑Schritt, Utilities)
+├─ gksl.py     				   # Streamlit‑App (Tabs & UI)
 ├─ requirements.txt            # (optional) Paketliste
 └─ exports/                    # (optional) Ablage für ZIP‑Exporte
 ```
@@ -145,7 +143,7 @@ gksl_app/
 ## §7) Reproducibility (recommended)
 
 - use **§Preset A** from `PLAYBOOK.md`.  
-§- **Seeds/Substeps§** Document.  
+§- **Seeds/Substeps§** document.  
 - **Expected values** (guide values):
   $$
   \max_t\, T(\rho_{\rm trace\text{-}out},\rho_{\rm GKSL}) \lesssim 4\cdot10^{-3},\qquad
