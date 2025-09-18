@@ -1,1 +1,4 @@
-Sierpinski Tetraeder_PoC/J1/INSTALLATION.md
+Sierpinski Tetraeder_PoC/J1/export_20250916_191011/README.md
+Sierpinski Tetraeder_PoC/J1/export_20250916_191011/results.md
+Sierpinski Tetraeder_PoC/J1/export_20250916_191011/settings.md
+Sierpinski Tetraeder_PoC/J1/export_20250916_191011/verification.md
