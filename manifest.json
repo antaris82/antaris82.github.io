@@ -8,8 +8,8 @@
   },
   {
     "path": ".github/workflows/build-manifest.yml",
-    "sha": "86a4c5bbcddd3ffb186534c63490aab2beee2689",
-    "size": 2077,
+    "sha": "3a3824914f7836ffb2687cf9bad29e7f5e1f2c4a",
+    "size": 2407,
     "type": "blob",
     "mode": "100644"
   },
@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "b4f0ba60f9ef8446b96a34992b3b8a56412ce1a2",
-    "size": 38,
+    "sha": "8fe3fca7d2d62effba0280df126a22581fef0cdc",
+    "size": 128,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,8 +141,8 @@
   },
   {
     "path": "manifest.json",
-    "sha": "8af465011872fa2f18fe78342712b0de74f47297",
-    "size": 47476,
+    "sha": "96ab843faba4c42e3a8f0ee9e2f454e90ae65a6d",
+    "size": 47663,
     "type": "blob",
     "mode": "100644"
   },
@@ -1676,6 +1676,48 @@
     "path": "Sierpinski Tetraeder_PoC/J1/gksl.py",
     "sha": "c7231b5df1659d72eb9e30c90dfa67911ddd78c1",
     "size": 62129,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/PLAYBOOK.en.md",
+    "sha": "81832531b4220cb58e6cd5f3bd7b9bd0c3bdeed8",
+    "size": 3136,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/PLAYBOOK.md",
+    "sha": "f1358bad583f51fa412828bac62a2476c8d00ed4",
+    "size": 3119,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/README.en.md",
+    "sha": "eb781ec599352ee315aa2c9f75b8741b332b99ac",
+    "size": 4372,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/README.md",
+    "sha": "9760757250c081e3d9731a5b8e6776086d2b9dc7",
+    "size": 4640,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/VERIFICATION_SUITE.en.md",
+    "sha": "50e9ccfd3e84349b3b87e1026e09dc91827ebd80",
+    "size": 3090,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/VERIFICATION_SUITE.md",
+    "sha": "7476cdbfacc7096da84e290a3b12e83a67ff15d9",
+    "size": 3154,
     "type": "blob",
     "mode": "100644"
   },
