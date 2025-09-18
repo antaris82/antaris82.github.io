@@ -142,7 +142,12 @@ const dir =p=>(p||"").split("/").slice(0,-1).join("/");
 const ext =n=>(n.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1]||"");
 const isImg=e=>["png","jpg","jpeg","gif","webp","svg","avif","bmp"].includes(e);
 const isTxt=e=>["txt","log","md","markdown","csv","tsv","json","xml","yml","yaml","ini","conf","sh","py","js","ts","css","html","svg","java","c","cpp","h","hpp","cs","go","rs","php","rb","kt","swift","sql","toml"].includes(e);
-async function j(u){const r=await fetch(u+(u.includes('?')?'&':'?')+"ts="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.json();}
+async function j(u){
+  const bust = (u.includes('?') ? '&' : '?') + 'bust=' + Date.now();
+  const r = await fetch(u + bust, { cache: 'no-store' });
+  if (!r.ok) throw new Error(r.status + " " + r.statusText);
+  return r.json();
+}
 async function t(u){const r=await fetch(u,{cache:"no-store"}); if(!r.ok) throw new Error(r.status+" "+r.statusText); return r.text();}
 
 // ==== Markdown + KaTeX ====
