@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "c7dec4a2acdbc617ee0bcae55b01aa1b90d8d338",
-    "size": 48556,
+    "sha": "368c64ce71927c57872216153980fa525888c29d",
+    "size": 48740,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "b43457182c7ea99204026479f06fa2213b15e8c2",
+    "sha": "7be3c6df8b8ac16645d0ed278f646cefa4a9600f",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1680,6 +1680,104 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab1_coherence_20250916_191008.html",
+    "sha": "3b4d43bec73905018cc90e482f22ce0ab28dd067",
+    "size": 4770139,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab1_populations_20250916_191008.html",
+    "sha": "539cebb9980be627d35ef5ccc989c006db93d106",
+    "size": 4772612,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_coh_abs_20250916_191009.html",
+    "sha": "dcefc9c63999501e73ac46905e321133ad091051",
+    "size": 4772094,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_dt_convergence_20250916_191010.html",
+    "sha": "f7d121a41620d0a30b103a09ab9174ddef759473",
+    "size": 4769923,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_fit_T1_20250916_191010.html",
+    "sha": "87d8975c2ef085132f3c75b21392d0eba31ecde9",
+    "size": 4775081,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_fit_T2_20250916_191010.html",
+    "sha": "fc110a3736b6f87438aef5a88467d9f119a29b79",
+    "size": 4774751,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_phase_20250916_191009.html",
+    "sha": "8979a7b24c11d9c83d285ed1cabb1546ea502366",
+    "size": 4771152,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_pop00_20250916_191009.html",
+    "sha": "9892a602c3b44b3f6499a3d4f8ceddf9e4842f84",
+    "size": 4772353,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_trace_distance_20250916_191010.html",
+    "sha": "c12c0541de57496581590465bd0072781c0b8365",
+    "size": 4770129,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab3_D_relent_20250916_191011.html",
+    "sha": "151f3856182aca3add223c126ea4dd3308811e9a",
+    "size": 4770099,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/README.md",
+    "sha": "b86451cf9e01f350dcc6b7dd371683c19e5b1ac0",
+    "size": 310,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/results.md",
+    "sha": "a2d27fd26a178b1cdbf18ce0ea15befc3422751e",
+    "size": 676,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/settings.md",
+    "sha": "b5430c700b9841d96b0b72481edd7a511b5a178e",
+    "size": 300,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/verification.md",
+    "sha": "e104fbe00de40ddc23049a0251a61356a6d6dbaf",
+    "size": 275,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/J1/gksl.py",
     "sha": "c7231b5df1659d72eb9e30c90dfa67911ddd78c1",
     "size": 62129,
@@ -1688,8 +1786,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/J1/INSTALLATION.en.md",
-    "sha": "d369bb36a70fe2d1dcdd15ab5b8e5857afea45ea",
-    "size": 4138,
+    "sha": "f7675e7a3a418a9a0e76471e52e513c98e46e4cc",
+    "size": 3948,
     "type": "blob",
     "mode": "100644"
   },
