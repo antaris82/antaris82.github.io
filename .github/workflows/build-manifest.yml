@@ -3,18 +3,24 @@ name: Build manifest.json
 on:
   push:
     branches: [ main ]
+    # vermeidet Self-Trigger durch den eigenen Manifest-Commit
+    paths-ignore:
+      - 'manifest.json'
+      - 'manifest.version.json'
   workflow_dispatch: {}
 
 permissions:
-  contents: write  # <-- wichtig: erlaubt Commit des Manifests
+  contents: write
 
 jobs:
   manifest:
+    # Falls du auf Nummer sicher gehen willst:
+    # läuft nur bei "echten" Pushes, nicht beim Bot-Commit
+    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Holt die komplette Baumstruktur per GitHub-API und erzeugt manifest.json ohne jq/awk
       - name: Generate manifest.json via GitHub API
         uses: actions/github-script@v7
         with:
@@ -23,20 +29,16 @@ jobs:
             const owner = context.repo.owner;
             const repo  = context.repo.repo;
 
-            // Referenz: aktueller Commit auf dem Default-Branch (main)
-            // Alternative: explizit "heads/main"
+            // Commit, der diesen Workflow ausgelöst hat
             const ref = process.env.GITHUB_SHA;
 
-            // Vollständiger Baum (rekursiv)
             const treeResp = await github.rest.git.getTree({
               owner, repo,
               tree_sha: ref,
               recursive: 'true'
             });
-
             const tree = treeResp.data.tree || [];
 
-            // Nur Dateien (blobs) mit Pfad, SHA, Größe, Modus
             const blobs = tree
               .filter(it => it.type === 'blob')
               .map(it => ({
@@ -49,7 +51,16 @@ jobs:
               .sort((a,b) => a.path.localeCompare(b.path));
 
             fs.writeFileSync('manifest.json', JSON.stringify(blobs, null, 2));
-            core.info(`Wrote manifest.json with ${blobs.length} entries.`);
+
+            // Version-File für Cache-Busting im Frontend
+            const version = {
+              sha: ref,
+              entries: blobs.length,
+              generated_at: new Date().toISOString()
+            };
+            fs.writeFileSync('manifest.version.json', JSON.stringify(version, null, 2));
+
+            core.info(`Wrote manifest.json (${blobs.length}) and manifest.version.json for ${ref}`);
 
       - name: Commit manifest if changed
         shell: bash
@@ -57,10 +68,10 @@ jobs:
           set -euo pipefail
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add manifest.json
+          git add manifest.json manifest.version.json
           if ! git diff --cached --quiet; then
-            git commit -m "Update manifest [skip ci]"
+            git commit -m "Update manifest"
             git push
           else
-            echo "No changes in manifest.json"
+            echo "No changes in manifest files"
           fi
