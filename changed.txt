@@ -1,1 +1,3 @@
+Sierpinski Tetraeder_PoC/J1/PLAYBOOK.md
 Sierpinski Tetraeder_PoC/J1/README.md
+Sierpinski Tetraeder_PoC/J1/VERIFICATION_SUITE.md
