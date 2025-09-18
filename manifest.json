@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "ff42f97d4a4aa46b2a9f96ae9a3f52c6b1cc1691",
-    "size": 48215,
+    "sha": "097dd55fa389a318b37af8ae7ad4e4394e3fc14d",
+    "size": 47832,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "d1a2e762630245428ac84f1f7cba6b84ddd39715",
+    "sha": "608c3ee6d3ce61d9c1cf435703807c664c2803f0",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1697,6 +1697,13 @@
     "path": "Sierpinski Tetraeder_PoC/J1/README.en.md",
     "sha": "eb781ec599352ee315aa2c9f75b8741b332b99ac",
     "size": 4372,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/test.txt",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
     "type": "blob",
     "mode": "100644"
   },
