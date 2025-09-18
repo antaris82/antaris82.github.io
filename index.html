@@ -177,11 +177,40 @@ async function renderMathSafe(rootEl){
   });
 }
 
-// ==== Manifest laden (mit Raw-Fallback) ====
-async function loadManifest(){
-  try { return await j(MANIFEST_URL); }
-  catch(e1){ console.warn("Pages-Manifest 404, fallback raw:", e1); return await j(MANIFEST_RAW); }
+// ==== Manifest laden (API bei Reload/Opt-in) ====
+async function loadViaGitTree(token=null){
+  const headers = { 'Accept': 'application/vnd.github+json' };
+  if (token) headers['Authorization'] = 'Bearer ' + token; // optional
+  const r = await fetch(
+    'https://api.github.com/repos/antaris82/antaris82.github.io/git/trees/main?recursive=1',
+    { headers, cache:'no-store' }
+  );
+  if (!r.ok) throw new Error('Git tree fetch failed: ' + r.status);
+  const data = await r.json();
+  return (data.tree || []).map(n => ({
+    path: n.path,
+    sha:  n.sha,
+    size: n.size ?? 0,
+    type: n.type,   // 'blob' | 'tree'
+    mode: n.mode
+  }));
 }
+
+async function loadManifest(forceApi=false){
+  if (forceApi) return await loadViaGitTree(); // Live-Baum erzwingen
+  try {
+    return await j(MANIFEST_URL);              // normal: Pages-Manifest
+  } catch(e1){
+    console.warn("Pages-Manifest fehlgeschlagen, weiche auf RAW aus:", e1);
+    try {
+      return await j(MANIFEST_RAW);            // Fallback: RAW vom main
+    } catch(e2){
+      console.warn("RAW fehlgeschlagen, weiche auf API aus:", e2);
+      return await loadViaGitTree();           // letzter Ausweg: Live-Baum
+    }
+  }
+}
+
 
 // ==== Manifest → Knoten + Ordner ====
 function normalizeEntries(raw){
@@ -362,19 +391,24 @@ function openFile(path){
 }
 
 // ==== Refresh (Manifest neu laden + Ansicht neu bauen, Direktlink bleibt erhalten) ====
-async function refreshAll(){
+// Erzwingt bei ?mode=api oder Seiten-Reload den Live-Baum über die GitHub-API
+async function refreshAll(opts={}){
   const curParams = new URLSearchParams(location.search);
   const curDir  = curParams.get("dir") || cwd || START_DIR;
   const curOpen = curParams.get("open");
 
+  const nav = performance.getEntriesByType('navigation')[0];
+  const isReload = !!nav && nav.type === 'reload';
+  const forceApi = opts.mode === 'api' || curParams.get('mode') === 'api' || isReload;
+
   try{
     document.getElementById("dot").className="dot";
-    document.getElementById("manitxt").textContent="Manifest lädt…";
-    const m=await loadManifest();
+    document.getElementById("manitxt").textContent = forceApi ? "Live-Baum (API) lädt…" : "Manifest lädt…";
+    const m = await loadManifest(forceApi);
     indexEntries(m);
   }catch(e){
     document.getElementById("dot").className="dot err";
-    document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
+    document.getElementById("manitxt").textContent = forceApi ? "API-Reload fehlgeschlagen" : "manifest.json nicht gefunden";
     console.error("Manifest-Reload fehlgeschlagen", e);
   }
 
@@ -387,29 +421,35 @@ async function refreshAll(){
   }
 }
 
+
 // ==== Boot ====
 async function boot(){
   document.getElementById("copyright").textContent = `© ${new Date().getFullYear()} antaris — Code: MIT; Daten/Abbildungen/Texte: CC BY 4.0.`;
 
+  // URL einmal lesen (vor dem ersten openDir)
+  const params   = new URLSearchParams(location.search);
+  const openParam = params.get("open");
+  const dirParam  = params.get("dir");
+
+  // Seiten-Reload erkennen und ggf. API erzwingen
+  const nav = performance.getEntriesByType('navigation')[0];
+  const isReload = !!nav && nav.type === 'reload';
+  const forceApi = params.get('mode') === 'api' || isReload;
+
   // Manifest laden
   try{
-    const m=await loadManifest();
+    const m = await loadManifest(forceApi);
     indexEntries(m);
   }catch(e){
     document.getElementById("dot").className="dot err";
-    document.getElementById("manitxt").textContent="manifest.json nicht gefunden";
+    document.getElementById("manitxt").textContent = forceApi ? "API-Load fehlgeschlagen" : "manifest.json nicht gefunden";
     document.getElementById("list").innerHTML = '<li class="item"><span>⚠️</span><span class="name">manifest.json nicht gefunden</span><span class="meta"></span><span></span></li>';
     console.error("Manifest konnte nicht geladen werden", e);
   }
 
-  // URL einmal lesen (vor dem ersten openDir)
-  const params = new URLSearchParams(location.search);   // MDN URL.searchParams
-  const openParam = params.get("open");
-  const dirParam  = params.get("dir");
-
   // Start-Verzeichnis bestimmen
   let initialDir = dirParam || START_DIR;
-  if (openParam) initialDir = dir(openParam);            // Direktlink → Ordner aus Datei
+  if (openParam) initialDir = dir(openParam); // Direktlink → Ordner aus Datei
 
   // Ordner öffnen; bei Direktlink ?open beibehalten
   await window.openDir(initialDir, {preserveOpen: !!openParam});
@@ -417,6 +457,7 @@ async function boot(){
   // Direktlink-Datei öffnen (falls vorhanden)
   if (openParam){ openFile(openParam); }
 }
+
 
 document.getElementById("q").addEventListener("input", renderList);
 document.getElementById("refresh").addEventListener("click", refreshAll);
