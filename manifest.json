@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "e99de6bde22697102feae1b5ced75eeb55d07da3",
-    "size": 44,
+    "sha": "e384bec1e6b6d2c6289b2dee4618d23897d9e7e0",
+    "size": 253,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "368c64ce71927c57872216153980fa525888c29d",
-    "size": 48740,
+    "sha": "3003441aec150e60c7101e54532ea7cdbe49ea52",
+    "size": 51896,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "7be3c6df8b8ac16645d0ed278f646cefa4a9600f",
+    "sha": "3a54b07f3113fdd99ca94addf5ca3b7f16e71abf",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1673,106 +1673,120 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011.zip",
-    "sha": "b0ec179769f0a62484164dc1773bea7d9859a0c3",
-    "size": 14529226,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/README.en.md",
+    "sha": "96ab8daf8b98528bcfef00f999a7112f0e39fc61",
+    "size": 279,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab1_coherence_20250916_191008.html",
-    "sha": "3b4d43bec73905018cc90e482f22ce0ab28dd067",
-    "size": 4770139,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/results.en.md",
+    "sha": "0cd117e7014d7db3173f317e0e62ab0c6bf714b3",
+    "size": 666,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab1_populations_20250916_191008.html",
-    "sha": "539cebb9980be627d35ef5ccc989c006db93d106",
-    "size": 4772612,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/settings.en.md",
+    "sha": "132c78ac2e7862c077476ec092b5303b2fbd4352",
+    "size": 295,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_coh_abs_20250916_191009.html",
-    "sha": "dcefc9c63999501e73ac46905e321133ad091051",
-    "size": 4772094,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/verification.en.md",
+    "sha": "4cdc9233c35d09f2435e293a2f18393a32676c14",
+    "size": 277,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_dt_convergence_20250916_191010.html",
-    "sha": "f7d121a41620d0a30b103a09ab9174ddef759473",
-    "size": 4769923,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110.zip",
+    "sha": "b116a3cbb5fa1c8743777de0b21a1eba0431f4ab",
+    "size": 11639780,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_fit_T1_20250916_191010.html",
-    "sha": "87d8975c2ef085132f3c75b21392d0eba31ecde9",
-    "size": 4775081,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/figures/tab2_coh_abs_20250918_232106.html",
+    "sha": "7d56b8c2d4d5a1d7e7fd1fef1c3a015834f5a24b",
+    "size": 4780404,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_fit_T2_20250916_191010.html",
-    "sha": "fc110a3736b6f87438aef5a88467d9f119a29b79",
-    "size": 4774751,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/figures/tab2_dt_convergence_20250918_232109.html",
+    "sha": "6064c3906dfd06410b3a5a7ff59ff0b653beb432",
+    "size": 4773366,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_phase_20250916_191009.html",
-    "sha": "8979a7b24c11d9c83d285ed1cabb1546ea502366",
-    "size": 4771152,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/figures/tab2_fit_T1_20250918_232108.html",
+    "sha": "b0b148c5d8f349c11fa0a57d884a6aad41c3f51e",
+    "size": 4786582,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_pop00_20250916_191009.html",
-    "sha": "9892a602c3b44b3f6499a3d4f8ceddf9e4842f84",
-    "size": 4772353,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/figures/tab2_fit_T2_20250918_232108.html",
+    "sha": "26b58febc37005eb03af16470e55760eebe81a1c",
+    "size": 4786091,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab2_trace_distance_20250916_191010.html",
-    "sha": "c12c0541de57496581590465bd0072781c0b8365",
-    "size": 4770129,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/figures/tab2_phase_20250918_232107.html",
+    "sha": "518aab76582b19898537033d783907cd16f72a9c",
+    "size": 4778130,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/figures/tab3_D_relent_20250916_191011.html",
-    "sha": "151f3856182aca3add223c126ea4dd3308811e9a",
-    "size": 4770099,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/figures/tab2_pop00_20250918_232105.html",
+    "sha": "65da1cec6c8ee2e510322164d6f5f5c9c5472bd4",
+    "size": 4780611,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/README.md",
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/figures/tab2_trace_distance_20250918_232107.html",
+    "sha": "6dd08aa3e896b6c50d5d95fffcfbb651b6784292",
+    "size": 4775970,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/figures/tab3_D_relent_20250918_232109.html",
+    "sha": "1901628d649772a7ad9791867360af428f9989bb",
+    "size": 4773537,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/README.md",
     "sha": "b86451cf9e01f350dcc6b7dd371683c19e5b1ac0",
     "size": 310,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/results.md",
-    "sha": "a2d27fd26a178b1cdbf18ce0ea15befc3422751e",
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/results.md",
+    "sha": "d728eddc4e0228d71116c1c9c62c2ae82ff593bf",
     "size": 676,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/settings.md",
-    "sha": "b5430c700b9841d96b0b72481edd7a511b5a178e",
-    "size": 300,
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/settings.md",
+    "sha": "f149c8fdf23b724d0cd36f13395c8224463892e7",
+    "size": 301,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/verification.md",
-    "sha": "e104fbe00de40ddc23049a0251a61356a6d6dbaf",
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/verification.md",
+    "sha": "77209d1c329f192fcab725674bb1e0142138019c",
     "size": 275,
     "type": "blob",
     "mode": "100644"
