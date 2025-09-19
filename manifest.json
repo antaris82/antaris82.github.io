@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "e384bec1e6b6d2c6289b2dee4618d23897d9e7e0",
-    "size": 253,
+    "sha": "cbe454aa94b628a278c7c5c9af692034a569edb9",
+    "size": 265,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "3003441aec150e60c7101e54532ea7cdbe49ea52",
-    "size": 51896,
+    "sha": "8915a2551369434e065d74e872afb49a634b3a5e",
+    "size": 52236,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "3a54b07f3113fdd99ca94addf5ca3b7f16e71abf",
+    "sha": "1bea5bc1bbe50c5ce97b98ee3fb0a65903c991e0",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1673,34 +1673,6 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/README.en.md",
-    "sha": "96ab8daf8b98528bcfef00f999a7112f0e39fc61",
-    "size": 279,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/results.en.md",
-    "sha": "0cd117e7014d7db3173f317e0e62ab0c6bf714b3",
-    "size": 666,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/settings.en.md",
-    "sha": "132c78ac2e7862c077476ec092b5303b2fbd4352",
-    "size": 295,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/J1/export_20250916_191011/verification.en.md",
-    "sha": "4cdc9233c35d09f2435e293a2f18393a32676c14",
-    "size": 277,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110.zip",
     "sha": "b116a3cbb5fa1c8743777de0b21a1eba0431f4ab",
     "size": 11639780,
@@ -1764,9 +1736,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/README.en.md",
+    "sha": "96ab8daf8b98528bcfef00f999a7112f0e39fc61",
+    "size": 279,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/README.md",
     "sha": "b86451cf9e01f350dcc6b7dd371683c19e5b1ac0",
     "size": 310,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/results.en.md",
+    "sha": "62a2a67d364efbad96d56aaef2399c861a400d2d",
+    "size": 666,
     "type": "blob",
     "mode": "100644"
   },
@@ -1778,9 +1764,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/settings.en.md",
+    "sha": "f61eb5a6fa9c42dc3ccbb6724b599f83ce83c39c",
+    "size": 296,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/settings.md",
     "sha": "f149c8fdf23b724d0cd36f13395c8224463892e7",
     "size": 301,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/export_20250918_232110/verification.en.md",
+    "sha": "12e854fa9d2620247a6b74291fe7ec88978b3fd8",
+    "size": 277,
     "type": "blob",
     "mode": "100644"
   },
@@ -1837,6 +1837,34 @@
     "path": "Sierpinski Tetraeder_PoC/J1/README.md",
     "sha": "9760757250c081e3d9731a5b8e6776086d2b9dc7",
     "size": 4640,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/tab_1.pdf",
+    "sha": "14b188d84ee4b41f590347de13e62035954cb47c",
+    "size": 664973,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/tab_2.pdf",
+    "sha": "e61729faa92101588bfd60bb9c1bf2335840f51a",
+    "size": 579713,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/tab_3.pdf",
+    "sha": "accf6ba3fe146d68a429601e3017264e5c1da031",
+    "size": 1233501,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/J1/tab_4.pdf",
+    "sha": "2637652c75321c9cc804862de5a4352f0911b965",
+    "size": 283796,
     "type": "blob",
     "mode": "100644"
   },
