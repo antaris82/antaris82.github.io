@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "fed93c6d63467e124f21b0426ae8b608a292863b",
-    "size": 52949,
+    "sha": "bf146f913946ca6f1c01e9c73a92c2992d05fd6c",
+    "size": 53358,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "40db6e6a8fc7e6a9845eca415d83276850377181",
+    "sha": "03ea5d8270cafb00f378ba4e049331b3faa48ca0",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1683,6 +1683,13 @@
     "path": "Sierpinski Tetraeder_PoC/I8/v0.1/artifacts/run_2025-10-03_09-58-46_SG_L3_R_eff/bundle.zip",
     "sha": "a85e546da9a8cde0105d5e112ad3f0554163c3dd",
     "size": 559202,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/I8/v0.1/chain of emergence.pdf",
+    "sha": "17807ad3dcf7bc56297a83c196389cb0d8a4df6d",
+    "size": 465390,
     "type": "blob",
     "mode": "100644"
   },
