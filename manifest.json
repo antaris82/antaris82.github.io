@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "bf146f913946ca6f1c01e9c73a92c2992d05fd6c",
-    "size": 53358,
+    "sha": "08e4cc5f35f015190a47d7daf90dce5369471ce2",
+    "size": 53554,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "03ea5d8270cafb00f378ba4e049331b3faa48ca0",
+    "sha": "27707bd3e13b4d49dbb93f7edfda9c626477ef0b",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1683,6 +1683,20 @@
     "path": "Sierpinski Tetraeder_PoC/I8/v0.1/artifacts/run_2025-10-03_09-58-46_SG_L3_R_eff/bundle.zip",
     "sha": "a85e546da9a8cde0105d5e112ad3f0554163c3dd",
     "size": 559202,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/I8/v0.1/artifacts/run_2025-10-03_09-58-46_SG_L3_R_eff/ideal_graph.png",
+    "sha": "f959adadc6c42d351d1065aefb52429f00394091",
+    "size": 39345,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/I8/v0.1/artifacts/run_2025-10-03_09-58-46_SG_L3_R_eff/real_graph_harmonic.png",
+    "sha": "f1d776b378371eacae837c24673a8c6d11136b2f",
+    "size": 47568,
     "type": "blob",
     "mode": "100644"
   },
