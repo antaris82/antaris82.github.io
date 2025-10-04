@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "cbe454aa94b628a278c7c5c9af692034a569edb9",
-    "size": 265,
+    "sha": "b4eb4b413fd3c3cbf363451aa7182b96321a3136",
+    "size": 46,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "ecdc6e4708dd90f4addc641bc7a4eb225243bfda",
-    "size": 54209,
+    "sha": "565bee9555ab1cdd6503043299d9615e98cb4c53",
+    "size": 54393,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "554e447e44afc35ee536d3197e838ccb1a011e09",
+    "sha": "fd52c262cac2c1837efedaa6fb0369a570b0258b",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1708,9 +1708,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/I8/v0.2.1/app.py",
+    "sha": "22cdcf5dc48932523fc7225c8fbed7270371c327",
+    "size": 40458,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/I8/v0.2/app.py",
     "sha": "22cdcf5dc48932523fc7225c8fbed7270371c327",
     "size": 40458,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/I8/v0.2/CHANGELOG.en.md",
+    "sha": "c68664d01056d4bf697e66534bbeb8b0981b53d1",
+    "size": 7270,
     "type": "blob",
     "mode": "100644"
   },
