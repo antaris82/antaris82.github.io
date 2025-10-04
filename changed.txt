@@ -1,4 +1,1 @@
-Sierpinski Tetraeder_PoC/J1/export_20250916_191011/README.en.md
-Sierpinski Tetraeder_PoC/J1/export_20250916_191011/results.en.md
-Sierpinski Tetraeder_PoC/J1/export_20250916_191011/settings.en.md
-Sierpinski Tetraeder_PoC/J1/export_20250916_191011/verification.en.md
+Sierpinski Tetraeder_PoC/I8/v0.2/CHANGELOG.md
