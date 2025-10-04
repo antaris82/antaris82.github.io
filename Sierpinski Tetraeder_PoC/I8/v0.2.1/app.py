@@ -1,4 +1,4 @@
-# app.py — I8_v0.2 (RAM/CPU-optimiert)
+# app.py — I8_v0.2.1 (RAM/CPU-optimiert, Bugs gefixt)
 # IDEAL (LvN) ↔ REAL (GKSL) ↔ Raumzeit (Cluster/Poset) ↔ Symmetriebruch ↔ „Higgs“
 # Kernänderung ggü. I8_v0.2: GKSL-Schritt ohne dichte L_k-Matrizen (kantennah, sparse),
 # cptp_entropy_check in speichersicherer Variante, ansonsten Feature-Parität.
