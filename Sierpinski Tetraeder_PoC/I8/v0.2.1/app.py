@@ -60,6 +60,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import streamlit as st
 
+
 # -----------------------
 # Utils
 # -----------------------
@@ -272,21 +273,54 @@ def eff_res_on_edges_sparse(L: ss.csr_matrix, edges: Iterable[Tuple[int,int]]) -
         res[key] = eff_resistance_pair(L, LU, keep, i, j, ground=0)
     return res
 
-def outer_boundary(fractal, g:Graph, edges):
-    B=set()
-    if fractal in ("SG","ST"):
-        for i,b in g.idx_to_bary.items():
-            if any(x==0 for x in b): B.add(i)
-    elif fractal=="VIC":
-        z0,z1=F(0),F(1)
-        for i,(x,y) in g.idx_to_bary.items():
-            if x in (z0,z1) or y in (z0,z1): B.add(i)
-    else:  # DF, BTREE
-        deg=np.zeros(len(g.idx_to_bary),int)
-        for (u,v) in edges: deg[u]+=1; deg[v]+=1
-        for i,d in enumerate(deg):
-            if d==1: B.add(i)
+def _is_outer_corner_simplex(bary_tuple) -> bool:
+    """True genau dann, wenn der Punkt ein äußerster Eckpunkt ist:
+       eine Koordinate = 1, alle anderen = 0 (genau, nicht '≈')."""
+    ones = sum(1 for x in bary_tuple if x == F(1))
+    zeros = sum(1 for x in bary_tuple if x == F(0))
+    return (ones == 1) and (ones + zeros == len(bary_tuple))
+
+
+
+from fractions import Fraction as F
+
+def _is_outer_corner_simplex(bary_tuple) -> bool:
+    """Nur echte Ecken des Simplex: genau eine 1 und sonst 0."""
+    ones = sum(1 for x in bary_tuple if x == F(1))
+    zeros = sum(1 for x in bary_tuple if x == F(0))
+    return (ones == 1) and (ones + zeros == len(bary_tuple))
+
+def outer_boundary(fractal, g: Graph, edges):
+    """
+    Äußerster Rand:
+      • SG/ST: nur die Ecken (3 bzw. 4 Punkte).
+      • VIC: kompletter Rahmen (x=0/1 oder y=0/1) → L_II ist SPD.
+      • DF/BTREE: Blätter (Grad 1).
+    """
+    B = set()
+    if fractal in ("SG", "ST"):
+        for i, b in g.idx_to_bary.items():
+            if _is_outer_corner_simplex(b):
+                B.add(i)
+        return B
+
+    if fractal == "VIC":
+        # kompletter äußere Rahmen
+        z0, z1 = F(0), F(1)
+        for i, (x, y) in g.idx_to_bary.items():
+            if x in (z0, z1) or y in (z0, z1):
+                B.add(i)
+        return B
+
+    # DF / BTREE: Grad-1-Knoten
+    deg = np.zeros(len(g.idx_to_bary), int)
+    for (u, v) in edges:
+        deg[u] += 1; deg[v] += 1
+    for i, d in enumerate(deg):
+        if d == 1:
+            B.add(i)
     return B
+
 
 # -----------------------
 # REAL-Gewichte & DtN (sparse)
@@ -493,91 +527,62 @@ def cptp_entropy_check_sparse(L_csr, w, edges, rho0, steps=80, T=1.0):
 # -----------------------
 def channel_from_unitary_kraus(H_full: np.ndarray, S_idx: List[int], dt: float, rhoE: np.ndarray):
     """
-    Baut Φ_Δt(X) = Tr_E[ U (X⊗ρE) U† ], robust für alle Randfälle:
-      • nE = 0  → reine Systemunität (kein Reshape auf (… , 0, … , 0)).
-      • nS = 0  → 0×0-Objekte zurückgeben (Aufrufer kann das ignorieren).
-      • nE > 0 → Kraus-Konstruktion mit ρE-Eigenzerlegung.
-
+    CPTP-Kanal auf dem S-Subraum für eine Direkt-Summen-Partition H = H_S ⊕ H_E.
+    Konstruktion als Subraum-Kompressionskanal:
+        W = P U V = U_SS  (Kontraktion),
+        K0 = W,
+        K⊥ = sqrt(I - W†W).
     Rückgabe:
-      T : (nS^2 × nS^2)-Superoperator (complex)
-      J : (nS^2 × nS^2)-Choi-Matrix (PSD)
-      diag_info : dict(cp_ok=True, min_eig=..., tp_err=...)
+        T  : Superoperator (nS^2 × nS^2)
+        J  : Choi-Matrix (nS^2 × nS^2, PSD)
+        diag_info : {'cp_ok': True, 'min_eig': ..., 'tp_err': ...}
     """
     n = H_full.shape[0]
     S = np.array(sorted(S_idx), dtype=int)
     nS = int(len(S))
-    if nS == 0:
-        # Leeres System: degenerater Kanal
-        return (np.zeros((0,0), complex),
-                np.zeros((0,0), complex),
-                dict(cp_ok=True, min_eig=0.0, tp_err=0.0))
 
-    # E = Komplement von S
-    all_idx = np.arange(n, dtype=int)
-    mask = np.ones(n, dtype=bool)
-    mask[S] = False
-    E = all_idx[mask]
-    nE = int(len(E))
+    if nS == 0:
+        # Leerer Subraum: trivialer Kanal
+        return (np.zeros((0, 0), complex),
+                np.zeros((0, 0), complex),
+                dict(cp_ok=True, min_eig=0.0, tp_err=0.0))
 
     # Globale Unitarität
     U = dla.expm(-1j * H_full * dt)
 
-    # Permutieren: (S vor E), damit die zusammengesetzte Basis (s,e) contiguous ist
-    perm = np.concatenate([S, E])
-    Upe = U[np.ix_(perm, perm)]  # Form: (nS+nE)×(nS+nE)
+    # Subblock auf dem S-Subraum: W = P U V = U_SS (Kontraktion)
+    U_SS = U[np.ix_(S, S)]  # (nS × nS)
 
-    # Fall A: Keine Umwelt → unitärer Kanal auf S
-    if nE == 0:
-        # Dann ist Upe = U_S und die Kanalabbildung ist X ↦ U_S X U_S†
-        U_S = Upe  # Größe nS×nS
-        Vdim = nS * nS
-        T = np.kron(U_S, U_S.conj())                    # (nS^2 × nS^2)
-        vK = vec(U_S)                                   # einziger Kraus K = U_S
-        J = np.outer(vK, vK.conj())                     # Choi-Matrix
-        tp_err = float(np.linalg.norm(U_S.conj().T @ U_S - np.eye(nS)))
-        lam_min = float(np.min(np.linalg.eigvalsh(hermitize(J))).real)
-        return T, J, dict(cp_ok=True, min_eig=lam_min, tp_err=tp_err)
+    # K0 = W
+    K0 = U_SS
 
-    # Fall B: Normale Umweltgröße nE > 0
-    # ρE prüfen/anpassen
-    if rhoE is None or rhoE.size == 0 or rhoE.shape != (nE, nE):
-        rhoE = np.eye(nE, dtype=complex) / nE
+    # K⊥ = sqrt(I - W†W), numerisch stabil (Clip)
+    X = K0.conj().T @ K0
+    X = 0.5 * (X + X.conj().T)  # hermitisieren
+    w, Vh = np.linalg.eigh(X)
+    w = np.clip(w, 0.0, 1.0)         # wegen Rundungsfehlern
+    IminusX = np.eye(nS) - (Vh @ np.diag(w) @ Vh.conj().T)
+    IminusX = 0.5 * (IminusX + IminusX.conj().T)
+    # Eigenzerlegung für die Wurzel
+    s, Us = np.linalg.eigh(IminusX)
+    s = np.clip(s, 0.0, None)
+    Kperp = Us @ np.diag(np.sqrt(s)) @ Us.conj().T
 
-    # U in Rang-4-Array bringen: U[s',e'; s,e]
-    # Reihen-/Spaltenindex in (S,E)-Reihenfolge: row = s'*nE + e', col = s*nE + e
-    # Das entspricht einem reshape mit order='C', wenn (S,E) contiguous ist.
-    U4 = Upe.reshape(nS, nE, nS, nE, order='C')  # U4[s', e', s, e]
-
-    # ρE-Eigenzerlegung (diagonal): ρE = U_E diag(p) U_E†
-    wE, UE = np.linalg.eigh(rhoE)   # wE = p_β ≥ 0
-    # Transformiere die Eingangs-Env-Achse (β) in die ρE-Eigenbasis:
-    # Indexkonvention: U4[s', e', s, e]  → kontrahiere die letzte Achse mit UE (e → β')
-    # Das lässt sich als Matrixmultiplikation auf der letzten Achse schreiben:
-    # Für jedes (s', e', s):  [U4[s', e', s, :]]  @ UE   → Größe (nE,)
-    U4 = np.tensordot(U4, UE, axes=([3],[0]))  # Ergebnis: (nS, nE, nS, nE) mit letzter Achse β'
-
-    # Kraus sammeln: K_{αβ'} = √p_{β'} * U_{αβ'} als (nS×nS)-Matrix
+    # Superoperator & Choi aus {K0, K⊥}
     Vdim = nS * nS
-    T = np.zeros((Vdim, Vdim), complex)
-    J = np.zeros((Vdim, Vdim), complex)
-    KdagK = np.zeros((nS, nS), complex)
+    T = np.kron(K0, K0.conj()) + np.kron(Kperp, Kperp.conj())
 
-    # alpha = e' (Env-Output), beta_p = β' (Env-Input in ρE-Eigenbasis)
-    for alpha in range(nE):
-        for beta_p in range(nE):
-            p = float(wE[beta_p])
-            if p < 1e-16:
-                continue
-            # U4[s', alpha, s, beta_p] → Matrix K in System-Indizes (s' als Zeile, s als Spalte)
-            K = math.sqrt(p) * U4[:, alpha, :, beta_p]   # (nS×nS)
-            T += np.kron(K, K.conj())
-            vK = vec(K)
-            J += np.outer(vK, vK.conj())
-            KdagK += K.conj().T @ K
+    def vec(M): return M.reshape((Vdim,), order="F")
+    v0 = vec(K0); v1 = vec(Kperp)
+    J = np.outer(v0, v0.conj()) + np.outer(v1, v1.conj())
+    J = 0.5 * (J + J.conj().T)
 
-    tp_err = float(np.linalg.norm(KdagK - np.eye(nS)))
-    lam_min = float(np.min(np.linalg.eigvalsh(hermitize(J))).real)
+    # Diagnostik
+    tp_err = float(np.linalg.norm(K0.conj().T @ K0 + Kperp.conj().T @ Kperp - np.eye(nS)))
+    lam_min = float(np.min(np.linalg.eigvalsh(J)).real)
+
     return T, J, dict(cp_ok=True, min_eig=lam_min, tp_err=tp_err)
+
 
 
 # -------- Memory-Kernel skizzierte LS ----------
