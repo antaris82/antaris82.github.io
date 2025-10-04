@@ -1,11 +1,7 @@
-# app.py
+# app.py — I8_v0.2 (RAM/CPU-optimiert)
 # IDEAL (LvN) ↔ REAL (GKSL) ↔ Raumzeit (Cluster/Poset) ↔ Symmetriebruch ↔ „Higgs“
-# Performance-Optimierungen (RAM/CPU) ohne Ergebnis-/Feature-Einschränkungen:
-#  • Φ_Δt aus Unitarität via Kraus-Blöcke (exakt CPTP, keine N^4-Schleifen)
-#  • Effektive Widerstände per einmaliger Sparse-Faktorisierung (kein L^+)
-#  • Cheeger/Fiedler mit eigsh (sparse), DtN via sparse Solves, Harmonic-Embed via sparse Solves
-#  • Skizzierte Memory-LS (ohne Kronecker-Giganten), leichte Reduktion von Kopien
-# (c) 2025 — MIT License
+# Kernänderung ggü. I8_v0.2: GKSL-Schritt ohne dichte L_k-Matrizen (kantennah, sparse),
+# cptp_entropy_check in speichersicherer Variante, ansonsten Feature-Parität.
 
 import io, json, math, zipfile
 from fractions import Fraction as F
@@ -14,6 +10,48 @@ from datetime import datetime
 from pathlib import Path
 
 import numpy as np
+
+def choi_from_T_fast(T: np.ndarray, nS: int) -> np.ndarray:
+    """
+    Schnelle Umformung Superoperator T → Choi J.
+    Konvention: vec nach Fortran-Order, J[i,k; j,l] = T[i,j; k,l].
+    """
+    if nS <= 0:
+        return np.zeros((0, 0), dtype=complex)
+    # T hat Form (nS^2 × nS^2)
+    return ((T.reshape(nS, nS, nS, nS, order="F")
+               .transpose(0, 2, 1, 3))
+               .reshape(nS*nS, nS*nS, order="F"))
+
+def rhp_cp_divisible(T_dt: np.ndarray,
+                     T_2dt: np.ndarray,
+                     nS: int,
+                     rcond: float = 1e-10) -> dict:
+    """
+    Rivas–Huelga–Plenio (RHP) Test auf CP-Divisibilität:
+      Θ = Φ_{2Δt} Φ_{Δt}^{†}  († = Moore–Penrose-Pseudoinverse)
+      J(Θ) ≥ 0  ⇒ cp_divisible = True
+    Gibt zurück: {'cp_divisible': bool, 'min_eig': float}
+    """
+    # Randfälle sauber behandeln
+    if nS <= 0:
+        return dict(cp_divisible=True, min_eig=0.0)
+    if T_dt.size == 0 or T_2dt.size == 0:
+        return dict(cp_divisible=True, min_eig=0.0)
+
+    # Stabil: Pseudoinverse (statt exakter Inverse), toleriert fast-singuläre Φ_{Δt}
+    # (NumPy ≥1.17: pinv unterstützt rcond)
+    T_dt_pinv = np.linalg.pinv(T_dt, rcond=rcond)
+    Theta = T_2dt @ T_dt_pinv
+
+    # Choi-Matrix und kleinster Eigenwert
+    J = choi_from_T_fast(Theta, nS)
+    # leichte Numerik-Glättung
+    J = 0.5*(J + J.conj().T)
+    lam_min = float(np.min(np.linalg.eigvalsh(J)).real)
+
+    return dict(cp_divisible=(lam_min > -1e-10), min_eig=lam_min)
+
 import scipy.sparse as ss
 import scipy.sparse.linalg as sla
 import scipy.linalg as dla
@@ -211,40 +249,27 @@ def build_laplacian(n, edges, weights=None) -> ss.csr_matrix:
     return ss.coo_matrix((data,(rows,cols)), shape=(n,n)).tocsr()
 
 def grounded_factorization(L: ss.csr_matrix, ground: int = 0):
-    """Faktorisiert L[~g,~g] (SPD) einmalig für effiziente Widerstands-/DtN-Solves."""
     n = L.shape[0]
     keep = np.array([i for i in range(n) if i != ground], dtype=int)
     Lred = L[keep][:, keep].tocsc()
-    LU = sla.splu(Lred)  # robust, auch ohne explizites Cholesky
+    LU = sla.splu(Lred)
     return keep, LU
 
 def eff_resistance_pair(L: ss.csr_matrix, LU, keep_idx: np.ndarray, i: int, j: int, ground: int = 0) -> float:
-    """Effektiver Widerstand R_ij = b^T y mit (L~) y = b~, b=e_i-e_j, 'ground' eliminiert."""
     if i == j: return 0.0
     n = L.shape[0]
-    # Map full-index -> reduced index
-    def ridx(k): 
-        if k==ground: return None
-        # binary search since keep is sorted; but n ist nicht riesig: linear ok
-        # besser: vorab Map bauen (einmalig). Hier quick:
-        return int(np.searchsorted(keep_idx, k))
-    b = np.zeros(n, float)
-    b[i] = 1.0; b[j] = -1.0
-    # remove ground
+    b = np.zeros(n, float); b[i] = 1.0; b[j] = -1.0
     b_red = b[keep_idx]
     y = LU.solve(b_red)
     R = float(np.dot(b_red, y))
     return max(R, 0.0)
 
 def eff_res_on_edges_sparse(L: ss.csr_matrix, edges: Iterable[Tuple[int,int]]) -> Dict[Tuple[int,int], float]:
-    """Effektive Widerstände nur auf Kanten, per einmaliger LU von L~."""
-    n = L.shape[0]
-    ground = 0  # beliebig, invariant
-    keep, LU = grounded_factorization(L, ground=ground)
+    keep, LU = grounded_factorization(L, ground=0)
     res = {}
     for (i,j) in edges:
         key=(i,j) if i<j else (j,i)
-        res[key] = eff_resistance_pair(L, LU, keep, i, j, ground=ground)
+        res[key] = eff_resistance_pair(L, LU, keep, i, j, ground=0)
     return res
 
 def outer_boundary(fractal, g:Graph, edges):
@@ -267,13 +292,12 @@ def outer_boundary(fractal, g:Graph, edges):
 # REAL-Gewichte & DtN (sparse)
 # -----------------------
 def real_weights_deepening(L_id_csr: ss.csr_matrix, edges, g:Graph, fractal):
-    R = eff_res_on_edges_sparse(L_id_csr, edges)  # keine pinv mehr
+    R = eff_res_on_edges_sparse(L_id_csr, edges)
     B = outer_boundary(fractal,g,edges)
     gamma=3 if fractal=="VIC" else 2
     w={}
     for (i,j) in edges:
         key=(i,j) if i<j else (j,i)
-        # Randgewicht = 1
         if fractal in ("DF","BTREE"):
             if i in B or j in B: w[key]=1.0; continue
         else:
@@ -284,7 +308,6 @@ def real_weights_deepening(L_id_csr: ss.csr_matrix, edges, g:Graph, fractal):
     return w
 
 def kron_reduce_dense(L: np.ndarray, keep: set):
-    # (nur bei Bedarf im KRON-Modus; Graphgrößen hier typischerweise klein)
     keep_idx = np.array(sorted(list(keep)), dtype=int)
     allidx = np.arange(L.shape[0])
     elim = np.setdiff1d(allidx, keep_idx)
@@ -297,7 +320,6 @@ def kron_reduce_dense(L: np.ndarray, keep: set):
     return LBB - LBE@LEE_p@LEB
 
 def real_weights_kron(L_id_csr: ss.csr_matrix, edges, g:Graph, fractal):
-    # Für KRON vereinfachend dense arbeiten (n moderat); bleibt funktionsgleich.
     L_id = L_id_csr.toarray()
     B0=outer_boundary(fractal,g,edges); w={}
     for (i,j) in edges:
@@ -309,7 +331,6 @@ def real_weights_kron(L_id_csr: ss.csr_matrix, edges, g:Graph, fractal):
         ell=max(g.birthlevel.get(i,0), g.birthlevel.get(j,0))
         keep=set(B0)|{k for k,bl in g.birthlevel.items() if bl<=ell}
         Lred=kron_reduce_dense(L_id, keep)
-        # R_ij in reduziertem Graph: kleiner, daher ok mit pinv
         Lp=np.linalg.pinv(Lred); d=np.diag(Lp)
         idx_sorted=list(sorted(keep))
         ii=idx_sorted.index(i); jj=idx_sorted.index(j)
@@ -317,7 +338,6 @@ def real_weights_kron(L_id_csr: ss.csr_matrix, edges, g:Graph, fractal):
     return w
 
 def dtn_map_sparse(L_csr: ss.csr_matrix, B: Iterable[int]) -> np.ndarray:
-    """DtN via Schur-Komplement mit Solves statt pinv: Λ = L_BB - L_BI L_II^{-1} L_IB."""
     B = sorted(list(B))
     n = L_csr.shape[0]
     I = sorted(list(set(range(n)) - set(B)))
@@ -326,7 +346,6 @@ def dtn_map_sparse(L_csr: ss.csr_matrix, B: Iterable[int]) -> np.ndarray:
     LBB = L_csr[np.ix_(B,B)].toarray()
     LIB = L_csr[np.ix_(I,B)].tocsc()
     LII = L_csr[np.ix_(I,I)].tocsc()
-    # Solve LII * X = LIB  → X = LII^{-1} LIB
     LU = sla.splu(LII)
     X = LU.solve(LIB.toarray())
     return LBB - LIB.T.toarray() @ X
@@ -365,6 +384,7 @@ def lvN(H: np.ndarray, rho0: np.ndarray, t: float):
     U=dla.expm(-1j*H*t)
     return U@rho0@U.conj().T
 
+# (klein-nS) dichte Lindblad-Operatoren nur noch für Subsystem-Superoperatoren:
 def lindblad_ops_dense(n, edges, w):
     Ls=[]
     for (i,j) in edges:
@@ -393,94 +413,174 @@ def superop_gksl(H, Ls):
         Diss += np.kron(Lk.T, Lk) - 0.5*(np.kron(I, LdL) + np.kron(LdL.T, I))
     return Hcomm + Diss
 
+# -------- Neuer, speichersicherer GKSL-Schritt (kantennah) ----------
+def gksl_step_graphwise(H_csr, rho, edges, w, dt, block=256):
+    """
+    GKSL-Schritt ohne dichte L_k:
+      dρ/dt = -i[H,ρ] + Σ_{(i,j)} ( L_ij ρ L_ij† - 1/2{L_ij† L_ij, ρ} ),
+    mit L_ij = √w_ij |i><j|.
+    Hamilton-Teil: sparse; Dissipator: kantenbasiert ohne große Temporaries.
+    """
+    n = rho.shape[0]
+    # Hamilton-Teil (sparse × dense)
+    Hrho = H_csr.dot(rho)
+    rhoH = (H_csr.T.dot(rho.T)).T
+    comm = -1j * (Hrho - rhoH)
+    rho2 = rho + dt * comm
+
+    # Dissipator
+    d = np.zeros(n, dtype=float)             # Σ Nachbarsgewichte pro Knoten
+    diag = np.diag(rho).copy().astype(complex)
+    inflow = np.zeros(n, dtype=complex)      # Σ_j w_ij * ρ_jj
+
+    for (i, j) in edges:
+        key = (i, j) if i < j else (j, i)
+        wij = w.get(key, 1.0)
+        d[i] += wij; d[j] += wij
+        inflow[i] += wij * diag[j]
+        inflow[j] += wij * diag[i]
+
+    # Diagonale aktualisieren
+    new_diag = diag + dt * (inflow - d * diag)
+
+    # Kohärenzen dämpfen: ρ ← ρ - ½ dt (D ρ + ρ D), D=diag(d) — blockweise
+    # Blockgröße so wählen, dass Speicherverbrauch klein bleibt
+    if n > 0:
+        bs = max(64, min(512, (1 << 20) // max(1, n)))  # grobe Faustformel
+        for a0 in range(0, n, bs):
+            a1 = min(n, a0 + bs)
+            rho2[a0:a1, :] -= 0.5 * dt * (d[a0:a1, None] * rho[a0:a1, :])
+        for b0 in range(0, n, bs):
+            b1 = min(n, b0 + bs)
+            rho2[:, b0:b1] -= 0.5 * dt * (rho[:, b0:b1] * d[None, b0:b1])
+
+    np.fill_diagonal(rho2, new_diag)
+    return hermitize(rho2)
+
+def cptp_entropy_check_sparse(L_csr, w, edges, rho0, steps=80, T=1.0):
+    """
+    Speichersichere Evidenzprüfung der GKSL-Dynamik:
+      - nutzt gksl_step_graphwise,
+      - prüft Trace, PSD, Entropiemonotonie.
+    """
+    n = L_csr.shape[0]
+    dt = max(T/steps, 1e-4)
+    rho = rho0.copy()
+    traces = []; mins = []; ent = []
+
+    def S(r):
+        wv = np.linalg.eigvalsh(hermitize(r))
+        wv = np.clip(wv, 0, 1)
+        wv = wv[wv > 1e-15]
+        return float(-np.sum(wv * np.log(wv))) if wv.size else 0.0
+
+    for _ in range(steps):
+        rho = gksl_step_graphwise(L_csr, rho, edges, w, dt)
+        traces.append(float(np.real(np.trace(rho))))
+        wmin = float(np.min(np.linalg.eigvalsh(hermitize(rho))))
+        mins.append(wmin)
+        ent.append(S(rho))
+
+    trace_ok = all(abs(x - 1.0) < 1e-6 for x in traces)
+    psd_ok   = all(m >= -1e-9 for m in mins)
+    ent_mono = all(ent[i+1] >= ent[i] - 1e-8 for i in range(len(ent)-1))
+
+    return dict(trace_ok=trace_ok, psd_ok=psd_ok, entropy_monotone=ent_mono,
+                passed=(trace_ok and psd_ok and ent_mono), rho=rho)
+
 # -----------------------
-# Φ_Δt: schneller, exakt CPTP (Kraus aus U-Blöcken)
+# Φ_Δt: exakt CPTP (Kraus aus U-Blöcken)
 # -----------------------
 def channel_from_unitary_kraus(H_full: np.ndarray, S_idx: List[int], dt: float, rhoE: np.ndarray):
     """
-    Baut Φ_Δt(X) = Tr_E[ U (X⊗ρE) U† ].
-    Implementierung:
-      • U = exp(-i H dt)
-      • U als (nS,nE,nS,nE)-Block-Array
-      • ρE = Σ pβ |β><β| → Kraus K_{αβ} = √pβ * U_{αβ}  (α=env out, β=env in)
-      • Superoperator T = Σ (K ⊗ K*) ; Choi J = Σ vec(K) vec(K)†
-      • TP-Check: Σ K†K = I
+    Baut Φ_Δt(X) = Tr_E[ U (X⊗ρE) U† ], robust für alle Randfälle:
+      • nE = 0  → reine Systemunität (kein Reshape auf (… , 0, … , 0)).
+      • nS = 0  → 0×0-Objekte zurückgeben (Aufrufer kann das ignorieren).
+      • nE > 0 → Kraus-Konstruktion mit ρE-Eigenzerlegung.
+
+    Rückgabe:
+      T : (nS^2 × nS^2)-Superoperator (complex)
+      J : (nS^2 × nS^2)-Choi-Matrix (PSD)
+      diag_info : dict(cp_ok=True, min_eig=..., tp_err=...)
     """
     n = H_full.shape[0]
     S = np.array(sorted(S_idx), dtype=int)
-    E = np.array(sorted(list(set(range(n)) - set(S_idx))), dtype=int)
-    nS = len(S); nE = len(E)
+    nS = int(len(S))
+    if nS == 0:
+        # Leeres System: degenerater Kanal
+        return (np.zeros((0,0), complex),
+                np.zeros((0,0), complex),
+                dict(cp_ok=True, min_eig=0.0, tp_err=0.0))
 
-    U = dla.expm(-1j*H_full*dt)
+    # E = Komplement von S
+    all_idx = np.arange(n, dtype=int)
+    mask = np.ones(n, dtype=bool)
+    mask[S] = False
+    E = all_idx[mask]
+    nE = int(len(E))
 
-    # Permutation: ordne Basis so, dass (S,E) blockweise contiguous sind
+    # Globale Unitarität
+    U = dla.expm(-1j * H_full * dt)
+
+    # Permutieren: (S vor E), damit die zusammengesetzte Basis (s,e) contiguous ist
     perm = np.concatenate([S, E])
-    Upe = U[np.ix_(perm, perm)]
+    Upe = U[np.ix_(perm, perm)]  # Form: (nS+nE)×(nS+nE)
 
-    # Blöcke: U_{αβ} ist (nS×nS), mit α,β in [0..nE-1]
-    U4 = Upe.reshape(nS, nE, nS, nE, order='C')
-    # ρE-Eigenzerlegung (diagonal genügt)
-    wE, UE = np.linalg.eigh(rhoE) if rhoE.size>0 else (np.array([1.0]), np.eye(1))
-    # Für Einfachheit: in Standardbasis; falls ρE ≈ I/nE, dann wE=1/nE, UE=I
-    # Wir transformieren die Eingangs-Env-Achse (β) in die ρE-Eigenbasis:
-    # Effektiv: U_{αβ'} = Σβ U_{αβ} (UE)_{β,β'}
-    if nE>0:
-        U4 = U4 @ UE  # wirkt auf letzte Achse (β-in)
+    # Fall A: Keine Umwelt → unitärer Kanal auf S
+    if nE == 0:
+        # Dann ist Upe = U_S und die Kanalabbildung ist X ↦ U_S X U_S†
+        U_S = Upe  # Größe nS×nS
+        Vdim = nS * nS
+        T = np.kron(U_S, U_S.conj())                    # (nS^2 × nS^2)
+        vK = vec(U_S)                                   # einziger Kraus K = U_S
+        J = np.outer(vK, vK.conj())                     # Choi-Matrix
+        tp_err = float(np.linalg.norm(U_S.conj().T @ U_S - np.eye(nS)))
+        lam_min = float(np.min(np.linalg.eigvalsh(hermitize(J))).real)
+        return T, J, dict(cp_ok=True, min_eig=lam_min, tp_err=tp_err)
 
-    # Kraus sammeln
-    Vdim = nS*nS
+    # Fall B: Normale Umweltgröße nE > 0
+    # ρE prüfen/anpassen
+    if rhoE is None or rhoE.size == 0 or rhoE.shape != (nE, nE):
+        rhoE = np.eye(nE, dtype=complex) / nE
+
+    # U in Rang-4-Array bringen: U[s',e'; s,e]
+    # Reihen-/Spaltenindex in (S,E)-Reihenfolge: row = s'*nE + e', col = s*nE + e
+    # Das entspricht einem reshape mit order='C', wenn (S,E) contiguous ist.
+    U4 = Upe.reshape(nS, nE, nS, nE, order='C')  # U4[s', e', s, e]
+
+    # ρE-Eigenzerlegung (diagonal): ρE = U_E diag(p) U_E†
+    wE, UE = np.linalg.eigh(rhoE)   # wE = p_β ≥ 0
+    # Transformiere die Eingangs-Env-Achse (β) in die ρE-Eigenbasis:
+    # Indexkonvention: U4[s', e', s, e]  → kontrahiere die letzte Achse mit UE (e → β')
+    # Das lässt sich als Matrixmultiplikation auf der letzten Achse schreiben:
+    # Für jedes (s', e', s):  [U4[s', e', s, :]]  @ UE   → Größe (nE,)
+    U4 = np.tensordot(U4, UE, axes=([3],[0]))  # Ergebnis: (nS, nE, nS, nE) mit letzter Achse β'
+
+    # Kraus sammeln: K_{αβ'} = √p_{β'} * U_{αβ'} als (nS×nS)-Matrix
+    Vdim = nS * nS
     T = np.zeros((Vdim, Vdim), complex)
     J = np.zeros((Vdim, Vdim), complex)
     KdagK = np.zeros((nS, nS), complex)
 
-    for alpha in range(nE if nE>0 else 1):
-        for beta_p in range(nE if nE>0 else 1):
-            p = float(wE[beta_p]) if nE>0 else 1.0
-            if p < 1e-16: continue
-            K = math.sqrt(p) * U4[:, alpha, :, beta_p]  # nS×nS
-            # Beitrag zu T und J und TP
+    # alpha = e' (Env-Output), beta_p = β' (Env-Input in ρE-Eigenbasis)
+    for alpha in range(nE):
+        for beta_p in range(nE):
+            p = float(wE[beta_p])
+            if p < 1e-16:
+                continue
+            # U4[s', alpha, s, beta_p] → Matrix K in System-Indizes (s' als Zeile, s als Spalte)
+            K = math.sqrt(p) * U4[:, alpha, :, beta_p]   # (nS×nS)
             T += np.kron(K, K.conj())
             vK = vec(K)
             J += np.outer(vK, vK.conj())
             KdagK += K.conj().T @ K
 
-    # TP-Fehler
     tp_err = float(np.linalg.norm(KdagK - np.eye(nS)))
-    # CP ist konstruktiv erfüllt; min-Eig für Diagnose
     lam_min = float(np.min(np.linalg.eigvalsh(hermitize(J))).real)
     return T, J, dict(cp_ok=True, min_eig=lam_min, tp_err=tp_err)
 
-def choi_from_T_fast(T, nS):
-    # Nur für Visualisierung kleiner Ausschnitte; T→J per Permutation der Indizes:
-    # J[i,k; j,l] = T[i,j; k,l]
-    J = np.transpose(T.reshape(nS,nS,nS,nS, order='F'), (0,2,1,3)).reshape(nS*nS, nS*nS, order='F')
-    return hermitize(J)
 
-def is_tp(T, nS, tol=1e-8):
-    vI = vec(np.eye(nS)); return bool(np.linalg.norm(T @ vI - vI) < tol), float(np.linalg.norm(T @ vI - vI))
-
-def rhp_cp_divisible(T_dt, T_2dt, nS):
-    T_pinv = np.linalg.pinv(T_dt); Theta = T_2dt @ T_pinv
-    J = choi_from_T_fast(Theta, nS); lam_min = float(np.min(np.linalg.eigvalsh(J)).real)
-    return dict(cp_divisible=bool(lam_min>-1e-10), min_eig=lam_min)
-
-def blp_backflow(T_dt, steps: int, nS: int):
-    def ev(ρ, k):
-        v = vec(ρ)
-        for _ in range(k): v = T_dt @ v
-        return unvec(v, nS)
-    i,j = 0, min(1, max(0,nS-1))
-    ρ1 = np.zeros((nS,nS)); ρ1[i,i]=1.0
-    ρ2 = np.zeros((nS,nS)); ρ2[j,j]=1.0
-    D=[]; prev=None; back=0.0
-    for k in range(1, steps+1):
-        a = ev(ρ1, k); b = ev(ρ2, k)
-        Δ = a-b; s = np.linalg.svd(Δ, compute_uv=False); d = 0.5*float(np.sum(np.abs(s)))
-        if prev is not None and d>prev+1e-9: back += (d-prev)
-        D.append(d); prev=d
-    return dict(backflow=back, D=D[:40])
-
-# -------- Memory-Kernel skizzierte LS (OOM-frei) ----------
+# -------- Memory-Kernel skizzierte LS ----------
 def memory_kernel_least_squares(T_dt, T_2dt, nS, depth=3, sketch_cols=32, ridge=1e-6):
     V = nS*nS
     Ts = [np.eye(V, dtype=complex), T_dt, T_dt@T_dt, T_2dt@T_dt]
@@ -554,7 +654,6 @@ def heatmap(M, title):
     return fig
 
 def fiedler_sparse(L_csr: ss.csr_matrix):
-    # kleinste 2 Eigenpaare
     try:
         vals, vecs = sla.eigsh(L_csr.asfptype(), k=2, which='SM')
         order = np.argsort(vals)
@@ -562,7 +661,6 @@ def fiedler_sparse(L_csr: ss.csr_matrix):
         fvec = np.real(vecs[:,order[1]]) if len(vals)>1 else np.zeros(L_csr.shape[0])
         return lam1, fvec
     except Exception:
-        # Fallback klein: dense
         L = L_csr.toarray()
         w,V = np.linalg.eigh(L)
         return float(w[1] if len(w)>1 else 0.0), (V[:,1] if len(w)>1 else np.zeros(L.shape[0]))
@@ -588,13 +686,11 @@ def higgs_surrogate_mass(rho_real):
     v=np.sqrt(np.clip(np.real(np.diag(rho_real)),0,None))
     return float(np.sqrt(np.mean(v*v)))
 
-# -------- Harmonic Embedding (REAL) via sparse Solves --------
 def harmonic_embed_with_fixed_boundary(L_csr: ss.csr_matrix, X_ideal: np.ndarray, B_idx: Iterable[int]):
-    """REAL-Koordinaten aus Dirichlet-harmonischer Einbettung: L_II x_I = - L_IB x_B."""
     n=L_csr.shape[0]
     B=sorted(list(B_idx))
     I=sorted(list(set(range(n)) - set(B)))
-    if not I:  # nur Rand
+    if not I:
         return X_ideal.copy()
     LII=L_csr[np.ix_(I,I)].tocsc()
     LIB=L_csr[np.ix_(I,B)].tocsc()
@@ -630,23 +726,18 @@ def cheeger_bound_sparse(L_csr: ss.csr_matrix, edges):
     return dict(lambda1=lam1, h=best, lower=lower, passed=(lam1+1e-8>=lower))
 
 def varadhan_test_sparse(L_csr: ss.csr_matrix, t=0.03, pairs=60):
-    """Ohne volle R-Matrix: Widerstände paarweise per LU; Heat-Kernel via expm_multiply."""
     n=L_csr.shape[0]
     if n < 2:
         return dict(a=float("nan"), b=float("nan"), r=1.0, passed=True, note="n<2: trivial")
     A=L_csr.tocsr()
     keep, LU = grounded_factorization(L_csr, ground=0)
     from scipy.sparse.linalg import expm_multiply
-    xs=[]; ys=[]
-    tries = 0
+    xs=[]; ys=[]; tries = 0
     while len(xs) < min(pairs, n*(n-1)//2) and tries < 5*pairs:
-        i=int(rng.integers(0,n)); j=int(rng.integers(0,n))
-        tries += 1
+        i=int(rng.integers(0,n)); j=int(rng.integers(0,n)); tries += 1
         if i==j: continue
-        # Heat kernel column j from e_i
         e=np.zeros(n); e[i]=1.0
         col=expm_multiply((-t)*A, e); p=max(col[j],1e-300)
-        # R_ij
         Rij = eff_resistance_pair(L_csr, LU, keep, i, j, ground=0)
         xs.append(Rij*Rij); ys.append(-2*t*math.log(p))
     if len(xs)<5: return dict(a=float("nan"),b=float("nan"),r=0.0, passed=False, note="wenig Stichproben")
@@ -675,22 +766,6 @@ def triangle_resistance_ok_sparse(L_csr: ss.csr_matrix, trials: int = 200):
     return dict(rate=float(rate), passed=(rate < 1e-3), tried=tried,
                 note=f"Tripel: {tried} von max. {max_triples}")
 
-def cptp_entropy_check(H, w, edges, rho0, steps=80, T=1.0):
-    n=H.shape[0]; Ls=lindblad_ops_dense(n, edges, w)
-    dt=max(T/steps,1e-4); rho=rho0.copy(); traces=[]; mins=[]; ent=[]
-    def S(r):
-        w=np.linalg.eigvalsh(r); w=np.clip(w,0,1); w=w[w>1e-15]
-        return float(-np.sum(w*np.log(w)))
-    for _ in range(steps):
-        rho=gksl_step(H, rho, Ls, dt)
-        traces.append(float(np.real(np.trace(rho))))
-        w=np.linalg.eigvalsh(rho); mins.append(float(np.min(w)))
-        ent.append(S(rho))
-    trace_ok=all(abs(x-1.0)<1e-6 for x in traces)
-    psd_ok=all(m>=-1e-9 for m in mins)
-    ent_mono=all(ent[i+1]>=ent[i]-1e-8 for i in range(len(ent)-1))
-    return dict(trace_ok=trace_ok, psd_ok=psd_ok, entropy_monotone=ent_mono, passed=(trace_ok and psd_ok and ent_mono), rho=rho)
-
 # -----------------------
 # Streamlit UI
 # -----------------------
@@ -700,13 +775,13 @@ st.sidebar.header("Steuerung")
 auto = st.sidebar.checkbox("Auto-Ableitung (Fraktal & REAL-Modus)", value=True)
 fractal = st.sidebar.selectbox("Fraktal (manuell)", ["SG","ST","VIC","DF","BTREE"], index=0, disabled=auto)
 mode = st.sidebar.radio("REAL-Modus (manuell)", ["R_eff","KRON"], index=0, disabled=auto)
-L = st.sidebar.slider("Approximanten-Level L", 1, 6, 3)
+L = st.sidebar.slider("Approximanten-Level L", 1, 20, 3)
 
 rho0_kind = st.sidebar.selectbox(
     "Initialzustand ρ₀",
     ["Lokal rein (tiefster Level)", "Zufällig rein", "Zufällig gemischt", "Maximale Mischung"],
     index=0,
-    help="Maximale Mischung bleibt unter LvN und unitalem GKSL invariant → ρ_IDEAL = ρ_REAL. Wähle einen nichttrivialen Zustand."
+    help="Maximale Mischung bleibt unter LvN und unitaler GKSL invariant → ρ_IDEAL = ρ_REAL. Wähle einen nichttrivialen Zustand."
 )
 
 t_evo = st.sidebar.number_input("Zeit t (LvN/GKSL)", min_value=0.0, value=1.0, step=0.1)
@@ -739,7 +814,8 @@ def infer_model(L, candidates=("SG","ST","VIC","DF","BTREE"), modes=("R_eff","KR
             L_real_csr=build_laplacian(n, edges, w)
             ev1=cheeger_bound_sparse(L_real_csr, edges)
             ev2=varadhan_test_sparse(L_real_csr, t=0.03 if n<=1200 else 0.02)
-            ev3=cptp_entropy_check(H_from_L_dense(L_real_csr), w, edges, rho0=np.eye(n)/n, steps=40, T=0.5)
+            # SPEICHERSICHER: keine dichten L_k erzeugen
+            ev3=cptp_entropy_check_sparse(L_real_csr, w, edges, rho0=np.eye(n)/n, steps=40, T=0.5)
             tri_trials = 150 if n >= 50 else 50 if n >= 10 else 10
             ev4=triangle_resistance_ok_sparse(L_real_csr, trials=tri_trials)
             score=sum([ev1["passed"], ev2["passed"], ev3["passed"], ev4["passed"]])
@@ -816,11 +892,11 @@ rho0 = make_rho0(rho0_kind, n, G)
 
 # IDEAL/REAL Dynamik
 rho_id = lvN(H_id, rho0, t_evo)
-Ls_full = lindblad_ops_dense(n, edges, w_real)
 dt = max(t_evo/steps, 1e-4)
 rho_real = rho0.copy()
 for _ in range(steps):
-    rho_real = gksl_step(H_id, rho_real, Ls_full, dt)  # H_id ≡ L_real bei uns → identisch zum alten Verhalten
+    # SPEICHERSICHER: kein L_k-Array; Hamilton-Laplacian = L_real_csr
+    rho_real = gksl_step_graphwise(L_real_csr, rho_real, edges, w_real, dt)
 
 # Raumzeit/Cluster/Symmetrie
 lam1, cluster, edges_c, f = modularity_cluster(L_real_csr, edges)
@@ -856,6 +932,116 @@ st.markdown(f"**Ordnungsparameter** M ≈ {m_order:+.3f}  |  **Binder** U₄ ≈
 # -----------------------
 st.subheader("Emergenz-Dilatation: Φ_Δt aus globaler Unitarität → Markov-Diagnostik")
 
+def _trace_distance(rho_a: np.ndarray, rho_b: np.ndarray) -> float:
+    """
+    Trace-Distanz D(ρ,σ) = 1/2 * ||ρ-σ||_1.
+    Für Hermitesches Δ = ρ-σ genügt: ||Δ||_1 = Summe(|Eigenwerte(Δ)|).
+    """
+    Delta = (rho_a - rho_b)
+    Delta = 0.5 * (Delta + Delta.conj().T)        # Hermitisierung
+    evals = np.linalg.eigvalsh(Delta)
+    return 0.5 * float(np.sum(np.abs(evals)))
+
+def blp_backflow(T_dt: np.ndarray,
+                 steps: int,
+                 nS: int,
+                 trials: int = 6,
+                 seed: int = 42) -> dict:
+    """
+    BLP-Backflow-Approximation:
+      - Evolviert mehrere Zustands-Paare unter Φ_{Δt}^k (k=0..steps)
+      - Summiert alle positiven Zuwächse der Trace-Distanz D_k
+      - Gibt das Maximum über geprüfte Paare zurück
+
+    Parameter
+    ---------
+    T_dt   : Superoperator (nS^2 × nS^2) für Δt
+    steps  : Anzahl diskreter Schritte (k=0..steps)
+    nS     : Dimension des Subsystems S
+    trials : Anzahl zufälliger zusätzlicher Paare (neben ein paar deterministischen)
+    seed   : RNG-Seed für Reproduzierbarkeit
+
+    Rückgabe
+    --------
+    dict(backflow=float,
+         D=list,             # D_k des besten Paares (bis max 40 Elemente)
+         pair_kind=str,      # 'basis' oder 'random'
+         pair_info=dict)     # Indizes bzw. Seed
+    """
+    if nS <= 0 or T_dt.size == 0:
+        return dict(backflow=0.0, D=[0.0], pair_kind="degenerate", pair_info={})
+
+    rng = np.random.default_rng(seed)
+    V = nS * nS
+
+    def vec(M): return M.reshape((V,), order="F")
+    def unvec(v): return v.reshape((nS, nS), order="F")
+
+    # einige deterministische Paare (Projektoren auf Basiszustände)
+    det_pairs = []
+    if nS >= 2:
+        det_pairs.append((0, 1))
+        det_pairs.append((0, nS - 1))
+    else:
+        det_pairs.append((0, 0))
+
+    def pure_density_from_index(k: int) -> np.ndarray:
+        rho = np.zeros((nS, nS), dtype=complex)
+        rho[k, k] = 1.0
+        return rho
+
+    def random_pure_density() -> np.ndarray:
+        v = rng.normal(size=(nS,)) + 1j * rng.normal(size=(nS,))
+        v /= np.linalg.norm(v)
+        v = v.reshape((nS, 1))
+        return v @ v.conj().T
+
+    candidates = []
+    # deterministische Paare
+    for (i, j) in det_pairs:
+        rho1 = pure_density_from_index(i)
+        rho2 = pure_density_from_index(j)
+        candidates.append(("basis", {"i": i, "j": j}, rho1, rho2))
+    # zufällige Paare
+    for _ in range(max(0, trials)):
+        rho1 = random_pure_density()
+        rho2 = random_pure_density()
+        candidates.append(("random", {}, rho1, rho2))
+
+    best_back = -1.0
+    best_D = None
+    best_meta = ("", {})
+
+    for kind, meta, rho1, rho2 in candidates:
+        v1 = vec(rho1)
+        v2 = vec(rho2)
+        D_vals = []
+
+        # k=0 (Start)
+        D_vals.append(_trace_distance(unvec(v1), unvec(v2)))
+
+        # iterativ T anwenden; keine Powers speichern
+        back = 0.0
+        prev = D_vals[-1]
+        for _k in range(1, steps + 1):
+            v1 = T_dt @ v1
+            v2 = T_dt @ v2
+            Dk = _trace_distance(unvec(v1), unvec(v2))
+            if Dk > prev + 1e-12:
+                back += (Dk - prev)
+            D_vals.append(Dk)
+            prev = Dk
+
+        if back > best_back:
+            best_back = back
+            best_D = D_vals[:40]  # für kompakte Anzeige begrenzen
+            best_meta = (kind, meta)
+
+    return dict(backflow=float(max(best_back, 0.0)),
+                D=best_D if best_D is not None else [0.0],
+                pair_kind=best_meta[0],
+                pair_info=best_meta[1])
+
 # Partition S
 if partition_kind=="Level-Cut":
     if n>0:
@@ -883,7 +1069,7 @@ nS = len(S_idx)
 Sset = set(S_idx)
 E_idx = sorted(list(set(range(n)) - set(S_idx)))
 nE = len(E_idx)
-rhoE = np.eye(nE)/max(nE,1)  # bleibt wie zuvor
+rhoE = np.eye(nE)/max(nE,1)
 
 if nS>=1:
     with st.spinner("Kanal Φ_Δt (exakt CPTP, Kraus-Blöcke) …"):
@@ -891,7 +1077,7 @@ if nS>=1:
         T_2dt, _, _ = channel_from_unitary_kraus(H_id, S_idx, 2*dt, rhoE)
     cp_ok = diag_info["cp_ok"]; lam_min = diag_info["min_eig"]; tp_err = diag_info["tp_err"]
 
-    # REAL-GKSL auf S
+    # REAL-GKSL auf S (nS klein → dichte L_k ok)
     index_map = {orig:i_new for i_new,orig in enumerate(S_idx)}
     edges_S = [(index_map[i], index_map[j]) for (i,j) in edges if (i in Sset and j in Sset)]
     w_S = {}
@@ -912,7 +1098,6 @@ if nS>=1:
         f"**‖Φ_Δt − e^{{Δt𝓛_REAL}}‖/‖·‖ ≈ {T_err:.3e}**"
     )
 
-    # Memory-Kern (skizzierte LS, OOM-frei)
     mem = memory_kernel_least_squares(T_dt, T_2dt, nS, depth=3)
     st.info(f"Memory-Kern: skizzierte LS (q={mem.get('q','?')}), Rekonstruktionsfehler ≈ {mem['rec_error']:.3e}")
 
@@ -922,7 +1107,6 @@ if nS>=1:
         blp = blp_backflow(T_dt, min(80, steps), nS)
         st.json(dict(RHP=rhp, BLP=dict(backflow=blp['backflow'], D=blp['D'][:10]), Memory=mem))
     with c8:
-        # kleiner Visual-Ausschnitt
         nshow = min(10, nS*nS)
         st.plotly_chart(heatmap(np.real(J_dt[:nshow,:nshow]), "Choi(Φ_Δt) — Ausschnitt"), use_container_width=True)
 else:
@@ -934,7 +1118,7 @@ else:
 # -----------------------
 ev1 = cheeger_bound_sparse(L_real_csr, edges)
 ev2 = varadhan_test_sparse(L_real_csr, t=0.03 if n<=1200 else 0.02)
-ev3 = cptp_entropy_check(H_id, w_real, edges, rho0=np.eye(n)/max(1,n), steps=40, T=0.5)
+ev3 = cptp_entropy_check_sparse(L_real_csr, w_real, edges, rho0=np.eye(n)/max(1,n), steps=40, T=0.5)
 tri_trials = 150 if n >= 50 else 50 if n >= 10 else 10
 ev4 = triangle_resistance_ok_sparse(L_real_csr, trials=tri_trials)
 score = sum([ev1["passed"], ev2["passed"], ev3["passed"], ev4["passed"]])
