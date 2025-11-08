@@ -141,15 +141,22 @@
   },
   {
     "path": "manifest.json",
-    "sha": "b8590f193d8492fb1cff62329075e8a73e6de737",
+    "sha": "a4a249e983c2a106e5be180616bc29f8e552886d",
     "size": 54760,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "0a907781dff619b5050a7ea5a6fec03cdf339b11",
+    "sha": "34488a6226fc39c95799f8d05a35cc0c8b04f065",
     "size": 119,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "ngf_animation.gif",
+    "sha": "02155575e5580dcd7347870f868976a8303860a7",
+    "size": 249816,
     "type": "blob",
     "mode": "100644"
   },
