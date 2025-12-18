@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "cfcc175e71602f2caa9bda48a59c892e34e78714",
-    "size": 55566,
+    "sha": "36473831596e03579e462f42e16c05ea0ba2b425",
+    "size": 55561,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "cea23ed11dbcebbd5a505343419631b7081e8d0e",
+    "sha": "0bdeab05125346d6330ba7b25b6c9550ae0fbfa8",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1977,6 +1977,13 @@
     "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/1.1/SG_Lmax9.png",
     "sha": "1ef37490794b3aecd6a0e4b786f6950b49ea1aeb",
     "size": 861859,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/1.1/ST_Lmax5.png",
+    "sha": "bc660089e90b15d494913d2957a934eb5ec53fb7",
+    "size": 1096562,
     "type": "blob",
     "mode": "100644"
   },
