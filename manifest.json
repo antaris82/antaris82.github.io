@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "36473831596e03579e462f42e16c05ea0ba2b425",
-    "size": 55561,
+    "sha": "b8a6bf0faa1c99b5ef1dce623eec14315a514440",
+    "size": 55764,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "0bdeab05125346d6330ba7b25b6c9550ae0fbfa8",
+    "sha": "ed1a181355de5dd46156f7431e6ce198728e5578",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1963,6 +1963,13 @@
     "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/1.1/REAL_Graph_Generator_Streamlit_v1.1_harmonic.zip",
     "sha": "580941928abe9f3b08f165558d03c5d6484d22f8",
     "size": 28171,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/1.1/REAL_ST_rotation.gif",
+    "sha": "9b4bdab1ca5d0465ba8ceb54c799c05db4c6f67b",
+    "size": 365255,
     "type": "blob",
     "mode": "100644"
   },
