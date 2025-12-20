@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "b741a718bb6bddfba3c2bfe65af6a3bd33cf11db",
-    "size": 56204,
+    "sha": "6b01744016f92ed4d866c0bd0fd8f8eb7ce64fb0",
+    "size": 56437,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "938a2f930b813c98a2be8ede88fe0d1bb994f127",
+    "sha": "74c0590bb4719da513cf2103fd08c4cdd3cd1833",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2003,8 +2003,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/REAL-Graph_OQS-Definition.pdf",
-    "sha": "dcc0ee19001059f5556102946427ee76a682262b",
-    "size": 296660,
+    "sha": "9dde64e116e1834234d1ee7bf48772539878f4fd",
+    "size": 296927,
     "type": "blob",
     "mode": "100644"
   },
