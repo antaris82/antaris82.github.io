@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "d04a91266667d994c1fcf1a85e992ba32ec2c993",
-    "size": 56437,
+    "sha": "0a458918e724fb0317a55e7b6a4ad8d43530257c",
+    "size": 57012,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "78033d7edd1eb861c8dd35464817ed1eecf9022e",
+    "sha": "af2a4c11b86fa2df636bfc9c8b957e5cf0a1728d",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2002,16 +2002,23 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/A_REAL-Graph_OQS-Definition_validate_calibrate/Plan_REALGraph_Test_Kalibrierung_updated_v11.pdf",
-    "sha": "80eb93b88231b3233bac694d614748eaa7857a62",
-    "size": 575697,
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/REAL-Graph_OQS-Definition_v2.pdf",
+    "sha": "50d5fb5f1023772f4dd0f18bda0f803e825bcf5b",
+    "size": 260506,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/A_REAL-Graph_OQS-Definition_validate_calibrate/realgraph_validation_A.zip",
-    "sha": "1fee8f01c683a734fa3bbf596dcf74340bb6d4b7",
-    "size": 16367,
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/SG_L_max=3 harmonic embedding.png",
+    "sha": "9159829c2296a6ac2bf9385e14ac771a375cf919",
+    "size": 74621,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/SG_Multiscale_n=0...5_conductance_heterogenity_growth.png",
+    "sha": "7791e0707a14e17a71fcf29d1db0c9eb51c86ffb",
+    "size": 48081,
     "type": "blob",
     "mode": "100644"
   },
