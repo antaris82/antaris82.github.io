@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "0a458918e724fb0317a55e7b6a4ad8d43530257c",
-    "size": 57012,
+    "sha": "d4a60e882724f5fb2ac0ff475fe03b0185489eae",
+    "size": 57196,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "af2a4c11b86fa2df636bfc9c8b957e5cf0a1728d",
+    "sha": "ae3949ae8a81b941f7af6e917b6a4c708a729acb",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2012,6 +2012,13 @@
     "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/SG_L_max=3 harmonic embedding.png",
     "sha": "9159829c2296a6ac2bf9385e14ac771a375cf919",
     "size": 74621,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/SG_L_max=3_symmetry_breaking_over_n.gif",
+    "sha": "fe37544765778ae06eb43f8b3299e07271c4546c",
+    "size": 879146,
     "type": "blob",
     "mode": "100644"
   },
