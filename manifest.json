@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "9aceaead9d640c14589349e941f1b44f24970d07",
-    "size": 60039,
+    "sha": "a54cc3847633661e053013853c47821e26d965a9",
+    "size": 60014,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "04563e4069d580f6575991ae55f5ef5b2b0532b4",
+    "sha": "52ae3e6b4f93a882299f5f8f675141a5cca053d1",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2017,8 +2017,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/A_SG_Lmax=3.png",
-    "sha": "7e1397b147109c503f67e68339541dddd77cc9d5",
-    "size": 1848955,
+    "sha": "f6e06246a5aebb4f839fb94f8a85615cad3729ab",
+    "size": 13367531,
     "type": "blob",
     "mode": "100644"
   },
