@@ -1,0 +1,20 @@
+Symbol-Extraktionsreport (v4_rev8)
+================================
+
+Quelle:
+- Definition (TeX): REAL-Graph_OQS-Definition_v4_rev8.tex
+  SHA256: f4cb6b4fcb0a0ff70c49583ef36ab94d4dd9adbf022fd2e22e4eaeb361ade4e3
+- Definition (PDF): REAL-Graph_OQS-Definition_v4_rev8.pdf
+  SHA256: 0f926e22fdc9bb2b78b1b490c932ee893d58f63a5369c239ac55d66bfb1e9cee
+
+Extrakt:
+- Datei: symbol_table_extract_v4_rev8.json
+  SHA256: 4ee768874d4ab878a4817323fae9cfc4ac5f22f9d8295e0a60e8d923d91a90c6
+- Anzahl Einträge: 311
+
+Änderung ggü. v4_rev7:
+- Hinzugefügt: $L_0^{\mathrm{glob}}$
+
+Inhaltlicher Hinweis:
+Der neue Eintrag repräsentiert den globalen Worst-Case-Fensterstartindex
+$L_0^{\mathrm{glob}} := \max_{A\in\mathcal A_{\log}} L_0(A)$ (bzw. $\bot$), siehe Def.~\ref{def:acceptance}.

@@ -1,0 +1,482 @@
+{
+  "meta": {
+    "definition": {
+      "label_count": 64,
+      "pdf_path": "REAL-Graph_OQS-Definition_v4_rev8.pdf",
+      "sha256_pdf": "0f926e22fdc9bb2b78b1b490c932ee893d58f63a5369c239ac55d66bfb1e9cee",
+      "sha256_tex": "f4cb6b4fcb0a0ff70c49583ef36ab94d4dd9adbf022fd2e22e4eaeb361ade4e3",
+      "tex_path": "REAL-Graph_OQS-Definition_v4_rev8.tex"
+    },
+    "definition_pdf": "REAL-Graph_OQS-Definition_v4_rev8.pdf",
+    "definition_pdf_sha256": "0f926e22fdc9bb2b78b1b490c932ee893d58f63a5369c239ac55d66bfb1e9cee",
+    "definition_tex": "REAL-Graph_OQS-Definition_v4_rev8.tex",
+    "definition_tex_sha256": "f4cb6b4fcb0a0ff70c49583ef36ab94d4dd9adbf022fd2e22e4eaeb361ade4e3",
+    "generated_utc": "2026-01-01T16:58:17Z",
+    "implementation_plan": {
+      "pdf_path": "Implementierungsplan_REAL-Graph_OQS_v4_rev14.pdf",
+      "sha256_pdf": "ab4bacbb44172b4481a10eb6a9ee4b6e6a511eb594891c6bbd770c812a57a78d",
+      "sha256_tex": "de909ba9ac5e406802af026fdec0689c8404f9ccf84f210df59d19078d7ac6e1",
+      "tex_path": "Implementierungsplan_REAL-Graph_OQS_v4_rev14.tex"
+    },
+    "module_map": {
+      "json_path": "symbol_module_map_v4_rev6.json",
+      "note": "Normative symbol→module mapping per Appendix B (one-way hashing: definition references this file's hash).",
+      "sha256": "e9505a32dacfbf2a8aebf45d1214767e9215220acac1e4f4a667264aa6e3baa7"
+    },
+    "note": "Updated for L0(A) + global L0^{glob} (Definition v4_rev8) and module map rev6.",
+    "symbol_coverage": {
+      "json_path": "symbol_coverage_rev7.json",
+      "sha256": "c2743dbb99932881d9a4a72965a364bcd4a44cf570c6c8f90b92847b3bf02bf9"
+    }
+  },
+  "rows": [
+    {
+      "code": "orchestration/modulemap.py::load_module_map",
+      "label": "app:modulemap",
+      "report": "env_lock.module_map_file; env_lock.module_map_sha256",
+      "test": "UT:app:modulemap",
+      "topic": "App. B (Modulemap, pinned by SHA256)"
+    },
+    {
+      "code": "orchestration/config_defaults.py::sec2_defaults",
+      "label": "app:params_sec2",
+      "report": "config.defaults.sec2",
+      "test": "UT:app:params_sec2",
+      "topic": "Parameter-Tabelle Abschnitt 2: alle Größen implementiert/geloggt"
+    },
+    {
+      "code": "orchestration/config_defaults.py::sec3_defaults",
+      "label": "app:params_sec3",
+      "report": "config.defaults.sec3",
+      "test": "UT:app:params_sec3",
+      "topic": "Parameter-Tabelle Abschnitt 3: alle Größen implementiert/geloggt"
+    },
+    {
+      "code": "policy/solve.py::solve_spd_policy",
+      "label": "def:Solve",
+      "report": "gates.solve",
+      "test": "UT:def:Solve",
+      "topic": "Deterministische Solve-Semantik + Gates (valid/COND_FAIL) inkl. Retry-Policy"
+    },
+    {
+      "code": "orchestration/acceptance.py::evaluate_acceptance",
+      "label": "def:acceptance",
+      "report": "acceptance.*",
+      "test": "IT:def:acceptance",
+      "topic": "Akzeptanzkriterien/Gates: τ_rel, p_fb, p_mreg, λ-Budget usw."
+    },
+    {
+      "code": "orchestration/batch.py::write_batch_artifacts",
+      "label": "def:batch_artifacts",
+      "report": "artifacts.batch_cells",
+      "test": "UT:def:batch_artifacts",
+      "topic": "Abs. 2 (prä-OQS)"
+    },
+    {
+      "code": "algebra/dtn_kron.py::coarse_dtn_kron",
+      "label": "def:coarse_dtn",
+      "report": "algebra.dtn",
+      "test": "UT:def:coarse_dtn",
+      "topic": "Coarse DtN/Kron auf B0 (Schur-Komplement), deterministische Ordnung"
+    },
+    {
+      "code": "policy/solve.py::cond_proxy",
+      "label": "def:cond_monitor",
+      "report": "gates.cond",
+      "test": "UT:def:cond_monitor",
+      "topic": "Konditionsmonitoring (Proxy) und Logging"
+    },
+    {
+      "code": "orchestration/convergence.py::hypothesis_status",
+      "label": "def:conv_hyp",
+      "report": "conv.hypotheses",
+      "test": "UT:def:conv_hyp",
+      "topic": "H1–H3 als Hypothesen: Status=UNVERIFIED falls nicht erfüllt"
+    },
+    {
+      "code": "orchestration/convergence.py::log_conv_metrics",
+      "label": "def:conv_protocol",
+      "report": "conv.metrics",
+      "test": "UT:def:conv_protocol",
+      "topic": "Pflicht-Logging Δ_L(A), ρ_L, δ_spec_L"
+    },
+    {
+      "code": "orchestration/env_lock.py::build_env_lock",
+      "label": "def:envlock_manifest",
+      "report": "env_lock",
+      "test": "UT:def:envlock_manifest",
+      "topic": "env_lock Manifest: Policy-Hash, Versionstrings, Definition-Hashes"
+    },
+    {
+      "code": "policy/expm.py::expm_hermitian",
+      "label": "def:expm_det",
+      "report": "policy.matrixfunc.expm",
+      "test": "UT:def:expm_det",
+      "topic": "Deterministische expm (für Kanal-/Dynamikkomponenten) via Eigenbasis-Fixierung"
+    },
+    {
+      "code": "orchestration/convergence.py::LimitGuard",
+      "label": "def:limit_interpretation",
+      "report": "conv.limit_guard",
+      "test": "UT:def:limit_interpretation",
+      "topic": "Grenzwertinterpretation nur bei Stabilität; sonst Kennzeichnung"
+    },
+    {
+      "code": "policy/logdet.py::logdet_psd",
+      "label": "def:logm_det",
+      "report": "policy.matrixfunc.logdet",
+      "test": "UT:def:logm_det",
+      "topic": "Deterministische Matrixfunktionen: logm/logdet via Eigenbasis-Fixierung + clipping"
+    },
+    {
+      "code": "orchestration/run_meta.py::claim_ladder",
+      "label": "def:pillarA_bridge_claims",
+      "report": "run_meta.claims.bridge",
+      "test": "UT:def:pillarA_bridge_claims",
+      "topic": "Bridge-Claims (Emergenzpfad) als getrennte Kategorie"
+    },
+    {
+      "code": "orchestration/run_meta.py::claim_ladder",
+      "label": "def:pillarA_claim_ladder",
+      "report": "run_meta.claims.ladder",
+      "test": "UT:def:pillarA_claim_ladder",
+      "topic": "Claim-Ladder als Report: was ist Claim vs Nicht-Claim"
+    },
+    {
+      "code": "ideal/patch.py::patch1_ordering",
+      "label": "def:preg_locality",
+      "report": "ideal.patch_meta",
+      "test": "UT:def:preg_locality",
+      "topic": "Prä-geometrische Lokalität: Patch-1 Ordnung, Rand-Definitionen"
+    },
+    {
+      "code": "policy/regspd.py::regspd(A)",
+      "label": "def:regspd",
+      "report": "gates.regspd",
+      "test": "UT:def:regspd",
+      "topic": "RegSPD-Eskalation, cholOK, m_chol, δ0, β_reg^m"
+    },
+    {
+      "code": "driver/update.py::saturate_delta",
+      "label": "def:saturation",
+      "report": "driver.saturation",
+      "test": "UT:def:saturation",
+      "topic": "Sättigung/Clipping der Updates Δ(e) deterministisch"
+    },
+    {
+      "code": "orchestration/sensitivity.py::run_sensitivity_suite",
+      "label": "def:sensitivity",
+      "report": "sensitivity.*",
+      "test": "UT:def:sensitivity",
+      "topic": "Sensitivitätsläufe (Policy; optional, aber strukturierte Hooks)"
+    },
+    {
+      "code": "driver/fallback.py::apply_fallbacks",
+      "label": "def:soft_fallback",
+      "report": "driver.fallback",
+      "test": "UT:def:soft_fallback",
+      "topic": "Soft/Hard-Fallback Semantik + Flags f_hard/f_soft"
+    },
+    {
+      "code": "oqs/hilbert.py::direct_sum_space",
+      "label": "def:support_directsum",
+      "report": "oqs.hilbert_meta",
+      "test": "UT:def:support_directsum",
+      "topic": "Direktsumme-Hilbertraum-Support (kein Tensorfaktor im IDEAL)"
+    },
+    {
+      "code": "algebra/dtn_kron.py::validate_dtn_continuity",
+      "label": "prop:dtn_continuity",
+      "report": "checks.dtn_continuity",
+      "test": "UT:prop:dtn_continuity",
+      "topic": "Kontinuität/Robustheit von DtN/Kron (numerische Checks)"
+    },
+    {
+      "code": "ideal/trunk.py::validate_simple_graph",
+      "label": "prop:edges_welldefined_simple",
+      "report": "checks.simple_graph",
+      "test": "UT:prop:edges_welldefined_simple",
+      "topic": "Edge-Set ist einfacher Graph (keine Loops, keine Duplikate)"
+    },
+    {
+      "code": "ideal/trunk.py::validate_limit_path",
+      "label": "prop:ideal_limit_path",
+      "report": "checks.ideal_limit_path",
+      "test": "UT:prop:ideal_limit_path",
+      "topic": "IDEAL-Limitpfad: L_max-Approximation konsistent"
+    },
+    {
+      "code": "oqs/hilbert.py::assert_no_tensor_api",
+      "label": "prop:no_tensor_factor",
+      "report": "warnings.no_tensor_factor",
+      "test": "UT:prop:no_tensor_factor",
+      "topic": "Kein Tensorfaktor-Postulat: enforced via API (no tensor) "
+    },
+    {
+      "code": "algebra/dtn_kron.py::boundary_nonlocality_report",
+      "label": "prop:nonlocal_boundary",
+      "report": "dtn.boundary_nonlocality",
+      "test": "UT:prop:nonlocal_boundary",
+      "topic": "Nichtlokale Randkopplung als definierter Effekt (keine Kontinuum-Annahme)"
+    },
+    {
+      "code": "ideal/words.py::validate_padding_injective",
+      "label": "prop:padding_injective",
+      "report": "checks.padding_injective",
+      "test": "UT:prop:padding_injective",
+      "topic": "Padding injektiv (IDs stabil)"
+    },
+    {
+      "code": "ideal/words.py::pad_word",
+      "label": "prop:padding_welldefined",
+      "report": "checks.padding",
+      "test": "UT:prop:padding_welldefined",
+      "topic": "Padding/Extension wohldefiniert (Wort-Embedding)"
+    },
+    {
+      "code": "driver/update.py::validate_saturation_stability",
+      "label": "prop:saturation_stability",
+      "report": "checks.saturation_stability",
+      "test": "UT:prop:saturation_stability",
+      "topic": "Stabilitätscheck Saturation; warn/invalidate"
+    },
+    {
+      "code": "orchestration/seeding.py::validate_seed_orbit_invariance",
+      "label": "prop:seed_orbit_invariance",
+      "report": "checks.seed_orbit",
+      "test": "UT:prop:seed_orbit_invariance",
+      "topic": "Seed-Orbit-Invarianz (Ordering/Permutation-Invarianz Checks)"
+    },
+    {
+      "code": "driver/fallback.py::fallback_rates",
+      "label": "rem:abs_rate",
+      "report": "acceptance.fallback_rates",
+      "test": "UT:rem:abs_rate",
+      "topic": "Rate-Definitionen p_fb, p_fb_hard/soft"
+    },
+    {
+      "code": "orchestration/run_meta.py::scope_flags",
+      "label": "rem:approx_locality",
+      "report": "run_meta.scope.approx_locality",
+      "test": "UT:rem:approx_locality",
+      "topic": "Approx-Lokalität: nur approximiert, report as remark"
+    },
+    {
+      "code": "oqs/channel.py::ChoiChannel",
+      "label": "rem:channel_notation_pregeom",
+      "report": "oqs.channel_meta",
+      "test": "UT:rem:channel_notation_pregeom",
+      "topic": "Kanal-/Choi-Notation prä-geometrisch; report fields konsistent"
+    },
+    {
+      "code": "metrics/resistance.py::deltaR_policy",
+      "label": "rem:deltaR_robust",
+      "report": "policy.deltaR",
+      "test": "UT:rem:deltaR_robust",
+      "topic": "δ_R deterministisch aus float64; numerisch begründet"
+    },
+    {
+      "code": "driver/fallback.py::FallbackForensics",
+      "label": "rem:fb_forensics",
+      "report": "acceptance.forensics",
+      "test": "UT:rem:fb_forensics",
+      "topic": "Forensics-Felder für Fallback-Raten und Ursachen"
+    },
+    {
+      "code": "orchestration/run_meta.py::scope_flags",
+      "label": "rem:future_tensor",
+      "report": "run_meta.scope.future_tensor",
+      "test": "UT:rem:future_tensor",
+      "topic": "Tensorstruktur erst später; Markierung im Scope"
+    },
+    {
+      "code": "driver/lambda_gate.py::lambda_gate",
+      "label": "rem:lambda_constraint",
+      "report": "driver.lambda_gate",
+      "test": "UT:rem:lambda_constraint",
+      "topic": "λ-Constraint Bemerkung; enforced via λ-gate"
+    },
+    {
+      "code": "orchestration/reporting.py::write_report",
+      "label": "rem:log_total",
+      "report": "artifacts.report_json",
+      "test": "UT:rem:log_total",
+      "topic": "Total-Logging: jeder Run produziert vollständigen Audit-Trail"
+    },
+    {
+      "code": "oqs/mismatch.py::MismatchPolicy",
+      "label": "rem:mismatch_dp",
+      "report": "policy.dp",
+      "test": "UT:rem:mismatch_dp",
+      "topic": "d_p=1 preset; d_p als Policy-Feld"
+    },
+    {
+      "code": "policy/regspd.py::assert_no_double_jitter",
+      "label": "rem:no_double_jitter",
+      "report": "warnings.no_double_jitter",
+      "test": "UT:rem:no_double_jitter",
+      "topic": "Kein doppeltes Regularisieren in Solve/InvOK/Resistance"
+    },
+    {
+      "code": "orchestration/run_meta.py::scope_flags",
+      "label": "rem:nonlocal_intuition",
+      "report": "run_meta.scope.nonlocal_intuition",
+      "test": "UT:rem:nonlocal_intuition",
+      "topic": "Nichtlokalitäts-Interpretation nur als Hinweis; keine Claims"
+    },
+    {
+      "code": "oqs/reduction.py::partial_trace_ordered",
+      "label": "rem:partial_trace",
+      "report": "oqs.partial_trace_meta",
+      "test": "UT:rem:partial_trace",
+      "topic": "Ausspuren/Partielle Spur deterministisch geordnet"
+    },
+    {
+      "code": "orchestration/run_meta.py::scope_flags",
+      "label": "rem:pillarA_nonclaims",
+      "report": "run_meta.scope.nonclaims",
+      "test": "UT:rem:pillarA_nonclaims",
+      "topic": "Nicht-Claims explizit geloggt"
+    },
+    {
+      "code": "algebra/laplacian.py::dirichlet_energy",
+      "label": "rem:preg_energy_term",
+      "report": "algebra.dirichlet_energy",
+      "test": "UT:rem:preg_energy_term",
+      "topic": "Prä-geometrischer Energie-Term: Dirichlet-Form / Laplacian"
+    },
+    {
+      "code": "orchestration/convergence.py::RealLimitStatus",
+      "label": "rem:real_limit_status",
+      "report": "conv.real_limit_status",
+      "test": "UT:rem:real_limit_status",
+      "topic": "Statusfelder für REAL-Limit: VERIFIED/UNVERIFIED"
+    },
+    {
+      "code": "ideal/trunk.py::st_disabled_flag",
+      "label": "rem:st_separate_verification",
+      "report": "run_meta.scope.sg_only",
+      "test": "UT:rem:st_separate_verification",
+      "topic": "ST separater Verify-Flag; SG-only build default"
+    },
+    {
+      "code": "driver/update.py::tanh_choice_policy",
+      "label": "rem:tanh_choice",
+      "report": "policy.tanh_choice",
+      "test": "UT:rem:tanh_choice",
+      "topic": "tanh Choice fixiert (Policy, keine Variante)"
+    },
+    {
+      "code": "oqs/mismatch.py::qre_semantics_note",
+      "label": "rem:umegaki_vs_kl",
+      "report": "run_meta.scope.qre_note",
+      "test": "UT:rem:umegaki_vs_kl",
+      "topic": "QRE vs KL: Dokumentationshinweis; keine alternative Implementierung"
+    },
+    {
+      "code": "ideal/trunk.py::build_trunk_sg",
+      "label": "sec:bw_trunk",
+      "report": "ideal.trunk_meta",
+      "test": "UT:sec:bw_trunk",
+      "topic": "IDEAL-Trunk Build: Wörter, Quotient, Vertex-IDs, Edges, B0"
+    },
+    {
+      "code": "orchestration/convergence.py::ConvStatus",
+      "label": "sec:conv_status",
+      "report": "conv.status",
+      "test": "UT:sec:conv_status",
+      "topic": "Konvergenz-/Stabilitätsstatus im Report"
+    },
+    {
+      "code": "orchestration/run_meta.py::determinism_notes",
+      "label": "sec:det_eff_stoch",
+      "report": "run_meta.det_eff_stoch",
+      "test": "UT:sec:det_eff_stoch",
+      "topic": "Determinismus vs effektive Stochastik: Report-Felder"
+    },
+    {
+      "code": "driver/update.py::driverB_equiv_report",
+      "label": "sec:driverB-equiv",
+      "report": "driver.equiv",
+      "test": "UT:sec:driverB-equiv",
+      "topic": "Äquivalenzdarstellungen Driver-B; Report-Felder"
+    },
+    {
+      "code": "orchestration/env_lock.py::EnvLockSchema",
+      "label": "sec:env_lock",
+      "report": "env_lock.schema",
+      "test": "UT:sec:env_lock",
+      "topic": "env_lock Pflichtfeld-Struktur + Speicherung"
+    },
+    {
+      "code": "orchestration/hashing.py::graph_hash",
+      "label": "sec:graph_hash_def",
+      "report": "hash.graph",
+      "test": "UT:sec:graph_hash_def",
+      "topic": "Graph-Hash Definition (V,E,Ordering,c) für Determinismus"
+    },
+    {
+      "code": "policy/__init__.py::MatrixFuncPolicy",
+      "label": "sec:matrixfunc_policy",
+      "report": "env_lock.matrixfunc_policy",
+      "test": "UT:sec:matrixfunc_policy",
+      "topic": "Matrixfunktionen-Policy zentralisiert + in env_lock geloggt"
+    },
+    {
+      "code": "oqs/mismatch.py::compute_mismatch",
+      "label": "sec:mismatch",
+      "report": "oqs.mismatch",
+      "test": "UT:sec:mismatch",
+      "topic": "Mismatch-Definition (kanalbasiert) + Heatmaps/Reports"
+    },
+    {
+      "code": "orchestration/perf.py::PerfGuards",
+      "label": "sec:perf",
+      "report": "perf.*",
+      "test": "UT:sec:perf",
+      "topic": "Performance-Constraints: Sparse, Kron caching, deterministisches Ordering"
+    },
+    {
+      "code": "orchestration/run_meta.py::scope_flags",
+      "label": "sec:pillarA_scope_claims",
+      "report": "run_meta.scope",
+      "test": "UT:sec:pillarA_scope_claims",
+      "topic": "Scope: Pfeiler-A Claims/Non-Claims"
+    },
+    {
+      "code": "policy/regspd.py::JitterPolicy",
+      "label": "sec:reg_limit",
+      "report": "run_meta.jitter_policy",
+      "test": "UT:sec:reg_limit",
+      "topic": "No-double-jitter / δ-Jitter nur einmal, deterministisch"
+    },
+    {
+      "code": "metrics/diagnostics.py::resistance_diagnostics",
+      "label": "sec:resistance_diagnostics",
+      "report": "metrics.diagnostics",
+      "test": "UT:sec:resistance_diagnostics",
+      "topic": "Diagnostik: triangle inequality checks etc."
+    },
+    {
+      "code": "policy/solve.py::SolveReport",
+      "label": "sec:solve_semantics",
+      "report": "run_meta.solve_semantics",
+      "test": "UT:sec:solve_semantics",
+      "topic": "Explizite Semantikfelder (validglob, COND_FAIL getrennt) + Totalitäts-Fallbacks"
+    },
+    {
+      "code": "metrics/resistance.py::effective_resistance",
+      "label": "subsec:resistance_norm",
+      "report": "metrics.resistance",
+      "test": "UT:subsec:resistance_norm",
+      "topic": "Effektiver Widerstand: Ground-Knoten g, reduzierte Laplacian, δ_R"
+    },
+    {
+      "code": "viz/gauges.py::build_gauges",
+      "label": "subsec:viz_gauges",
+      "report": "viz.gauges",
+      "test": "UT:subsec:viz_gauges",
+      "topic": "Viz-Gauges: Gewichtsfeld vs Geometrie, Procrustes alignment"
+    }
+  ]
+}

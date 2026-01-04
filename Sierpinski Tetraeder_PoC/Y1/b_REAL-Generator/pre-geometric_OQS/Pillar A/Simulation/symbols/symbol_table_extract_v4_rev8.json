@@ -1,0 +1,1878 @@
+{
+  "meta": {
+    "definition_pdf": "REAL-Graph_OQS-Definition_v4_rev8.pdf",
+    "definition_pdf_sha256": "0f926e22fdc9bb2b78b1b490c932ee893d58f63a5369c239ac55d66bfb1e9cee",
+    "definition_tex": "REAL-Graph_OQS-Definition_v4_rev8.tex",
+    "definition_tex_sha256": "f4cb6b4fcb0a0ff70c49583ef36ab94d4dd9adbf022fd2e22e4eaeb361ade4e3",
+    "generated_utc": "2026-01-01T16:57:34Z",
+    "note": "Symbol table extraction updated for global L0^{glob} reporting (Def. def:acceptance)."
+  },
+  "symbols": [
+    {
+      "meaning_tex": "Wählt den IDEAL-Substrattyp (Sierpinski Gasket bzw.\\ Tetraeder) und damit Alphabetgröße, Randgröße und Symmetriestruktur.",
+      "origin_status_tex": "\\emph{frei} (Modellvariante)",
+      "symbol_canon": "$\\bullet\\in\\{\\mathrm{SG},\\mathrm{ST}\\}$",
+      "symbol_tex": "$\\bullet\\in\\{\\mathrm{SG},\\mathrm{ST}\\}$"
+    },
+    {
+      "meaning_tex": "Alphabet der IFS-Adressierung: $\\{0,1,2\\}$ (SG) bzw.\\ $\\{0,1,2,3\\}$ (ST).",
+      "origin_status_tex": "\\emph{abgeleitet} aus $\\bullet$",
+      "symbol_canon": "$\\Sset_\\bullet$",
+      "symbol_tex": "$\\Sset_\\bullet$"
+    },
+    {
+      "meaning_tex": "Eck-/Randanzahl: zugleich $|B_0|$ und Dimension der Randantworten (Dirichlet-to-Neumann).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$q:=|\\Sset_\\bullet|$",
+      "symbol_tex": "$q:=|\\Sset_\\bullet|$"
+    },
+    {
+      "meaning_tex": "Wortlänge / Approximationsstufe des Trunks; dient zur Definition von $V_L^\\bullet$, $E_L^\\bullet$.",
+      "origin_status_tex": "Index (kein Modellparameter)",
+      "symbol_canon": "$L$",
+      "symbol_tex": "$L\\in\\mathbb{N}_0$"
+    },
+    {
+      "meaning_tex": "Maximales Trunk-Level der endlichen Darstellung; bestimmt $|V|,|E|$ und damit Rechenaufwand/Approximation.",
+      "origin_status_tex": "\\emph{frei} (numerischer Cutoff)",
+      "symbol_canon": "$L_{\\max}$",
+      "symbol_tex": "$L_{\\max}\\in\\mathbb{N}_0$"
+    },
+    {
+      "meaning_tex": "Level-Indizes (z.\\,B.\\ Inklusion $\\iota_{\\ell\\to L}$, Zell-/Patch-Tiefen).",
+      "origin_status_tex": "Indizes",
+      "symbol_canon": "$\\ell,k$",
+      "symbol_tex": "$\\ell,k$"
+    },
+    {
+      "meaning_tex": "Diskreter Evolutions-/Feedback-Schritt; im IDEAL-Teil für Seed-/Konsistenzbegriffe benutzt, später in REAL/Driver-B maßgeblich.",
+      "origin_status_tex": "Index (Dynamikschritt)",
+      "symbol_canon": "$n$",
+      "symbol_tex": "$n\\in\\mathbb{N}_0$"
+    },
+    {
+      "meaning_tex": "Interne Freiheitsgrade pro Vertex (``interne Dimension''); skaliert den lokalen Hilbertraum $\\mathbb{C}^{d_p}$.",
+      "origin_status_tex": "\\emph{frei} (Modellwahl)",
+      "symbol_canon": "$d_p$",
+      "symbol_tex": "$d_p\\in\\mathbb{N}$"
+    },
+    {
+      "meaning_tex": "Lokalitätsradius in der Graphmetrik $d_G$; definiert, was als ``lokal'' im prä-geometrischen Sinn gilt.",
+      "origin_status_tex": "Begriffs-/Skalenparameter",
+      "symbol_canon": "$R$",
+      "symbol_tex": "$R\\in\\mathbb{N}$"
+    },
+    {
+      "meaning_tex": "Zelladresse/Wort der Länge $L$; indexiert Subzellen und ihre Randmengen $B_w$.",
+      "origin_status_tex": "\\emph{abgeleitet} (IFS-Notation)",
+      "symbol_canon": "$w$",
+      "symbol_tex": "$w\\in\\Sset_\\bullet^L$"
+    },
+    {
+      "meaning_tex": "Allgemeine Worte/Adressen; u.\\,a.\\ zur Definition von LCP/Identifikationen.",
+      "origin_status_tex": "Notation/Index",
+      "symbol_canon": "$u,v$",
+      "symbol_tex": "$u,v\\in\\Sset_\\bullet^L$"
+    },
+    {
+      "meaning_tex": "Leeres Wort (Root-Adresse); referenziert das globale Root-Patch.",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "$\\emptyset$",
+      "symbol_tex": "$\\emptyset$"
+    },
+    {
+      "meaning_tex": "$m$-fache Wiederholung eines Symbols $a\\in\\Sset_\\bullet$; dient zur kanonischen Einbettung (Fixpunkt-Padding).",
+      "origin_status_tex": "Notation",
+      "symbol_canon": "$a^m$",
+      "symbol_tex": "$a^m$"
+    },
+    {
+      "meaning_tex": "Roh-Vertexmenge vor Identifikation; Paare (Adresse, Ecke).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\widehat V_L:=\\Sset_\\bullet^L\\times\\Sset_\\bullet$",
+      "symbol_tex": "$\\widehat V_L:=\\Sset_\\bullet^L\\times\\Sset_\\bullet$"
+    },
+    {
+      "meaning_tex": "Constant-tail Identifikation (p.c.f.-Gluing): implementiert das ``Verkleben'' gemeinsamer Ecken benachbarter Zellen; erzeugt den SG/ST-Graphen.",
+      "origin_status_tex": "\\emph{fixiert} (Äquivalenzrelation)",
+      "symbol_canon": "$\\sim_L$",
+      "symbol_tex": "$\\sim_L$"
+    },
+    {
+      "meaning_tex": "Quotienten-Vertexmenge der Level-$L$-Approximation des IDEAL-Graphen.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$V_L^\\bullet:=\\widehat V_L/\\sim_L$",
+      "symbol_tex": "$V_L^\\bullet:=\\widehat V_L/\\sim_L$"
+    },
+    {
+      "meaning_tex": "Kantenmenge der Level-$L$-Approximation (loop-less); entsteht aus der p.c.f.-Nachbarschaftsregel.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$E_L^\\bullet$",
+      "symbol_tex": "$E_L^\\bullet$"
+    },
+    {
+      "meaning_tex": "Deterministische Einbettung niedriger Level in höhere Level via Fixpunkt-Padding; macht Levelvergleiche wohldefiniert.",
+      "origin_status_tex": "\\emph{fixiert} (kanonische Inklusion)",
+      "symbol_canon": "$\\iota_{\\ell\\to L}:V_\\ell^\\bullet\\to V_L^\\bullet$",
+      "symbol_tex": "$\\iota_{\\ell\\to L}:V_\\ell^\\bullet\\to V_L^\\bullet$"
+    },
+    {
+      "meaning_tex": "Induktiver Limes der Vertexmengen; formales ``$L_{\\max}=\\infty$''-Objekt.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$V_$",
+      "symbol_tex": "$V_\\infty^\\bullet:=\\varinjlim_L V_L^\\bullet$"
+    },
+    {
+      "meaning_tex": "Induktiver Limes der Kantenmengen; Topologie des unendlichen IDEAL-Graphen.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$E_$",
+      "symbol_tex": "$E_\\infty^\\bullet:=\\varinjlim_L E_L^\\bullet$"
+    },
+    {
+      "meaning_tex": "Unendlicher IDEAL-Graph (ontisches Postulat), auf den der endliche Trunk approximiert.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$G_\\infty^\\bullet:=(V_\\infty^\\bullet,E_$",
+      "symbol_tex": "$G_\\infty^\\bullet:=(V_\\infty^\\bullet,E_\\infty^\\bullet)$"
+    },
+    {
+      "meaning_tex": "Kanonischer Trunk (eingebettete Level-$L$-Approximation) innerhalb des unendlichen Objekts.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$K_L:=\\iota_L(V_L^\\bullet)\\subset V_$",
+      "symbol_tex": "$K_L:=\\iota_L(V_L^\\bullet)\\subset V_\\infty^\\bullet$"
+    },
+    {
+      "meaning_tex": "Konkreter endlicher Arbeitsgraph im Run; bestimmt Dimensionen aller Matrizen/Operatoren.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$V:=V_{L_{\\max}}^\\bullet,\\;E:=E_{L_{\\max}}^\\bullet$",
+      "symbol_tex": "$V:=V_{L_{\\max}}^\\bullet,\\;E:=E_{L_{\\max}}^\\bullet$"
+    },
+    {
+      "meaning_tex": "Globaler (prä-geometrischer) Zustandsraum: Vertex-Amplituden $\\ell^2(V)$ plus interne DOFs.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Htot:=\\ell^2(V_$",
+      "symbol_tex": "$\\Htot:=\\ell^2(V_\\infty^\\bullet)\\otimes\\mathbb{C}^{d_p}$"
+    },
+    {
+      "meaning_tex": "Support-Subraum für $S\\subseteq V$; ersetzt Tensorfaktorisierung durch direkte Summenstruktur.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal H_S:=\\ell^2(S)\\otimes\\mathbb{C}^{d_p}$",
+      "symbol_tex": "$\\mathcal H_S:=\\ell^2(S)\\otimes\\mathbb{C}^{d_p}$"
+    },
+    {
+      "meaning_tex": "Orthogonale Projektion auf $\\mathcal H_S$; verwendet für Reduktionen/Restriktionen.",
+      "origin_status_tex": "\\emph{abgeleitet} (Projektor)",
+      "symbol_canon": "$P_S$",
+      "symbol_tex": "$P_S$"
+    },
+    {
+      "meaning_tex": "Ausgewähltes Subsystem (z.\\,B.\\ Rand $B_0$ oder Zellrand $B_w$); definiert Reduktionen, DtN, lokale Observablen.",
+      "origin_status_tex": "\\emph{frei} (Subsystemwahl)",
+      "symbol_canon": "$B\\subseteq V$",
+      "symbol_tex": "$B\\subseteq V$"
+    },
+    {
+      "meaning_tex": "Komplement (``Umwelt'' relativ zu $B$) innerhalb der direkten Summenstruktur.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\bar B:=V\\setminus B$",
+      "symbol_tex": "$\\bar B:=V\\setminus B$"
+    },
+    {
+      "meaning_tex": "Kanonische Randknoten (Corner-Vertices) des Level-$L_{\\max}$-Trunks.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$b_i=[(i^{L_{\\max}},i)]$",
+      "symbol_tex": "$b_i=[(i^{L_{\\max}},i)]$"
+    },
+    {
+      "meaning_tex": "Globaler IDEAL-Rand (hochsymmetrisch); Referenzrand für globale DtN-Objekte und Randenergie-Tests.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$B_0:=\\{b_i:i$",
+      "symbol_tex": "$B_0:=\\{b_i:i\\in\\Sset_\\bullet\\}$"
+    },
+    {
+      "meaning_tex": "Randknoten der Zelle mit Adresse $w$ und Ecke $i$ (Zell-Corner).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$b_{w,i}=[(w\\,i^{L_{\\max}-|w|},i)]$",
+      "symbol_tex": "$b_{w,i}=[(w\\,i^{L_{\\max}-|w|},i)]$"
+    },
+    {
+      "meaning_tex": "Randmenge der adressierten Zelle $w$; Grundlage lokaler Reduktionen (DtN auf $B_w$).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$B_w:=\\{b_{w,i}:i$",
+      "symbol_tex": "$B_w:=\\{b_{w,i}:i\\in\\Sset_\\bullet\\}$"
+    },
+    {
+      "meaning_tex": "Deterministische Totalordnung/IDs auf Vertices und Wörtern; verhindert Mehrdeutigkeit (Tie-breaking, Hashes, Grounding).",
+      "origin_status_tex": "\\emph{fixiert} (kanonische Ordnung)",
+      "symbol_canon": "$\\prec,\\;\\id(x):=\\mathrm{rank}_\\prec(x)$",
+      "symbol_tex": "$\\prec,\\;\\id(x):=\\mathrm{rank}_\\prec(x)$"
+    },
+    {
+      "meaning_tex": "Ungewichtete Graphdistanz auf $G=(V,E)$; definiert lokale Nachbarschaften und ``$R$-lokale'' Operatoren.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$d_G(\\cdot,\\cdot)$",
+      "symbol_tex": "$d_G(\\cdot,\\cdot)$"
+    },
+    {
+      "meaning_tex": "Ein Operator/Einfluss ist $R$-lokal, wenn sein Support (als Vertexmenge) im $R$-Ball bzgl.\\ $d_G$ liegt.",
+      "origin_status_tex": "Definition (keine freie Physik)",
+      "symbol_canon": "$R$-lokal",
+      "symbol_tex": "$R$-lokal"
+    },
+    {
+      "meaning_tex": "Kantenleitwerte zum Schritt $n$; in Abschnitt 1 als allgemeines Symbol für gewichtete Laplacians bereits vorausgenommen.",
+      "origin_status_tex": "Zustandsgröße (später REAL)",
+      "symbol_canon": "$c_n:E\\to(0,$",
+      "symbol_tex": "$c_n:E\\to(0,\\infty)$"
+    },
+    {
+      "meaning_tex": "Gewichtete Laplace-Matrix des Graphen (Dirichlet-Form); Eingabe für DtN/Kron-Reduktionen und Seeds.",
+      "origin_status_tex": "\\emph{abgeleitet} aus $c_n$",
+      "symbol_canon": "$L_n$",
+      "symbol_tex": "$L_n$"
+    },
+    {
+      "meaning_tex": "Dirichlet-to-Neumann-Abbildung auf Rand $B$; kondensiert Innen-DOFs zu einer Randantwortmatrix.",
+      "origin_status_tex": "\\emph{abgeleitet} (Schur/Kron)",
+      "symbol_canon": "$\\mathrm{DtN}_{B}(L_n)$",
+      "symbol_tex": "$\\mathrm{DtN}_{B}(L_n)$"
+    },
+    {
+      "meaning_tex": "Deterministischer Zell-Seed: global kondensierte Randantwort der Zelle $w$; Basis für Äquivarianztests und Trajektorieninitialisierung.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathrm{Seed}_n(w):=\\Lambda^{\\glob}_{n,w}:=\\mathrm{DtN}_{B_w}(L_n)$",
+      "symbol_tex": "$\\mathrm{Seed}_n(w):=\\Lambda^{\\glob}_{n,w}:=\\mathrm{DtN}_{B_w}(L_n)$"
+    },
+    {
+      "meaning_tex": "Automorphismengruppe des Trunks, die $B_0$ als Menge fixiert; kodiert IDEAL-Symmetrie.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathrm{Aut}_{B_0}(V)$",
+      "symbol_tex": "$\\mathrm{Aut}_{B_0}(V)$"
+    },
+    {
+      "meaning_tex": "Stabilisator-Untergruppe von $\\mathrm{Aut}_{B_0}(V)$, die zusätzlich $L_n$ (also die Gewichtung) invariant lässt.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathrm{Stab}_{B_0}(L_n)$",
+      "symbol_tex": "$\\mathrm{Stab}_{B_0}(L_n)$"
+    },
+    {
+      "meaning_tex": "Zelläquivalenz unter Symmetrien: $w$ und $w'$ gelten als ``gleich'' zum Schritt $n$, wenn ihre Seeds bis auf zulässige Permutationen übereinstimmen.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$w\\sim_n w'$",
+      "symbol_tex": "$w\\sim_n w'$"
+    },
+    {
+      "meaning_tex": "Symmetrisierte Seed-Matrix; Grundlage numerisch stabiler Spektralsignaturen.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$S_w:=\\tfrac12(\\mathrm{Seed}_0(w)+\\mathrm{Seed}_0(w)^\\top)$",
+      "symbol_tex": "$S_w:=\\tfrac12(\\mathrm{Seed}_0(w)+\\mathrm{Seed}_0(w)^\\top)$"
+    },
+    {
+      "meaning_tex": "Eigenwerte von $S_w$; werden zur robusten Quantisierung/Signaturbildung verwendet.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\lambda_k(S_w)$",
+      "symbol_tex": "$\\lambda_k(S_w)$"
+    },
+    {
+      "meaning_tex": "Maschinenpräzisions-Skalen; definieren robuste Quantisierung und Tie-Schwellen ohne physikalische Zusatzparameter.",
+      "origin_status_tex": "\\emph{fixiert} (float64)",
+      "symbol_canon": "$\\epsmach,\\;\\epsfloor=\\sqrt{\\epsmach}$",
+      "symbol_tex": "$\\epsmach,\\;\\epsfloor=\\sqrt{\\epsmach}$"
+    },
+    {
+      "meaning_tex": "Quantisierungsskala (zellabhängig) für Eigenwert-Rundung; macht Hash-Invarianten robust gegen Rundungsrauschen.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$q_w:=\\epsfloor\\max\\{1,\\|S_w\\|_F\\}$",
+      "symbol_tex": "$q_w:=\\epsfloor\\max\\{1,\\|S_w\\|_F\\}$"
+    },
+    {
+      "meaning_tex": "Integer-Signaturkomponenten; Eingang für deterministischen Hash/Startphase.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$z_k(w):=\\mathrm{round}(\\lambda_k/q_w)$",
+      "symbol_tex": "$z_k(w):=\\mathrm{round}(\\lambda_k/q_w)$"
+    },
+    {
+      "meaning_tex": "Deterministische Initialphase pro Zelle $w$ (ohne Zufall); wählt bei Bedarf eine Trajektorie eindeutig aus.",
+      "origin_status_tex": "\\emph{abgeleitet} (SHA256-Hash)",
+      "symbol_canon": "$\\theta_{0,w}\\in[0,1)$",
+      "symbol_tex": "$\\theta_{0,w}\\in[0,1)$"
+    },
+    {
+      "meaning_tex": "Tie-Schwelle für Auswahlfunktion; wenn Kandidaten zu nahe liegen, wird $\\bot$ zurückgegeben (keine künstliche Entscheidung).",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "$\\tau_{\\Sel}:=\\epsfloor$",
+      "symbol_tex": "$\\tau_{\\Sel}:=\\epsfloor$"
+    },
+    {
+      "meaning_tex": "Deterministische Auswahl aus einer diskreten Verteilung $\\pi$ unter Nutzung von $\\theta$; liefert $\\bot$ bei numerisch nicht auflösbaren Gleichständen.",
+      "origin_status_tex": "\\emph{fixiert} (Regel)",
+      "symbol_canon": "$\\Sel(\\theta,\\pi)$",
+      "symbol_tex": "$\\Sel(\\theta,\\pi)\\in\\mathcal A\\cup\\{\\bot\\}$"
+    },
+    {
+      "meaning_tex": "``No-decision''-Symbol; signalisiert, dass eine Auswahl nicht robust getroffen werden kann (Gate statt stiller Willkür).",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "$\\bot$",
+      "symbol_tex": "$\\bot$"
+    },
+    {
+      "meaning_tex": "Numerische Rechenbasis; alle Regularisierungen/Gates sind auf diese Maschinenpräzision bezogen.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "IEEE \\texttt{float64}",
+      "symbol_tex": "IEEE \\texttt{float64}"
+    },
+    {
+      "meaning_tex": "Maschinenepsilon \\texttt{eps(float64)}; Basisskala für toleranzbasierte, deterministische Jitter/Schwellen.",
+      "origin_status_tex": "\\emph{abgeleitet} (aus IEEE)",
+      "symbol_canon": "$\\varepsilon_{\\mathrm{mach}}$",
+      "symbol_tex": "$\\varepsilon_{\\mathrm{mach}}$"
+    },
+    {
+      "meaning_tex": "Numerischer Mindestfloor (in der Definition als Funktion von $\\varepsilon_{\\mathrm{mach}}$ festgelegt); dient als untere Schranke in Regularisierungen und Spektral-/Konvergenzschwellen.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\varepsilon_{\\mathrm{floor}}$",
+      "symbol_tex": "$\\varepsilon_{\\mathrm{floor}}$"
+    },
+    {
+      "meaning_tex": "In Abschnitt~2 als Default-Regularisierungsstärke verwendet (typisch $\\varepsilon\\equiv\\varepsilon_{\\mathrm{floor}}$).",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\varepsilon$",
+      "symbol_tex": "$\\varepsilon$"
+    },
+    {
+      "meaning_tex": "Baseline-Regularisierung im Mismatch-Kontext (wird u.\\,a.\\ über $r_\\star^{L_{\\max}}$ und $\\varepsilon_{\\mathrm{floor}}$ fixiert); garantiert Totalität (keine Log-/Entropie-Divergenzen).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\varepsilon_0$",
+      "symbol_tex": "$\\varepsilon_0$"
+    },
+    {
+      "meaning_tex": "Minimaler (ggf. undefinierter) Startindex eines akzeptierten Stabilitätsfensters der Länge $k_{\\mathrm{stable}}$ für eine konkrete Observable $A$; deterministisch als kleinstes $L$ gewählt, das die Schwellen aus Def.~\\ref{def:acceptance} über das Fenster erfüllt. Falls kein solches Fenster existiert: $L_0(A):=\\bot$ (\\emph{nicht verifiziert}).",
+      "origin_status_tex": "\\emph{abgeleitet} (Empirie-Policy)",
+      "symbol_canon": "$L_0$",
+      "symbol_tex": "$L_0$"
+    },
+    {
+      "meaning_tex": "Globaler (ggf. undefinierter) Worst-Case-Startindex eines akzeptierten Stabilitätsfensters, definiert als $L_0^{\\mathrm{glob}}:=\\max_{A\\in\\mathcal A_{\\log}}L_0(A)$ falls alle $L_0(A)$ existieren, sonst $L_0^{\\mathrm{glob}}:=\\bot$ (Def.~\\ref{def:acceptance}).",
+      "origin_status_tex": "\\emph{abgeleitet} (Empirie-Policy)",
+      "symbol_canon": "$L_0^{\\mathrm{glob}}$",
+      "symbol_tex": "$L_0^{\\mathrm{glob}}$"
+    },
+    {
+      "meaning_tex": "Level-$L$-Approximation eines Objekts $A$ (Matrix oder Skalar) im Trunk; Basis für Stabilitätsdiagnostik bei $L_{\\max}\\uparrow\\infty$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$A^{(L)}$",
+      "symbol_tex": "$A^{(L)}$"
+    },
+    {
+      "meaning_tex": "Normierte Stabilitätsabweichung zwischen Leveln; zentrale Metrik für (G1) $L$-Stabilität im Konvergenzprotokoll.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Delta_L(A)$",
+      "symbol_tex": "$\\Delta_L(A)$"
+    },
+    {
+      "meaning_tex": "Frobeniusnorm (Policy für $\\Delta_L$ bei Matrizen).",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "$\\|\\cdot\\|_F$",
+      "symbol_tex": "$\\|\\cdot\\|_F$"
+    },
+    {
+      "meaning_tex": "Im Protokoll geloggte Spektral-/Radiusgröße der Matrix $A^{(L)}$; \\textbf{Hinweis:} In der rev21-Quelle wird $\\rho(\\cdot)$ verwendet, aber die konkrete Wahl (z.\\,B.\\ Spektralradius) ist in Abschnitt~2 nicht explizit formalisiert.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\rho_L:=\\rho(A^{(L)})$",
+      "symbol_tex": "$\\rho_L:=\\rho(A^{(L)})$"
+    },
+    {
+      "meaning_tex": "Maximale Eigenwert-Abweichung zwischen Leveln (falls Spektren ausgewertet werden); ergänzt $\\Delta_L$ um spektrale Stabilität.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\delta^{\\mathrm{spec}}_L$",
+      "symbol_tex": "$\\delta^{\\mathrm{spec}}_L$"
+    },
+    {
+      "meaning_tex": "Eigenwerte (in den Spektraldiagnostiken für $\\delta^{\\mathrm{spec}}_L$ und im $\\logDet$-Algorithmus).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\lambda_i(\\cdot)$",
+      "symbol_tex": "$\\lambda_i(\\cdot)$"
+    },
+    {
+      "meaning_tex": "Relative Konvergenzschwelle (Default proportional zu $\\varepsilon_{\\mathrm{floor}}$) für \\emph{PASS} in Level-Stabilität.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\tau_{\\mathrm{rel}}$",
+      "symbol_tex": "$\\tau_{\\mathrm{rel}}$"
+    },
+    {
+      "meaning_tex": "Schwächere Konvergenzschwelle für \\emph{WARN(WEAK\\_CONVERGENCE)}.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\tau_{\\mathrm{rel,warn}}$",
+      "symbol_tex": "$\\tau_{\\mathrm{rel,warn}}$"
+    },
+    {
+      "meaning_tex": "Schwelle für spektrale Level-Stabilität via $\\delta^{\\mathrm{spec}}_L$.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\tau_{\\mathrm{spec}}$",
+      "symbol_tex": "$\\tau_{\\mathrm{spec}}$"
+    },
+    {
+      "meaning_tex": "Anzahl aufeinanderfolgender Level-Schritte, die unterhalb der Schwellen liegen müssen, um Stabilität zu attestieren.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$k_{\\mathrm{stable}}$",
+      "symbol_tex": "$k_{\\mathrm{stable}}$"
+    },
+    {
+      "meaning_tex": "Symmetrisierung (in Abschnitt~2 als $\\tfrac12(A+A^\\top)$); Grundlage der SPD-Regularisierung.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Sym(A)$",
+      "symbol_tex": "$\\Sym(A)$"
+    },
+    {
+      "meaning_tex": "Stufenweise SPD-Regularisierungskandidaten (Symmetrisierung + Tikhonov-Jitter) zur deterministischen Implementierbarkeit von Kron/Solve.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\RegSPD^{(m)}(A)$",
+      "symbol_tex": "$\\RegSPD^{(m)}(A)$"
+    },
+    {
+      "meaning_tex": "Regularisierungs-Basis (Eskalationsfaktor) für $\\RegSPD^{(m)}(A)$; steuert deterministische Jitter-Eskalation.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\beta_{\\mathrm{reg}}$",
+      "symbol_tex": "$\\beta_{\\mathrm{reg}}$"
+    },
+    {
+      "meaning_tex": "Maximale Eskalationsstufe für $\\RegSPD$; begrenzt Regularisierung und macht die Definition total.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$M_{\\mathrm{reg}}$",
+      "symbol_tex": "$M_{\\mathrm{reg}}$"
+    },
+    {
+      "meaning_tex": "Numerische Basisskala für die Jitter-Amplitude in $\\RegSPD^{(m)}(A)=\\Sym(A)+\\beta_{\\mathrm{reg}}^{m}\\delta_0(A)I$; setzt die Größenordnung der Tikhonov-Regularisierung in IEEE~float64; \\emph{kein} physikalischer Parameter.",
+      "origin_status_tex": "\\emph{fixiert/abgeleitet} (Def.~\\ref{def:regspd}): $\\delta_0(A):=\\varepsilon_{\\mathrm{floor}}\\cdot \\max\\{1,\\|\\Sym(A)\\|_F\\}$",
+      "symbol_canon": "$\\delta_0(A)$",
+      "symbol_tex": "$\\delta_0(A)$"
+    },
+    {
+      "meaning_tex": "Deterministischer Prädikatwert, ob eine Cholesky-Faktorisierung unter der festgelegten float64-Policy gelingt.",
+      "origin_status_tex": "\\emph{abgeleitet} (Policy-Prädikat)",
+      "symbol_canon": "$\\CholOK(M)$",
+      "symbol_tex": "$\\CholOK(M)$"
+    },
+    {
+      "meaning_tex": "Kleinste Eskalationsstufe, auf der Cholesky für $\\RegSPD^{(m)}(A)$ gelingt (sonst deterministisch $=M_{\\mathrm{reg}}$).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$m_{\\mathrm{chol}}(A)$",
+      "symbol_tex": "$m_{\\mathrm{chol}}(A)$"
+    },
+    {
+      "meaning_tex": "Gershgorin-basierte deterministische Unter-/Oberabschätzung (ohne spektrale Routinen).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$g_{\\min}(M),\\, g_{\\max}(M)$",
+      "symbol_tex": "$g_{\\min}(M),\\, g_{\\max}(M)$"
+    },
+    {
+      "meaning_tex": "Deterministische Schranken für Eigenwert-Min/Max (Proxy) als Basis einer Konditionsschätzung.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\widehat\\lambda_{\\min}(M),\\,\\widehat\\lambda_{\\max}(M)$",
+      "symbol_tex": "$\\widehat\\lambda_{\\min}(M),\\,\\widehat\\lambda_{\\max}(M)$"
+    },
+    {
+      "meaning_tex": "Deterministische (pessimistische) Konditionsschätzung $\\widehat\\lambda_{\\max}/\\widehat\\lambda_{\\min}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\widehat\\kappa(M)$",
+      "symbol_tex": "$\\widehat\\kappa(M)$"
+    },
+    {
+      "meaning_tex": "Konditions-Grenze in der Eskalationsregel zur Auswahl von $m(A)$; Überschreitung wird als \\texttt{COND\\_FAIL} geloggt.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\kappa_{\\max}$",
+      "symbol_tex": "$\\kappa_{\\max}$"
+    },
+    {
+      "meaning_tex": "Kleinste Stufe $\\ge m_{\\mathrm{chol}}(A)$, auf der $\\widehat\\kappa(\\RegSPD^{(m)}(A))\\le \\kappa_{\\max}$; sonst $m(A)=M_{\\mathrm{reg}}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$m(A)$",
+      "symbol_tex": "$m(A)$"
+    },
+    {
+      "meaning_tex": "Effektive Jitter-Amplitude nach Eskalation (in Abschnitt~2 als $\\beta_{\\mathrm{reg}}^{m(A)}\\delta_0(A)$ definiert).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\delta_{\\mathrm{SPD}}(A)$",
+      "symbol_tex": "$\\delta_{\\mathrm{SPD}}(A)$"
+    },
+    {
+      "meaning_tex": "Finale deterministische SPD-Regularisierung (Kandidatenstufe $m(A)$); numerische Stabilisierung, \\emph{kein} physikalischer Parameter.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\RegSPD(A)$",
+      "symbol_tex": "$\\RegSPD(A)$"
+    },
+    {
+      "meaning_tex": "Deterministische Solve-Operation (via SPD-Regularisierung + Cholesky/Backsolve nach definierter Tie-break- und Failure-Policy).",
+      "origin_status_tex": "\\emph{fixiert} (Policy-Funktion)",
+      "symbol_canon": "$\\Solve(\\cdot,\\cdot)$",
+      "symbol_tex": "$\\Solve(\\cdot,\\cdot)$"
+    },
+    {
+      "meaning_tex": "Pro-Zelle Fallback-Flag (Soft-Fallback-Monitoring) gemäß Def.~\\ref{def:soft_fallback}.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$f(n,w)$",
+      "symbol_tex": "$f(n,w)$"
+    },
+    {
+      "meaning_tex": "Endliche Menge der betrachteten Zellen (gemäß Wortordnung) und ihre Kardinalität; Normalisierung für Fallback-Raten.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal W,\\ N_W:=|\\mathcal W|$",
+      "symbol_tex": "$\\mathcal W,\\ N_W:=|\\mathcal W|$"
+    },
+    {
+      "meaning_tex": "Gesamtrate der Zellen mit Fallback in Schritt $n$; dient Run-Invalidierung über $p_{\\mathrm{fb,max}}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$p_{\\mathrm{fb}}(n)$",
+      "symbol_tex": "$p_{\\mathrm{fb}}(n)$"
+    },
+    {
+      "meaning_tex": "Schwellwerte für Run-Invalidierung bei (Soft-/Hard-)Fallback-Raten.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$p_{\\mathrm{fb,max}},\\ p_{\\mathrm{fb,hard,max}}$",
+      "symbol_tex": "$p_{\\mathrm{fb,max}},\\ p_{\\mathrm{fb,hard,max}}$"
+    },
+    {
+      "meaning_tex": "Forensische Trennung von Hard- vs.\\ Soft-Fallback im Report (normativ).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$p_{\\mathrm{fb,hard}},\\ p_{\\mathrm{fb,soft}}$",
+      "symbol_tex": "$p_{\\mathrm{fb,hard}},\\ p_{\\mathrm{fb,soft}}$"
+    },
+    {
+      "meaning_tex": "Rate der \\texttt{COND\\_FAIL}-Ereignisse (separates Konditions-Gate/Report-Feld; nicht gleichbedeutend mit \\texttt{valid}=0).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$p_{\\mathrm{cond\\_fail}}$",
+      "symbol_tex": "$p_{\\mathrm{cond\\_fail}}$"
+    },
+    {
+      "meaning_tex": "Verdachtsgrenze für konditionsgetriebene Hard-Fallbacks (Default $10^{10}$) in $p_{\\mathrm{fb,hard}}^{(\\kappa)}$.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\kappa_{\\mathrm{susp}}$",
+      "symbol_tex": "$\\kappa_{\\mathrm{susp}}$"
+    },
+    {
+      "meaning_tex": "Bedingte Hard-Fallback-Rate unter der Bedingung $\\widehat\\kappa>\\kappa_{\\mathrm{susp}}$; dient Artefaktkontrolle.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$p_{\\mathrm{fb,hard}}^{(\\kappa)}$",
+      "symbol_tex": "$p_{\\mathrm{fb,hard}}^{(\\kappa)}$"
+    },
+    {
+      "meaning_tex": "Deterministisch geordnete Menge der in Schritt $n$ regulierten/gelösten Blöcke und ihre Anzahl.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal A(n),\\ N_A:=|\\mathcal A(n)|$",
+      "symbol_tex": "$\\mathcal A(n),\\ N_A:=|\\mathcal A(n)|$"
+    },
+    {
+      "meaning_tex": "Rate maximaler Eskalation ($m(A)=m_{\\mathrm{reg,max}}$) über alle Solve/RegSPD-Blöcke; Gate via $p_{\\mathrm{mreg,warn/max}}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$p_{\\mathrm{mreg}}(n)$",
+      "symbol_tex": "$p_{\\mathrm{mreg}}(n)$"
+    },
+    {
+      "meaning_tex": "Schwellwerte (WARN/INVALID) für Regularisierungs-Eskalationsraten.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$p_{\\mathrm{mreg,warn}},\\ p_{\\mathrm{mreg,max}}$",
+      "symbol_tex": "$p_{\\mathrm{mreg,warn}},\\ p_{\\mathrm{mreg,max}}$"
+    },
+    {
+      "meaning_tex": "In Abschnitt~2 gleich $M_{\\mathrm{reg}}$ gesetzt; Referenz zur Zählung maximaler Eskalation.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$m_{\\mathrm{reg,max}}$",
+      "symbol_tex": "$m_{\\mathrm{reg,max}}$"
+    },
+    {
+      "meaning_tex": "Skalarer Constraint-Multiplikator zur (globalen) Randenergie-Erhaltung auf $B_0$; wird per deterministischer Bracketing/Bisektion berechnet, mit Fallback $\\lambda_n:=0$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\lambda_n$",
+      "symbol_tex": "$\\lambda_n$"
+    },
+    {
+      "meaning_tex": "Budgetbestandteile für Bracketing-Expansion und Bisektion bei der $\\lambda_n$-Bestimmung.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$N_{\\mathrm{expand}},\\ N_{\\mathrm{bisect}}$",
+      "symbol_tex": "$N_{\\mathrm{expand}},\\ N_{\\mathrm{bisect}}$"
+    },
+    {
+      "meaning_tex": "Gesamtbudget $N_{\\mathrm{expand}}+N_{\\mathrm{bisect}}$; Überschreitung erzeugt \\texttt{WARN(LAMBDA\\_BUDGET)}.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$N_{\\lambda,\\max}$",
+      "symbol_tex": "$N_{\\lambda,\\max}$"
+    },
+    {
+      "meaning_tex": "Deterministische Matrix-Exponentialfunktion (Higham scaling-and-squaring + Padé $(13,13)$) für CPTP-Zeitschritte.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\expmDet(A)$",
+      "symbol_tex": "$\\expmDet(A)$"
+    },
+    {
+      "meaning_tex": "Deterministische Skalierungswahl in $\\expmDet$ über $1$-Norm und Higham-Schranke $\\theta_{13}$.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\|\\cdot\\|_1,\\ \\theta_{13}$",
+      "symbol_tex": "$\\|\\cdot\\|_1,\\ \\theta_{13}$"
+    },
+    {
+      "meaning_tex": "Deterministischer Matrixlogarithmus für Dichtematrizen über kanonisierte Spektralzerlegung mit entartungsstabiler Basiswahl.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\logDet(\\rho)$",
+      "symbol_tex": "$\\logDet(\\rho)$"
+    },
+    {
+      "meaning_tex": "Eingangsbedingungen des $\\logDet$-Algorithmus für Dichtematrizen.",
+      "origin_status_tex": "\\emph{Zustandsannahme}",
+      "symbol_canon": "$\\rho\\succeq 0,\\ \\Tr(\\rho)=1$",
+      "symbol_tex": "$\\rho\\succeq 0,\\ \\Tr(\\rho)=1$"
+    },
+    {
+      "meaning_tex": "Hermitisierung $\\tfrac12(\\rho+\\rho^\\dagger)$ als Ausgangspunkt der Spektralzerlegung.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\rho_{\\mathrm H}$",
+      "symbol_tex": "$\\rho_{\\mathrm H}$"
+    },
+    {
+      "meaning_tex": "Entartungs-Schwelle (Default proportional zu $\\varepsilon_{\\mathrm{floor}}$ und $\\|\\rho_{\\mathrm H}\\|_2$) zur Clusterbildung nahezu gleicher Eigenwerte.",
+      "origin_status_tex": "\\emph{fixiert} (Policy)",
+      "symbol_canon": "$\\tau_{\\mathrm{deg}}$",
+      "symbol_tex": "$\\tau_{\\mathrm{deg}}$"
+    },
+    {
+      "meaning_tex": "Cluster der Eigenwerte; zugehöriger Eigenraum und orthogonaler Projektor; Grundlage der kanonischen Basiswahl in entarteten Unterräumen.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$C,\\ \\mathcal E_C,\\ P_C$",
+      "symbol_tex": "$C,\\ \\mathcal E_C,\\ P_C$"
+    },
+    {
+      "meaning_tex": "Standardbasisvektoren und projizierte Kandidaten $w_i:=P_C e_i$; deterministische Reihenfolge für modifiziertes Gram--Schmidt.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$e_i,\\ w_i$",
+      "symbol_tex": "$e_i,\\ w_i$"
+    },
+    {
+      "meaning_tex": "Darstellungslevel des Trunks (endlicher Approximant); bestimmt Problemgröße und Approximation.",
+      "origin_status_tex": "\\emph{frei} (numerischer Cutoff)",
+      "symbol_canon": "$L_{\\max}$",
+      "symbol_tex": "$L_{\\max}$"
+    },
+    {
+      "meaning_tex": "Intrinsischer Interaktionsradius/Minimallevel in Pfeiler~A: in Abschnitt~2 deterministisch auf $1$ gesetzt.",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "$L_{\\mathrm{int}}$",
+      "symbol_tex": "$L_{\\mathrm{int}}$"
+    },
+    {
+      "meaning_tex": "Maximale Wortlänge/Zelltiefe im Feedback: $K_{\\max}:=\\max\\{L_{\\max}-1,0\\}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$K_{\\max}$",
+      "symbol_tex": "$K_{\\max}$"
+    },
+    {
+      "meaning_tex": "SG-Energierenormierungsparameter (in Abschnitt~1 explizit als $r_{\\mathrm{SG}}=3/5$ genannt); fixiert die Standard-Renormierung.",
+      "origin_status_tex": "\\emph{fixiert} (SG)",
+      "symbol_canon": "$r_{\\mathrm{SG}}$",
+      "symbol_tex": "$r_{\\mathrm{SG}}$"
+    },
+    {
+      "meaning_tex": "Modellparameter der Energierenormierung: im SG-Fall deterministisch auf $r_{\\mathrm{SG}}$ gesetzt; im ST-Fall abhängig von der gewählten harmonischen Struktur.",
+      "origin_status_tex": "\\emph{fixiert (SG) / frei (ST)}",
+      "symbol_canon": "$r_\\star$",
+      "symbol_tex": "$r_\\star$"
+    },
+    {
+      "meaning_tex": "Normierte Skalenweights $\\alpha_k:=\\frac{r_\\star^k}{\\sum_{j=1}^{K_{\\max}} r_\\star^j}$ für $k=1,\\dots,K_{\\max}$ (bei $K_{\\max}=0$ leere Summe).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\alpha_k$",
+      "symbol_tex": "$\\alpha_k$"
+    },
+    {
+      "meaning_tex": "Skalen-/Wortlängenindex in $\\alpha_k$; läuft von $1$ bis $K_{\\max}$.",
+      "origin_status_tex": "Index",
+      "symbol_canon": "$k$",
+      "symbol_tex": "$k$"
+    },
+    {
+      "meaning_tex": "Diskreter Zeitschritt/Feedback-Index des REAL-Zustands.",
+      "origin_status_tex": "Index",
+      "symbol_canon": "$n$",
+      "symbol_tex": "$n\\in\\mathbb N_0$"
+    },
+    {
+      "meaning_tex": "Kanten- bzw.\\ Knotenmengen des endlichen Trunk-Approximanten auf Level $L_{\\max}$.",
+      "origin_status_tex": "\\emph{aus Abschnitt~1}",
+      "symbol_canon": "$E,\\ V$",
+      "symbol_tex": "$E,\\ V$"
+    },
+    {
+      "meaning_tex": "Deterministische Initialisierung: in Abschnitt~2 $c_0(e):=1$ für alle $e\\in E$.",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "$c_0(e)$",
+      "symbol_tex": "$c_0(e)$"
+    },
+    {
+      "meaning_tex": "Gewichtete (loop-less) Laplacian aus $c_n$; Grundlage von Dirichlet-Form, DtN/Kron und optionaler OQS-Diagnostik.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$L_n$",
+      "symbol_tex": "$L_n\\in\\mathbb R^{|V|\\times|V|}$"
+    },
+    {
+      "meaning_tex": "Matrixeinträge der Laplacian (Off-Diagonale $=-c_n(\\{x,y\\})$ für Kanten; Diagonale als gewichtete Grade).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$(L_n)_{xy}$",
+      "symbol_tex": "$(L_n)_{xy}$"
+    },
+    {
+      "meaning_tex": "Reelle Potential-/Feldkonfiguration zur Definition der Energie.",
+      "origin_status_tex": "\\emph{Testfunktion}",
+      "symbol_canon": "$f:V\\to\\mathbb R$",
+      "symbol_tex": "$f:V\\to\\mathbb R$"
+    },
+    {
+      "meaning_tex": "Dirichlet-Energie $\\mathcal E_n(f):=\\frac12\\sum_{\\{x,y\\}\\in E}c_n(\\{x,y\\})(f(x)-f(y))^2=\\frac12 f^\\top L_n f$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal E_n(f)$",
+      "symbol_tex": "$\\mathcal E_n(f)$"
+    },
+    {
+      "meaning_tex": "Komplexwertige Funktionen für die sesquilineare Dirichlet-Form $\\Edir_n$.",
+      "origin_status_tex": "\\emph{Testfunktionen}",
+      "symbol_canon": "$f,g:V\\to\\mathbb C$",
+      "symbol_tex": "$f,g:V\\to\\mathbb C$"
+    },
+    {
+      "meaning_tex": "Zeitabhängige Dirichlet-Form (über $c_n$) als sesquilineare Energieform auf dem gewichteten Graphen.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Edir_n(f,g)$",
+      "symbol_tex": "$\\Edir_n(f,g)$"
+    },
+    {
+      "meaning_tex": "Knoten-Hilbertraum des Trunks; inneres Produkt $\\langle\\cdot,\\cdot\\rangle_{\\ell^2(V)}$ wird zur Operatoridentifikation genutzt.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\ell^2(V)$",
+      "symbol_tex": "$\\ell^2(V)$"
+    },
+    {
+      "meaning_tex": "Interne Dimensionszahl („interne Freiheitsgrade pro Knoten“); Abschnitt~2 nennt Default $d_p=1$.",
+      "origin_status_tex": "\\emph{frei mit Default}",
+      "symbol_canon": "$d_p$",
+      "symbol_tex": "$d_p\\in\\mathbb N$"
+    },
+    {
+      "meaning_tex": "Globaler (prä-geometrischer) Hilbertraum im Trunk.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal H:=\\ell^2(V)\\otimes\\mathbb C^{d_p}$",
+      "symbol_tex": "$\\mathcal H:=\\ell^2(V)\\otimes\\mathbb C^{d_p}$"
+    },
+    {
+      "meaning_tex": "System- und Umwelt-Hilberträume: $\\mathcal H_B=\\ell^2(B)\\otimes\\mathbb C^{d_p}$, $\\mathcal H_{\\bar B}=\\ell^2(\\bar B)\\otimes\\mathbb C^{d_p}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal H_B,\\ \\mathcal H_{\\bar B}$",
+      "symbol_tex": "$\\mathcal H_B,\\ \\mathcal H_{\\bar B}$"
+    },
+    {
+      "meaning_tex": "Direktsumme (kein ontischer Tensorprodukt-Split); Grundlage der CPTP-Projektions-/Ersetzungs-Kanäle.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal H\\cong \\mathcal H_B\\oplus\\mathcal H_{\\bar B}$",
+      "symbol_tex": "$\\mathcal H\\cong \\mathcal H_B\\oplus\\mathcal H_{\\bar B}$"
+    },
+    {
+      "meaning_tex": "Zellzerlegung in Rand $B_w$ (System) und Zellinneres $I_w$ (lokale intrinsische Umwelt).",
+      "origin_status_tex": "\\emph{aus Abschnitt~1}",
+      "symbol_canon": "$V_w=B_w\\sqcup I_w$",
+      "symbol_tex": "$V_w=B_w\\sqcup I_w$"
+    },
+    {
+      "meaning_tex": "Orthogonaler Vertex-Projektor auf $\\ell^2(V)$: $(\\Pi_B f)(x)=\\mathbf 1_{\\{x\\in B\\}}f(x)$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Pi_B$",
+      "symbol_tex": "$\\Pi_B$"
+    },
+    {
+      "meaning_tex": "Hilbertraum-Projektor auf $\\mathcal H_B\\subset\\mathcal H$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$P_B:=\\Pi_B\\otimes I_{d_p}$",
+      "symbol_tex": "$P_B:=\\Pi_B\\otimes I_{d_p}$"
+    },
+    {
+      "meaning_tex": "Identitätsoperator auf den internen Freiheitsgraden $\\mathbb C^{d_p}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$I_{d_p}$",
+      "symbol_tex": "$I_{d_p}$"
+    },
+    {
+      "meaning_tex": "Beschränkte Operatoren auf $\\mathcal H$; Trägerraum für $P_B$ und Zustandsoperatoren.",
+      "origin_status_tex": "\\emph{Standard}",
+      "symbol_canon": "$\\mathcal B(\\mathcal H)$",
+      "symbol_tex": "$\\mathcal B(\\mathcal H)$"
+    },
+    {
+      "meaning_tex": "Referenzdichtematrix mit Träger in $\\mathcal H_B$; Default $\\sigma_B=\\frac{1}{\\Tr(P_B)}P_B=\\frac{1}{|B|d_p}P_B$.",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "$\\sigma_B$",
+      "symbol_tex": "$\\sigma_B$"
+    },
+    {
+      "meaning_tex": "CPTP-Kanal (Projektions-/Ersetzungs-Coarse-Graining): $\\Phi_B(\\rho)=P_B\\rho P_B+\\Tr((I-P_B)\\rho)\\,\\sigma_B$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Phi_B$",
+      "symbol_tex": "$\\Phi_B$"
+    },
+    {
+      "meaning_tex": "Injektion/Einbettung von Randzuständen $\\rho_B$ in die globale Algebra (identifiziert $\\rho_B$ als Operator mit Träger in $\\mathcal H_B$).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\iota_B$",
+      "symbol_tex": "$\\iota_B$"
+    },
+    {
+      "meaning_tex": "Lokaler Zell-Hilbertraum $\\ell^2(V_w)\\otimes\\mathbb C^{d_p}\\cong \\mathcal H_{B_w}\\oplus\\mathcal H_{I_w}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal H_{V_w}$",
+      "symbol_tex": "$\\mathcal H_{V_w}$"
+    },
+    {
+      "meaning_tex": "Lokales CPTP-Coarse-Graining auf $B_w$ (analog zu $\\Phi_B$) für die Zell-Diagnostik; Default-Ersetzung über $\\sigma_{B_w}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Phi^{(w)}_{B_w}$",
+      "symbol_tex": "$\\Phi^{(w)}_{B_w}$"
+    },
+    {
+      "meaning_tex": "Menge der Dichtematrizen (Zustände) auf $\\mathcal H$.",
+      "origin_status_tex": "\\emph{Standard}",
+      "symbol_canon": "$\\mathcal D(\\mathcal H)$",
+      "symbol_tex": "$\\mathcal D(\\mathcal H)$"
+    },
+    {
+      "meaning_tex": "CPTP-Zeitkanal im Schritt $n$ für optionale Simulation/Diagnostik; nicht normativ für Driver-B.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal T_n$",
+      "symbol_tex": "$\\mathcal T_n$"
+    },
+    {
+      "meaning_tex": "Selbstadjungierter, positiv semidefiniter Generator aus der Dirichlet-Form (formal: Laplacian-Generator aus $c_n$).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$A_n$",
+      "symbol_tex": "$A_n$"
+    },
+    {
+      "meaning_tex": "Dimensionsloser Skalenfaktor für den Diagnose-Hamiltonian; Default $\\kappa_n:=1$.",
+      "origin_status_tex": "\\emph{frei mit Default}",
+      "symbol_canon": "$\\kappa_n$",
+      "symbol_tex": "$\\kappa_n$"
+    },
+    {
+      "meaning_tex": "Diagnose-Hamiltonian für eine unitäre Probe-Dynamik auf $\\mathcal H$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$H_n:=\\kappa_n(A_n\\otimes I_{d_p})$",
+      "symbol_tex": "$H_n:=\\kappa_n(A_n\\otimes I_{d_p})$"
+    },
+    {
+      "meaning_tex": "Diskreter Zeitschritt der optionalen Zustandspropagation (nicht als physikalische Zeit kalibriert in Pfeiler~A).",
+      "origin_status_tex": "\\emph{frei (Diagnose)}",
+      "symbol_canon": "$\\Delta t$",
+      "symbol_tex": "$\\Delta t$"
+    },
+    {
+      "meaning_tex": "Unitärer Update-Operator der Diagnose-Dynamik.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$U_n:=\\exp(-i\\Delta t\\,H_n)$",
+      "symbol_tex": "$U_n:=\\exp(-i\\Delta t\\,H_n)$"
+    },
+    {
+      "meaning_tex": "Alternative Rand-getragene Probe: Generator über DtN-Operator auf $B_0$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$H_{n,B_0}:=\\kappa_n^{(\\Lambda)}(\\Lambda_n\\otimes I_{d_p})$",
+      "symbol_tex": "$H_{n,B_0}:=\\kappa_n^{(\\Lambda)}(\\Lambda_n\\otimes I_{d_p})$"
+    },
+    {
+      "meaning_tex": "Skalenfaktor der Rand-Probe; Default $\\kappa_n^{(\\Lambda)}:=1$.",
+      "origin_status_tex": "\\emph{frei mit Default}",
+      "symbol_canon": "$\\kappa_n^{(\\Lambda)}$",
+      "symbol_tex": "$\\kappa_n^{(\\Lambda)}$"
+    },
+    {
+      "meaning_tex": "Sprungoperatoren (Quantum-Stochastic-Walk) aus Leitwerten: $J^{(n)}_{x\\to y}=\\sqrt{c_n(\\{x,y\\})}(|x\\rangle\\langle y|\\otimes I_{d_p})$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$J^{(n)}_{x\\to y}$",
+      "symbol_tex": "$J^{(n)}_{x\\to y}$"
+    },
+    {
+      "meaning_tex": "GKSL-Generator aus $\\{J^{(n)}_{x\\to y}\\}$; definiert optionale dissipative Probe $\\mathcal T_n=\\exp(\\Delta t\\,\\mathcal L_n)$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal L_n$",
+      "symbol_tex": "$\\mathcal L_n$"
+    },
+    {
+      "meaning_tex": "Induzierter Randkanal (intrinsisches Ausspuren der Umwelt) für Randzustandsläufe.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Psi_{n,B}:=\\Phi_B\\circ\\mathcal T_n\\circ\\iota_B$",
+      "symbol_tex": "$\\Psi_{n,B}:=\\Phi_B\\circ\\mathcal T_n\\circ\\iota_B$"
+    },
+    {
+      "meaning_tex": "Kanonischer Randzustandslauf: $\\rho^{(B)}_0:=\\sigma_B$, $\\rho^{(B)}_{n+1}:=\\Psi_{n,B}(\\rho^{(B)}_n)$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\rho^{(B)}_0,\\ \\rho^{(B)}_{n+1}$",
+      "symbol_tex": "$\\rho^{(B)}_0,\\ \\rho^{(B)}_{n+1}$"
+    },
+    {
+      "meaning_tex": "DtN-Operator des unendlichen Graphen (ontischer Grenzwert; in endlicher Rechnung nur approximiert).",
+      "origin_status_tex": "\\emph{ontisch}",
+      "symbol_canon": "$\\Lambda_{n,B_0}$",
+      "symbol_tex": "$\\Lambda_{n,B_0}$"
+    },
+    {
+      "meaning_tex": "In Abschnitt~2 als Kurzschreibweise für die deterministische Trunk-Approximation $\\Lambda_{n,B_0}^{(L_{\\max})}$ verwendet.",
+      "origin_status_tex": "\\emph{Trunk-Approximation}",
+      "symbol_canon": "$\\Lambda_n$",
+      "symbol_tex": "$\\Lambda_n$"
+    },
+    {
+      "meaning_tex": "Zerlegung in Rand $B_0$ und Inneres $I:=V\\setminus B_0$ zur Blockstruktur von $L_n$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$V=B_0\\sqcup I$",
+      "symbol_tex": "$V=B_0\\sqcup I$"
+    },
+    {
+      "meaning_tex": "Blockzerlegung der Laplacian (Patch-1-Subset-Ordnung) als Grundlage der Kron-Reduktion.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$(L_n)_{BB},(L_n)_{BI},(L_n)_{IB},(L_n)_{II}$",
+      "symbol_tex": "$(L_n)_{BB},(L_n)_{BI},(L_n)_{IB},(L_n)_{II}$"
+    },
+    {
+      "meaning_tex": "Deterministisch regularisierter Innerblock via $\\RegSPD((L_n)_{II})$; garantiert Solve-Totalität.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$(L_n)_{II,\\mathrm{reg}}$",
+      "symbol_tex": "$(L_n)_{II,\\mathrm{reg}}$"
+    },
+    {
+      "meaning_tex": "Solve-Resultat des Innerblocks (Schur-Komplement-Baustein) in der globalen Kron-Reduktion.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$X_{I\\leftarrow B}^{\\glob}$",
+      "symbol_tex": "$X_{I\\leftarrow B}^{\\glob}$"
+    },
+    {
+      "meaning_tex": "Rand-inzidente Kantenmenge: $\\{\\{u,v\\}\\in E:\\ u\\in B_0\\ \\text{oder}\\ v\\in B_0\\}$ (kein Freeze; alle Kanten werden mitgetrieben).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$E_\\partial$",
+      "symbol_tex": "$E_\\partial$"
+    },
+    {
+      "meaning_tex": "Alphabet und Randgröße; in Abschnitt~2 für symmetrische Randtests (ungeordnete Paare) genutzt.",
+      "origin_status_tex": "\\emph{aus Abschnitt~1}",
+      "symbol_canon": "$\\Sset_\\bullet,\\ q:=|\\Sset_\\bullet|$",
+      "symbol_tex": "$\\Sset_\\bullet,\\ q:=|\\Sset_\\bullet|$"
+    },
+    {
+      "meaning_tex": "Patch-1-Randordnung (deterministisch) zur Indexierung symmetrischer Randtests.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$(b_0,\\dots,b_{q-1})$",
+      "symbol_tex": "$(b_0,\\dots,b_{q-1})$"
+    },
+    {
+      "meaning_tex": "Randtest-Vektoren für Paare $0\\le i<j\\le q-1$ (symmetrische Definition ohne Ankerindex).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$y^{(ij)}$",
+      "symbol_tex": "$y^{(ij)}$"
+    },
+    {
+      "meaning_tex": "Randenergie-Beiträge zu Paar-Tests $(i,j)$ (im Abschnitt~2 aus $\\Lambda_n$ definiert).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal E_{B_0,n}^{(ij)}$",
+      "symbol_tex": "$\\mathcal E_{B_0,n}^{(ij)}$"
+    },
+    {
+      "meaning_tex": "Randenergie pro Randknoten $b_i$ (aus den Paarbeiträgen zusammengesetzt).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal E_{B_0,n}(b_i)$",
+      "symbol_tex": "$\\mathcal E_{B_0,n}(b_i)$"
+    },
+    {
+      "meaning_tex": "Erhaltene Randenergie-Summe (globaler Constraint via $\\lambda_n$): Summenform über Randknoten bzw.\\ Paare.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal E_{B_0,n}^{\\mathrm{tot}}$",
+      "symbol_tex": "$\\mathcal E_{B_0,n}^{\\mathrm{tot}}$"
+    },
+    {
+      "meaning_tex": "Problemgrößen (Knoten-/Kantenanzahl) des Level-$L$-Approximanten; für Skalierbarkeitsabschätzung.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$|V_L|,\\ |E_L|$",
+      "symbol_tex": "$|V_L|,\\ |E_L|$"
+    },
+    {
+      "meaning_tex": "Anzahl der Nichtnull-Einträge der Laplacian (Sparsity-Metrik).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathrm{nnz}(L_n)$",
+      "symbol_tex": "$\\mathrm{nnz}(L_n)$"
+    },
+    {
+      "meaning_tex": "Sparsity-Metrik des DtN-Operators/Blocks (falls als Matrix materialisiert).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathrm{nnz}(\\Lambda_{n,B})$",
+      "symbol_tex": "$\\mathrm{nnz}(\\Lambda_{n,B})$"
+    },
+    {
+      "meaning_tex": "Laufzeit-Metriken für Laplacian-Bau und Solve-Operationen (Engineering-Transparenz).",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$t_{\\mathrm{build}},\\ t_{\\mathrm{solve}}$",
+      "symbol_tex": "$t_{\\mathrm{build}},\\ t_{\\mathrm{solve}}$"
+    },
+    {
+      "meaning_tex": "Peak-Speicherverbrauch im Run; Pflichtfeld im Report zur Skalierbarkeitsdiagnose.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathrm{mem}_{\\max}$",
+      "symbol_tex": "$\\mathrm{mem}_{\\max}$"
+    },
+    {
+      "meaning_tex": "Nur Einordnung: formale Darstellung des effektiven Widerstands auf verbundenen Graphen; darf in Suite/Implementierung nicht als Rechenweg benutzt werden.",
+      "origin_status_tex": "\\emph{konzeptuell} (Pseudoinverse der Laplacian; explizit als \\textbf{nicht-normativ} markiert)",
+      "symbol_canon": "$L_n^\\dagger$",
+      "symbol_tex": "$L_n^\\dagger$"
+    },
+    {
+      "meaning_tex": "Einheitsvektor zu Knoten $x$; in der Konzeptformel und in der normativen Solve-Formulierung (nach Grounding/Projektion) verwendet.",
+      "origin_status_tex": "\\emph{abgeleitet} (Standardbasis in der Patch-1-Subset-Ordnung auf $V$)",
+      "symbol_canon": "$e_x$",
+      "symbol_tex": "$e_x$"
+    },
+    {
+      "meaning_tex": "Effektiver Widerstand als formale Größe; normativ ersetzt durch deterministisches Grounding + Solve (siehe 3.2).",
+      "origin_status_tex": "\\emph{konzeptuell} via $(e_u-e_v)^\\top L_n^\\dagger (e_u-e_v)$",
+      "symbol_canon": "$R_n(u,v)$",
+      "symbol_tex": "$R_n(u,v)$"
+    },
+    {
+      "meaning_tex": "Abstandsgröße; normativ durch Solve-basierte Definition und Konnektivitätsregel fixiert (siehe 3.2).",
+      "origin_status_tex": "\\emph{konzeptuell} via $\\sqrt{R_n(u,v)}$",
+      "symbol_canon": "$d_n(u,v)$",
+      "symbol_tex": "$d_n(u,v)$"
+    },
+    {
+      "meaning_tex": "Vertex- und Kantenmenge des endlichen Rechenobjekts; Träger von $c_n$, $L_n$, $R_n$, $d_n$.",
+      "origin_status_tex": "\\emph{abgeleitet} (Trunk bei $L_{\\max}$, Abschnitt 1)",
+      "symbol_canon": "$V,E$",
+      "symbol_tex": "$V,E$"
+    },
+    {
+      "meaning_tex": "Deterministische ID zur kanonischen Wahl des Ground-Knotens und zur reproduzierbaren Probenpolitik.",
+      "origin_status_tex": "\\emph{fixiert} (Patch-1-Ordnung; Abschnitt 1)",
+      "symbol_canon": "$\\id(x)$",
+      "symbol_tex": "$\\id(x)$"
+    },
+    {
+      "meaning_tex": "Kantenleitwerte; $c_n>0$ definiert physisch/kombinatorisch zugängliche Kanten im $n$-Zustand.",
+      "origin_status_tex": "\\emph{Zustand} (Leitwertfeld; Abschnitt 2)",
+      "symbol_canon": "$c_n(a,b)$",
+      "symbol_tex": "$c_n(a,b)$"
+    },
+    {
+      "meaning_tex": "Positiv-Kanten-Teilgraph: $E_n^{+}:=\\{(a,b)\\in E:\\ c_n(a,b)>0\\}$.",
+      "origin_status_tex": "\\emph{abgeleitet} aus $c_n$",
+      "symbol_canon": "$E_n^{+}$",
+      "symbol_tex": "$E_n^{+}$"
+    },
+    {
+      "meaning_tex": "Zusammenhangskomponente; normativer Sentinel: für getrennte Komponenten gilt $R_n=\\infty$, $d_n=\\infty$.",
+      "origin_status_tex": "\\emph{abgeleitet} aus $(V,E_n^{+})$",
+      "symbol_canon": "$\\mathrm{CC}_n(x)$",
+      "symbol_tex": "$\\mathrm{CC}_n(x)$"
+    },
+    {
+      "meaning_tex": "Disconnected-Sentinel: Falls $\\mathrm{CC}_n(u)\\neq\\mathrm{CC}_n(v)$, dann $R_n(u,v)=d_n(u,v)=+\\infty$ (kein ``künstliches Verbinden'').",
+      "origin_status_tex": "\\emph{fixiert} (normative Regel)",
+      "symbol_canon": "$R_n(u,v),\\, d_n(u,v)$",
+      "symbol_tex": "$R_n(u,v),\\, d_n(u,v)$"
+    },
+    {
+      "meaning_tex": "Ground-Knoten zur Fixierung der Nullmode; macht das Solve-Problem wohldefiniert.",
+      "origin_status_tex": "\\emph{abgeleitet} (deterministisch: $\\arg\\min_{x\\in V}\\id(x)$)",
+      "symbol_canon": "$g$",
+      "symbol_tex": "$g$"
+    },
+    {
+      "meaning_tex": "Abbildung $\\mathbb R^{|V|}\\to\\mathbb R^{|V|-1}$; erzeugt reduzierte Vektoren für das Solve.",
+      "origin_status_tex": "\\emph{abgeleitet} (Projektion: entfernt $g$-Komponente)",
+      "symbol_canon": "$\\pi_g$",
+      "symbol_tex": "$\\pi_g$"
+    },
+    {
+      "meaning_tex": "Reduzierte Laplacian (Zeile/Spalte $g$ entfernt) in Patch-1-Subset-Ordnung.",
+      "origin_status_tex": "\\emph{abgeleitet} aus $L_n$",
+      "symbol_canon": "$L_n^{(g)}$",
+      "symbol_tex": "$L_n^{(g)}$"
+    },
+    {
+      "meaning_tex": "$S_n^{(g)}:=\\tfrac12(L_n^{(g)}+(L_n^{(g)})^\\top)$; numerische Robustheit.",
+      "origin_status_tex": "\\emph{abgeleitet} (Symmetrisierung)",
+      "symbol_canon": "$S_n^{(g)}$",
+      "symbol_tex": "$S_n^{(g)}$"
+    },
+    {
+      "meaning_tex": "Deterministischer Tikhonov-Jitter für Widerstands-Solve: $\\delta_R:=\\varepsilon_{\\mathrm{floor}}\\max\\{1,\\|S_n^{(g)}\\|_F\\}$; ausdrücklich \\emph{kein} physikalischer Parameter.",
+      "origin_status_tex": "\\emph{abgeleitet / fixiert} (float64-Policy)",
+      "symbol_canon": "$\\delta_R$",
+      "symbol_tex": "$\\delta_R$"
+    },
+    {
+      "meaning_tex": "Identitätsmatrix in passender Dimension; bildet $(S_n^{(g)}+\\delta_R I)$.",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "$I$",
+      "symbol_tex": "$I$"
+    },
+    {
+      "meaning_tex": "Right-hand-side: $b:=\\pi_g(e_u-e_v)$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$b$",
+      "symbol_tex": "$b$"
+    },
+    {
+      "meaning_tex": "Lösung von $(S_n^{(g)}+\\delta_R I)x=b$ unter der Solver-Policy aus Abschnitt 2; bei Solve-Fail wird $R_n=d_n=\\infty$ gesetzt.",
+      "origin_status_tex": "\\emph{abgeleitet} (Solve)",
+      "symbol_canon": "$x$",
+      "symbol_tex": "$x$"
+    },
+    {
+      "meaning_tex": "Einbettungskoordinaten zur Visualisierung von IDEAL/REAL; dürfen nicht als physikalische Geometrie interpretiert werden.",
+      "origin_status_tex": "\\emph{optional / nicht-normativ}",
+      "symbol_canon": "$X_n:V\\to\\mathbb R^d$",
+      "symbol_tex": "$X_n:V\\to\\mathbb R^d$"
+    },
+    {
+      "meaning_tex": "Plot-Dimension (typisch $d=2$ oder $3$); keine physikalische Bedeutung.",
+      "origin_status_tex": "\\emph{frei / Visualisierung}",
+      "symbol_canon": "$d$",
+      "symbol_tex": "$d$"
+    },
+    {
+      "meaning_tex": "Distanzmatrix als Input für MDS-Varianten; oft auf größte endliche Zusammenhangskomponente eingeschränkt.",
+      "origin_status_tex": "\\emph{abgeleitet} aus $d_n$",
+      "symbol_canon": "$D=(d_n(u,v))$",
+      "symbol_tex": "$D=(d_n(u,v))$"
+    },
+    {
+      "meaning_tex": "Metadaten zur verwendeten Visualisierungs-Policy (klassische MDS vs.\\ Stress-MDS, Initialisierung/Stopkriterium etc.).",
+      "origin_status_tex": "\\emph{Report-Feld (nicht-normativ)}",
+      "symbol_canon": "\\texttt{viz\\_gauge}",
+      "symbol_tex": "\\texttt{viz\\_gauge}"
+    },
+    {
+      "meaning_tex": "Fixierte Randkoordinaten (SG: äquilateral, ST: tetraedrisch); reine Darstellungswahl.",
+      "origin_status_tex": "\\emph{frei / Visualisierung}",
+      "symbol_canon": "$Y_B:B_0\\to\\mathbb R^d$",
+      "symbol_tex": "$Y_B:B_0\\to\\mathbb R^d$"
+    },
+    {
+      "meaning_tex": "Rand/Innen-Zerlegung für harmonische Fortsetzung.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$B=B_0,\\ I=V\\setminus B$",
+      "symbol_tex": "$B=B_0,\\ I=V\\setminus B$"
+    },
+    {
+      "meaning_tex": "Randwerte und harmonische Fortsetzung für Koordinatenkomponente $j$: $(L_n)_{II,\\mathrm{reg}}y_I^{(j)}=-(L_n)_{IB}y_B^{(j)}$.",
+      "origin_status_tex": "\\emph{abgeleitet} (Solve)",
+      "symbol_canon": "$y_B^{(j)},\\, y_I^{(j)}$",
+      "symbol_tex": "$y_B^{(j)},\\, y_I^{(j)}$"
+    },
+    {
+      "meaning_tex": "Referenzlayout für Zeitreihenvergleich (z.\\,B.\\ IDEAL-Layout oder $n=0$).",
+      "origin_status_tex": "\\emph{optional / nicht-normativ}",
+      "symbol_canon": "$X_{\\mathrm{ref}}$",
+      "symbol_tex": "$X_{\\mathrm{ref}}$"
+    },
+    {
+      "meaning_tex": "Rigider Abgleich (Translation/Rotation; optional Skalierung) ausschließlich zur visuellen Vergleichbarkeit über $n$.",
+      "origin_status_tex": "\\emph{optional / nicht-normativ}",
+      "symbol_canon": "Procrustes (rigid)",
+      "symbol_tex": "Procrustes (rigid)"
+    },
+    {
+      "meaning_tex": "Reiner Anzeige-Verstärkungsfaktor (z.\\,B.\\ Verstärkung relativer Abweichungen); explizit als nicht-physikalisch zu markieren.",
+      "origin_status_tex": "\\emph{frei / nicht-normativ}",
+      "symbol_canon": "$a_{\\mathrm{vis}}>0$",
+      "symbol_tex": "$a_{\\mathrm{vis}}>0$"
+    },
+    {
+      "meaning_tex": "Träger der Stichproben für Audit-Checks; mit deterministischer ID-Abbildung $\\id$.",
+      "origin_status_tex": "\\emph{abgeleitet} (Patch-1-Vertexmenge im Zustand $n$)",
+      "symbol_canon": "$V_n$",
+      "symbol_tex": "$V_n$"
+    },
+    {
+      "meaning_tex": "Hash der normativen Policy (Solver, RegSPD, Matrixfunktionen etc.); Bestandteil des Audit-Seeds.",
+      "origin_status_tex": "\\emph{fixiert / Report-Feld}",
+      "symbol_canon": "\\texttt{policy\\_hash}",
+      "symbol_tex": "\\texttt{policy\\_hash}"
+    },
+    {
+      "meaning_tex": "Hash der Graph-Repräsentation des Zustands $(V_n,E_n^{+},c_n)$; Grundlage reproduzierbarer Probenziehungen.",
+      "origin_status_tex": "\\emph{abgeleitet / Report-Feld}",
+      "symbol_canon": "\\texttt{graph\\_hash}",
+      "symbol_tex": "\\texttt{graph\\_hash}"
+    },
+    {
+      "meaning_tex": "Deterministischer Audit-Seed: $s_R:=\\mathrm{u32}(\\mathrm{SHA256}(\\texttt{policy\\_hash}\\,\\|\\,\\texttt{graph\\_hash}\\,\\|\\,\\texttt{R\\_AUDIT}))$.",
+      "origin_status_tex": "\\emph{abgeleitet / fixiert}",
+      "symbol_canon": "$s_R$",
+      "symbol_tex": "$s_R$"
+    },
+    {
+      "meaning_tex": "Menge auditierter Knotenpaare (ohne Zurücklegen) aus $s_R$; Defaultgröße $\\min\\{5000,\\binom{|V_n|}{2}\\}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal P_R$",
+      "symbol_tex": "$\\mathcal P_R$"
+    },
+    {
+      "meaning_tex": "Menge auditierter Tripel; Defaultgröße $\\min\\{10000,|V_n|^3\\}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\mathcal T_R$",
+      "symbol_tex": "$\\mathcal T_R$"
+    },
+    {
+      "meaning_tex": "Maxima über endliche Stichprobenwerte; Konvention $=1$ falls keine endlichen Stichproben vorliegen.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$R_{\\max},\\, d_{\\max}$",
+      "symbol_tex": "$R_{\\max},\\, d_{\\max}$"
+    },
+    {
+      "meaning_tex": "Toleranz für Widerstands-Checks: $\\tau_R:=10^{-8}\\max\\{1,R_{\\max}\\}$.",
+      "origin_status_tex": "\\emph{fixiert} (float64-Umfeld)",
+      "symbol_canon": "$\\tau_R$",
+      "symbol_tex": "$\\tau_R$"
+    },
+    {
+      "meaning_tex": "Toleranz für Distanz-Checks: $\\tau_d:=10^{-8}\\max\\{1,d_{\\max}\\}$.",
+      "origin_status_tex": "\\emph{fixiert} (float64-Umfeld)",
+      "symbol_canon": "$\\tau_d$",
+      "symbol_tex": "$\\tau_d$"
+    },
+    {
+      "meaning_tex": "Residualschwelle: $\\tau_{\\mathrm{res}}:=10^{-10}$ für Solve-Integritätscheck.",
+      "origin_status_tex": "\\emph{fixiert} (float64-Umfeld)",
+      "symbol_canon": "$\\tau_{\\mathrm{res}}$",
+      "symbol_tex": "$\\tau_{\\mathrm{res}}$"
+    },
+    {
+      "meaning_tex": "Anzahl Vertices $|V_n|$ der auditierenden Patch-1-Menge.",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.nV}",
+      "symbol_tex": "\\texttt{res.nV}"
+    },
+    {
+      "meaning_tex": "Anzahl Zusammenhangskomponenten in $(V_n,E_n^{+})$.",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.nCC}",
+      "symbol_tex": "\\texttt{res.nCC}"
+    },
+    {
+      "meaning_tex": "Gespeicherter Audit-Seed $s_R$ (Reproduzierbarkeit).",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.seed}",
+      "symbol_tex": "\\texttt{res.seed}"
+    },
+    {
+      "meaning_tex": "Größen der Stichprobenmengen $|\\mathcal P_R|$, $|\\mathcal T_R|$.",
+      "origin_status_tex": "\\emph{Report-Felder}",
+      "symbol_canon": "\\texttt{res.nPairs}, \\texttt{res.nTris}",
+      "symbol_tex": "\\texttt{res.nPairs}, \\texttt{res.nTris}"
+    },
+    {
+      "meaning_tex": "Skalenwerte $R_{\\max}$ und $d_{\\max}$, aus denen $\\tau_R,\\tau_d$ abgeleitet werden.",
+      "origin_status_tex": "\\emph{Report-Felder}",
+      "symbol_canon": "\\texttt{res.Rmax}, \\texttt{res.dmax}",
+      "symbol_tex": "\\texttt{res.Rmax}, \\texttt{res.dmax}"
+    },
+    {
+      "meaning_tex": "Zähler der Stichprobenpaare mit $\\mathrm{CC}_n(u)\\neq\\mathrm{CC}_n(v)$ (Disconnected-Sentinel-Fälle).",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.disc\\_pairs}",
+      "symbol_tex": "\\texttt{res.disc\\_pairs}"
+    },
+    {
+      "meaning_tex": "Anteil der disconnected-Paare, für die tatsächlich $R_n(u,v)=d_n(u,v)=\\infty$ ausgegeben wird (muss $=1$ sein).",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.disc\\_inf\\_ok\\_frac}",
+      "symbol_tex": "\\texttt{res.disc\\_inf\\_ok\\_frac}"
+    },
+    {
+      "meaning_tex": "Minimum über endliche Widerstände; Check T3.R2 verlangt $R_{\\min}\\ge -\\tau_R$.",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.Rmin}",
+      "symbol_tex": "\\texttt{res.Rmin}"
+    },
+    {
+      "meaning_tex": "Maximaler Betrag $|R_n(u,u)|$ über Stichprobenknoten; Check T3.R3 verlangt $\\le\\tau_R$.",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.diag\\_abs\\_max}",
+      "symbol_tex": "\\texttt{res.diag\\_abs\\_max}"
+    },
+    {
+      "meaning_tex": "Maximale Asymmetrie $|R_n(u,v)-R_n(v,u)|$ über endliche Stichprobenpaare; Check T3.R4.",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.sym\\_abs\\_max}",
+      "symbol_tex": "\\texttt{res.sym\\_abs\\_max}"
+    },
+    {
+      "meaning_tex": "Solve-Residualnorm: $r:=\\| (S_n^{(g)}+\\delta_R I)x-b\\|_2 / \\max\\{1,\\|b\\|_2\\}$.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$r$",
+      "symbol_tex": "$r$"
+    },
+    {
+      "meaning_tex": "Maximaler relativer Residualwert $r$ über endliche Stichprobenpaare; Check T3.R5 verlangt $\\le\\tau_{\\mathrm{res}}$.",
+      "origin_status_tex": "\\emph{Report-Feld}",
+      "symbol_canon": "\\texttt{res.resid\\_rel\\_max}",
+      "symbol_tex": "\\texttt{res.resid\\_rel\\_max}"
+    },
+    {
+      "meaning_tex": "Dreiecksverletzung: $\\Delta_{uvw}:=\\max\\{0, d_n(u,w)-d_n(u,v)-d_n(v,w)\\}$ auf Tripeln in gleicher Komponente.",
+      "origin_status_tex": "\\emph{abgeleitet}",
+      "symbol_canon": "$\\Delta_{uvw}$",
+      "symbol_tex": "$\\Delta_{uvw}$"
+    },
+    {
+      "meaning_tex": "Maximale Dreiecksverletzung und Anteil mit $\\Delta_{uvw}>\\tau_d$ (Audit der metrischen Konsistenz in Float64).",
+      "origin_status_tex": "\\emph{Report-Felder}",
+      "symbol_canon": "\\texttt{res.tri\\_viol\\_max}, \\texttt{res.tri\\_viol\\_frac}",
+      "symbol_tex": "\\texttt{res.tri\\_viol\\_max}, \\texttt{res.tri\\_viol\\_frac}"
+    },
+    {
+      "meaning_tex": "Alternativer deterministischer Ground-Knoten (z.\\,B.\\ zweitkleinste ID) für Robustheitsdiagnostik; Default: Profil deaktiviert.",
+      "origin_status_tex": "\\emph{optional}",
+      "symbol_canon": "$g'$",
+      "symbol_tex": "$g'$"
+    },
+    {
+      "meaning_tex": "Relative Abweichung zwischen Ground-Wahlen: $\\max |R^{(g)}-R^{(g')}|/\\max\\{1,R^{(g)}\\}$ über Stichproben.",
+      "origin_status_tex": "\\emph{optional / abgeleitet}",
+      "symbol_canon": "$\\Delta_R^{\\mathrm{ground}}$",
+      "symbol_tex": "$\\Delta_R^{\\mathrm{ground}}$"
+    },
+    {
+      "meaning_tex": "Maximale Ground-Robustheitsabweichung; Default: \\texttt{SKIP} falls Profil deaktiviert.",
+      "origin_status_tex": "\\emph{Report-Feld (optional)}",
+      "symbol_canon": "\\texttt{res.ground\\_delta\\_rel\\_max}",
+      "symbol_tex": "\\texttt{res.ground\\_delta\\_rel\\_max}"
+    },
+    {
+      "meaning_tex": "\\texttt{PASS}/\\texttt{FAIL}/\\texttt{SKIP}; ein \\texttt{FAIL} in T3.R1--T3.R5 ist \\emph{Definition-Compliance-Fail}.",
+      "origin_status_tex": "\\emph{fixiert}",
+      "symbol_canon": "Gate-States",
+      "symbol_tex": "Gate-States"
+    },
+    {
+      "meaning_tex": "Menge aller Repräsentanten eines Knotens $x$ als Paare $(w,i)$; liefert die Adressinformation für die Driver-B-Zellzuordnung.",
+      "origin_status_tex": "Patch~1 (Repräsentanten); abgeleitet aus der Zellstruktur / Identifikationen",
+      "symbol_canon": "$\\Rep(x)$",
+      "symbol_tex": "$\\Rep(x)$"
+    },
+    {
+      "meaning_tex": "Adressmenge eines Knotens: $A_x:=\\{w:\\exists i\\ (w,i)\\in\\Rep(x)\\}\\subseteq \\Sset_\\bullet^{L_{\\max}}$.",
+      "origin_status_tex": "Definiert aus $\\Rep(x)$",
+      "symbol_canon": "$A_x$",
+      "symbol_tex": "$A_x$"
+    },
+    {
+      "meaning_tex": "Längster gemeinsamer Präfix (Longest Common Prefix); bestimmt die Zell-Tiefe, auf der zwei Adressen ``zusammenfallen''.",
+      "origin_status_tex": "Definiert für $u,v\\in\\Sset_\\bullet^{L_{\\max}}$",
+      "symbol_canon": "$\\lcp(u,v)$",
+      "symbol_tex": "$\\lcp(u,v)$"
+    },
+    {
+      "meaning_tex": "Ungewichtete Kante; Driver-B ordnet Kanten über die Adressen ihrer Endpunkte Zell(en) zu.",
+      "origin_status_tex": "IDEAL/REAL-Trunk (Graphstruktur)",
+      "symbol_canon": "$e=\\{x,y\\}$",
+      "symbol_tex": "$e=\\{x,y\\}\\in E$"
+    },
+    {
+      "meaning_tex": "Menge der LCP-Kandidaten: $P(e):=\\{\\lcp(u,v):u\\in A_x,\\ v\\in A_y\\}$.",
+      "origin_status_tex": "Definiert aus Adressen $A_x,A_y$",
+      "symbol_canon": "$P(e)$",
+      "symbol_tex": "$P(e)$"
+    },
+    {
+      "meaning_tex": "Maximale LCP-Tiefe der Kante: $\\ell_{\\max}(e):=\\max_{p\\in P(e)}|p|$ (mit Konvention $\\ell_{\\max}(e)=0$ falls $P(e)=\\{\\emptyset\\}$).",
+      "origin_status_tex": "Definiert aus $P(e)$",
+      "symbol_canon": "$\\ell_{\\max}(e)$",
+      "symbol_tex": "$\\ell_{\\max}(e)$"
+    },
+    {
+      "meaning_tex": "Menge der maximalen Präfixe (Tie-Handling): $P^\\star(e):=\\{p\\in P(e):|p|=\\ell_{\\max}(e)\\}$.",
+      "origin_status_tex": "Definiert aus $P(e),\\ell_{\\max}(e)$",
+      "symbol_canon": "$P^\\star(e)$",
+      "symbol_tex": "$P^\\star(e)$"
+    },
+    {
+      "meaning_tex": "Präfixoperator: Präfix der Länge $k$ (nur definiert für $|p|\\ge k$).",
+      "origin_status_tex": "Notation / Hilfsoperator",
+      "symbol_canon": "$\\mathrm{pref}_k(p)$",
+      "symbol_tex": "$\\mathrm{pref}_k(p)$"
+    },
+    {
+      "meaning_tex": "Äquivarianter Zellzuordnungs\\-gewichtsanteil der Kante $e$ zu Zelle $w\\in\\Sset_\\bullet^k$: $\\mu_{k,w}(e)=\\frac{|\\{p\\in P^\\star(e):\\mathrm{pref}_k(p)=w\\}|}{|P^\\star(e)|}$ falls $\\ell_{\\max}(e)\\ge k$, sonst $0$.",
+      "origin_status_tex": "Normativ definiertes, deterministisches Maß (kein lex. Symmetriebruch)",
+      "symbol_canon": "$\\mu_{k,w}(e)$",
+      "symbol_tex": "$\\mu_{k,w}(e)$"
+    },
+    {
+      "meaning_tex": "Endliche Supportmenge der Maßzuordnung: $W_k(e):=\\{w\\in\\Sset_\\bullet^k:\\mu_{k,w}(e)>0\\}$.",
+      "origin_status_tex": "Definiert aus $\\mu_{k,w}(e)$",
+      "symbol_canon": "$W_k(e)$",
+      "symbol_tex": "$W_k(e)$"
+    },
+    {
+      "meaning_tex": "Lexikographischer Repräsentant der Supportmenge: $w_k^{\\mathrm{rep}}(e):=\\min_{<_{\\mathrm{lex}}}W_k(e)$ (oder $\\bot$ bei leerer Supportmenge).",
+      "origin_status_tex": "Nur Report/Visualisierung (nicht normativ)",
+      "symbol_canon": "$w_k^{\\mathrm{rep}}(e)$",
+      "symbol_tex": "$w_k^{\\mathrm{rep}}(e)$"
+    },
+    {
+      "meaning_tex": "Adressierte Zellkantenmenge: $E_w^{(k)}:=\\{e\\in E:\\mu_{k,w}(e)>0\\}$.",
+      "origin_status_tex": "Definiert aus $\\mu_{k,w}(e)$",
+      "symbol_canon": "$E_w^{(k)}$",
+      "symbol_tex": "$E_w^{(k)}$"
+    },
+    {
+      "meaning_tex": "Skalennull\\-Adresse; ermöglicht einheitliche Notation für den Randfall $w=\\emptyset$.",
+      "origin_status_tex": "Konvention",
+      "symbol_canon": "$\\Sset_\\bullet^0=\\{\\emptyset\\}$",
+      "symbol_tex": "$\\Sset_\\bullet^0=\\{\\emptyset\\}$"
+    },
+    {
+      "meaning_tex": "Corner--Corner-Kantenmenge: $E_{\\emptyset}:=\\{e\\in E:\\ell_{\\max}(e)=0\\}$.",
+      "origin_status_tex": "Definiert aus $\\ell_{\\max}(e)$",
+      "symbol_canon": "$E_{\\emptyset}$",
+      "symbol_tex": "$E_{\\emptyset}$"
+    },
+    {
+      "meaning_tex": "Indikator für $E_\\emptyset$: $\\mu_{0,\\emptyset}(e):=\\mathbf 1_{\\{e\\in E_\\emptyset\\}}$.",
+      "origin_status_tex": "Konvention / Vereinheitlichung",
+      "symbol_canon": "$\\mu_{0,\\emptyset}(e)$",
+      "symbol_tex": "$\\mu_{0,\\emptyset}(e)$"
+    },
+    {
+      "meaning_tex": "Indexiert Zellen im Approximanten; Driver-B arbeitet parallel über alle Skalen $k=1,\\dots,K_{\\max}$ (sowie den Randfall $\\emptyset$).",
+      "origin_status_tex": "Adresse (Skale $k$)",
+      "symbol_canon": "$w$",
+      "symbol_tex": "$w\\in\\Sset_\\bullet^k$"
+    },
+    {
+      "meaning_tex": "Zellrand und geordnete Randknoten; definieren den Randhilbertraum und die DtN-Operatoren pro Zelle.",
+      "origin_status_tex": "Bereits in Abschnitt~1 definiert (Patch~1 Ordnung)",
+      "symbol_canon": "$B_w$,\\ $b_{w,i}$",
+      "symbol_tex": "$B_w$,\\ $b_{w,i}$"
+    },
+    {
+      "meaning_tex": "Lokale Vertexmenge der Zelle: $V_w := \\bigl(\\bigcup_{e=\\{u,v\\}\\in E_w^{(k)}}\\{u,v\\}\\bigr)\\cup B_w$ (Patch: $B_w\\subseteq V_w$ stets).",
+      "origin_status_tex": "Definiert aus $E_w^{(k)}$ und $B_w$",
+      "symbol_canon": "$V_w$",
+      "symbol_tex": "$V_w$"
+    },
+    {
+      "meaning_tex": "Innenmenge: $I_w:=V_w\\setminus B_w$; wird im lokalen DtN per Schur-Komplement (Solve-Semantik) eliminiert.",
+      "origin_status_tex": "Definiert aus $V_w,B_w$",
+      "symbol_canon": "$I_w$",
+      "symbol_tex": "$I_w$"
+    },
+    {
+      "meaning_tex": "Zellrandgröße; bestimmt die Anzahl der Randproben (Paare) und die Dimension des Vertex-Randhilbertraums.",
+      "origin_status_tex": "Abgeleitete Größe",
+      "symbol_canon": "$q:=|B_w|$",
+      "symbol_tex": "$q:=|B_w|$"
+    },
+    {
+      "meaning_tex": "$ d_{\\mathrm{vert}}:=|B_w|$; Vertex-Freiheitsgradzahl im Randhilbertraum.",
+      "origin_status_tex": "Definiert in der Mismatch-Subsection",
+      "symbol_canon": "$d_{\\mathrm{vert}}$",
+      "symbol_tex": "$d_{\\mathrm{vert}}$"
+    },
+    {
+      "meaning_tex": "Häufigkeit maximaler LCP-Ties auf Skale $k$: $\\mathrm{tie\\_rate}_k:=\\frac{|\\{e\\in E:|P^\\star(e)|>1,\\ \\ell_{\\max}(e)\\ge k\\}|}{|\\{e\\in E:\\ell_{\\max}(e)\\ge k\\}|}$.",
+      "origin_status_tex": "Diagnostische Größe (T4.DQ1)",
+      "symbol_canon": "$\\mathrm{tie\\_rate}_k$",
+      "symbol_tex": "$\\mathrm{tie\\_rate}_k$"
+    },
+    {
+      "meaning_tex": "Maximale Tie-Multiplikität auf Skale $k$: $m_k:=\\max_{e:\\ell_{\\max}(e)\\ge k}|P^\\star(e)|$.",
+      "origin_status_tex": "Diagnostische Größe (T4.DQ1)",
+      "symbol_canon": "$m_k$",
+      "symbol_tex": "$m_k$"
+    },
+    {
+      "meaning_tex": "Zellmasse der Maßzuordnung: $Z_w^{(k)}:=\\sum_{e\\in E}\\mu_{k,w}(e)$; dient als Degeneranz-/Balance-Check und als Basis für $\\bar p_w$.",
+      "origin_status_tex": "Diagnostische Größe (T4.DQ2) und normativ in Abschnitt~4.10",
+      "symbol_canon": "$Z_w^{(k)}$",
+      "symbol_tex": "$Z_w^{(k)}$"
+    },
+    {
+      "meaning_tex": "Zulässiger Diagnostik-Status z.\\,B.\\ bei leerem Nenner in $\\mathrm{tie\\_rate}_k$; keine Dynamikwirkung.",
+      "origin_status_tex": "Gate-State (Reporting)",
+      "symbol_canon": "\\texttt{SKIP}",
+      "symbol_tex": "\\texttt{SKIP}"
+    },
+    {
+      "meaning_tex": "Mikroskopischer Zustand (Edge-Leitwerte) im Schritt $n$; einziger dynamischer Freiheitsgrad in Driver-B.",
+      "origin_status_tex": "Dynamischer Leitwert (Pfeiler A)",
+      "symbol_canon": "$c_n(e)$",
+      "symbol_tex": "$c_n(e)$"
+    },
+    {
+      "meaning_tex": "Gewichtete Laplacian; Input für alle DtN/Kron-Reduktionen und damit für Mismatch, $p$ und Update.",
+      "origin_status_tex": "Abgeleitet aus $c_n$",
+      "symbol_canon": "$L_n:=L(c_n)$",
+      "symbol_tex": "$L_n:=L(c_n)$"
+    },
+    {
+      "meaning_tex": "Lokaler loopy-Laplacian: $Q_{n,w}:=(L_n)_{V_w,V_w}$; Diagonale enthält auch Kopplungen nach außen als Shunts.",
+      "origin_status_tex": "Definiert als Hauptuntermatrix",
+      "symbol_canon": "$Q_{n,w}$",
+      "symbol_tex": "$Q_{n,w}$"
+    },
+    {
+      "meaning_tex": "Bausteine für lokales DtN via Schur-Komplement; $II$-Block wird deterministisch regularisiert.",
+      "origin_status_tex": "Blockzerlegung nach $V_w=B_w\\sqcup I_w$",
+      "symbol_canon": "$(Q_{n,w})_{BB},(Q_{n,w})_{BI},(Q_{n,w})_{IB},(Q_{n,w})_{II}$",
+      "symbol_tex": "$(Q_{n,w})_{BB},(Q_{n,w})_{BI},(Q_{n,w})_{IB},(Q_{n,w})_{II}$"
+    },
+    {
+      "meaning_tex": "Zell-Randantwort auf $B_w$ nach Eliminierung von $I_w$ (und in der ontischen Interpretation zusätzlich tieferen Leveln).",
+      "origin_status_tex": "Lokales DtN (normativ)",
+      "symbol_canon": "$\\Lambda_{n,w}$",
+      "symbol_tex": "$\\Lambda_{n,w}$"
+    },
+    {
+      "meaning_tex": "Deterministisch regularisierter Innenblock: $(Q_{n,w})_{II,\\reg}:=\\RegSPD\\!\\bigl((Q_{n,w})_{II}\\bigr)$.",
+      "origin_status_tex": "Numerische Stabilisierung",
+      "symbol_canon": "$(Q_{n,w})_{II,\\reg}$",
+      "symbol_tex": "$(Q_{n,w})_{II,\\reg}$"
+    },
+    {
+      "meaning_tex": "Tikhonov-Jitter in IEEE float64; rein numerisch, kein physikalischer Parameter.",
+      "origin_status_tex": "Aus Abschnitt~2 (SPD-Regularisierung)",
+      "symbol_canon": "$\\RegSPD(\\cdot)$,\\ $\\delta_{\\mathrm{SPD}}(\\cdot)$",
+      "symbol_tex": "$\\RegSPD(\\cdot)$,\\ $\\delta_{\\mathrm{SPD}}(\\cdot)$"
+    },
+    {
+      "meaning_tex": "Erfolg der Cholesky-Faktorisierung unter der fixierten Solve-Policy; bestimmt $\\valid(n,w)$.",
+      "origin_status_tex": "Deterministisches Prädikat (Policy-gebunden)",
+      "symbol_canon": "$\\CholOK(\\cdot)$",
+      "symbol_tex": "$\\CholOK(\\cdot)$"
+    },
+    {
+      "meaning_tex": "Lokales DtN-Validitätsflag: $\\valid(n,w):=\\CholOK((Q_{n,w})_{II,\\reg})$ (für $I_w\\neq\\emptyset$); bei $I_w=\\emptyset$ per Konvention $1$.",
+      "origin_status_tex": "Gate/Report-Feld",
+      "symbol_canon": "$\\valid(n,w)$",
+      "symbol_tex": "$\\valid(n,w)\\in\\{0,1\\}$"
+    },
+    {
+      "meaning_tex": "Deterministische lineare Lösung; hier typischerweise $X_{I\\leftarrow B}^{\\loc}$ mit $A=(Q_{n,w})_{II,\\reg}$ und $B=(Q_{n,w})_{IB}$.",
+      "origin_status_tex": "Aus Abschnitt~2 (Solve-Semantik)",
+      "symbol_canon": "$\\Solve(A,B)$",
+      "symbol_tex": "$\\Solve(A,B)$"
+    },
+    {
+      "meaning_tex": "Hilfsmatrix für das Schur-Komplement (lokales DtN).",
+      "origin_status_tex": "Abgeleitet über $\\Solve$",
+      "symbol_canon": "$X_{I\\leftarrow B}^{\\loc}(n,w)$",
+      "symbol_tex": "$X_{I\\leftarrow B}^{\\loc}(n,w)$"
+    },
+    {
+      "meaning_tex": "Bei $\\valid(n,w)=1$: $\\Lambda_{n,w}:=(Q_{n,w})_{BB}-(Q_{n,w})_{BI}\\,X_{I\\leftarrow B}^{\\loc}(n,w)$.",
+      "origin_status_tex": "Schur-Komplement",
+      "symbol_canon": "$\\Lambda_{n,w}$ (Valid-Fall)",
+      "symbol_tex": "$\\Lambda_{n,w}$ (Valid-Fall)"
+    },
+    {
+      "meaning_tex": "Bei $\\valid(n,w)=0$ deterministisch ohne Inversion: $\\Lambda_{n,w}:=(Q_{n,w})_{BB}+\\delta_0((Q_{n,w})_{BB})\\,I$.",
+      "origin_status_tex": "Totalitäts-Definition",
+      "symbol_canon": "$\\Lambda_{n,w}$ (Invalid-Fall)",
+      "symbol_tex": "$\\Lambda_{n,w}$ (Invalid-Fall)"
+    },
+    {
+      "meaning_tex": "Komplement zu $B_w$ im (endlichen) Approximanten; wird im globalen DtN eliminiert.",
+      "origin_status_tex": "Notation",
+      "symbol_canon": "$\\bar B_w:=V\\setminus B_w$",
+      "symbol_tex": "$\\bar B_w:=V\\setminus B_w$"
+    },
+    {
+      "meaning_tex": "Deterministisch regularisierter Umweltblock: $(L_n)_{\\bar B\\bar B,\\reg}:=\\RegSPD((L_n)_{\\bar B\\bar B})$.",
+      "origin_status_tex": "Numerische Stabilisierung",
+      "symbol_canon": "$(L_n)_{\\bar B\\bar B,\\reg}$",
+      "symbol_tex": "$(L_n)_{\\bar B\\bar B,\\reg}$"
+    },
+    {
+      "meaning_tex": "Globales Validitätsflag: $\\validglob(n,w):=\\CholOK((L_n)_{\\bar B\\bar B,\\reg})$ (bei $\\bar B_w\\neq\\varnothing$; sonst $1$).",
+      "origin_status_tex": "Gate/Report-Feld",
+      "symbol_canon": "$\\validglob(n,w)$",
+      "symbol_tex": "$\\validglob(n,w)\\in\\{0,1\\}$"
+    },
+    {
+      "meaning_tex": "Randantwort auf $B_w$ bei Eliminierung der gesamten (intrinsischen) Umwelt $\\bar B_w$.",
+      "origin_status_tex": "Globales DtN (normativ)",
+      "symbol_canon": "$\\Lambda_{n,w}^{\\glob}$",
+      "symbol_tex": "$\\Lambda_{n,w}^{\\glob}$"
+    },
+    {
+      "meaning_tex": "Bei $\\bar B_w\\neq\\varnothing$ und $\\validglob(n,w)=1$: $\\Lambda_{n,w}^{\\glob}:=(L_n)_{BB}-(L_n)_{B\\bar B}\\,\\Solve((L_n)_{\\bar B\\bar B,\\reg},(L_n)_{\\bar B B})$.",
+      "origin_status_tex": "Schur-Komplement",
+      "symbol_canon": "$\\Lambda_{n,w}^{\\glob}$ (Valid-Fall)",
+      "symbol_tex": "$\\Lambda_{n,w}^{\\glob}$ (Valid-Fall)"
+    },
+    {
+      "meaning_tex": "Orthogonale Spur (auf dem zu $\\mathbf 1$ orthogonalen Unterraum); wird zur normierten Skalierung von DtN genutzt.",
+      "origin_status_tex": "Definiert in Abschnitt~3",
+      "symbol_canon": "$\\tr_{\\perp}(\\Lambda)$",
+      "symbol_tex": "$\\tr_{\\perp}(\\Lambda)$"
+    },
+    {
+      "meaning_tex": "Normierte DtN-Matrix: $\\widehat\\Lambda^{x}_{n,w}:=\\Lambda^{x}_{n,w}/\\max\\{\\tr_{\\perp}(\\Lambda^{x}_{n,w}),\\epsfloor\\}$, $x\\in\\{\\loc,\\glob\\}$.",
+      "origin_status_tex": "Normativ (Mismatch-Subsection)",
+      "symbol_canon": "$\\widehat\\Lambda^{x}_{n,w}$",
+      "symbol_tex": "$\\widehat\\Lambda^{x}_{n,w}$"
+    },
+    {
+      "meaning_tex": "Lokale ``Spur-Dimension'' (internal degree); nur als Tensorfaktor im Randhilbertraum und bei Choi-Normierung relevant.",
+      "origin_status_tex": "Preset/Policy (Pfeiler A)",
+      "symbol_canon": "$d_p$",
+      "symbol_tex": "$d_p$"
+    },
+    {
+      "meaning_tex": "Vertex-Randhilbertraum $\\ell^2(B_w)$ in Patch-1-Ordnung.",
+      "origin_status_tex": "Abgeleitet",
+      "symbol_canon": "$\\mathcal H^{\\mathrm{vert}}_{B_w}\\cong\\mathbb C^{d_{\\mathrm{vert}}}$",
+      "symbol_tex": "$\\mathcal H^{\\mathrm{vert}}_{B_w}\\cong\\mathbb C^{d_{\\mathrm{vert}}}$"
+    },
+    {
+      "meaning_tex": "Voller Randhilbertraum; Basis $|i\\rangle\\otimes|\\alpha\\rangle$ mit $i\\in B_w$, $\\alpha\\in[d_p]$.",
+      "origin_status_tex": "Abgeleitet / normativ",
+      "symbol_canon": "$\\mathcal H_{B_w}:=\\mathcal H_{B_w}^{\\mathrm{vert}}\\otimes\\mathbb C^{d_p}$",
+      "symbol_tex": "$\\mathcal H_{B_w}:=\\mathcal H_{B_w}^{\\mathrm{vert}}\\otimes\\mathbb C^{d_p}$"
+    },
+    {
+      "meaning_tex": "Deterministische Übergangsraten (für $i\\neq j$) auf dem Rand; definieren Lindblad-Operatoren und GKSL-Generator.",
+      "origin_status_tex": "Abgeleitet aus $\\widehat\\Lambda^{x}_{n,w}$",
+      "symbol_canon": "$r_{ij}^{x}(n,w)$",
+      "symbol_tex": "$r_{ij}^{x}(n,w)$"
+    },
+    {
+      "meaning_tex": "GKSL-Generator (Liouvillian) auf $\\mathcal H^{\\mathrm{vert}}_{B_w}$ aus den Raten $r_{ij}^{x}$.",
+      "origin_status_tex": "Aus GKSL-Konstruktion",
+      "symbol_canon": "$\\mathcal L_{n,w}^{x}$",
+      "symbol_tex": "$\\mathcal L_{n,w}^{x}$"
+    },
+    {
+      "meaning_tex": "Eindeutiger CPTP-Kanal (z.\\,B. via Exponentialmap) auf $\\mathcal H^{\\mathrm{vert}}_{B_w}$, der den Vergleich global vs.\\ lokal ermöglicht.",
+      "origin_status_tex": "Kanal aus $\\mathcal L$",
+      "symbol_canon": "$\\phi_{n,w}^{x}$",
+      "symbol_tex": "$\\phi_{n,w}^{x}$"
+    },
+    {
+      "meaning_tex": "Erweiterter Kanal auf $\\mathcal H_{B_w}$; stellt Additivität/Trennung der $d_p$-Freiheitsgrade sicher (inhaltlich unabhängig).",
+      "origin_status_tex": "Normativ",
+      "symbol_canon": "$\\Phi_{n,w}^{x}=\\phi_{n,w}^{x}\\otimes \\id_{d_p}$",
+      "symbol_tex": "$\\Phi_{n,w}^{x}=\\phi_{n,w}^{x}\\otimes \\id_{d_p}$"
+    },
+    {
+      "meaning_tex": "Hilbert\\-raumdimension; bestimmt Choi-Größen ($d^2\\times d^2$) und die Normierung via $\\log(d^2)$.",
+      "origin_status_tex": "Abgeleitet",
+      "symbol_canon": "$d:=\\dim(\\mathcal H_{B_w})=|B_w|\\,d_p$",
+      "symbol_tex": "$d:=\\dim(\\mathcal H_{B_w})=|B_w|\\,d_p$"
+    },
+    {
+      "meaning_tex": "Maximal verschränkter Zustand: $|\\Omega\\rangle:=\\frac1{\\sqrt d}\\sum_{a=1}^d |a\\rangle\\otimes|a\\rangle$ in kanonischer Basis.",
+      "origin_status_tex": "Normativ",
+      "symbol_canon": "$|\\Omega\\rangle$",
+      "symbol_tex": "$|\\Omega\\rangle$"
+    },
+    {
+      "meaning_tex": "Normalisierter Choi-Zustand: $J(\\Phi):=(\\Phi\\otimes \\mathrm{id})(|\\Omega\\rangle\\langle\\Omega|)$.",
+      "origin_status_tex": "Choi-Zustand (normativ)",
+      "symbol_canon": "$J(\\Phi)$",
+      "symbol_tex": "$J(\\Phi)$"
+    },
+    {
+      "meaning_tex": "$J_\\varepsilon(\\Phi):=(1-\\varepsilon_0)J(\\Phi)+\\varepsilon_0\\,I_{d^2}/d^2$ (macht strikt positiv definit).",
+      "origin_status_tex": "Totalitäts-Regularisierung",
+      "symbol_canon": "$J_\\varepsilon(\\Phi)$",
+      "symbol_tex": "$J_\\varepsilon(\\Phi)$"
+    },
+    {
+      "meaning_tex": "Quantum relative Entropie (Umegaki): $S(\\rho\\Vert\\sigma)=\\Tr(\\rho(\\logDet\\rho-\\logDet\\sigma))$ bei Support-Inklusion, sonst $+\\infty$.",
+      "origin_status_tex": "Normativ (Umegaki)",
+      "symbol_canon": "$S(\\rho\\Vert\\sigma)$",
+      "symbol_tex": "$S(\\rho\\Vert\\sigma)$"
+    },
+    {
+      "meaning_tex": "Log/Exp für PSD/PD Matrizen unter stabilisierter Numerik; Grundlage für $S(\\cdot\\Vert\\cdot)$.",
+      "origin_status_tex": "Deterministische Matrixfunktionen (Policy)",
+      "symbol_canon": "$\\logDet(\\cdot)$,\\ $\\expmDet(\\cdot)$",
+      "symbol_tex": "$\\logDet(\\cdot)$,\\ $\\expmDet(\\cdot)$"
+    },
+    {
+      "meaning_tex": "Einzig zugelassene Divergenz: $\\mathrm{Mismatch}(n,w):=\\frac{S(J_\\varepsilon(\\Phi_{n,w}^{\\glob})\\Vert J_\\varepsilon(\\Phi_{n,w}^{\\loc}))}{\\log(d^2)}\\ge 0$.",
+      "origin_status_tex": "Skalares Mismatch (normativ)",
+      "symbol_canon": "$\\mathrm{Mismatch}(n,w)$,\\ $\\Mismatch_n(w)$",
+      "symbol_tex": "$\\mathrm{Mismatch}(n,w)$,\\ $\\Mismatch_n(w)$"
+    },
+    {
+      "meaning_tex": "Orientierte Ratendifferenz: $\\Delta r_{ij}(n,w):=|r_{ij}^{\\glob}(n,w)-r_{ij}^{\\loc}(n,w)|$; Input für Randproben-Gewichte.",
+      "origin_status_tex": "Abgeleitet (Raten-Differenz)",
+      "symbol_canon": "$\\Delta r_{ij}(n,w)$",
+      "symbol_tex": "$\\Delta r_{ij}(n,w)$"
+    },
+    {
+      "meaning_tex": "Ungeordnete Paarversion (für $i<j$) zur symmetrischen Probengewichtung.",
+      "origin_status_tex": "Symmetrisierung",
+      "symbol_canon": "$\\Delta r_{\\{i,j\\}}(n,w)$",
+      "symbol_tex": "$\\Delta r_{\\{i,j\\}}(n,w)$"
+    },
+    {
+      "meaning_tex": "Zulässige Sättigungsfunktion $\\sigma:\\mathbb R\\to[-1,1]$ (ungerade, monoton, 1-Lipschitz, saturierend); Default $\\tanh$.",
+      "origin_status_tex": "Normative Policy (Def.~\\ref{def:saturation})",
+      "symbol_canon": "$\\sigma$",
+      "symbol_tex": "$\\sigma$"
+    },
+    {
+      "meaning_tex": "Rohfaktor: $\\kappa^{\\mathrm{raw}}_n(w):=\\sigma(\\Mismatch_n(w))$.",
+      "origin_status_tex": "Definiert aus Mismatch",
+      "symbol_canon": "$\\kappa^{\\mathrm{raw}}_n(w)$",
+      "symbol_tex": "$\\kappa^{\\mathrm{raw}}_n(w)$"
+    },
+    {
+      "meaning_tex": "Validität lokaler/globaler DtN-Schritte; steuern das Fallback-Flag $f(n,w)$.",
+      "origin_status_tex": "Gate-Felder",
+      "symbol_canon": "$\\valid(n,w),\\ \\validglob(n,w)$",
+      "symbol_tex": "$\\valid(n,w),\\ \\validglob(n,w)$"
+    },
+    {
+      "meaning_tex": "$f(n,w)=1$ falls $\\valid(n,w)=0$ oder $\\validglob(n,w)=0$, sonst $0$.",
+      "origin_status_tex": "Deterministisches Fallback-Flag",
+      "symbol_canon": "$f(n,w)$",
+      "symbol_tex": "$f(n,w)\\in\\{0,1\\}$"
+    },
+    {
+      "meaning_tex": "Soft-Dämpfungsfaktor $\\eta_{\\mathrm{soft}}:=10^{-2}$ (kanonisch).",
+      "origin_status_tex": "Fixe Konstante",
+      "symbol_canon": "$\\eta_{\\mathrm{soft}}$",
+      "symbol_tex": "$\\eta_{\\mathrm{soft}}$"
+    },
+    {
+      "meaning_tex": "Effektiver Rückkopplungsfaktor: $\\kappa_n(w)=\\kappa^{\\mathrm{raw}}_n(w)$ bei $f=0$, bzw.\\ $\\eta_{\\mathrm{soft}}\\kappa^{\\mathrm{raw}}_n(w)$ bei $f=1$.",
+      "origin_status_tex": "Normativ (Soft-Fallback)",
+      "symbol_canon": "$\\kappa_n(w)$",
+      "symbol_tex": "$\\kappa_n(w)$"
+    },
+    {
+      "meaning_tex": "Schwellwert zur Hard/Soft-Fallback-Klassifikation; wird in Def.~\\ref{def:acceptance} fixiert (kein freier Parameter).",
+      "origin_status_tex": "Schwellwert (Acceptance-Policy)",
+      "symbol_canon": "$\\kappa_{\\mathrm{raw,thr}}$",
+      "symbol_tex": "$\\kappa_{\\mathrm{raw,thr}}$"
+    },
+    {
+      "meaning_tex": "Klassifikation von Fallback-Instanzen anhand $|\\kappa^{\\mathrm{raw}}_n(w)|\\ge \\kappa_{\\mathrm{raw,thr}}$; steuert Pflicht-Logs $p_{\\mathrm{fb,hard}}(n)$ und Gates.",
+      "origin_status_tex": "Diagnostik/Gates",
+      "symbol_canon": "$f_{\\mathrm{hard}}(n,w), f_{\\mathrm{soft}}(n,w)$",
+      "symbol_tex": "$f_{\\mathrm{hard}}(n,w), f_{\\mathrm{soft}}(n,w)$"
+    },
+    {
+      "meaning_tex": "Fallback-Raten im Schritt $n$; hoher Hard-Fallback-Anteil markiert den Run als invalid.",
+      "origin_status_tex": "Pflicht-Logs (Acceptance)",
+      "symbol_canon": "$p_{\\mathrm{fb}}(n),p_{\\mathrm{fb,hard}}(n),p_{\\mathrm{fb,soft}}(n)$",
+      "symbol_tex": "$p_{\\mathrm{fb}}(n),p_{\\mathrm{fb,hard}}(n),p_{\\mathrm{fb,soft}}(n)$"
+    },
+    {
+      "meaning_tex": "Randbedingungen pro ungeordnetem Paar $0\\le i<j\\le q-1$: $u(i)=1$, $u(j)=-1$, sonst $0$ (Patch-1-Ordnung).",
+      "origin_status_tex": "Randprobe (kanonisch)",
+      "symbol_canon": "$u^{(ij)}_{B_w}$",
+      "symbol_tex": "$u^{(ij)}_{B_w}$"
+    },
+    {
+      "meaning_tex": "Deterministische harmonische Fortsetzung ins Innere (Solve-Semantik auf dem Innenblock); bei Solve-Fail: $u_I^{(ij)}\\equiv 0$.",
+      "origin_status_tex": "Harmonische Fortsetzung",
+      "symbol_canon": "$u^{(ij)}_{n,w}:V_w\\to\\mathbb R$",
+      "symbol_tex": "$u^{(ij)}_{n,w}:V_w\\to\\mathbb R$"
+    },
+    {
+      "meaning_tex": "Gewichte der Randproben aus $\\Delta r_{\\{i,j\\}}(n,w)$ (mit $\\epsfloor$-Stabilisierung und Normierung über alle Paare).",
+      "origin_status_tex": "Aus Raten-Differenzen",
+      "symbol_canon": "$\\omega_{\\{i,j\\}}(n,w)$",
+      "symbol_tex": "$\\omega_{\\{i,j\\}}(n,w)$"
+    },
+    {
+      "meaning_tex": "Diskrete Verteilung $\\pi_a=\\omega_a$ über Aktionen $\\mathcal A_w$ (Paarindices); optional deterministische Auswahl $a^\\star$.",
+      "origin_status_tex": "Optionaler Trajektorienmodus",
+      "symbol_canon": "$\\pi(\\cdot;n,w)$,\\ $\\mathcal A_w$",
+      "symbol_tex": "$\\pi(\\cdot;n,w)$,\\ $\\mathcal A_w$"
+    },
+    {
+      "meaning_tex": "Selektionsfunktion $\\Sel$ wählt aus $\\pi$ deterministisch anhand eines (unbeobachteten) Umweltzustands $\\theta_{n,w}$.",
+      "origin_status_tex": "Deterministische (unbeobachtete) Auswahl",
+      "symbol_canon": "$\\theta_{n,w}\\in[0,1)$,\\ $\\Sel(\\theta,\\pi)$",
+      "symbol_tex": "$\\theta_{n,w}\\in[0,1)$,\\ $\\Sel(\\theta,\\pi)$"
+    },
+    {
+      "meaning_tex": "$\\mathcal E^{\\mathrm{raw}}_{n,w}(e):=\\sum_{i<j}\\omega_{\\{i,j\\}}(n,w)\\,c_n(e)\\,(u^{(ij)}(a)-u^{(ij)}(b))^2$ für $e=\\{a,b\\}$.",
+      "origin_status_tex": "Antwort-/Kanalbasierte Edge-Energie (roh)",
+      "symbol_canon": "$\\mathcal E^{\\mathrm{raw}}_{n,w}(e)$",
+      "symbol_tex": "$\\mathcal E^{\\mathrm{raw}}_{n,w}(e)$"
+    },
+    {
+      "meaning_tex": "Zellbeitrag mit Mehrzuordnung: $\\mathcal E_{n,w}(e):=\\mu_{k,w}(e)\\,\\mathcal E^{\\mathrm{raw}}_{n,w}(e)$.",
+      "origin_status_tex": "Gewichtete Zellenergie",
+      "symbol_canon": "$\\mathcal E_{n,w}(e)$",
+      "symbol_tex": "$\\mathcal E_{n,w}(e)$"
+    },
+    {
+      "meaning_tex": "$\\bar p_w(e):=\\mu_{k,w}(e)/Z_w^{(k)}$ (für $Z_w^{(k)}>0$); rein geometrische/maßbasierte Referenz pro Zelle.",
+      "origin_status_tex": "Referenzverteilung (aus Maß)",
+      "symbol_canon": "$\\bar p_w(e)$",
+      "symbol_tex": "$\\bar p_w(e)$"
+    },
+    {
+      "meaning_tex": "Energie-zu-Wahrscheinlichkeit: $p_{n,w}(e):=\\frac{\\mathcal E_{n,w}(e)+\\varepsilon_0\\bar p_w(e)}{\\sum_{e'}\\mathcal E_{n,w}(e')+\\varepsilon_0}$.",
+      "origin_status_tex": "Normierte Zellverteilung",
+      "symbol_canon": "$p_{n,w}(e)$",
+      "symbol_tex": "$p_{n,w}(e)$"
+    },
+    {
+      "meaning_tex": "$\\widetilde p_{n,w}(e):=p_{n,w}(e)-\\bar p_w(e)$; Nullsumme über $e$ (bei $Z_w^{(k)}>0$).",
+      "origin_status_tex": "Zentrierung",
+      "symbol_canon": "$\\widetilde p_{n,w}(e)$",
+      "symbol_tex": "$\\widetilde p_{n,w}(e)$"
+    },
+    {
+      "meaning_tex": "Für $w=\\emptyset$: $\\bar p_\\emptyset:=1/|E_\\emptyset|$ (uniform auf $E_\\emptyset$), sonst $\\widetilde p_{n,\\emptyset}\\equiv 0$ falls $|E_\\emptyset|=0$.",
+      "origin_status_tex": "Randfall-Konvention",
+      "symbol_canon": "$\\bar p_{\\emptyset}$",
+      "symbol_tex": "$\\bar p_{\\emptyset}$"
+    },
+    {
+      "meaning_tex": "Update-Exponent: $\\Delta_n(e)=-\\sum_{k=1}^{K_{\\max}}\\alpha_k\\sum_{w\\in W_k(e)}\\mu_{k,w}(e)\\kappa_n(w)\\widetilde p_{n,w}(e)\\;-\\;\\mu_{0,\\emptyset}(e)\\kappa_n(\\emptyset)\\widetilde p_{n,\\emptyset}(e)$.",
+      "origin_status_tex": "Normativ",
+      "symbol_canon": "$\\Delta_n(e)$",
+      "symbol_tex": "$\\Delta_n(e)$"
+    },
+    {
+      "meaning_tex": "$\\widetilde c_{n+1}(e):=c_n(e)\\exp(\\Delta_n(e))$ für alle $e\\in E$.",
+      "origin_status_tex": "Provisorischer Update-Schritt",
+      "symbol_canon": "$\\widetilde c_{n+1}(e)$",
+      "symbol_tex": "$\\widetilde c_{n+1}(e)$"
+    },
+    {
+      "meaning_tex": "Reskaliert nur $E_\\partial$: $c_{n+1}^{(\\lambda)}(e)=\\widetilde c_{n+1}(e)\\exp(\\lambda)$ für $e\\in E_\\partial$, sonst $\\widetilde c_{n+1}(e)$.",
+      "origin_status_tex": "$\\lambda$-Reskalierung (Gauge-Fix)",
+      "symbol_canon": "$c_{n+1}^{(\\lambda)}(e)$",
+      "symbol_tex": "$c_{n+1}^{(\\lambda)}(e)$"
+    },
+    {
+      "meaning_tex": "Erhaltene Randenergie-Summe auf $B_0$ (aus $\\Lambda_n$ und Paarproben); globaler Ziel-Constraint.",
+      "origin_status_tex": "Aus Abschnitt~3 normativ",
+      "symbol_canon": "$\\mathcal E_{B_0,n}^{\\tot}$",
+      "symbol_tex": "$\\mathcal E_{B_0,n}^{\\tot}$"
+    },
+    {
+      "meaning_tex": "Policyparameter der deterministischen $\\lambda_n$-Suche (Initialintervall, Expansionsfaktor, Iterationsbudgets).",
+      "origin_status_tex": "Fixe numerische Konstanten (Bracketing/Bisect)",
+      "symbol_canon": "$h_0,\\gamma,N_{\\mathrm{expand}},N_{\\mathrm{bisect}}$",
+      "symbol_tex": "$h_0,\\gamma,N_{\\mathrm{expand}},N_{\\mathrm{bisect}}$"
+    },
+    {
+      "meaning_tex": "Float64-basierte Energietoleranz/Abbruchkriterium für die $\\lambda$-Suche (rein numerisch; Definition im Text).",
+      "origin_status_tex": "Deterministische Toleranz",
+      "symbol_canon": "$T_E$",
+      "symbol_tex": "$T_E$"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "counts": {
+    "duplicates_in_extract": 0,
+    "duplicates_in_module_map": 0,
+    "missing_in_extract": 0,
+    "missing_in_map": 0,
+    "symbols_in_extract": 311,
+    "symbols_in_module_map": 311
+  },
+  "meta": {
+    "definition_pdf": "REAL-Graph_OQS-Definition_v4_rev8.pdf",
+    "definition_pdf_sha256": "0f926e22fdc9bb2b78b1b490c932ee893d58f63a5369c239ac55d66bfb1e9cee",
+    "definition_tex": "REAL-Graph_OQS-Definition_v4_rev8.tex",
+    "definition_tex_sha256": "f4cb6b4fcb0a0ff70c49583ef36ab94d4dd9adbf022fd2e22e4eaeb361ade4e3",
+    "generated_utc": "2026-01-01T16:57:51Z",
+    "status": "ok",
+    "symbol_module_map": "symbol_module_map_v4_rev6.json",
+    "symbol_module_map_sha256": "e9505a32dacfbf2a8aebf45d1214767e9215220acac1e4f4a667264aa6e3baa7",
+    "symbol_table_extract": "symbol_table_extract_v4_rev8.json",
+    "symbol_table_extract_sha256": "4ee768874d4ab878a4817323fae9cfc4ac5f22f9d8295e0a60e8d923d91a90c6"
+  },
+  "missing_in_extract": [],
+  "missing_in_map": []
+}

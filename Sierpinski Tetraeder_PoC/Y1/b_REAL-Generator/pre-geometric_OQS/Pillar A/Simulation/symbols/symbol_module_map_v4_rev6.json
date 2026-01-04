@@ -1,0 +1,1584 @@
+{
+  "mapping": [
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$(L_n)_{BB},(L_n)_{BI},(L_n)_{IB},(L_n)_{II}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$(L_n)_{II,\\mathrm{reg}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Numerische Stabilisierung",
+      "symbol_tex": "$(L_n)_{\\bar B\\bar B,\\reg}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$(L_n)_{xy}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Blockzerlegung nach $V_w=B_w\\sqcup I_w$",
+      "symbol_tex": "$(Q_{n,w})_{BB},(Q_{n,w})_{BI},(Q_{n,w})_{IB},(Q_{n,w})_{II}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Numerische Stabilisierung",
+      "symbol_tex": "$(Q_{n,w})_{II,\\reg}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$(b_0,\\dots,b_{q-1})$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$A^{(L)}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$A_n$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Definiert aus $\\Rep(x)$",
+      "symbol_tex": "$A_x$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$B=B_0,\\ I=V\\setminus B$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$B\\subseteq V$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$B_0:=\\{b_i:i\\in\\Sset_\\bullet\\}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Bereits in Abschnitt~1 definiert (Patch~1 Ordnung)",
+      "symbol_tex": "$B_w$,\\ $b_{w,i}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$B_w:=\\{b_{w,i}:i\\in\\Sset_\\bullet\\}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$C,\\ \\mathcal E_C,\\ P_C$"
+    },
+    {
+      "module": "metrics/resistance_embedding",
+      "notes": "",
+      "symbol_tex": "$D=(d_n(u,v))$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$E,\\ V$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$E_L^\\bullet$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$E_\\infty^\\bullet:=\\varinjlim_L E_L^\\bullet$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$E_\\partial$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$E_n^{+}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Definiert aus $\\mu_{k,w}(e)$",
+      "symbol_tex": "$E_w^{(k)}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Definiert aus $\\ell_{\\max}(e)$",
+      "symbol_tex": "$E_{\\emptyset}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$G_\\infty^\\bullet:=(V_\\infty^\\bullet,E_\\infty^\\bullet)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$H_n:=\\kappa_n(A_n\\otimes I_{d_p})$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$H_{n,B_0}:=\\kappa_n^{(\\Lambda)}(\\Lambda_n\\otimes I_{d_p})$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$I$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Definiert aus $V_w,B_w$",
+      "symbol_tex": "$I_w$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$I_{d_p}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Choi-Zustand (normativ)",
+      "symbol_tex": "$J(\\Phi)$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$J^{(n)}_{x\\to y}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Totalitäts-Regularisierung",
+      "symbol_tex": "$J_\\varepsilon(\\Phi)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$K_L:=\\iota_L(V_L^\\bullet)\\subset V_\\infty^\\bullet$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$K_{\\max}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$L\\in\\mathbb{N}_0$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$L_0$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "global worst-case index; derived from L0(A) over logged observables",
+      "symbol_tex": "$L_0^{\\mathrm{glob}}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$L_n$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Abgeleitet aus $c_n$",
+      "symbol_tex": "$L_n:=L(c_n)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$L_n\\in\\mathbb R^{|V|\\times|V|}$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "",
+      "symbol_tex": "$L_n^\\dagger$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$L_n^{(g)}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$L_{\\mathrm{int}}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$L_{\\max}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$L_{\\max}\\in\\mathbb{N}_0$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$M_{\\mathrm{reg}}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$N_{\\lambda,\\max}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$N_{\\mathrm{expand}},\\ N_{\\mathrm{bisect}}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Definiert aus Adressen $A_x,A_y$",
+      "symbol_tex": "$P(e)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Definiert aus $P(e),\\ell_{\\max}(e)$",
+      "symbol_tex": "$P^\\star(e)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$P_B:=\\Pi_B\\otimes I_{d_p}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$P_S$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Definiert als Hauptuntermatrix",
+      "symbol_tex": "$Q_{n,w}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$R$-lokal"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$R\\in\\mathbb{N}$"
+    },
+    {
+      "module": "metrics/resistance_embedding",
+      "notes": "",
+      "symbol_tex": "$R_n(u,v)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$R_n(u,v),\\, d_n(u,v)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$R_{\\max},\\, d_{\\max}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Normativ (Umegaki)",
+      "symbol_tex": "$S(\\rho\\Vert\\sigma)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$S_n^{(g)}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$S_w:=\\tfrac12(\\mathrm{Seed}_0(w)+\\mathrm{Seed}_0(w)^\\top)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Deterministische Toleranz",
+      "symbol_tex": "$T_E$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$U_n:=\\exp(-i\\Delta t\\,H_n)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$V,E$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$V:=V_{L_{\\max}}^\\bullet,\\;E:=E_{L_{\\max}}^\\bullet$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$V=B_0\\sqcup I$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$V_L^\\bullet:=\\widehat V_L/\\sim_L$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$V_\\infty^\\bullet:=\\varinjlim_L V_L^\\bullet$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$V_n$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Definiert aus $E_w^{(k)}$ und $B_w$",
+      "symbol_tex": "$V_w$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$V_w=B_w\\sqcup I_w$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Definiert aus $\\mu_{k,w}(e)$",
+      "symbol_tex": "$W_k(e)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$X_n:V\\to\\mathbb R^d$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$X_{I\\leftarrow B}^{\\glob}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Abgeleitet über $\\Solve$",
+      "symbol_tex": "$X_{I\\leftarrow B}^{\\loc}(n,w)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$X_{\\mathrm{ref}}$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "",
+      "symbol_tex": "$Y_B:B_0\\to\\mathbb R^d$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Diagnostische Größe (T4.DQ2) und normativ in Abschnitt~4.10",
+      "symbol_tex": "$Z_w^{(k)}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\CholOK(M)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Deterministisches Prädikat (Policy-gebunden)",
+      "symbol_tex": "$\\CholOK(\\cdot)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Symmetrisierung",
+      "symbol_tex": "$\\Delta r_{\\{i,j\\}}(n,w)$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Abgeleitet (Raten-Differenz)",
+      "symbol_tex": "$\\Delta r_{ij}(n,w)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Delta t$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Delta_L(A)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Delta_R^{\\mathrm{ground}}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Normativ",
+      "symbol_tex": "$\\Delta_n(e)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Delta_{uvw}$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "",
+      "symbol_tex": "$\\Edir_n(f,g)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Htot:=\\ell^2(V_\\infty^\\bullet)\\otimes\\mathbb{C}^{d_p}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$\\Lambda_n$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$\\Lambda_{n,B_0}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Lokales DtN (normativ)",
+      "symbol_tex": "$\\Lambda_{n,w}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Totalitäts-Definition",
+      "symbol_tex": "$\\Lambda_{n,w}$ (Invalid-Fall)"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Schur-Komplement",
+      "symbol_tex": "$\\Lambda_{n,w}$ (Valid-Fall)"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Globales DtN (normativ)",
+      "symbol_tex": "$\\Lambda_{n,w}^{\\glob}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Schur-Komplement",
+      "symbol_tex": "$\\Lambda_{n,w}^{\\glob}$ (Valid-Fall)"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\Phi^{(w)}_{B_w}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\Phi_B$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Normativ",
+      "symbol_tex": "$\\Phi_{n,w}^{x}=\\phi_{n,w}^{x}\\otimes \\id_{d_p}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Pi_B$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\Psi_{n,B}:=\\Phi_B\\circ\\mathcal T_n\\circ\\iota_B$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\RegSPD(A)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Aus Abschnitt~2 (SPD-Regularisierung)",
+      "symbol_tex": "$\\RegSPD(\\cdot)$,\\ $\\delta_{\\mathrm{SPD}}(\\cdot)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$\\RegSPD^{(m)}(A)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Patch~1 (Repräsentanten); abgeleitet aus der Zellstruktur / Identifikationen",
+      "symbol_tex": "$\\Rep(x)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Sel(\\theta,\\pi)\\in\\mathcal A\\cup\\{\\bot\\}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Aus Abschnitt~2 (Solve-Semantik)",
+      "symbol_tex": "$\\Solve(A,B)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\Solve(\\cdot,\\cdot)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Sset_\\bullet$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$\\Sset_\\bullet,\\ q:=|\\Sset_\\bullet|$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Konvention",
+      "symbol_tex": "$\\Sset_\\bullet^0=\\{\\emptyset\\}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\Sym(A)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\alpha_k$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\bar B:=V\\setminus B$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Notation",
+      "symbol_tex": "$\\bar B_w:=V\\setminus B_w$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Referenzverteilung (aus Maß)",
+      "symbol_tex": "$\\bar p_w(e)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Randfall-Konvention",
+      "symbol_tex": "$\\bar p_{\\emptyset}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\beta_{\\mathrm{reg}}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\bot$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "default: SG",
+      "symbol_tex": "$\\bullet\\in\\{\\mathrm{SG},\\mathrm{ST}\\}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\delta^{\\mathrm{spec}}_L$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\delta_0(A)$"
+    },
+    {
+      "module": "metrics/resistance_embedding",
+      "notes": "",
+      "symbol_tex": "$\\delta_R$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\delta_{\\mathrm{SPD}}(A)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\ell,k$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$\\ell^2(V)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Definiert aus $P(e)$",
+      "symbol_tex": "$\\ell_{\\max}(e)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$\\emptyset$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\epsmach,\\;\\epsfloor=\\sqrt{\\epsmach}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Fixe Konstante",
+      "symbol_tex": "$\\eta_{\\mathrm{soft}}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\expmDet(A)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\id(x)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$\\iota_B$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\iota_{\\ell\\to L}:V_\\ell^\\bullet\\to V_L^\\bullet$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Definiert aus Mismatch",
+      "symbol_tex": "$\\kappa^{\\mathrm{raw}}_n(w)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\kappa_n$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Normativ (Soft-Fallback)",
+      "symbol_tex": "$\\kappa_n(w)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$\\kappa_n^{(\\Lambda)}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Schwellwert (Acceptance-Policy)",
+      "symbol_tex": "$\\kappa_{\\mathrm{raw,thr}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\kappa_{\\mathrm{susp}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\kappa_{\\max}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\lambda_i(\\cdot)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\lambda_k(S_w)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$\\lambda_n$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Definiert für $u,v\\in\\Sset_\\bullet^{L_{\\max}}$",
+      "symbol_tex": "$\\lcp(u,v)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Deterministische Matrixfunktionen (Policy)",
+      "symbol_tex": "$\\logDet(\\cdot)$,\\ $\\expmDet(\\cdot)$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\logDet(\\rho)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathcal A(n),\\ N_A:=|\\mathcal A(n)|$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathcal B(\\mathcal H)$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\mathcal D(\\mathcal H)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Antwort-/Kanalbasierte Edge-Energie (roh)",
+      "symbol_tex": "$\\mathcal E^{\\mathrm{raw}}_{n,w}(e)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$\\mathcal E_n(f)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$\\mathcal E_{B_0,n}(b_i)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$\\mathcal E_{B_0,n}^{(ij)}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$\\mathcal E_{B_0,n}^{\\mathrm{tot}}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Aus Abschnitt~3 normativ",
+      "symbol_tex": "$\\mathcal E_{B_0,n}^{\\tot}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Gewichtete Zellenergie",
+      "symbol_tex": "$\\mathcal E_{n,w}(e)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$\\mathcal H:=\\ell^2(V)\\otimes\\mathbb C^{d_p}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\mathcal H\\cong \\mathcal H_B\\oplus\\mathcal H_{\\bar B}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Abgeleitet",
+      "symbol_tex": "$\\mathcal H^{\\mathrm{vert}}_{B_w}\\cong\\mathbb C^{d_{\\mathrm{vert}}}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathcal H_B,\\ \\mathcal H_{\\bar B}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathcal H_S:=\\ell^2(S)\\otimes\\mathbb{C}^{d_p}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Abgeleitet / normativ",
+      "symbol_tex": "$\\mathcal H_{B_w}:=\\mathcal H_{B_w}^{\\mathrm{vert}}\\otimes\\mathbb C^{d_p}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathcal H_{V_w}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\mathcal L_n$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Aus GKSL-Konstruktion",
+      "symbol_tex": "$\\mathcal L_{n,w}^{x}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathcal P_R$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathcal T_R$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\mathcal T_n$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$\\mathcal W,\\ N_W:=|\\mathcal W|$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$\\mathrm{Aut}_{B_0}(V)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathrm{CC}_n(x)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$\\mathrm{DtN}_{B}(L_n)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Skalares Mismatch (normativ)",
+      "symbol_tex": "$\\mathrm{Mismatch}(n,w)$,\\ $\\Mismatch_n(w)$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "",
+      "symbol_tex": "$\\mathrm{Seed}_n(w):=\\Lambda^{\\glob}_{n,w}:=\\mathrm{DtN}_{B_w}(L_n)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathrm{Stab}_{B_0}(L_n)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\mathrm{mem}_{\\max}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$\\mathrm{nnz}(L_n)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$\\mathrm{nnz}(\\Lambda_{n,B})$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Notation / Hilfsoperator",
+      "symbol_tex": "$\\mathrm{pref}_k(p)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Diagnostische Größe (T4.DQ1)",
+      "symbol_tex": "$\\mathrm{tie\\_rate}_k$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Konvention / Vereinheitlichung",
+      "symbol_tex": "$\\mu_{0,\\emptyset}(e)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Normativ definiertes, deterministisches Maß (kein lex. Symmetriebruch)",
+      "symbol_tex": "$\\mu_{k,w}(e)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Aus Raten-Differenzen",
+      "symbol_tex": "$\\omega_{\\{i,j\\}}(n,w)$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Kanal aus $\\mathcal L$",
+      "symbol_tex": "$\\phi_{n,w}^{x}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Optionaler Trajektorienmodus",
+      "symbol_tex": "$\\pi(\\cdot;n,w)$,\\ $\\mathcal A_w$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\pi_g$"
+    },
+    {
+      "module": "orchestration/run_meta",
+      "notes": "",
+      "symbol_tex": "$\\prec,\\;\\id(x):=\\mathrm{rank}_\\prec(x)$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\rho\\succeq 0,\\ \\Tr(\\rho)=1$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$\\rho^{(B)}_0,\\ \\rho^{(B)}_{n+1}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\rho_L:=\\rho(A^{(L)})$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\rho_{\\mathrm H}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Normative Policy (Def.~\\ref{def:saturation})",
+      "symbol_tex": "$\\sigma$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "",
+      "symbol_tex": "$\\sigma_B$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "",
+      "symbol_tex": "$\\sim_L$"
+    },
+    {
+      "module": "metrics/resistance_embedding",
+      "notes": "",
+      "symbol_tex": "$\\tau_R$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\tau_d$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\tau_{\\Sel}:=\\epsfloor$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\tau_{\\mathrm{deg}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\tau_{\\mathrm{rel,warn}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\tau_{\\mathrm{rel}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\tau_{\\mathrm{res}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\tau_{\\mathrm{spec}}$"
+    },
+    {
+      "module": "orchestration/run_meta",
+      "notes": "",
+      "symbol_tex": "$\\theta_{0,w}\\in[0,1)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Deterministische (unbeobachtete) Auswahl",
+      "symbol_tex": "$\\theta_{n,w}\\in[0,1)$,\\ $\\Sel(\\theta,\\pi)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Definiert in Abschnitt~3",
+      "symbol_tex": "$\\tr_{\\perp}(\\Lambda)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Gate-Felder",
+      "symbol_tex": "$\\valid(n,w),\\ \\validglob(n,w)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Gate/Report-Feld",
+      "symbol_tex": "$\\valid(n,w)\\in\\{0,1\\}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Gate/Report-Feld",
+      "symbol_tex": "$\\validglob(n,w)\\in\\{0,1\\}$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "",
+      "symbol_tex": "$\\varepsilon$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$\\varepsilon_0$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\varepsilon_{\\mathrm{floor}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\varepsilon_{\\mathrm{mach}}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\widehat V_L:=\\Sset_\\bullet^L\\times\\Sset_\\bullet$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Normativ (Mismatch-Subsection)",
+      "symbol_tex": "$\\widehat\\Lambda^{x}_{n,w}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$\\widehat\\kappa(M)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$\\widehat\\lambda_{\\min}(M),\\,\\widehat\\lambda_{\\max}(M)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Provisorischer Update-Schritt",
+      "symbol_tex": "$\\widetilde c_{n+1}(e)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Zentrierung",
+      "symbol_tex": "$\\widetilde p_{n,w}(e)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\|\\cdot\\|_1,\\ \\theta_{13}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$\\|\\cdot\\|_F$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$a^m$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$a_{\\mathrm{vis}}>0$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$b$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$b_i=[(i^{L_{\\max}},i)]$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$b_{w,i}=[(w\\,i^{L_{\\max}-|w|},i)]$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$c_0(e)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$c_n(a,b)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Dynamischer Leitwert (Pfeiler A)",
+      "symbol_tex": "$c_n(e)$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$c_n:E\\to(0,\\infty)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); $\\lambda$-Reskalierung (Gauge-Fix)",
+      "symbol_tex": "$c_{n+1}^{(\\lambda)}(e)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$d$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Abgeleitet",
+      "symbol_tex": "$d:=\\dim(\\mathcal H_{B_w})=|B_w|\\,d_p$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$d_G(\\cdot,\\cdot)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$d_n(u,v)$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Preset/Policy (Pfeiler A)",
+      "symbol_tex": "$d_p$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$d_p\\in\\mathbb N$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$d_p\\in\\mathbb{N}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Definiert in der Mismatch-Subsection",
+      "symbol_tex": "$d_{\\mathrm{vert}}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); IDEAL/REAL-Trunk (Graphstruktur)",
+      "symbol_tex": "$e=\\{x,y\\}\\in E$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$e_i,\\ w_i$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$e_x$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$f(n,w)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Deterministisches Fallback-Flag",
+      "symbol_tex": "$f(n,w)\\in\\{0,1\\}$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "",
+      "symbol_tex": "$f,g:V\\to\\mathbb C$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$f:V\\to\\mathbb R$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Diagnostik/Gates",
+      "symbol_tex": "$f_{\\mathrm{hard}}(n,w), f_{\\mathrm{soft}}(n,w)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$g$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$g'$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$g_{\\min}(M),\\, g_{\\max}(M)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Fixe numerische Konstanten (Bracketing/Bisect)",
+      "symbol_tex": "$h_0,\\gamma,N_{\\mathrm{expand}},N_{\\mathrm{bisect}}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$k$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$k_{\\mathrm{stable}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$m(A)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Diagnostische Größe (T4.DQ1)",
+      "symbol_tex": "$m_k$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$m_{\\mathrm{chol}}(A)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$m_{\\mathrm{reg,max}}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$n\\in\\mathbb N_0$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$n\\in\\mathbb{N}_0$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$p_{\\mathrm{cond\\_fail}}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$p_{\\mathrm{fb,hard}},\\ p_{\\mathrm{fb,soft}}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$p_{\\mathrm{fb,hard}}^{(\\kappa)}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$p_{\\mathrm{fb,max}},\\ p_{\\mathrm{fb,hard,max}}$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "",
+      "symbol_tex": "$p_{\\mathrm{fb}}(n)$"
+    },
+    {
+      "module": "driver/update",
+      "notes": "normativ fixiert (rev3); Pflicht-Logs (Acceptance)",
+      "symbol_tex": "$p_{\\mathrm{fb}}(n),p_{\\mathrm{fb,hard}}(n),p_{\\mathrm{fb,soft}}(n)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$p_{\\mathrm{mreg,warn}},\\ p_{\\mathrm{mreg,max}}$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$p_{\\mathrm{mreg}}(n)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "normativ fixiert (rev3); Normierte Zellverteilung",
+      "symbol_tex": "$p_{n,w}(e)$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Abgeleitete Größe",
+      "symbol_tex": "$q:=|B_w|$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$q:=|\\Sset_\\bullet|$"
+    },
+    {
+      "module": "orchestration/run_meta",
+      "notes": "",
+      "symbol_tex": "$q_w:=\\epsfloor\\max\\{1,\\|S_w\\|_F\\}$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$r$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$r_\\star$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$r_{\\mathrm{SG}}$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Abgeleitet aus $\\widehat\\Lambda^{x}_{n,w}$",
+      "symbol_tex": "$r_{ij}^{x}(n,w)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$s_R$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "",
+      "symbol_tex": "$t_{\\mathrm{build}},\\ t_{\\mathrm{solve}}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$u,v\\in\\Sset_\\bullet^L$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Randprobe (kanonisch)",
+      "symbol_tex": "$u^{(ij)}_{B_w}$"
+    },
+    {
+      "module": "algebra/dtn_kron_laplacian",
+      "notes": "normativ fixiert (rev3); Harmonische Fortsetzung",
+      "symbol_tex": "$u^{(ij)}_{n,w}:V_w\\to\\mathbb R$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$w\\in\\Sset_\\bullet^L$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "normativ fixiert (rev3); Adresse (Skale $k$)",
+      "symbol_tex": "$w\\in\\Sset_\\bullet^k$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "",
+      "symbol_tex": "$w\\sim_n w'$"
+    },
+    {
+      "module": "gui/streamlit",
+      "notes": "normativ fixiert (rev3); Nur Report/Visualisierung (nicht normativ)",
+      "symbol_tex": "$w_k^{\\mathrm{rep}}(e)$"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "$x$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$y^{(ij)}$"
+    },
+    {
+      "module": "ideal/trunk_builder",
+      "notes": "",
+      "symbol_tex": "$y_B^{(j)},\\, y_I^{(j)}$"
+    },
+    {
+      "module": "orchestration/run_meta",
+      "notes": "",
+      "symbol_tex": "$z_k(w):=\\mathrm{round}(\\lambda_k/q_w)$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "$|V_L|,\\ |E_L|$"
+    },
+    {
+      "module": "oqs/channel_mismatch",
+      "notes": "normativ fixiert (rev3); Normativ",
+      "symbol_tex": "$|\\Omega\\rangle$"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "Gate-States"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "IEEE \\texttt{float64}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "Procrustes (rigid)"
+    },
+    {
+      "module": "orchestration/run_meta",
+      "notes": "normativ fixiert (rev3); Gate-State (Reporting)",
+      "symbol_tex": "\\texttt{SKIP}"
+    },
+    {
+      "module": "orchestration/run_meta",
+      "notes": "",
+      "symbol_tex": "\\texttt{graph\\_hash}"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "\\texttt{policy\\_hash}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.Rmax}, \\texttt{res.dmax}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.Rmin}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.diag\\_abs\\_max}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.disc\\_inf\\_ok\\_frac}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.disc\\_pairs}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.ground\\_delta\\_rel\\_max}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.nCC}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.nPairs}, \\texttt{res.nTris}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.nV}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.resid\\_rel\\_max}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.seed}"
+    },
+    {
+      "module": "misc/other",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.sym\\_abs\\_max}"
+    },
+    {
+      "module": "policy/determinism_numeric",
+      "notes": "",
+      "symbol_tex": "\\texttt{res.tri\\_viol\\_max}, \\texttt{res.tri\\_viol\\_frac}"
+    },
+    {
+      "module": "metrics/resistance_embedding",
+      "notes": "",
+      "symbol_tex": "\\texttt{viz\\_gauge}"
+    }
+  ],
+  "meta": {
+    "definition_pdf": "REAL-Graph_OQS-Definition_v4_rev8.pdf",
+    "definition_tex": "REAL-Graph_OQS-Definition_v4_rev8.tex",
+    "generated_utc": "2026-01-01T16:48:53Z",
+    "module_namespace": "realgraph_oqs",
+    "normative_status": "normative (Appendix B, v4_rev5; rev3 completes mapping for all symbols in Appendix A)",
+    "note": "Normative mapping; updated for L0(A) and global L0^{glob}. No mutual hashing (definition references this file's hash).",
+    "schema_version": "1.1",
+    "source": {
+      "definition_tex": "REAL-Graph_OQS-Definition_v4_rev5.tex",
+      "definition_tex_sha256": "2c19df3078c17e69b1c69ff67ed857038d5c96f7c673766ec238ab60f14230f6",
+      "previous_map": "symbol_module_map_v4_rev2.json"
+    }
+  },
+  "modules": {
+    "algebra/dtn_kron_laplacian": "Laplace-Operator, DtN/Schur/Kron-Reduktion, Randantworten, lineare Löserpfade (über Policy).",
+    "driver/update": "Driver: p, Δ, Update-Regel c_{n+1}, λ-Suche/Budget, Fallbacks/Gates.",
+    "gui/streamlit": "Streamlit-GUI als nicht-normativer Frontend-Wrapper der Orchestrierung.",
+    "ideal/trunk_builder": "IDEAL-Trunk (SG), Approximanten, Vertex-/Edge-Indexierung, B0, Inklusionen, Grundgewichte.",
+    "metrics/resistance_embedding": "Widerstandsmetrik (grounded solve), MDS/harmonic embedding als Visualisierung.",
+    "misc/other": "Hilfsfunktionen ohne normative Semantik (IO-Utilities, Formatierung, etc.).",
+    "oqs/channel_mismatch": "OQS-Kanalbau (Choi), QRE/Mismatch, Kappa/Regularisierungen, Distanz-/Mismatch-Metriken gemäß Definition.",
+    "orchestration/run_meta": "Run-Orchestrierung, env_lock, run_meta, Audit-Trail, Hashing/Export der Artefakte.",
+    "policy/determinism_numeric": "D1-Determinismus: float64-Policy, deterministische RegSPD/Cholesky-Gates, Solve-Policy, Stabilisierung (eps-floor), PRNG-Verbot."
+  }
+}
