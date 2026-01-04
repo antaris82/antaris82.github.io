@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "a54cc3847633661e053013853c47821e26d965a9",
-    "size": 60014,
+    "sha": "cb00edffd2fbd8d9af74ba348759277240a183ea",
+    "size": 60015,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "52ae3e6b4f93a882299f5f8f675141a5cca053d1",
+    "sha": "a3ea4650337eccad155b688e22cab2b5f2ee5a45",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2024,8 +2024,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/B_Dirichlet-Network.png",
-    "sha": "0b123618d39ef6658ec760af22b635e497da6ec7",
-    "size": 6695291,
+    "sha": "273b4adb53dd7cffb90b521c812bbefc06c3ce3f",
+    "size": 15767795,
     "type": "blob",
     "mode": "100644"
   },
