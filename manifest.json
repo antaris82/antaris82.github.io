@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "d4a60e882724f5fb2ac0ff475fe03b0185489eae",
-    "size": 57196,
+    "sha": "9e1dd730520d07f5a7ee072a6e6af4056197224d",
+    "size": 57448,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "ae3949ae8a81b941f7af6e917b6a4c708a729acb",
+    "sha": "42a72908b0c4b5aa2c448c9125ce6d9ca775576d",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2002,13 +2002,6 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/REAL-Graph_OQS-Definition_v2.pdf",
-    "sha": "50d5fb5f1023772f4dd0f18bda0f803e825bcf5b",
-    "size": 260506,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/SG_L_max=3 harmonic embedding.png",
     "sha": "9159829c2296a6ac2bf9385e14ac771a375cf919",
     "size": 74621,
@@ -2023,9 +2016,86 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/SG_Multiscale_n=0...5_conductance_heterogenity_growth.png",
-    "sha": "7791e0707a14e17a71fcf29d1db0c9eb51c86ffb",
-    "size": 48081,
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/A_SG_Lmax=3.png",
+    "sha": "7e1397b147109c503f67e68339541dddd77cc9d5",
+    "size": 1848955,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/B_Dirichlet-Network.png",
+    "sha": "0b123618d39ef6658ec760af22b635e497da6ec7",
+    "size": 6695291,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/Implementierungsplan_REAL-Graph_OQS_v4_rev16.pdf",
+    "sha": "a27e06a3fb91c921fd37d7457be1f1dac6ba70e1",
+    "size": 493515,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/REAL-Graph_OQS-Definition_v4_rev8.pdf",
+    "sha": "627f64ab0c3aaf7d010b8123b42527acc7d78b9a",
+    "size": 760579,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/realgraph_oqs_repo_export_delta_selector_fix19.zip",
+    "sha": "83bfdd5dd88645fc5843c5d798528d2d6a7779a4",
+    "size": 1524875,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/SG_cell_Lmax=3_w=0_N=1000.gif",
+    "sha": "8212e8aa7bdc06aad607f3b6affbe4f7e3c15996",
+    "size": 1387211,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/SG_full_Lmax=3_w=0_N=1000.gif",
+    "sha": "de0833ac8624f94e27bac179e4f0c7705c131c68",
+    "size": 1342101,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/symbols/symbol_coverage_rev7.json",
+    "sha": "def99b6f526b0104054511d9f8980a0343e2cd70",
+    "size": 986,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/symbols/symbol_extract_report_v4_rev8.txt",
+    "sha": "537960359da30d4bfc7db7f46e01806f3cbf0103",
+    "size": 765,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/symbols/symbol_module_map_v4_rev6.json",
+    "sha": "62efab255e3d806215408ac33347e2dff27e684d",
+    "size": 42725,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/symbols/symbol_table_extract_v4_rev8.json",
+    "sha": "7754f435fe84f9eecd3bbd30508b7d4714a0c7ff",
+    "size": 92569,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/Y1/b_REAL-Generator/pre-geometric_OQS/Pillar A/Simulation/symbols/traceability_matrix_rev6.json",
+    "sha": "731fe45913e7e26102f34cddafa03e512b2bc6f0",
+    "size": 18018,
     "type": "blob",
     "mode": "100644"
   },
