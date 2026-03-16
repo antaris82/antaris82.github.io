@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "bbb6496516689962b6460e72d8cbfcfb12f3281b",
-    "size": 60016,
+    "sha": "a2818582e92e6ee8cee573fb5275ad8d02693f1b",
+    "size": 60436,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "ab8bb80d41c6c34013ec1902029e4273abda70cc",
+    "sha": "5664dd8eab50b1435941d730e4070119379e71d4",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1956,6 +1956,27 @@
     "path": "Sierpinski Tetraeder_PoC/README.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/code_snippet/v0.0604/Interface.lean",
+    "sha": "ac95ce7b277bab60e96439822a3fb8f05ced5536",
+    "size": 2114,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/code_snippet/v0.0604/PillarB_StrictSurface.lean",
+    "sha": "6aeb909467a5aa43b460d367a2052e7ed196f410",
+    "size": 1535,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/code_snippet/v0.0604/TreeOfCliques_EndToEnd.lean",
+    "sha": "553140602ad5cdb96799c1155379dd69f006e700",
+    "size": 2447,
     "type": "blob",
     "mode": "100644"
   },
