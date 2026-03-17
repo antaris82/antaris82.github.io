@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "a2818582e92e6ee8cee573fb5275ad8d02693f1b",
-    "size": 60436,
+    "sha": "8c62fdaaa5de282ee5ece65a091dfc0a5c420641",
+    "size": 61085,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "5664dd8eab50b1435941d730e4070119379e71d4",
+    "sha": "baa060de7fed92c3aabcde68465fa399868da1e3",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1991,6 +1991,13 @@
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/images/realoqs_pillarA_B_modules.png",
     "sha": "b1704cc7659dfcdd73ca838d64e2bc6bc0d30443",
     "size": 517161,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/Snapshot/REAL-OQS_v0.0604_full.zip",
+    "sha": "83f4bff97e168183dc73b3f9bc49b6e3cf81c12c",
+    "size": 431277,
     "type": "blob",
     "mode": "100644"
   },
