@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "466a737a8594c515da58c23dc953c46d3009b73b",
+    "sha": "5305e42fbc3951823fe43acea0bea1d820c1b305",
     "size": 61783,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "fc91881419a1dca83246d147e7c8ff8f634f75b9",
+    "sha": "7459d14fec6f032057669863b1b12afc1e1a9b51",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2002,9 +2002,16 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/LICENSE.txt",
+    "sha": "847ed8c79f3de2ff4c7be36289649084021d815a",
+    "size": 247,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/REAL-OQS_v0.0604_full.zip",
-    "sha": "150fff0d88ce9b049c682036d05c5b96f8914c8f",
-    "size": 429708,
+    "sha": "8d568c7e31dda227bbfec3f737aeca51a7ad9938",
+    "size": 429609,
     "type": "blob",
     "mode": "100644"
   },
