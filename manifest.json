@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "8e501d7640e7d4f5a94cc1cec6a96d4deed4c550",
-    "size": 61782,
+    "sha": "466a737a8594c515da58c23dc953c46d3009b73b",
+    "size": 61783,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "34d27b5e5839f7e4a52115d14bfa2639e746140e",
+    "sha": "fc91881419a1dca83246d147e7c8ff8f634f75b9",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2003,8 +2003,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/REAL-OQS_v0.0604_full.zip",
-    "sha": "7cdd6fbe0c49f68bb7caca97f1d5c79476addb5f",
-    "size": 847316,
+    "sha": "150fff0d88ce9b049c682036d05c5b96f8914c8f",
+    "size": 429708,
     "type": "blob",
     "mode": "100644"
   },
