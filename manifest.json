@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "a199ce7fbea04c4dbcb95b3061ba6d58a87345ba",
-    "size": 61294,
+    "sha": "aebaf4434e5d5317d1127e0e47b65a7897aab3f1",
+    "size": 61085,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "e7e7881a18b21497bc47f35cc89349a53108c4f9",
+    "sha": "ccbbebc0ebda45d515d9af05fd2a559f3462dc79",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1991,6 +1991,27 @@
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/images/realoqs_pillarA_B_modules.png",
     "sha": "b1704cc7659dfcdd73ca838d64e2bc6bc0d30443",
     "size": 517161,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/Examples_StrictProofsPillarA_v0.0604_DE.pdf",
+    "sha": "afbb962a0630064a6a32893dbffe7445a5dbc381",
+    "size": 541492,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/REALOQS_v0.0604_full.zip",
+    "sha": "7cdd6fbe0c49f68bb7caca97f1d5c79476addb5f",
+    "size": 847316,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/SpecDoc_REALOQS_PoC_v.0.0604_DE.pdf",
+    "sha": "43e919c1b36b2d454e969d1fa07139edf3a39715",
+    "size": 1106177,
     "type": "blob",
     "mode": "100644"
   },
