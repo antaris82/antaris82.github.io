@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "5305e42fbc3951823fe43acea0bea1d820c1b305",
-    "size": 61783,
+    "sha": "acaee5fdb15fc21d7972e4878397e6fb5a484c75",
+    "size": 61989,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "7459d14fec6f032057669863b1b12afc1e1a9b51",
+    "sha": "b83d6bc8778fc047c7962cfa3374de7a02a25897",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1998,6 +1998,13 @@
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/Examples_StrictProofsPillarA_v0.0604_DE.pdf",
     "sha": "afbb962a0630064a6a32893dbffe7445a5dbc381",
     "size": 541492,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/gibbs_kms_strict_v0.0604_DE.pdf",
+    "sha": "44c7a3eb2a73e02cd11e1e75152e0ed4da83aa3f",
+    "size": 432099,
     "type": "blob",
     "mode": "100644"
   },
