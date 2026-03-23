@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "acaee5fdb15fc21d7972e4878397e6fb5a484c75",
-    "size": 61989,
+    "sha": "35a0f8ca88302f6ae130ba052f9639d0463b0792",
+    "size": 62218,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "b83d6bc8778fc047c7962cfa3374de7a02a25897",
+    "sha": "e51e31d4c9a23f9600abbda3828f374460619420",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1991,6 +1991,13 @@
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/images/realoqs_pillarA_B_modules.png",
     "sha": "b1704cc7659dfcdd73ca838d64e2bc6bc0d30443",
     "size": 517161,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/derivation_toc_pillarB_strict_v0.0604.pdf",
+    "sha": "1e821bbda449b4a0813c67207d8d38dd45b8bf9f",
+    "size": 497560,
     "type": "blob",
     "mode": "100644"
   },
