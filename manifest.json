@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "3e299a56a4ac93bba78b2cd21ff51550557dd73a",
-    "size": 62457,
+    "sha": "edd76a9c31cd471073cd4faa30438c4827af9546",
+    "size": 62460,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "f9116a44d99a89b6e3531afc9559b72438b6b98b",
+    "sha": "2e04f47f0e0bdfff9c42dd2b10a464a6e20e9463",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2019,6 +2019,13 @@
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/LICENSE.txt",
     "sha": "847ed8c79f3de2ff4c7be36289649084021d815a",
     "size": 247,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/PillarA_formalism_REALOQS_v0_0604_DE.pdf",
+    "sha": "fb7aae3149c907688a60a9a37ea0650d0b2e9b0b",
+    "size": 472657,
     "type": "blob",
     "mode": "100644"
   },
