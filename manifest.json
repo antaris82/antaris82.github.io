@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "edd76a9c31cd471073cd4faa30438c4827af9546",
-    "size": 62460,
+    "sha": "9601f2f459457c2d0c069da7dde42e769980b72b",
+    "size": 62698,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "2e04f47f0e0bdfff9c42dd2b10a464a6e20e9463",
+    "sha": "84e25e7cbcfc3af53b3c46bf3b7090e003c7991a",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2012,6 +2012,13 @@
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/gibbs_kms_strict_v0.0604_DE.pdf",
     "sha": "44c7a3eb2a73e02cd11e1e75152e0ed4da83aa3f",
     "size": 432099,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/gibbs_kms_strikt_v0.0604_DE_rev1.pdf",
+    "sha": "72e6ee98201aaa10e2a280a86ae928b0cc91143a",
+    "size": 278105,
     "type": "blob",
     "mode": "100644"
   },
