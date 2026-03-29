@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "b358caff9e54b1bc37123726bf8d3ea563f4a3e7",
+    "sha": "a2c221e8b6362418b5efdd44c28d671ec4316e08",
     "size": 62932,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "b58d65a2deb86f2f65cad53e1778fbd886dd610f",
+    "sha": "5de28245ab305aaa37524ab6053f3fa7c5bf6a9a",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2047,6 +2047,27 @@
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/SpecDoc_REALOQS_PoC_v.0.0604_DE.pdf",
     "sha": "43e919c1b36b2d454e969d1fa07139edf3a39715",
     "size": 1106177,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0605/REAL-OQS_v0.0605_full_no_comments.zip",
+    "sha": "c09e09c407ec5e8227a40f579eb94b48651b0b2b",
+    "size": 268287,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/supplementary/Cnna Project Spec V0 1.pdf",
+    "sha": "72549c2d66249d333ab54096f6dc41946eab44eb",
+    "size": 380370,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/supplementary/lean_doku_regelwerk_v1_8.pdf",
+    "sha": "221c2f6207c1d5c28017c085c64fde59c54a13b0",
+    "size": 394879,
     "type": "blob",
     "mode": "100644"
   },
