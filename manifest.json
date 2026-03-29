@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "9601f2f459457c2d0c069da7dde42e769980b72b",
-    "size": 62698,
+    "sha": "b358caff9e54b1bc37123726bf8d3ea563f4a3e7",
+    "size": 62932,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "84e25e7cbcfc3af53b3c46bf3b7090e003c7991a",
+    "sha": "b58d65a2deb86f2f65cad53e1778fbd886dd610f",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2017,7 +2017,7 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/REAL-OQS/PoC/REALOS_PoC_v0.0604/gibbs_kms_strikt_v0.0604_DE_rev1.pdf",
-    "sha": "72e6ee98201aaa10e2a280a86ae928b0cc91143a",
+    "sha": "a6e6bb16ccb69fc067641d706405ab662eb7d695",
     "size": 278105,
     "type": "blob",
     "mode": "100644"
