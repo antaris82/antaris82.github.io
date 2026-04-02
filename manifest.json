@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "a2c221e8b6362418b5efdd44c28d671ec4316e08",
-    "size": 62932,
+    "sha": "af5b82d7ae0d5ef1faf5da47582f764252d4d6a1",
+    "size": 63607,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "5de28245ab305aaa37524ab6053f3fa7c5bf6a9a",
+    "sha": "223694b74ba422878a6b6b26cba353d944e626f0",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -612,6 +612,27 @@
     "path": "Sierpinski Tetraeder_PoC/C1/README.md",
     "sha": "12bc697be5b919109a482998747b30cdfc445f68",
     "size": 2420,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/Cnna Project Spec V0 1_DE_outdated.pdf",
+    "sha": "72549c2d66249d333ab54096f6dc41946eab44eb",
+    "size": 380370,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/CNNA_Roadmap_v1.0_DE.pdf",
+    "sha": "65348665400811e1352aec4268d544e3be1bb23b",
+    "size": 768148,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/lean_doku_regelwerk_v1_8_DE.pdf",
+    "sha": "221c2f6207c1d5c28017c085c64fde59c54a13b0",
+    "size": 394879,
     "type": "blob",
     "mode": "100644"
   },
