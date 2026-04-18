@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "88f52f5e608ef9ea3345970a9819078743df644b",
-    "size": 64684,
+    "sha": "1ebd947d5c133946c6b99f508481a8f9ae4db481",
+    "size": 65391,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "dc3af2dd06c99826d8ee51f188ade443cd2c0137",
+    "sha": "667f862c4d9218a3409217736c45b21a6fb83858",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -668,6 +668,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/schur_prime_gen_v3.py",
     "sha": "35fe61b35614949fa55d4a53b4cad2d5d01d2fb9",
     "size": 10350,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/schur_prime_gen.py",
+    "sha": "7ac34f57dcbc1f4e6ab8ec4484a5346fdd6a4bbc",
+    "size": 9577,
     "type": "blob",
     "mode": "100644"
   },
