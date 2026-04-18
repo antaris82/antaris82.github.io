@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "dbc253f297beb09d815a700cea81ff4e7b00cc3d",
-    "size": 64479,
+    "sha": "88f52f5e608ef9ea3345970a9819078743df644b",
+    "size": 64684,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "fa8702f9d8580eb007fc7dc020f8f977f2f9839f",
+    "sha": "dc3af2dd06c99826d8ee51f188ade443cd2c0137",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -612,6 +612,27 @@
     "path": "Sierpinski Tetraeder_PoC/C1/README.md",
     "sha": "12bc697be5b919109a482998747b30cdfc445f68",
     "size": 2420,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260418_CNNA_P0-S9h_stable/20260418_CNNA.zip",
+    "sha": "1cbfc36ee04bf376847d9519544c9496b15534e5",
+    "size": 834907,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260418_CNNA_P0-S9h_stable/CNNA_plan_S9h_abgeschlossen_fortgeschrieben_2026-04-18.pdf",
+    "sha": "ee8111b295e48e2d54f429329c3fb99690009960",
+    "size": 795361,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260418_CNNA_P0-S9h_stable/LICENSE.txt",
+    "sha": "fc6f1a9fddd53ff5d177ff317e1786b7e360e86a",
+    "size": 138,
     "type": "blob",
     "mode": "100644"
   },
