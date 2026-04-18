@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "ea382121c72453d4fdfff43be442b8766e364086",
-    "size": 64255,
+    "sha": "dbc253f297beb09d815a700cea81ff4e7b00cc3d",
+    "size": 64479,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "8809fc668a7773b70cc1c4107d0f3590fa82fb85",
+    "sha": "fa8702f9d8580eb007fc7dc020f8f977f2f9839f",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -640,6 +640,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/lean_doku_regelwerk_v1_8_DE.pdf",
     "sha": "221c2f6207c1d5c28017c085c64fde59c54a13b0",
     "size": 394879,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/schur_prime_gen_v3.py",
+    "sha": "35fe61b35614949fa55d4a53b4cad2d5d01d2fb9",
+    "size": 10350,
     "type": "blob",
     "mode": "100644"
   },
