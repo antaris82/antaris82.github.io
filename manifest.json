@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "869e3bca8e8edf062095842a4cf71a45b49d4e10",
-    "size": 65592,
+    "sha": "6213ebef53361425d38fa9d7d6f846514c33c4f5",
+    "size": 65844,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "5f66a78db6541185e0352bd51252984195c0c8c1",
+    "sha": "41325b21384f69ba138ea49a9ae85e9e2002bc27",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -630,13 +630,6 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260418_CNNA_P0-S9h_stable/Example_Sektor_System_Enviroment_Split_SG.PNG",
-    "sha": "9f191ea3afe3b609985a5b2175975abc88ee325c",
-    "size": 36078,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260418_CNNA_P0-S9h_stable/LICENSE.txt",
     "sha": "fc6f1a9fddd53ff5d177ff317e1786b7e360e86a",
     "size": 138,
@@ -661,6 +654,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/CNNA_Roadmap_v1.0_DE.pdf",
     "sha": "65348665400811e1352aec4268d544e3be1bb23b",
     "size": 768148,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/Example_Sektor_System_Enviroment_Split_SG.PNG",
+    "sha": "9f191ea3afe3b609985a5b2175975abc88ee325c",
+    "size": 36078,
     "type": "blob",
     "mode": "100644"
   },
