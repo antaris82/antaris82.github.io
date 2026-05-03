@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "133a991cb518cad885c21cfbde2784481ca608cf",
-    "size": 66041,
+    "sha": "08c943374e383f11f630f9fc7c21f348328675ed",
+    "size": 66452,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "7871a34a7690b6af9cc04fff1218ebbdc48db46b",
+    "sha": "98d7a04165608b5998222aabdf474a423b7cf089",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -633,13 +633,6 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260418_CNNA_P0-S9h_stable/LICENSE.txt",
     "sha": "fc6f1a9fddd53ff5d177ff317e1786b7e360e86a",
     "size": 138,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/b=2_120°_Eisenstein.png",
-    "sha": "9450ef7261021ea6d597813f08d9fe00d9cec3ed",
-    "size": 119381,
     "type": "blob",
     "mode": "100644"
   },
