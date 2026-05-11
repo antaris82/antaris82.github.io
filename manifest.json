@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "316d53839b8d7061aecd447c9b548d795d1cebb9",
-    "size": 67225,
+    "sha": "34389780e6f1ebca1af1869331f8b548e2190552",
+    "size": 67501,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "c12cb52cbdeaa041548f34c3fe3e2ea0219008d6",
+    "sha": "1880a07f96337c2314d8cf10ddb4636fe45ac05a",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -651,16 +651,16 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/CNNA_tool_V1_27_data_2026-05-10T05-51-42_CEST/CNNA_tool_V1_27_data_2026-05-10T05-51-42_CEST.zip",
-    "sha": "b72665c5ed044709cb74953ebb73fce8bc8a8402",
-    "size": 5838473,
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/CNNA_tool_V1_27_data_2026-05-10T05-51-42_CEST/CNNA_Planning_and_Documentation_Tool_V1.27_Data_2026-05-10T05-51-42plus02-00_A3_English.pdf",
+    "sha": "014bc1a3abbe59ccb20855062dcafcf9f805b6fc",
+    "size": 2847313,
     "type": "blob",
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/CNNA_tool_V1_27_data_2026-05-10T05-51-42_CEST/test.123",
-    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
-    "size": 1,
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/CNNA_tool_V1_27_data_2026-05-10T05-51-42_CEST/CNNA_tool_V1_27_data_2026-05-10T05-51-42_CEST.zip",
+    "sha": "b72665c5ed044709cb74953ebb73fce8bc8a8402",
+    "size": 5838473,
     "type": "blob",
     "mode": "100644"
   },
