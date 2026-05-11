@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "09a9c1571596c3f5d2eda14b7ed0688797bfb501",
-    "size": 69,
+    "sha": "cd597f951b5ca0ba25ca17e7a3ab57f94884e75c",
+    "size": 78,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "aa094499cbd977987ed161e75b46643bec891b58",
-    "size": 67389,
+    "sha": "b71ed0a0ad056d3f5a6164e932112c17f5a13947",
+    "size": 67602,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "f0ecb29805ad2dc056777354a5ea6509be4112d4",
+    "sha": "dc6e1a4a833cd86f4a8046f6fd98cecd8e9923f4",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -616,34 +616,6 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/20260509_CNNA_AR12a_SM9h_stable/123.en.md",
-    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
-    "size": 1,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/20260509_CNNA_AR12a_SM9h_stable/123.md",
-    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
-    "size": 1,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/20260509_CNNA_AR12a_SM9h_stable/CNNA_Arithmetik_Plan_AR12a_SMOKE_Reset_ab_SM1_v96_part1.pdf",
-    "sha": "b7d2543c016c4133c6a73fdae9274e46a47bdc1d",
-    "size": 1160758,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/20260509_CNNA_AR12a_SM9h_stable/CNNA_SM9h_operational_quadratic_discriminant_source_full.zip",
-    "sha": "25474d5a4ca23a51a3b596db0e0a467f1862462f",
-    "size": 649905,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260418_CNNA_P0-S9h_stable/20260418_CNNA.zip",
     "sha": "1cbfc36ee04bf376847d9519544c9496b15534e5",
     "size": 834907,
@@ -665,9 +637,30 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260509_CNNA_AR12a_SM9h_stable/123.en.md",
+    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+    "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260509_CNNA_AR12a_SM9h_stable/123.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260509_CNNA_AR12a_SM9h_stable/CNNA_Arithmetik_Plan_AR12a_SMOKE_Reset_ab_SM1_v96_part1.pdf",
+    "sha": "b7d2543c016c4133c6a73fdae9274e46a47bdc1d",
+    "size": 1160758,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260509_CNNA_AR12a_SM9h_stable/CNNA_SM9h_operational_quadratic_discriminant_source_full.zip",
+    "sha": "25474d5a4ca23a51a3b596db0e0a467f1862462f",
+    "size": 649905,
     "type": "blob",
     "mode": "100644"
   },
