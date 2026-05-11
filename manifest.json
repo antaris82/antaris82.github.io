@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "cd597f951b5ca0ba25ca17e7a3ab57f94884e75c",
-    "size": 78,
+    "sha": "767c39d51fe9a725b8752322d2f44dec39444386",
+    "size": 81,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "f75755dbfeb2f77251708a47464ee9737910b849",
-    "size": 67425,
+    "sha": "2848f2171f9100e36d824673496eafc793f52a1a",
+    "size": 66996,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "2f10dc5bb615edb0205384b8776d3042e85d5926",
+    "sha": "5961027fa91630973006be8f5421cd8fc63dc7c0",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -647,6 +647,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260509_CNNA_AR12a_SM9h_stable/CNNA_SM9h_operational_quadratic_discriminant_source_full.zip",
     "sha": "25474d5a4ca23a51a3b596db0e0a467f1862462f",
     "size": 649905,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/CNNA_tool_V1_27_data_2026-05-10T05-51-42_CEST/test.123",
+    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+    "size": 1,
     "type": "blob",
     "mode": "100644"
   },
