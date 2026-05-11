@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "b71ed0a0ad056d3f5a6164e932112c17f5a13947",
-    "size": 67602,
+    "sha": "f75755dbfeb2f77251708a47464ee9737910b849",
+    "size": 67425,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "dc6e1a4a833cd86f4a8046f6fd98cecd8e9923f4",
+    "sha": "2f10dc5bb615edb0205384b8776d3042e85d5926",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -633,20 +633,6 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260418_CNNA_P0-S9h_stable/LICENSE.txt",
     "sha": "fc6f1a9fddd53ff5d177ff317e1786b7e360e86a",
     "size": 138,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260509_CNNA_AR12a_SM9h_stable/123.en.md",
-    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
-    "size": 1,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260509_CNNA_AR12a_SM9h_stable/123.md",
-    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
-    "size": 1,
     "type": "blob",
     "mode": "100644"
   },
