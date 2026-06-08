@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "48b3ea560a7bb79449b1f65b925244e96ebe6354",
-    "size": 67590,
+    "sha": "f35f30a302ee05d85ccbd8ee22a3b1050124230d",
+    "size": 68247,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "8b0b92135c72ec9ffbc0d388036e2b69fdcc54d8",
+    "sha": "a2d94ab2183b95b9eb25753e21182faba882463d",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -682,6 +682,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/Cnna Project Spec V0 1_DE_outdated.pdf",
     "sha": "72549c2d66249d333ab54096f6dc41946eab44eb",
     "size": 380370,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/cnna_alpha_orth_invariant_v2.zip",
+    "sha": "455f75c3ed676359c27d9b5513aad0db76341a8e",
+    "size": 574405,
     "type": "blob",
     "mode": "100644"
   },
