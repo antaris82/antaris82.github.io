@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "519d675ede284fd50f4414de9167a98bd2d05423",
-    "size": 68464,
+    "sha": "654061cd14ade93f070186ffcc1ba9297678bfdb",
+    "size": 68867,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "dab003b58334858f307e33622447fe1ed5f9da21",
+    "sha": "3f7c4e1e7cfffc587ec8f9cd2f79148d19ee110c",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -771,8 +771,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/whole_ToC.png",
-    "sha": "1e7af00080184e5ae96048779b7973858c8f8524",
-    "size": 101383,
+    "sha": "32f9a40756308c412e658e60497503bf77cf93ab",
+    "size": 81558,
     "type": "blob",
     "mode": "100644"
   },
