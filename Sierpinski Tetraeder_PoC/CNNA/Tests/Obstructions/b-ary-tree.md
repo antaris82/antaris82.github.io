@@ -2,11 +2,11 @@
 
 Status: nach Chatstand, nicht als Lean-Theorem. Die meisten Befunde sind numerisch, konzeptionell oder aus Python-Diagnostik. Das zentrale Ergebnis ist inzwischen präziser als am Anfang:
 
-[
+$$
 \boxed{
 \text{Der flache, reellwertige, reziproke ToC-/Schur-/DtN-Sektor erzeugt keine ausgezeichnete }J\text{-Orientierung.}
 }
-]
+$$
 
 Er liefert mehrfach:
 
