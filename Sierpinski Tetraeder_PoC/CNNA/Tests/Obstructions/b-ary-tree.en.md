@@ -1,20 +1,20 @@
 # CNNA-ToC / (J)-Sign / Non-commutativity — Complete Inventory of Tests and Obstacles
 
-Status: based on chat discussions, not as a lean theorem. Most findings are numerical, conceptual, or derived from Python diagnostics. The central result is now more precise than at the beginning:
+Status: based on chat history, not as a lean theorem. Most findings are numerical, conceptual, or derived from Python diagnostics. The central result is now more precise than at the beginning:
 
-[
+$$
 \boxed{
-\text{The flat, real-valued, reciprocal ToC/Schur/DtN sector does not generate an excellent }J\text{-orientation.}
+\text{Der flache, reellwertige, reziproke ToC-/Schur-/DtN-Sektor erzeugt keine ausgezeichnete }J\text{-Orientierung.}
 }
-]
+$$
 
-It yields multiple results:
+It delivers multiple times:
 
 [
-{+J,-J},\qquad {+\tau,-\tau},\qquad \text{radial order},\qquad \text{DtN/spectral structure}.
+{+J,-J},\qquad {+\tau,-\tau},\qquad \text{radial order},\qquad \text{DtN-/spectral structure}.
 ]
 
-It does not yet provide:
+It does not yet yield:
 
 [
 \boxed{
@@ -34,7 +34,7 @@ The uniform obstruction is now no longer just “symmetry,” but more precisely
 
 # 0. Global Status of the Test Series
 
-## 0.1 What A/ToC Has Delivered So Far
+## 0.1 What A/ToC has delivered so far
 
 The ToC/DtN sector provides robust precursors:
 
@@ -80,7 +80,7 @@ J \neq \text{derived uniquely from flat ToC data}.
 }
 ]
 
-Also not provided so far are:
+Also not provided so far:
 
 [
 \text{chirotopy},
@@ -159,7 +159,7 @@ Stages shown:
 \to
 \text{Environment}
 \to
-\text{Cauchy–}J\text{-candidate}
+\text{Cauchy-/}J\text{-candidate}
 \to
 \text{Complex-plane overlay}.
 ]
@@ -222,7 +222,7 @@ Deeper-embedded approximants appeared more balanced between UV and Env.
 
 **Obstruction Location**
 
-Not a true Schur/DtN value:
+No true Schur/DtN value:
 
 [
 \text{Proxy} \neq \text{Invariances}.
@@ -230,7 +230,7 @@ Not a true Schur/DtN value:
 
 **Status**
 
-Heuristic motivation; later replaced by true DtN/Schur tests.
+Heuristic motivation; later replaced by proper DtN/Schur tests.
 
 ---
 
@@ -256,7 +256,7 @@ Two channel responses:
 u_{\mathrm{Env}},\qquad u_{\mathrm{UV}}.
 ]
 
-Measurement variable:
+Measured variable:
 
 [
 \rho_M
@@ -284,11 +284,11 @@ Orthogonality of a real 2-plane yields at most:
 {+J,-J}.
 ]
 
-The plane exists; the direction of rotation does not.
+The plane is there; the direction of rotation is not.
 
 **Status**
 
-Positive precursor to a pre-complex plane. No sign proof.
+Positive precursor of a pre-complex plane. No sign proof.
 
 ---
 
@@ -323,7 +323,7 @@ For deterministic centered single modes, numerically practically orthogonal, for
 |\rho_M|\approx 10^{-18}.
 ]
 
-**Obstruction location**
+**Obstruction point**
 
 A single mode can be orthogonal while the full boundary response space still carries structure. Furthermore, the DtN operator remains real symmetric.
 
@@ -422,7 +422,7 @@ Typical orthogonality diagnosis:
 |\rho|\sim \Xi^{-1/2}.
 ]
 
-**Findings**
+**Result**
 
 The UV term dominates strongly for increasing depth:
 
@@ -450,15 +450,15 @@ exponential
 ladder
 ```
 
-Therefore, the exact numerical value was not a fully derived physical quantity.
+Therefore, the exact numerical value was not a fully derived physical value.
 
 **Status**
 
-Good diagnostic parameter. No fine-structure constant claim. No (J) sign.
+Good diagnostic parameter. No claim regarding fine-structure constant. No (J) sign.
 
 ---
 
-## 3.2 Environment-Sensitivity Models
+## 3.2 Environment-sensitivity models
 
 **Script / File**
 
@@ -466,15 +466,15 @@ Good diagnostic parameter. No fine-structure constant claim. No (J) sign.
 alpha_orth_invariant.py
 ```
 
-**Initial situation**
+**Initial Situation**
 
-Comparison of different (\alpha_{\mathrm{Env}}) models.
+Comparison of various (\alpha_{\mathrm{Env}}) models.
 
 **Findings**
 
 For large (k), the UV term often dominates so strongly that the choice of environment model becomes subdominant.
 
-**Site of Obstruction**
+**Site of obstruction**
 
 In regimes where Environment is not subdominant, a genuine complement family/DtN derivation of (\alpha_{\mathrm{Env}}) is required.
 
@@ -534,7 +534,7 @@ Radial handoff structure: yes. (J) sign: no.
 
 **Script / File**
 
-Derived methodologically from parent–child tests.
+Methodologically derived from parent–child tests.
 
 **Initial Situation**
 
@@ -549,7 +549,7 @@ Possible handoff types:
 
 Restriction/Aggregation/Schur are more canonical than Flow.
 
-**Obstruction Location**
+**Location of Obstruction**
 
 Flow may contain a directed excitation. In that case, the sign would not be derived but set.
 
@@ -559,7 +559,7 @@ Methodological rule:
 
 [
 \boxed{
-\text{Schur first, Flow only as a consistency check.}
+\text{Schur first, Flow only as a consistency test.}
 }
 ]
 
@@ -615,7 +615,7 @@ For self-adjoint DtN graphs:
 
 ]
 
-**Obstruction point**
+**Obstruction Point**
 
 A single passive symmetric DtN graph is Lagrangian.
 
@@ -676,17 +676,17 @@ sibling_flip_detected = false
 handoff_holonomy_detected = false
 ```
 
-**Obstruction location**
+**Obstruction Location**
 
-The signal is a family/metric difference, not chirality. No sibling sign reversal, no true handoff holonomy.
+Signal is family/metric difference, not chirality. No sibling sign reversal, no true handoff holonomy.
 
 **Status**
 
-Important test: “Not just a graph” has been tested. The result remains achiral.
+Important test: “Not just a graph” has been verified. Result remains achiral.
 
 ---
 
-# 6. Triadic tests
+# 6. Triadic Tests
 
 ## 6.1 V6 — Triadic interface chirality
 
@@ -702,7 +702,7 @@ Package:
 cnna_alpha_orth_invariant_v6.zip
 ```
 
-**Initial setup**
+**Initial Situation**
 
 Triad:
 
@@ -783,7 +783,7 @@ Detector check only. No CNNA-derived proof.
 
 # 7. V7 — Oriented UV/Environment Cauchy shell
 
-## 7.1 Oppositely oriented UV/Env boundary sides
+## 7.1 Oppositely oriented UV/Env boundary faces
 
 **Script / File**
 
@@ -797,7 +797,7 @@ Package:
 cnna_alpha_orth_invariant_v7.zip
 ```
 
-**Initial situation**
+**Initial Situation**
 
 UV-tail and Environment-tail are interpreted as oppositely oriented boundary faces of a shell.
 
@@ -813,7 +813,7 @@ Oriented boundary form:
 \omega_\partial=\omega_{\mathrm{Env}}-\omega_{\mathrm{UV}}.
 ]
 
-Metrics:
+Metric:
 
 [
 g=\operatorname{diag}(k_{\mathrm{Env}},k_{\mathrm{UV}},1/k_{\mathrm{Env}},1/k_{\mathrm{UV}}).
@@ -848,7 +848,7 @@ J^T\omega J=\omega.
 
 **Obstruction Point**
 
-The co-orientation is chosen. With the opposite choice, the following also holds consistently:
+The co-orientation is chosen. With the opposite choice, the following is also consistent:
 
 [
 J\mapsto -J.
@@ -859,7 +859,7 @@ J\mapsto -J.
 Very important positive result:
 
 [
-\text{UV/Env-coorientation}\Rightarrow {J,-J}\text{-Cauchy structure}.
+\text{UV/Env co-orientation}\Rightarrow {J,-J}\text{-Cauchy structure}.
 ]
 
 No absolute sign.
@@ -915,12 +915,12 @@ Hypothesis:
 [
 \text{formal root is interface;}
 \qquad
-\text{behind it lies a negative root family}.
+\text{behind it lies negative root family}.
 ]
 
 **Findings**
 
-Could support Cauchy-Duplet and (\alpha_{\mathrm{Env}})-derivation.
+Could support Cauchy-doubling and (\alpha_{\mathrm{Env}})-derivation.
 
 **Obstruction point**
 
@@ -928,29 +928,29 @@ A negative root family does not automatically remain chiral under real passive s
 
 **Status**
 
-Possible candidate for environment derivative; no sign proof.
+Possible candidate for environment derivation; no sign proof.
 
 ---
 
-# 9. Sibling, (S_b), and address symmetry tests
+# 9. Sibling, (S_b), and Address Symmetry Tests
 
 ## 9.1 (S_b) Sibling Obstruction
 
 **Initial Situation**
 
-In an unordered (b)-ary tree, siblings under
+In the unordered (b)-ary tree, siblings under
 
 [
 S_b
 ]
 
-.
+are interchangeable.
 
 **Findings**
 
-Canonical measures lie in the trivial (S_b) component.
+Canonical variables lie in the trivial (S_b) component.
 
-**Obstruction Site**
+**Obstruction point**
 
 The signum representation is not chosen canonically:
 
@@ -1062,7 +1062,7 @@ d_s(SG)=\frac{2\log 3}{\log 5},
 d_s(ST)=\frac{2\log 4}{\log 6}.
 ]
 
-**Obstruction Point**
+**Obstruction Site**
 
 SG/ST are not the bare ToC. They are IFS/address quotients. Their additional relations are not automatically derived from the ToC.
 
@@ -1084,7 +1084,7 @@ S_b/A_b\simeq \mathbb Z_2.
 
 **Findings**
 
-If the local isotropy group (H) does not lie in (A_b), there is no canonical non-vanishing chiralotopy.
+If the local isotropy group (H) does not lie in (A_b), there is no canonical non-vanishing chiral topology.
 
 For the symmetric ToC:
 
@@ -1108,7 +1108,7 @@ A very central no-go formulation.
 
 ## 10.3 (Z_b)-cyclicity is not enough
 
-**Starting point**
+**Initial situation**
 
 Test whether cyclic order (Z_b) compensates for the missing chirotopy.
 
@@ -1118,7 +1118,7 @@ No. For (b=4), a 4-cycle can be odd as a label permutation; geometric orientatio
 
 **Obstruction point**
 
-Cyclic order does not yet imply a sign line.
+Cyclic order does not yet constitute a sign line.
 
 **Status**
 
@@ -1146,15 +1146,15 @@ C^0\oplus C^1\oplus C^2.
 
 **Result**
 
-(K) is skew-real. On (\operatorname{im}K), a formal polar structure can provide a (J)-like component.
+(K) is real skew. On (\operatorname{in}K), a formal polar structure can provide a (J)-like component.
 
-**Obstruction Point**
+**Obstruction point**
 
-The operator mixes degrees. On a pure (C^1)-space, the relevant block is not automatically a local (J).
+The operator mixes degrees. On a pure (C^1) space, the relevant block is not automatically a local (J).
 
 **Status**
 
-Formal (J)-like structure possible, but not derived as a local handoff (J).
+A formal (J)-like structure is possible, but not derived as a local handoff (J).
 
 ---
 
@@ -1246,7 +1246,7 @@ Unordered contractions:
 
 remain (S_b)-equivariant.
 
-**Site of obstruction**
+**Obstruction point**
 
 An ordered/chiral IFS family could carry chirotopy, but only if the order itself is derived.
 
@@ -1260,7 +1260,7 @@ IFS growth alone does not solve the sign problem.
 
 ## 13.1 Permutation Holonomy between Local ToC Fibers
 
-**Initial Situation**
+**Initial situation**
 
 Gluing edges with:
 
@@ -1295,7 +1295,7 @@ b=3,\quad h=(012),
 C_{S_3}(h)=A_3.
 ]
 
-**Obstruction Point**
+**Obstruction point**
 
 The direction
 
@@ -1313,21 +1313,21 @@ localizes only one pair.
 
 **Status**
 
-Strong Multi-ToC candidate, but without derived oriented holonomy, no (J)-sign.
+Strong multi-ToC candidate, but without derived directed holonomy, no (J)-sign.
 
 ---
 
-# 14. F1 Holonomy and F1-Only No-Go
+# 14. F1-Holonomy and F1-only-No-Go
 
-## 14.1 F1-Only Port Rules
+## 14.1 F1-only port rules
 
-**Initial Situation**
+**Initial situation**
 
 F1 is the radial provenance/filling arrow. Test: Can an F1-only rule permute ports in a non-trivial way?
 
 **Result**
 
-A relabeling-natural F1-only port rule must commute with all
+An F1-only port rule that is relabeling-natural must commute with all
 
 [
 \sigma\in S_b
@@ -1346,15 +1346,15 @@ F1 alone has no transverse port order.
 
 **Status**
 
-Major no-go: Nonlinearity in depth does not help as long as relabeling naturalness holds.
+Strong No-Go: Nonlinearity in depth does not help as long as relabeling naturalness holds.
 
 ---
 
-## 14.2 Screw rule as an import
+## 14.2 Screw Rule as an Import
 
-**Initial situation**
+**Initial Situation**
 
-Rule as:
+Rule such as:
 
 [
 (n,i)\mapsto(n+1,\sigma(i)),
@@ -1362,11 +1362,11 @@ Rule as:
 \sigma=(012).
 ]
 
-**Findings**
+**Result**
 
-Apparently generates rotation.
+Appears to produce a rotation.
 
-**Obstruction location**
+**Obstruction Location**
 
 Under odd relabeling:
 
@@ -1402,7 +1402,7 @@ w_{\alpha\beta}=f(d_\alpha,d_\beta,\ldots).
 
 Skew components can arise when coupling is depth-dependent and not symmetric.
 
-**Obstruction Point**
+**Obstruction Site**
 
 “Deep feeds strong” and “shallow feeds strong” are two sign choices:
 
@@ -1503,7 +1503,7 @@ Reported findings:
 d_s: 1.385\to 3.647.
 ]
 
-**Obstruction Location**
+**Obstruction Site**
 
 Despite significant structural changes, A/B mirroring survives in all cases.
 
@@ -1547,11 +1547,11 @@ Identified as a genuine additional test; not fully concluded as a separate final
 
 **Site of Obstruction**
 
-Would introduce scale roles directly into the operator structure. However, as long as the resulting operators remain real-symmetric and relabeling-natural, chirality is not expected.
+Would introduce scale roles directly into the operator structure. But as long as the resulting operators remain real-symmetric and relabeling-natural, chirality is not to be expected.
 
 **Status**
 
-Open or marked as the next precise test, but partially classified by subsequent DtN/flatness diagnosis.
+Marked as open or as the next specific test, but partially classified based on subsequent DtN/flatness diagnosis.
 
 ---
 
@@ -1579,7 +1579,7 @@ Only meaningful if both operators reside on the same handoff space.
 
 **Obstruction point**
 
-Spectral order alone does not identify eigenspaces. Diagonalized in their respective eigenbases, both commute trivially.
+Spectral order alone does not identify eigenspaces. Diagonalized in their respective eigenspaces, both commute trivially.
 
 **Status**
 
@@ -1651,7 +1651,7 @@ or multiple ToC-DtN matrices on growing handoff spaces.
 
 Non-commutativity could arise if multiple symmetric operators on the same space do not share a common eigenbasis.
 
-**Obstruction Point**
+**Obstruction Site**
 
 Examples involving spin chains introduce tensor product order and neighborhood:
 
@@ -1659,7 +1659,7 @@ Examples involving spin chains introduce tensor product order and neighborhood:
 A_{12},\qquad A_{23}.
 ]
 
-This left-right structure is not derived from the bare ToC.
+This left-right structure is not derived from bare ToC.
 
 **Status**
 
@@ -1692,7 +1692,7 @@ Matrix Tower route negative in the flat derived ToC sector.
 
 # 20. Connes/Noncommutativity route
 
-## 20.1 Fundamental Question: Where does noncommutativity come from in Connes?
+## 20.1 Fundamental Question: Where Does Noncommutativity Come From in Connes?
 
 **Initial Situation**
 
@@ -1759,7 +1759,7 @@ versus
 
 on the same leaf-boundary space.
 
-**Findings**
+**Result**
 
 Reported:
 
@@ -1773,7 +1773,7 @@ Root self-energy shifts eigenvalues but does not rotate eigenspaces. Radial rema
 
 **Status**
 
-Negative for exact derived regime.
+Negative for exact derived regimes.
 
 ---
 
@@ -1786,7 +1786,7 @@ two_reduction_regimes.py
 truncation_sign_test.py
 ```
 
-**Initial Situation**
+**Initial situation**
 
 Comparison:
 
@@ -1800,7 +1800,7 @@ versus spectrally truncated reduction:
 \Lambda_{\mathrm{trunc}}.
 ]
 
-**Findings**
+**Results**
 
 For any (m):
 
@@ -1818,7 +1818,7 @@ Initially misinterpreted: (\pm i\lambda) pairs were read as “both chiralities.
 \pm i\lambda
 ]
 
-is the normal spectrum of a real (J) block.
+is the normal spectrum of a real (J)-block.
 
 The true sign test is:
 
@@ -1849,7 +1849,7 @@ P_{\le \lambda}
 \sum_{\mu\le\lambda}P_\mu.
 ]
 
-**Result**
+**Findings**
 
 For all canonical cluster boundaries:
 
@@ -1857,9 +1857,9 @@ For all canonical cluster boundaries:
 |K|\approx 10^{-16}.
 ]
 
-Non-commutativity occurred only when (m) cut through degenerate eigenspaces.
+Non-commutativity occurred only when (m) intersected degenerate eigenspaces exactly in the middle.
 
-**Obstruction location**
+**Obstruction Point**
 
 A cut through degenerate eigenspaces selects a non-canonical `numpy` basis. This is not a ToC-derived mechanism.
 
@@ -1879,7 +1879,7 @@ Strong negative result:
 
 ## 21.1 Incorrect “trace elimination” test
 
-**Initial Situation**
+**Initial setup**
 
 System/environment nodes were separated:
 
@@ -1893,7 +1893,7 @@ Then diffusion (e^{-tL}) was calculated and the environment was treated as a fix
 
 Skew could arise.
 
-**Obstruction Location**
+**Obstruction Point**
 
 This was not a partial trace. A partial trace requires:
 
@@ -1911,15 +1911,15 @@ The skew arose from asymmetric input/restriction:
 
 **Status**
 
-Invalid as an OQS/partial-trace test. At most a test of an asymmetric boundary condition.
+Invalid as an OQS/partial trace test. At most, a test of an asymmetric boundary condition.
 
 ---
 
 ## 21.2 Correct Node Reduction
 
-**Initial situation**
+**Initial Situation**
 
-For node splitting:
+For node partitioning:
 
 [
 L=
@@ -1946,17 +1946,17 @@ For real symmetric (L):
 L_{\mathrm{eff}}^T=L_{\mathrm{eff}}.
 ]
 
-**Obstruction Point**
+**Obstruction point**
 
 Node elimination does not generate OQS irreversibility or an antisymmetric Hamiltonian part.
 
 **Status**
 
-Key method correction:
+Central method correction:
 
 [
 \boxed{
-\text{Nodes are eliminated, not traced.}
+\text{At nodes, terms are eliminated, not traced.}
 }
 ]
 
@@ -2028,7 +2028,7 @@ or
 
 In the CNNA context, non-commutativity could rather be an emergent curvature/holonomy phenomenon.
 
-**Obstruction Point**
+**Obstruction point**
 
 Curvature must not be imported as a savior. It would have to arise from handoff/regulator/backreaction data.
 
@@ -2093,7 +2093,7 @@ Fully ideal sector:
 \text{flat, homogeneous, reciprocal, internally ToC-scale invariant}.
 ]
 
-Transverse isotropy only discrete or dependent on (\Gamma_\infty).
+Transversal isotropy only discrete or dependent on (\Gamma_\infty).
 
 **Obstruction point**
 
@@ -2105,7 +2105,7 @@ A very useful final ToC-related test before changing substrates.
 
 ---
 
-## 23.2 Finite Double Cut
+## 23.2 Finite Double Section
 
 **Initial Situation**
 
@@ -2118,7 +2118,7 @@ Computable sector:
 W_R\times T_{\le L}.
 ]
 
-With:
+Where:
 
 [
 W_R\subset\Gamma_\infty,
@@ -2139,7 +2139,7 @@ Being a subsystem necessarily breaks the IDEAL symmetry:
 The following arise:
 
 [
-\text{outer grid complement},
+\text{outer lattice complement},
 ]
 
 [
@@ -2181,13 +2181,13 @@ Schur/DtN:
 L_{\partial I}L_{II}^{-1}L_{I\partial}.
 ]
 
-**Result**
+**Findings**
 
-This is closer to A→B than raw node gluing. B would not see ToC nodes, but rather handoff matrices.
+This is closer to A→B than crude node gluing. B would not see ToC nodes, but rather handoff matrices.
 
-**Obstruction Location**
+**Obstruction location**
 
-As long as the lattice is homogeneous, reciprocal, and flat, a spectrum and effective geometry arise, but no excellent chirotopy.
+As long as the lattice is homogeneous, reciprocal, and flat, a spectrum and effective geometry arise, but no excellent chiral symmetry.
 
 **Status**
 
@@ -2195,13 +2195,13 @@ Important final reference test:
 
 [
 \boxed{
-\text{ToC fiber lattices can test geometry, not }J\text{ enforce it.}
+\text{ToC fiber lattices can test geometry, but cannot }J\text{ enforce it.}
 }
 ]
 
 ---
 
-# 24. Holonomy/Connection Test in the Fiber Lattice
+# 24. Holonomy/Connection Test in Fiber Lattices
 
 ## 24.1 Effective intertwiner between local handoff spaces
 
@@ -2240,15 +2240,15 @@ or gauge-trivial.
 
 **Obstruction location**
 
-A non-trivial rotational component would have to arise from inhomogeneity, a regulator, backreaction, or frustration.
+A non-trivial rotational component would have to arise from inhomogeneity, the regulator, backreaction, or frustration.
 
 **Status**
 
-Open curved-sector test. Not yet proven positive.
+Curved-sector test open. Not yet proven positive.
 
 ---
 
-# 25. Lorentz/time-structure tests
+# 25. Lorentz/Time-Structure Tests
 
 ## 25.1 Lorentz signature
 
@@ -2286,7 +2286,7 @@ Reduces the problem to time orientation, does not solve it.
 
 ## 25.2 Real-time flow precursor
 
-**Initial situation**
+**Initial conditions**
 
 Real-symmetric generator (H), flow pair:
 
@@ -2302,7 +2302,7 @@ Yields:
 {+\tau,-\tau}.
 ]
 
-**Obstruction point**
+**Obstruction location**
 
 For real-symmetric (H), every spectral function remains symmetric. A (J) is antisymmetric:
 
@@ -2363,7 +2363,7 @@ Pillar A is not intended to prove Type III directly, but rather to provide precu
 (Q_{d,k}\oplus P_{d,k},g_{d,k},\omega_{d,k},{J,-J}).
 ]
 
-Finally:
+Finite:
 
 [
 k<\infty
@@ -2383,7 +2383,7 @@ k\to\infty
 
 Architecturally meaningful.
 
-**Obstruction-Point**
+**Obstruction point**
 
 Dimension/infinity provides no orientation:
 
@@ -2393,7 +2393,7 @@ Dimension/infinity provides no orientation:
 
 **Status**
 
-Important architectural shift.
+Significant architectural shift.
 
 ---
 
@@ -2413,7 +2413,7 @@ H_{B|B'}(B,B')
 \text{stable record}.
 ]
 
-**Findings**
+**Result**
 
 Best location for:
 
@@ -2421,9 +2421,9 @@ Best location for:
 \omega_{\mathrm{lock}}.
 ]
 
-**Obstruction Point**
+**Obstruction location**
 
-Not yet formalized. Type I/Type III asymmetry is initially algebraic/dimensional asymmetry, not orientation.
+Not yet formalized. Type I/Type III asymmetry is initially an algebraic/dimensional asymmetry, not an orientation.
 
 **Status**
 
@@ -2451,13 +2451,13 @@ Each carries locally:
 
 **Findings**
 
-The local sign can be a gauge:
+The local sign can be gauge:
 
 [
 J_i\mapsto -J_i.
 ]
 
-Physically relevant data would be relative or cyclic:
+Relative or cyclic data would be physically relevant:
 
 [
 \sigma_{ij},
@@ -2555,7 +2555,7 @@ Permutation:
 (1,a^2,a).
 ]
 
-**Conclusion**
+**Findings**
 
 The direction of rotation lies in the connection order.
 
@@ -2577,7 +2577,7 @@ Good candidate for Multi-ToC Handoff Sequence Gate.
 
 ## 30.1 CD-/Hurwitz candidate
 
-**Initial situation**
+**Starting point**
 
 Route:
 
@@ -2607,7 +2607,7 @@ Not a current path for (J)-sign. Not ruled out as a later target structure.
 
 ---
 
-# 31. Substrate change candidates
+# 31. Substrate-change candidates
 
 ## 31.1 ToC remains local provenance fiber
 
@@ -2629,13 +2629,13 @@ As a local fiber, ToC remains valuable:
 \text{local handoff operator}.
 ]
 
-**Location of Obstruction**
+**Obstruction-Location**
 
 Global ontology as a single tree is too limited for the second axis, chirotopy, and curvature.
 
 **Status**
 
-No total rejection of the ToC; role reversal.
+No complete rejection of the ToC; role reversal.
 
 ---
 
@@ -2643,7 +2643,7 @@ No total rejection of the ToC; role reversal.
 
 **Initial situation**
 
-Event structures possess two relations:
+Event structures have two relations:
 
 [
 \leq
@@ -2657,7 +2657,7 @@ They could represent two axes, namely causality and conflict.
 
 **Obstruction Site**
 
-Both relations would initially be primitive input data as long as they are not CNNA-derived.
+Both relations would initially be primitive input data, as long as they are not CNNA-derived.
 
 **Status**
 
@@ -2743,7 +2743,7 @@ IDEAL ToC fiber lattice, double cut (\Omega_{R,L}), DtN spectral tests.
 fiber_grid_connection_holonomy_test.py
 ```
 
-Derived Intertwiner (U_{xy}) and loop holonomy in the fiber lattice.
+Derived intertwiner (U_{xy}) and loop holonomy in the fiber lattice.
 
 ```text
 multi_toc_frustration_gate.py
@@ -2837,7 +2837,7 @@ Lindblad/OQS can provide time direction, but requires Hamilton-(i).
 
 ## 33.11 Flatness
 
-Missing in the flat ToC/DtN sector:
+In the flat ToC/DtN sector, the following are missing:
 
 [
 \text{Connection},
@@ -2875,7 +2875,7 @@ Missing in the flat ToC/DtN sector:
 }
 ]
 
-The most important next ToC-like test before substrate switching remains:
+The most important next ToC-like test before substrate change remains:
 
 [
 \boxed{
