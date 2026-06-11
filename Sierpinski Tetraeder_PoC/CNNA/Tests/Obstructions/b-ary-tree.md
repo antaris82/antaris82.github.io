@@ -406,12 +406,12 @@ mit
 
 $$
 \lambda_{\mathrm{UV}}
-=====================
+=
 
 \frac{b^k\alpha_{\mathrm{UV}}}{C_k},
 \qquad
 \lambda_{\mathrm{Env}}
-======================
+=
 
 \frac{\alpha_{\mathrm{Env}}}{C_k}.
 $$
