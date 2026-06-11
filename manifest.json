@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "654061cd14ade93f070186ffcc1ba9297678bfdb",
-    "size": 68867,
+    "sha": "6eec971f2a45400bac813458a8549bd5e94abc25",
+    "size": 68866,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "3f7c4e1e7cfffc587ec8f9cd2f79148d19ee110c",
+    "sha": "38c1e8db63462f77473396fb1edca6480b0f1b92",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -773,6 +773,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/whole_ToC.png",
     "sha": "32f9a40756308c412e658e60497503bf77cf93ab",
     "size": 81558,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary-tree.md",
+    "sha": "5be1f09bbdd4063f330afc008a084e823335c722",
+    "size": 42608,
     "type": "blob",
     "mode": "100644"
   },
