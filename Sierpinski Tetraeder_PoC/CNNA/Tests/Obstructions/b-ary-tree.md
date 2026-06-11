@@ -606,13 +606,7 @@ $$
 Für selbstadjungierten DtN-Graphen:
 
 $$
-\omega((q,\Lambda q),(r,\Lambda r))
-===================================
-
-# q^T\Lambda r-r^T\Lambda q
-
-0.
-
+\omega((q,\Lambda q),(r,\Lambda r)) = q^T\Lambda r-r^T\Lambda q = 0.
 $$
 
 **Obstruktions-Ort**
