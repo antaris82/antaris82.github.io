@@ -298,7 +298,7 @@ Positive precursor of a pre-complex plane. No sign proof.
 
 Implemented in the chat as a finite unit-edge graph test; no uniquely isolated final filename.
 
-**Initial situation**
+**Initial state**
 
 Finite tree graph with Laplace matrix:
 
@@ -506,7 +506,7 @@ $$
 A_{\mathrm{parent}}\to A_{\mathrm{child}}.
 $$
 
-Objective: to check whether the transition yields a (J) sign.
+Objective: To check whether the transition yields a (J) sign.
 
 **Findings**
 
@@ -621,7 +621,7 @@ A single passive symmetric DtN graph is Lagrangian.
 
 **Status**
 
-Clear negative result. Too narrow for family/handoff tests, but correct for a single graph.
+Clear negative result. Too restrictive for family/handoff tests, but correct for a single graph.
 
 ---
 
@@ -1084,7 +1084,7 @@ $$
 
 **Findings**
 
-If the local isotropy group (H) does not lie in (A_b), there is no canonical non-vanishing chiral topology.
+If the local isotropy group (H) does not lie in (A_b), there is no canonical non-vanishing chirotopy.
 
 For the symmetric ToC:
 
@@ -1317,9 +1317,9 @@ Strong multi-ToC candidate, but without derived directed holonomy, no (J) sign.
 
 ---
 
-# 14. F1 Holonomy and F1-only No-Go
+# 14. F1 Holonomy and F1-Only No-Go
 
-## 14.1 F1-only Port Rules
+## 14.1 F1-Only Port Rules
 
 **Initial Situation**
 
@@ -1579,7 +1579,7 @@ Only meaningful if both operators reside on the same handoff space.
 
 **Obstruction-Location**
 
-Spectral order alone does not identify eigenspaces. Diagonalized in their respective eigenbases, both commute trivially.
+Spectral order alone does not identify eigenspaces. Diagonalized in their respective eigenspaces, both commute trivially.
 
 **Status**
 
@@ -1591,7 +1591,7 @@ Important category correction.
 
 **Initial situation**
 
-Successive RG/Schur stages of the same sequence:
+Successive RG/Schur steps of the same sequence:
 
 $$
 \Lambda_n,
@@ -1690,7 +1690,7 @@ Matrix Tower route negative in the flat derived ToC sector.
 
 ---
 
-# 20. Connes/Noncommutativity Route
+# 20. Connes/Noncommutativity route
 
 ## 20.1 Fundamental Question: Where Does Noncommutativity Come From in Connes?
 
@@ -1708,7 +1708,7 @@ $$
 ab\neq ba.
 $$
 
-**Findings**
+**Finding**
 
 In Connes, the noncommutative algebra is typically the input structure, not derived from a flat ToC.
 
@@ -1832,7 +1832,7 @@ Only an apparently positive candidate; had to be retested to ensure it was free 
 
 ---
 
-## 20.4 Degeneracy-proof cluster truncation
+## 20.4 Degeneracy-safe cluster truncation
 
 **Script / File**
 
@@ -1879,7 +1879,7 @@ $$
 
 ## 21.1 Incorrect “Trace Elimination” Test
 
-**Initial Conditions**
+**Initial Situation**
 
 System/environment nodes were separated:
 
@@ -1887,11 +1887,11 @@ $$
 \mathbb R^N=\mathbb R^S\oplus\mathbb R^E.
 $$
 
-Then diffusion (e^{-tL}) was calculated and the environment was treated as a steady state.
+Then diffusion (e^{-tL}) was calculated and the environment was treated as a fixed state.
 
 **Findings**
 
-Skew could have arisen.
+Skew could have occurred.
 
 **Obstruction Location**
 
@@ -1915,9 +1915,9 @@ Invalid as an OQS/partial-trace test. At most, a test of an asymmetric boundary 
 
 ---
 
-## 21.2 Correct Node Reduction
+## 21.2 Correct node reduction
 
-**Initial Situation**
+**Initial situation**
 
 For node splitting:
 
@@ -2044,9 +2044,9 @@ $$
 
 # 23. IDEAL ToC Fiber Lattice
 
-## 23.1 Double-Infinite IDEAL Sector
+## 23.1 Double-infinite IDEAL Sector
 
-**Initial situation**
+**Initial configuration**
 
 Instead of a universal single ToC:
 
@@ -2093,7 +2093,7 @@ $$
 \text{flach, homogen, reziprok, intern ToC-skaleninvariant}.
 $$
 
-Transversal isotropy only discrete or dependent on (\Gamma_\infty).
+Transverse isotropy only discrete or dependent on (\Gamma_\infty).
 
 **Obstruction point**
 
@@ -2332,7 +2332,7 @@ $$
 +\tau.
 $$
 
-**Obstruction Location**
+**Obstruction location**
 
 Hamiltonian term already contains:
 
@@ -2381,7 +2381,7 @@ $$
 
 **Findings**
 
-Architecturally sound.
+Architecturally sensible.
 
 **Location of obstruction**
 
@@ -2507,7 +2507,7 @@ Most important open multi-ToC test path.
 
 # 29. Motor/Multiphase Analogy
 
-## 29.1 Two-phase three-phase motor
+## 29.1 Two-phase Three-phase Motor
 
 **Initial Situation**
 
@@ -2535,7 +2535,7 @@ Highly effective for teaching.
 
 ---
 
-## 29.2 Three Phases / Connection Sequence
+## 29.2 Three Phases / Connection Order
 
 **Initial Situation**
 
@@ -2563,7 +2563,7 @@ Direction of rotation is determined by the connection order.
 
 Not the local (J_i) sign, but rather the handoff sequence or cycle order could be decisive.
 
-**Obstruction location**
+**Obstruction Location**
 
 Connection order must be derived.
 
@@ -2697,7 +2697,7 @@ V4: Single-graph Cauchy pairing.
 family_handoff_chirality.py
 ```
 
-V5: Cross-graph Cauchy and handoff square.
+V5: Cross-graph Cauchy and Handoff Square.
 
 ```text
 triadic_interface_chirality.py
@@ -2725,7 +2725,7 @@ truncation_sign_test.py
 
 Sign/commutator test for spectral truncation.
 
-## 32.3 Scripts worth considering next
+## 32.3 Scripts that make sense to implement next
 
 ```text
 cluster_safe_truncation_test.py
@@ -2763,7 +2763,7 @@ Handoff sequence/multi-phase gate.
 
 ---
 
-# 33. Obstruction Locations by Type
+# 33. Obstruction points by type
 
 ## 33.1 Reciprocity
 
@@ -2793,7 +2793,7 @@ $$
 n\to n+1.
 $$
 
-But only along one axis. Non-commutativity requires two independent axes.
+But only along one axis. Noncommutativity requires two independent axes.
 
 ## 33.5 Degeneracy
 
