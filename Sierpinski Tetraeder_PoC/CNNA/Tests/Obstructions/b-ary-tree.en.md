@@ -32,9 +32,9 @@ $$
 
 ---
 
-# 0. Global Status of the Test Series
+# 0. Global status of the test series
 
-## 0.1 What A/ToC Has Delivered Positively So Far
+## 0.1 What A/ToC has delivered positively so far
 
 The ToC/DtN sector delivers robust precursors:
 
@@ -166,7 +166,7 @@ $$
 
 **Findings**
 
-Highly effective for teaching. It provides a clear visual distinction:
+Highly effective for teaching. It visually distinguishes:
 
 $$
 \text{Approximant},
@@ -298,7 +298,7 @@ Positive precursor of a pre-complex plane. No sign proof.
 
 Implemented in the chat as a finite unit-edge graph test; no uniquely isolated final filename.
 
-**Initial state**
+**Initial situation**
 
 Finite tree graph with Laplace matrix:
 
@@ -369,13 +369,13 @@ There is no cut-free universal DtN operator for the entire infinite ToC.
 
 **Status**
 
-Important positive result: no Ridge/pseudoinverse setting required.
+Important positive result: no need to set ridge/pseudoinverses.
 
 ---
 
-# 3. (\alpha_{\mathrm{orth}})- and invariant tests
+# 3. $\alpha_{\mathrm{orth}}$- and invariant tests
 
-## 3.1 (\Xi)- / (\alpha_{\mathrm{orth}})-diagnostics
+## 3.1 $\Xi$- / $\alpha_{\mathrm{orth}}$-diagnostics
 
 **Script / File**
 
@@ -454,7 +454,7 @@ Therefore, the exact numerical value was not a fully derived physical value.
 
 **Status**
 
-Good diagnostic quantity. No fine-structure constant claim. No (J) sign.
+Good diagnostic parameter. No fine-structure constant claim. No (J) sign.
 
 ---
 
@@ -480,7 +480,7 @@ In regimes where Environment is not subdominant, a true complement family/DtN de
 
 **Status**
 
-Good methodological findings:
+Good methodological finding:
 
 $$
 \text{definierbar}\neq\text{erzwungen}.
@@ -621,7 +621,7 @@ A single passive symmetric DtN graph is Lagrangian.
 
 **Status**
 
-Clear negative result. Too restrictive for family/handoff tests, but correct for a single graph.
+Clear negative result. Too narrow for family/handoff tests, but correct for a single graph.
 
 ---
 
@@ -848,7 +848,7 @@ $$
 
 **Obstruction-Location**
 
-The co-orientation is chosen. With the opposite choice, the following is also consistent:
+The co-orientation is chosen. With the opposite choice, the following is also consistently obtained:
 
 $$
 J\mapsto -J.
@@ -932,13 +932,13 @@ Possible candidate for environment derivation; no sign proof.
 
 ---
 
-# 9. Sibling, (S_b), and address symmetry tests
+# 9. Sibling, $S_b$, and address symmetry tests
 
-## 9.1 (S_b)-Sibling Obstruction
+## 9.1 $S_b$-sibling obstruction
 
-**Initial Situation**
+**Initial position**
 
-In an unordered (b)-ary tree, siblings are
+In an unordered binary tree, siblings are
 
 $$
 S_b
@@ -948,7 +948,7 @@ interchangeable.
 
 **Result**
 
-Canonical sizes lie in the trivial (S_b) component.
+Canonical sizes lie in the trivial $S_b$ component.
 
 **Obstruction Point**
 
@@ -968,7 +968,7 @@ Robust negative line.
 
 ## 9.2 Hamming weight classes
 
-**Initial position**
+**Initial situation**
 
 Pages such as:
 
@@ -994,7 +994,7 @@ Hamming weight is magnitude, not orientation. Bit reversal remains possible.
 
 **Status**
 
-Structural finding, but achiral.
+Structure found, but achiral.
 
 ---
 
@@ -1102,23 +1102,23 @@ Therefore, a sign line is not canonically distinguished.
 
 **Status**
 
-A very central no-go formulation.
+A very central "no-go" statement.
 
 ---
 
-## 10.3 (Z_b) cyclicity is not enough
+## 10.3 $Z_b$-cyclicity is not enough
 
 **Initial situation**
 
-Test whether cyclic order (Z_b) replaces the missing chirotopy.
+Test whether cyclic order $Z_b$ replaces the missing chiropathy.
 
 **Result**
 
 No. For (b=4), a 4-cycle can be odd as a label permutation; geometric orientation and permutation parity do not automatically coincide.
 
-**Obstruction Point**
+**Obstruction point**
 
-Cyclic order is not yet a sign line.
+A cyclic order is not yet a sign line.
 
 **Status**
 
@@ -1128,7 +1128,7 @@ Important correction against hasty “cycle = orientation” conclusions.
 
 # 11. Hodge, Dirac, and Dual Complex Tests
 
-## 11.1 Cellular Dirac (K=d-d^*)
+## 11.1 Cellular Dirac $K=d-d^*$
 
 **Initial Situation**
 
@@ -1146,11 +1146,11 @@ $$
 
 **Result**
 
-(K) is complex skew. On (\operatorname{im}K), a formal polar structure can provide a (J)-like component.
+(K) is complex skew. On $\operatorname{im}K$, a formal polar structure can provide a J-like component.
 
-**Obstruction Point**
+**Obstruction point**
 
-The operator mixes degrees. On pure (C^1)-space, the relevant block is not automatically a local (J).
+The operator mixes degrees. On a pure $C^1$ space, the relevant block is not automatically a local (J).
 
 **Status**
 
@@ -1166,11 +1166,11 @@ Test whether dual cells or Hodge (\star) provide the orientation.
 
 **Findings**
 
-A proper Hodge operator (\star) requires orientation or a metric/volume structure.
+A genuine Hodge-$\star$ requires orientation or a metric/volume structure.
 
-In the case of full (S_b) symmetry, there is no canonical skew-equivariant operator.
+With full $S_b$-symmetry, there is no canonical skew-equivariant operator.
 
-With chirotopy, the symmetry reduces and a (J)-block may appear.
+With chiropathy, the symmetry reduces and a (J)-block may appear.
 
 **Obstruction Point**
 
@@ -1659,7 +1659,7 @@ $$
 A_{12},\qquad A_{23}.
 $$
 
-This left-right structure is not derived from bare ToC.
+This left-right structure is not derived from the bare ToC.
 
 **Status**
 
@@ -1690,7 +1690,7 @@ Matrix Tower route negative in the flat derived ToC sector.
 
 ---
 
-# 20. Connes/Noncommutativity route
+# 20. Connes/Noncommutativity Route
 
 ## 20.1 Fundamental Question: Where Does Noncommutativity Come From in Connes?
 
@@ -1832,7 +1832,7 @@ Only an apparently positive candidate; had to be retested to ensure it was free 
 
 ---
 
-## 20.4 Degeneracy-safe cluster truncation
+## 20.4 Degeneracy-proof cluster truncation
 
 **Script / File**
 
@@ -1840,7 +1840,7 @@ Retest of `truncation_sign_test.py`; described in chat.
 
 **Initial situation**
 
-Truncation not by arbitrary (m), but only by integer eigenvalue clusters:
+Truncation not according to arbitrary (m), but only according to integer eigenvalue clusters:
 
 $$
 P_{\le \lambda}
@@ -1887,7 +1887,7 @@ $$
 \mathbb R^N=\mathbb R^S\oplus\mathbb R^E.
 $$
 
-Then diffusion (e^{-tL}) was calculated and the environment was treated as a fixed state.
+Then diffusion (e^{-tL}) was calculated and the environment was treated as a steady state.
 
 **Findings**
 
@@ -2046,7 +2046,7 @@ $$
 
 ## 23.1 Double-Infinite IDEAL Sector
 
-**Initial configuration**
+**Initial situation**
 
 Instead of a universal single ToC:
 
@@ -2093,7 +2093,7 @@ $$
 \text{flach, homogen, reziprok, intern ToC-skaleninvariant}.
 $$
 
-Transverse isotropy only discrete or dependent on (\Gamma_\infty).
+Transversal isotropy only discrete or dependent on (\Gamma_\infty).
 
 **Obstruction point**
 
@@ -2262,7 +2262,7 @@ $$
 
 **Findings**
 
-Distinguishes between time-like and space-like.
+Separates time-like and space-like.
 
 **Location of obstruction**
 
@@ -2332,7 +2332,7 @@ $$
 +\tau.
 $$
 
-**Obstruction location**
+**Obstruction Location**
 
 Hamiltonian term already contains:
 
@@ -2348,9 +2348,9 @@ Pillar C can choose (\tau), but cannot generate (J) on its own.
 
 ---
 
-# 27. AQFT / Type-I / Type-III / Handoff Structure
+# 27. AQFT / Type I / Type III / Handoff Structure
 
-## 27.1 A as a Type-I/Type-III precursor layer
+## 27.1 A as a Type I/Type III precursor layer
 
 **Initial situation**
 
@@ -2381,9 +2381,9 @@ $$
 
 **Findings**
 
-Architecturally sensible.
+Architecturally sound.
 
-**Site of obstruction**
+**Location of obstruction**
 
 Dimension/infinity provides no orientation:
 
@@ -2471,7 +2471,7 @@ The mechanism for (\sigma_{ij}) has not yet been derived.
 
 **Status**
 
-Strong candidate for the next nonlocal test.
+Strong candidate for the next non-local test.
 
 ---
 
@@ -2507,7 +2507,7 @@ Most important open multi-ToC test path.
 
 # 29. Motor/Multiphase Analogy
 
-## 29.1 Two-phase Three-phase Motor
+## 29.1 Two-phase three-phase motor
 
 **Initial Situation**
 
@@ -2531,11 +2531,11 @@ Without a third-phase configuration or connection arrangement, there is no stabl
 
 **Status**
 
-Highly effective for teaching purposes.
+Highly effective for teaching.
 
 ---
 
-## 29.2 Three Phases / Connection Order
+## 29.2 Three Phases / Connection Sequence
 
 **Initial Situation**
 
@@ -2563,7 +2563,7 @@ Direction of rotation is determined by the connection order.
 
 Not the local (J_i) sign, but rather the handoff sequence or cycle order could be decisive.
 
-**Obstruction Location**
+**Obstruction location**
 
 Connection order must be derived.
 
@@ -2725,7 +2725,7 @@ truncation_sign_test.py
 
 Sign/commutator test for spectral truncation.
 
-## 32.3 Scripts that make sense to implement next
+## 32.3 Scripts worth considering next
 
 ```text
 cluster_safe_truncation_test.py
@@ -2763,7 +2763,7 @@ Handoff sequence/multi-phase gate.
 
 ---
 
-# 33. Obstruction points by type
+# 33. Obstruction Locations by Type
 
 ## 33.1 Reciprocity
 
