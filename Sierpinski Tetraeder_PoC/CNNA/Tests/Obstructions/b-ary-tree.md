@@ -1711,10 +1711,7 @@ Bei Connes ist die nichtkommutative Algebra typischerweise Eingabestruktur, nich
 CNNA müsste erst eine Handoff-Algebra liefern:
 
 $$
-\mathcal A_{\mathrm{eff}}
-=========================
-
-\operatorname{Alg}{\Lambda_i},
+\mathcal A_{\mathrm{eff}} = \operatorname{Alg}\{\Lambda_i\}
 $$
 
 mit
@@ -1837,10 +1834,7 @@ Nachtest zu `truncation_sign_test.py`; im Chat beschrieben.
 Trunkierung nicht nach beliebigem (m), sondern nur nach ganzen Eigenwert-Clustern:
 
 $$
-P_{\le \lambda}
-===============
-
-\sum_{\mu\le\lambda}P_\mu.
+P_{\le \lambda} = \sum_{\mu\le\lambda}P_\mu.
 $$
 
 **Befund**
@@ -1926,10 +1920,7 @@ $$
 Korrekte Eliminierung:
 
 $$
-L_{\mathrm{eff}}
-================
-
-L_{SS}-L_{SE}L_{EE}^{-1}L_{ES}.
+L_{\mathrm{eff}} = L_{SS}-L_{SE}L_{EE}^{-1}L_{ES}
 $$
 
 **Befund**
@@ -2051,10 +2042,7 @@ $$
 definiert man ein ToC-Faser-Gitter:
 
 $$
-\mathcal I_{\mathrm{ToCGrid}}
-=============================
-
-\Gamma_\infty\times T_b^\infty.
+\mathcal I_{\mathrm{ToCGrid}} = \Gamma_\infty\times T_b^\infty
 $$
 
 Mit:
@@ -2106,10 +2094,7 @@ Sehr sinnvoller letzter ToC-naher Test vor Substratwechsel.
 Berechenbarer Sektor:
 
 $$
-\Omega_{R,L}
-============
-
-W_R\times T_{\le L}.
+\Omega_{R,L} = W_R\times T_{\le L}​
 $$
 
 Mit:
@@ -2167,12 +2152,7 @@ $$
 Schur/DtN:
 
 $$
-\Lambda_{R,L}
-=============
-
-## L_{\partial\partial}
-
-L_{\partial I}L_{II}^{-1}L_{I\partial}.
+\Lambda_{R,L} = L_{\partial\partial} - L_{\partial I}L_{II}^{-1}L_{I\partial}
 $$
 
 **Befund**
@@ -2216,10 +2196,7 @@ $$
 Loop-Holonomie:
 
 $$
-U_\gamma
-========
-
-U_{wx}U_{zw}U_{yz}U_{xy}.
+U_\gamma = U_{wx}U_{zw}U_{yz}U_{xy}
 $$
 
 **Befund**
@@ -2351,10 +2328,7 @@ Pillar C kann (\tau) wählen, aber (J) nicht allein erzeugen.
 Pillar A soll nicht direkt Type III beweisen, sondern Vorläufer liefern:
 
 $$
-\mathcal C_{d,k}
-================
-
-(Q_{d,k}\oplus P_{d,k},g_{d,k},\omega_{d,k},{J,-J}).
+\mathcal C_{d,k} = (Q_{d,k}\oplus P_{d,k},g_{d,k},\omega_{d,k},\{J,-J\})
 $$
 
 Endlich:
@@ -2640,9 +2614,7 @@ Kein Totalverwerfen des ToC; Rollenwechsel.
 Ereignisstrukturen besitzen zwei Relationen:
 
 $$
-\leq
-\qquad\text{und}\qquad
-#.
+\leq \qquad\text{und}\qquad \#
 $$
 
 **Befund**
