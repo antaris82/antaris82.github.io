@@ -373,9 +373,9 @@ Wichtiges positives Ergebnis: keine Ridge-/Pseudoinversen-Setzung nötig.
 
 ---
 
-# 3. (\alpha_{\mathrm{orth}})- und Invarianten-Tests
+# 3. $\alpha_{\mathrm{orth}}$- und Invarianten-Tests
 
-## 3.1 (\Xi)- / (\alpha_{\mathrm{orth}})-Diagnostik
+## 3.1 $\Xi$- / $\alpha_{\mathrm{orth}}$-Diagnostik
 
 **Script / Datei**
 
@@ -932,13 +932,13 @@ Möglicher Kandidat für Environment-Ableitung; kein Vorzeichenbeweis.
 
 ---
 
-# 9. Geschwister-, (S_b)- und Adresssymmetrie-Tests
+# 9. Geschwister-, $S_b$- und Adresssymmetrie-Tests
 
-## 9.1 (S_b)-Sibling-Obstruktion
+## 9.1 $S_b$-Sibling-Obstruktion
 
 **Ausgangslage**
 
-Im ungeordneten (b)-ären Baum sind Geschwister unter
+Im ungeordneten b-ären Baum sind Geschwister unter
 
 $$
 S_b
@@ -948,7 +948,7 @@ austauschbar.
 
 **Befund**
 
-Kanonische Größen liegen in der trivialen (S_b)-Komponente.
+Kanonische Größen liegen in der trivialen $S_b$-Komponente.
 
 **Obstruktions-Ort**
 
@@ -1106,11 +1106,11 @@ Sehr zentrale No-Go-Formulierung.
 
 ---
 
-## 10.3 (Z_b)-Zyklizität ist nicht genug
+## 10.3 $Z_b$-Zyklizität ist nicht genug
 
 **Ausgangslage**
 
-Test, ob zyklische Ordnung (Z_b) die fehlende Chirotopie ersetzt.
+Test, ob zyklische Ordnung $Z_b$ die fehlende Chirotopie ersetzt.
 
 **Befund**
 
@@ -1128,7 +1128,7 @@ Wichtige Korrektur gegen voreilige „Zyklus = Orientierung“-Schlüsse.
 
 # 11. Hodge-, Dirac- und Dualkomplex-Tests
 
-## 11.1 Cellular Dirac (K=d-d^*)
+## 11.1 Cellular Dirac $K=d-d^*$
 
 **Ausgangslage**
 
@@ -1146,11 +1146,11 @@ $$
 
 **Befund**
 
-(K) ist reell schief. Auf (\operatorname{im}K) kann eine formale Polarstruktur einen (J)-artigen Anteil liefern.
+(K) ist reell schief. Auf $\operatorname{im}K$ kann eine formale Polarstruktur einen J-artigen Anteil liefern.
 
 **Obstruktions-Ort**
 
-Der Operator mischt Grade. Auf reinem (C^1)-Raum ist der relevante Block nicht automatisch ein lokales (J).
+Der Operator mischt Grade. Auf reinem $C^1$-Raum ist der relevante Block nicht automatisch ein lokales (J).
 
 **Status**
 
@@ -1166,9 +1166,9 @@ Test, ob duale Zellen oder Hodge-(\star) die Orientierung liefern.
 
 **Befund**
 
-Ein echter Hodge-(\star) braucht Orientierung bzw. Metrik-/Volumenstruktur.
+Ein echter Hodge-$\star$ braucht Orientierung bzw. Metrik-/Volumenstruktur.
 
-Bei voller (S_b)-Symmetrie gibt es keinen kanonischen schiefen äquivarianten Operator.
+Bei voller $S_b$-Symmetrie gibt es keinen kanonischen schiefen äquivarianten Operator.
 
 Mit Chirotopie reduziert sich die Symmetrie und ein (J)-Block kann erscheinen.
 
