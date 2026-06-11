@@ -10,25 +10,25 @@ $$
 
 Er liefert mehrfach:
 
-[
+$$
 {+J,-J},\qquad {+\tau,-\tau},\qquad \text{radiale Ordnung},\qquad \text{DtN-/Spektralstruktur}.
-]
+$$
 
 Er liefert bisher nicht:
 
-[
+$$
 \boxed{
 J\text{ statt }-J.
 }
-]
+$$
 
 Die einheitliche Obstruktion lautet jetzt nicht mehr nur „Symmetrie“, sondern genauer:
 
-[
+$$
 \boxed{
 \text{Eine abgeleitete Achse }F1\text{ genügt nicht. Nichtkommutativität/Chiralität braucht eine zweite abgeleitete Achse.}
 }
-]
+$$
 
 ---
 
@@ -38,95 +38,95 @@ Die einheitliche Obstruktion lautet jetzt nicht mehr nur „Symmetrie“, sonder
 
 Der ToC-/DtN-Sektor liefert robuste Vorläufer:
 
-[
+$$
 \text{radiale Provenienzordnung},
-]
+$$
 
-[
+$$
 \text{UV/Env-Coorientierung},
-]
+$$
 
-[
+$$
 \text{Cauchy-Dopplung},
-]
+$$
 
-[
+$$
 {+J,-J},
-]
+$$
 
-[
+$$
 {+\tau,-\tau},
-]
+$$
 
-[
+$$
 \text{reelle DtN-/Schur-Handoff-Matrizen}.
-]
+$$
 
 Das ist nicht trivial. Es bedeutet:
 
-[
+$$
 \boxed{
 \text{Der ToC ist als lokale Provenienzfaser und flacher Referenzsektor wertvoll.}
 }
-]
+$$
 
 ## 0.2 Was A/ToC bisher nicht liefert
 
 Nicht geliefert wird eine absolute Orientierung:
 
-[
+$$
 \boxed{
 J \neq \text{derived uniquely from flat ToC data}.
 }
-]
+$$
 
 Auch nicht geliefert werden bisher:
 
-[
+$$
 \text{Chirotopie},
-]
+$$
 
-[
+$$
 \text{nichttriviale Holonomie},
-]
+$$
 
-[
+$$
 \text{Krümmung},
-]
+$$
 
-[
+$$
 \text{nichtkommutative Handoff-Algebra},
-]
+$$
 
-[
+$$
 \text{echte partielle Spur/OQS-Struktur}.
-]
+$$
 
 ## 0.3 Neuer Interpretationsstatus
 
 Die Tests betreffen nicht „CNNA überhaupt“, sondern den spezifischen Sektor:
 
-[
+$$
 \boxed{
 \text{flacher, homogener, reell-reziproker ToC-/DtN-Sektor.}
 }
-]
+$$
 
 Daraus folgt:
 
-[
+$$
 \boxed{
 \text{Der globale Einzel-ToC als ontischer Weltbaum ist für }J\text{ falsifiziert.}
 }
-]
+$$
 
 Aber nicht:
 
-[
+$$
 \boxed{
 \text{lokale ToC-Fasern, DtN-Geometrie oder CNNA als Gesamtprogramm sind falsifiziert.}
 }
-]
+$$
 
 ---
 
@@ -144,13 +144,13 @@ app.py
 
 Visualisierung eines (b)-ären ToC mit Parametern:
 
-[
+$$
 b,\qquad L_{\max},\qquad \text{Approximant root},\qquad L.
-]
+$$
 
 Dargestellte Stufen:
 
-[
+$$
 \text{ToC}
 \to
 \text{proper subsystem}
@@ -162,13 +162,13 @@ Dargestellte Stufen:
 \text{Cauchy-/}J\text{-Kandidat}
 \to
 \text{Complex-plane overlay}.
-]
+$$
 
 **Befund**
 
 Didaktisch stark. Es trennt sichtbar:
 
-[
+$$
 \text{Approximant},
 \qquad
 \text{UV-tail},
@@ -176,7 +176,7 @@ Didaktisch stark. Es trennt sichtbar:
 \text{Environment},
 \qquad
 \text{Interface}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -198,23 +198,23 @@ Teil des interaktiven `app.py`.
 
 Tiefe Einbettung von Approximanten, z. B.
 
-[
+$$
 0.1,\qquad 0.1.1,\qquad 0.1.1.0,\ldots
-]
+$$
 
 bei festen Parametern wie:
 
-[
+$$
 b=3,\qquad L_{\max}=4.
-]
+$$
 
 **Befund**
 
 Visueller Tilt wurde mit tieferer Einbettung kleiner:
 
-[
+$$
 |\mathrm{tilt}|\downarrow.
-]
+$$
 
 **Interpretation**
 
@@ -224,9 +224,9 @@ Tiefer eingebettete Approximanten wirkten balancierter zwischen UV und Env.
 
 Kein echter Schur-/DtN-Wert:
 
-[
+$$
 \text{Proxy} \neq \text{Invariante}.
-]
+$$
 
 **Status**
 
@@ -246,33 +246,33 @@ Im Chat implementiert; Funktionalität ging später in (\alpha_{\mathrm{orth}})-
 
 Endlicher Approximant mit effektivem Operator:
 
-[
+$$
 M=L_\Omega+\text{projected UV/Env loads}.
-]
+$$
 
 Zwei Kanalantworten:
 
-[
+$$
 u_{\mathrm{Env}},\qquad u_{\mathrm{UV}}.
-]
+$$
 
 Messgröße:
 
-[
+$$
 \rho_M
 ======
 
 \frac{\langle u_{\mathrm{Env}},u_{\mathrm{UV}}\rangle_M}
 {|u_{\mathrm{Env}}|*M,|u*{\mathrm{UV}}|_M}.
-]
+$$
 
 **Befund**
 
 Nahe Orthogonalität:
 
-[
+$$
 |\rho_M|\ll 1,
-]
+$$
 
 teilweise numerisch nahe (90^\circ).
 
@@ -280,9 +280,9 @@ teilweise numerisch nahe (90^\circ).
 
 Orthogonalität einer reellen 2-Ebene liefert höchstens:
 
-[
+$$
 {+J,-J}.
-]
+$$
 
 Die Ebene ist da; der Drehsinn nicht.
 
@@ -302,26 +302,26 @@ Im Chat als endlicher Unit-edge-Graph-Test implementiert; kein eindeutig isolier
 
 Endlicher Baumgraph mit Laplace-Matrix:
 
-[
+$$
 L_{\mathrm{graph}}.
-]
+$$
 
 Rand (B), Innenknoten (I), Schur-Komplement:
 
-[
+$$
 \Lambda_B
 =========
 
 L_{BB}-L_{BI}L_{II}^{-1}L_{IB}.
-]
+$$
 
 **Befund**
 
 Für deterministische zentrierte Einzelmodi numerisch praktisch orthogonal, etwa:
 
-[
+$$
 |\rho_M|\approx 10^{-18}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -343,17 +343,17 @@ Teil der Schur-/DtN-Tests.
 
 Frage:
 
-[
+$$
 \text{Braucht man eine externe Regularisierung oder Pseudoinverse?}
-]
+$$
 
 **Befund**
 
 Nein, sofern ein echter Dirichlet-/Boundary-Cut gesetzt wird. Dann ist der Innenblock:
 
-[
+$$
 L_{II}
-]
+$$
 
 invertierbar.
 
@@ -361,9 +361,9 @@ invertierbar.
 
 Der DtN-Operator ist cut-relativ:
 
-[
+$$
 \Lambda_{\partial A}.
-]
+$$
 
 Es gibt keinen cut-freien universalen DtN-Operator des ganzen unendlichen ToC.
 
@@ -398,13 +398,13 @@ cnna_alpha_orth_invariant_v7.zip
 
 Kontrollgröße:
 
-[
+$$
 \Xi=(1+\lambda_{\mathrm{UV}})(1+\lambda_{\mathrm{Env}}),
-]
+$$
 
 mit
 
-[
+$$
 \lambda_{\mathrm{UV}}
 =====================
 
@@ -414,29 +414,29 @@ mit
 ======================
 
 \frac{\alpha_{\mathrm{Env}}}{C_k}.
-]
+$$
 
 Typische Orthogonalitätsdiagnose:
 
-[
+$$
 |\rho|\sim \Xi^{-1/2}.
-]
+$$
 
 **Befund**
 
 Der UV-Term dominiert für wachsende Tiefe stark:
 
-[
+$$
 |\rho|\sim b^{-k/2}.
-]
+$$
 
 Also:
 
-[
+$$
 \boxed{
 \text{UV-Auflösung treibt Orthogonalität.}
 }
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -482,9 +482,9 @@ In Regimen, in denen Environment nicht subdominant ist, braucht man eine echte K
 
 Guter methodischer Befund:
 
-[
+$$
 \text{definierbar}\neq\text{erzwungen}.
-]
+$$
 
 ---
 
@@ -502,9 +502,9 @@ two_approximant_flow_sign.py
 
 Parent–Child-Handoff:
 
-[
+$$
 A_{\mathrm{parent}}\to A_{\mathrm{child}}.
-]
+$$
 
 Ziel: prüfen, ob der Übergang ein (J)-Vorzeichen liefert.
 
@@ -516,9 +516,9 @@ Radiale Übergangssignaturen können entstehen.
 
 Radialität ist nicht Chiralität:
 
-[
+$$
 \text{Parent}\to\text{Child}
-]
+$$
 
 liefert Tieferichtung, aber keinen Drehsinn.
 
@@ -557,11 +557,11 @@ Flow kann eine gerichtete Anregung enthalten. Dann wäre das Vorzeichen nicht ab
 
 Methodische Regel:
 
-[
+$$
 \boxed{
 \text{Schur zuerst, Flow nur als Konsistenztest.}
 }
-]
+$$
 
 ---
 
@@ -585,27 +585,27 @@ cnna_alpha_orth_invariant_v4.zip
 
 Parent–Child-Differenzschale, zwei Boundary-Ports, reale DtN-Matrix:
 
-[
+$$
 \Lambda_\Delta.
-]
+$$
 
 Cauchy-Paarung:
 
-[
+$$
 \omega((q,p),(q',p'))=q^Tp'-p^Tq'.
-]
+$$
 
 Auf einem DtN-Graphen gilt:
 
-[
+$$
 p=\Lambda q.
-]
+$$
 
 **Befund**
 
 Für selbstadjungierten DtN-Graphen:
 
-[
+$$
 \omega((q,\Lambda q),(r,\Lambda r))
 ===================================
 
@@ -613,7 +613,7 @@ Für selbstadjungierten DtN-Graphen:
 
 0.
 
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -643,31 +643,31 @@ cnna_alpha_orth_invariant_v5.zip
 
 Familie von DtN-Matrizen:
 
-[
+$$
 {\Lambda_i}.
-]
+$$
 
 Cross-Graph-Cauchy-Pairing:
 
-[
+$$
 \omega_{ij}(q,r)=q^T\Lambda_jr-r^T\Lambda_iq.
-]
+$$
 
 Zusätzlich Handoff-Square:
 
-[
+$$
 A\to B_i\to C,
 \qquad
 A\to B_j\to C.
-]
+$$
 
 **Befund**
 
 Cross-Graph-Signale können auftreten:
 
-[
+$$
 \omega_{ij}\neq 0.
-]
+$$
 
 Aber:
 
@@ -706,28 +706,28 @@ cnna_alpha_orth_invariant_v6.zip
 
 Triade:
 
-[
+$$
 \text{UV-channel},
 \qquad
 \text{Environment-channel},
 \qquad
 \text{Handoff/Regulator-channel}.
-]
+$$
 
 Regulator-Kandidat:
 
-[
+$$
 r_i=(\Lambda_{\mathrm{child},i}-\Lambda_{\mathrm{parent}})a.
-]
+$$
 
 Triadische Fläche:
 
-[
+$$
 \tau_i
 ======
 
 \det(e_{\mathrm{UV}}-e_{\mathrm{Env}},,r_i-e_{\mathrm{Env}}).
-]
+$$
 
 **Befund**
 
@@ -803,27 +803,27 @@ UV-tail und Environment-tail werden als gegengerichtete Randseiten einer Shell g
 
 Cauchy-Datenraum:
 
-[
+$$
 (q_{\mathrm{Env}},q_{\mathrm{UV}},p_{\mathrm{Env}},p_{\mathrm{UV}}).
-]
+$$
 
 Orientierte Randform:
 
-[
+$$
 \omega_\partial=\omega_{\mathrm{Env}}-\omega_{\mathrm{UV}}.
-]
+$$
 
 Metrik:
 
-[
+$$
 g=\operatorname{diag}(k_{\mathrm{Env}},k_{\mathrm{UV}},1/k_{\mathrm{Env}},1/k_{\mathrm{UV}}).
-]
+$$
 
 Konstruktion:
 
-[
+$$
 J=-g^{-1}\omega_\partial.
-]
+$$
 
 **Befund**
 
@@ -838,29 +838,29 @@ swap_to_minus_J_error = 0.0
 
 Also:
 
-[
+$$
 J^2=-I,
 \qquad
 J^TgJ=g,
 \qquad
 J^T\omega J=\omega.
-]
+$$
 
 **Obstruktions-Ort**
 
 Die Coorientierung wird gewählt. Mit der Gegenwahl entsteht ebenso konsistent:
 
-[
+$$
 J\mapsto -J.
-]
+$$
 
 **Status**
 
 Sehr wichtiges Positivergebnis:
 
-[
+$$
 \text{UV/Env-Coorientierung}\Rightarrow {J,-J}\text{-Cauchy-Struktur}.
-]
+$$
 
 Kein absolutes Vorzeichen.
 
@@ -874,11 +874,11 @@ Kein absolutes Vorzeichen.
 
 Der ToC wächst nicht ontisch; er ist unendlich gegeben.
 
-[
+$$
 \ell(\mathrm{root})=0,
 \qquad
 \ell\to\infty
-]
+$$
 
 nach innen.
 
@@ -886,19 +886,19 @@ nach innen.
 
 Tiefenordnung liefert relative Gegengerichtetheit:
 
-[
+$$
 \text{Env-Seite}: \ell\downarrow,
 \qquad
 \text{UV-Seite}: \ell\uparrow.
-]
+$$
 
 **Obstruktions-Ort**
 
 Tiefenordnung ist polar, nicht chiral:
 
-[
+$$
 \text{innen/außen}\neq\text{Drehsinn}.
-]
+$$
 
 **Status**
 
@@ -912,11 +912,11 @@ Stützt V7 semantisch. Kein absolutes (J).
 
 Hypothese:
 
-[
+$$
 \text{formale Root ist Interface;}
 \qquad
 \text{dahinter liegt negative Wurzelfamilie}.
-]
+$$
 
 **Befund**
 
@@ -940,9 +940,9 @@ Möglicher Kandidat für Environment-Ableitung; kein Vorzeichenbeweis.
 
 Im ungeordneten (b)-ären Baum sind Geschwister unter
 
-[
+$$
 S_b
-]
+$$
 
 austauschbar.
 
@@ -954,11 +954,11 @@ Kanonische Größen liegen in der trivialen (S_b)-Komponente.
 
 Die Signum-Darstellung wird nicht kanonisch ausgewählt:
 
-[
+$$
 S_b\text{-Äquivarianz}
 \Rightarrow
 \text{keine kanonische sibling-chirality}.
-]
+$$
 
 **Status**
 
@@ -972,17 +972,17 @@ Robuste Negativlinie.
 
 Blätter wie:
 
-[
+$$
 000,001,010,011,100,101,110,111.
-]
+$$
 
 Klassen:
 
-[
+$$
 |x|_1=1,
 \qquad
 |x|_1=2.
-]
+$$
 
 **Befund**
 
@@ -1004,15 +1004,15 @@ Strukturfund, aber achiral.
 
 Auf etwa:
 
-[
+$$
 {001,010,100}
-]
+$$
 
 gibt es zyklische Verschiebung:
 
-[
+$$
 001\to010\to100\to001.
-]
+$$
 
 **Befund**
 
@@ -1022,15 +1022,15 @@ Adressintrinsische Schleife ohne geometrische Einbettung.
 
 Bit-Reversal konjugiert Links-Shift in Rechts-Shift:
 
-[
+$$
 \mathrm{reverse}\circ\rho=\rho^{-1}\circ\mathrm{reverse}.
-]
+$$
 
 Also:
 
-[
+$$
 \text{Schleife ja, Drehsinn nein.}
-]
+$$
 
 **Status**
 
@@ -1050,17 +1050,17 @@ Sierpinski-Gasket (SG) und Sierpinski-Tetrahedron/Tetrix (ST) wurden als ToC-nah
 
 Sie bringen Schleifen und Kozyklen:
 
-[
+$$
 H^1\neq0.
-]
+$$
 
 Beispielhafte Größen:
 
-[
+$$
 d_s(SG)=\frac{2\log 3}{\log 5},
 \qquad
 d_s(ST)=\frac{2\log 4}{\log 6}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -1078,9 +1078,9 @@ Nützlich als Vergleichs- und Strukturtest; kein direkter (J)-Durchbruch.
 
 Chiralität auf Geschwistern liegt in der Signum-Information:
 
-[
+$$
 S_b/A_b\simeq \mathbb Z_2.
-]
+$$
 
 **Befund**
 
@@ -1088,15 +1088,15 @@ Wenn die lokale Isotropiegruppe (H) nicht in (A_b) liegt, gibt es keine kanonisc
 
 Für den symmetrischen ToC:
 
-[
+$$
 H=S_b.
-]
+$$
 
 **Obstruktions-Ort**
 
-[
+$$
 S_b\not\subset A_b.
-]
+$$
 
 Daher ist eine Sign-Line nicht kanonisch ausgezeichnet.
 
@@ -1134,15 +1134,15 @@ Wichtige Korrektur gegen voreilige „Zyklus = Orientierung“-Schlüsse.
 
 Zellulärer Operator:
 
-[
+$$
 K=d-d^*
-]
+$$
 
 auf
 
-[
+$$
 C^0\oplus C^1\oplus C^2.
-]
+$$
 
 **Befund**
 
@@ -1176,15 +1176,15 @@ Mit Chirotopie reduziert sich die Symmetrie und ein (J)-Block kann erscheinen.
 
 Richtung ist:
 
-[
+$$
 \text{Chirotopie}\Rightarrow J\text{-Modus},
-]
+$$
 
 nicht:
 
-[
+$$
 J\text{-Modus}\Rightarrow\text{Chirotopie}.
-]
+$$
 
 **Status**
 
@@ -1204,25 +1204,25 @@ Boundary-DtN-Matrizen für rekursive SG/ST-Approximationen.
 
 Boundary-DtN bleibt voll symmetrisch:
 
-[
+$$
 \Lambda_n=a_n(bI-\mathbf 1\mathbf 1^T).
-]
+$$
 
 Typisch:
 
-[
+$$
 a_n(SG)=\left(\frac35\right)^n,
 \qquad
 a_n(ST)=\left(\frac23\right)^n.
-]
+$$
 
 **Obstruktions-Ort**
 
 Volle (S_b)-Invarianz bleibt erhalten. Keine Reduktion:
 
-[
+$$
 S_b\to A_b.
-]
+$$
 
 **Status**
 
@@ -1240,9 +1240,9 @@ Test, ob der IFS-Wachstumsprozess selbst eine Ordnung erzeugt.
 
 Ungeordnete Kontraktionen:
 
-[
+$$
 {\phi_i}
-]
+$$
 
 bleiben (S_b)-äquivariant.
 
@@ -1264,50 +1264,50 @@ IFS-Wachstum allein löst das Vorzeichenproblem nicht.
 
 Gluing-Kanten mit:
 
-[
+$$
 \varphi_{\alpha\beta}\in S_b.
-]
+$$
 
 Loop-Holonomie:
 
-[
+$$
 h_\gamma
 ========
 
 \varphi_{\alpha_{k-1}\alpha_k}\cdots\varphi_{\alpha_0\alpha_1}.
-]
+$$
 
 **Befund**
 
 Wenn der Zentralisator
 
-[
+$$
 C_{S_b}(h_\gamma)
-]
+$$
 
 in (A_b) liegt, können lokale odd permutations ausgeschlossen werden.
 
 Beispiel:
 
-[
+$$
 b=3,\quad h=(012),
 \qquad
 C_{S_3}(h)=A_3.
-]
+$$
 
 **Obstruktions-Ort**
 
 Die Richtung
 
-[
+$$
 h \text{ vs. } h^{-1}
-]
+$$
 
 bleibt genau die chirale Wahl. Unorientierte Klasse:
 
-[
+$$
 {h,h^{-1}}
-]
+$$
 
 lokalisiert nur ein Paar.
 
@@ -1329,16 +1329,16 @@ F1 ist der radiale Provenienz-/Auffüllpfeil. Test: Kann eine F1-only-Regel Port
 
 Eine relabeling-natürliche F1-only-Portregel muss mit allen
 
-[
+$$
 \sigma\in S_b
-]
+$$
 
 kommutieren. Daher liegt sie im Zentrum:
 
-[
+$$
 Z(S_b)={e}
 \qquad (b\ge3).
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -1356,11 +1356,11 @@ Starker No-Go: Nichtlinearität in Tiefe hilft nicht, solange Relabeling-Natürl
 
 Regel wie:
 
-[
+$$
 (n,i)\mapsto(n+1,\sigma(i)),
 \qquad
 \sigma=(012).
-]
+$$
 
 **Befund**
 
@@ -1370,9 +1370,9 @@ Erzeugt scheinbar Drehung.
 
 Unter odd relabeling:
 
-[
+$$
 \tau\sigma\tau^{-1}=\sigma^{-1}.
-]
+$$
 
 Die Regel importiert eine Portordnung.
 
@@ -1394,9 +1394,9 @@ Im Verlauf als `toc_paper_v10_f1_value_coupling` dokumentiert; Python-Test im Ch
 
 Nicht Portpermutation, sondern wertbasierte Kopplung:
 
-[
+$$
 w_{\alpha\beta}=f(d_\alpha,d_\beta,\ldots).
-]
+$$
 
 **Befund**
 
@@ -1406,9 +1406,9 @@ Skew-Komponenten können entstehen, wenn Kopplung tiefenabhängig und nicht symm
 
 „Tief speist stark“ und „flach speist stark“ sind zwei Vorzeichenwahlen:
 
-[
+$$
 K^+=-K^-.
-]
+$$
 
 Die Regel wählt ein Vorzeichen, wenn sie nicht abgeleitet ist.
 
@@ -1426,27 +1426,27 @@ Zeigt, wie Nichtreziprozität entstehen könnte. Aber ohne derived Auswahl bleib
 
 Nicht Knoten-an-Knoten, sondern relabeling-natürliche Level-Schale an Level-Schale:
 
-[
+$$
 S_k(A)\leftrightarrow S_k(B),
-]
+$$
 
 mit Mean-Mode:
 
-[
+$$
 u_{A,k}
 =======
 
 \frac{1}{\sqrt{|S_k|}}\mathbf 1_{S_k(A)}.
-]
+$$
 
 Kopplung:
 
-[
+$$
 C_{AB}
 ======
 
 \sum_k\gamma_k u_{A,k}u_{B,k}^T.
-]
+$$
 
 **Befund**
 
@@ -1456,9 +1456,9 @@ Reziproke Schalenkopplung erzeugt Spektralstruktur und ggf. Zyklen.
 
 Die Kopplung bleibt symmetrisch:
 
-[
+$$
 C_{AB}=C_{BA}^T.
-]
+$$
 
 Daher überlebt A/B-Spiegelung.
 
@@ -1474,11 +1474,11 @@ Struktur ja, Chiralität nein.
 
 Unterscheidung:
 
-[
+$$
 \text{Adressort}
 \neq
 \text{Skalenrolle}.
-]
+$$
 
 Vier Fälle:
 
@@ -1495,13 +1495,13 @@ Fall D ist strukturell neu.
 
 Gemeldeter Befund:
 
-[
+$$
 \beta_1: 0\to 6560,
-]
+$$
 
-[
+$$
 d_s: 1.385\to 3.647.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -1509,9 +1509,9 @@ Trotz starker Strukturänderung überlebt A/B-Spiegelung in allen Fällen.
 
 Grund:
 
-[
+$$
 \text{Gate hängt an Reziprozität der transversalen Kopplung, nicht am Verklebungsort.}
-]
+$$
 
 **Status**
 
@@ -1527,19 +1527,19 @@ Sehr wichtiger Befund: inverse Skalenlesart ist echter Strukturparameter, aber k
 
 Standard:
 
-[
+$$
 \text{UV an Blättern},
 \qquad
 \text{Env an Wurzel}.
-]
+$$
 
 Inverse Lesart:
 
-[
+$$
 \text{UV an Wurzel},
 \qquad
 \text{Env an Blättern}.
-]
+$$
 
 **Befund**
 
@@ -1563,15 +1563,15 @@ Offen bzw. als nächster präziser Test markiert, aber durch spätere DtN-/Flach
 
 Nach Korrektur: Handoff sieht keine ToC-Knoten mehr, sondern Operatoren:
 
-[
+$$
 (H_\partial,\Lambda).
-]
+$$
 
 Ziel:
 
-[
-K=[\Lambda_A,\Lambda_B].
-]
+$$
+K=$$\Lambda_A,\Lambda_B$$.
+$$
 
 **Befund**
 
@@ -1593,25 +1593,25 @@ Wichtige Kategoriekorrektur.
 
 Aufeinanderfolgende RG-/Schur-Stufen derselben Sequenz:
 
-[
+$$
 \Lambda_n,
 \qquad
 \widetilde{\Lambda}_{n+1}.
-]
+$$
 
 Kommutator:
 
-[
-K_n=[\Lambda_n,\widetilde{\Lambda}_{n+1}].
-]
+$$
+K_n=$$\Lambda_n,\widetilde{\Lambda}_{n+1}$$.
+$$
 
 **Befund**
 
 Gemeldet:
 
-[
+$$
 K_n=0
-]
+$$
 
 für kanonische RG-Projektion.
 
@@ -1623,13 +1623,13 @@ Beide Operatoren liegen auf derselben radialen F1-Achse und teilen dieselbe symm
 
 Sehr wichtiger Mechanismus:
 
-[
+$$
 \text{abgeleitete Reihenfolge durch F1}
 \Rightarrow
 \text{gleiche Achse}
 \Rightarrow
 \text{Kommutativität}.
-]
+$$
 
 ---
 
@@ -1641,9 +1641,9 @@ Sehr wichtiger Mechanismus:
 
 Vorschlag:
 
-[
+$$
 M_2\to M_4\to M_8\to\cdots
-]
+$$
 
 bzw. mehrere ToC-DtN-Matrizen auf wachsenden Handoff-Räumen.
 
@@ -1655,9 +1655,9 @@ Nichtkommutativität könnte entstehen, wenn mehrere symmetrische Operatoren auf
 
 Beispiele mit Spin-Ketten importieren Tensorproduktordnung und Nachbarschaft:
 
-[
+$$
 A_{12},\qquad A_{23}.
-]
+$$
 
 Diese Links-Rechts-Struktur ist nicht aus barem ToC abgeleitet.
 
@@ -1698,15 +1698,15 @@ Matrix-Tower-Route negativ im flachen abgeleiteten ToC-Sektor.
 
 Connes ersetzt Raum durch Algebra:
 
-[
+$$
 (\mathcal A,\mathcal H,D).
-]
+$$
 
 Nichtkommutativität liegt in:
 
-[
+$$
 ab\neq ba.
-]
+$$
 
 **Befund**
 
@@ -1716,18 +1716,18 @@ Bei Connes ist die nichtkommutative Algebra typischerweise Eingabestruktur, nich
 
 CNNA müsste erst eine Handoff-Algebra liefern:
 
-[
+$$
 \mathcal A_{\mathrm{eff}}
 =========================
 
 \operatorname{Alg}{\Lambda_i},
-]
+$$
 
 mit
 
-[
-[\Lambda_i,\Lambda_j]\neq0.
-]
+$$
+$$\Lambda_i,\Lambda_j$$\neq0.
+$$
 
 **Status**
 
@@ -1747,15 +1747,15 @@ two_reduction_regimes.py
 
 Vergleich:
 
-[
+$$
 \Lambda_{\mathrm{UV}}
-]
+$$
 
 gegen
 
-[
+$$
 \Lambda_{\mathrm{Env}}
-]
+$$
 
 auf demselben Leaf-Boundary-Raum.
 
@@ -1763,9 +1763,9 @@ auf demselben Leaf-Boundary-Raum.
 
 Gemeldet:
 
-[
-|[\Lambda_{\mathrm{UV}},\Lambda_{\mathrm{Env}}]|\sim 10^{-16}.
-]
+$$
+|$$\Lambda_{\mathrm{UV}},\Lambda_{\mathrm{Env}}$$|\sim 10^{-16}.
+$$
 
 **Obstruktions-Ort**
 
@@ -1790,23 +1790,23 @@ truncation_sign_test.py
 
 Vergleich:
 
-[
+$$
 \Lambda_{\mathrm{full}}
-]
+$$
 
 gegen spektral trunkierte Reduktion:
 
-[
+$$
 \Lambda_{\mathrm{trunc}}.
-]
+$$
 
 **Befund**
 
 Bei beliebigem (m):
 
-[
-|[\Lambda_{\mathrm{full}},\Lambda_{\mathrm{trunc}}]|\approx 0.017
-]
+$$
+|$$\Lambda_{\mathrm{full}},\Lambda_{\mathrm{trunc}}$$|\approx 0.017
+$$
 
 für mittlere (m)-Werte; (K) ist schief.
 
@@ -1814,17 +1814,17 @@ für mittlere (m)-Werte; (K) ist schief.
 
 Zunächst falsch interpretiert: (\pm i\lambda)-Paare wurden als „beide Chiralitäten“ gelesen. Korrektur:
 
-[
+$$
 \pm i\lambda
-]
+$$
 
 ist normales Spektrum eines reellen (J)-Blocks.
 
 Der echte Vorzeichentest ist:
 
-[
+$$
 K\text{ oder }-K\text{ ausgezeichnet?}
-]
+$$
 
 **Status**
 
@@ -1842,20 +1842,20 @@ Nachtest zu `truncation_sign_test.py`; im Chat beschrieben.
 
 Trunkierung nicht nach beliebigem (m), sondern nur nach ganzen Eigenwert-Clustern:
 
-[
+$$
 P_{\le \lambda}
 ===============
 
 \sum_{\mu\le\lambda}P_\mu.
-]
+$$
 
 **Befund**
 
 Bei allen kanonischen Cluster-Grenzen:
 
-[
+$$
 |K|\approx 10^{-16}.
-]
+$$
 
 Nichtkommutativität trat nur auf, wenn (m) mitten durch degenerierte Eigenräume schnitt.
 
@@ -1867,11 +1867,11 @@ Ein Schnitt durch entartete Eigenräume wählt eine nicht-kanonische `numpy`-Bas
 
 Starker Negativbefund:
 
-[
+$$
 \boxed{
 \text{relabeling-natürliche exakte und cluster-sichere DtN-Reduktionen kommutieren.}
 }
-]
+$$
 
 ---
 
@@ -1883,9 +1883,9 @@ Starker Negativbefund:
 
 System/Umwelt-Knoten wurden getrennt:
 
-[
+$$
 \mathbb R^N=\mathbb R^S\oplus\mathbb R^E.
-]
+$$
 
 Dann wurde Diffusion (e^{-tL}) gerechnet und Umgebung mit festem Zustand behandelt.
 
@@ -1897,17 +1897,17 @@ Skew konnte entstehen.
 
 Das war keine partielle Spur. Eine partielle Spur braucht:
 
-[
+$$
 \mathcal H=\mathcal H_S\otimes\mathcal H_E.
-]
+$$
 
 Der Knotenraum liefert aber direkte Summe, kein Tensorprodukt.
 
 Der Skew kam aus asymmetrischer Einspeisung/Restriktion:
 
-[
+$$
 \text{Umgebung speist ein, System-Abfluss wird verworfen}.
-]
+$$
 
 **Status**
 
@@ -1921,30 +1921,30 @@ Ungültig als OQS-/Partial-trace-Test. Höchstens Test einer asymmetrischen Rand
 
 Für Knotenaufteilung:
 
-[
+$$
 L=
 \begin{pmatrix}
 L_{SS} & L_{SE}\
 L_{ES} & L_{EE}
 \end{pmatrix}.
-]
+$$
 
 Korrekte Eliminierung:
 
-[
+$$
 L_{\mathrm{eff}}
 ================
 
 L_{SS}-L_{SE}L_{EE}^{-1}L_{ES}.
-]
+$$
 
 **Befund**
 
 Für reell symmetrisches (L):
 
-[
+$$
 L_{\mathrm{eff}}^T=L_{\mathrm{eff}}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -1954,11 +1954,11 @@ Knoten-Elimination erzeugt keine OQS-Irreversibilität und keinen antisymmetrisc
 
 Zentrale Methodenkorrektur:
 
-[
+$$
 \boxed{
 \text{Auf Knoten wird eliminiert, nicht ausgespurt.}
 }
-]
+$$
 
 ---
 
@@ -1978,31 +1978,31 @@ Alle natürlichen Operatoren bleiben gemeinsam diagonalisierbar.
 
 Es gibt keine Connection:
 
-[
+$$
 \nabla,
-]
+$$
 
 keine Holonomie:
 
-[
+$$
 U_\gamma\neq I,
-]
+$$
 
 und keine Krümmung:
 
-[
-[\nabla_\mu,\nabla_\nu]\neq0.
-]
+$$
+$$\nabla_\mu,\nabla_\nu$$\neq0.
+$$
 
 **Status**
 
 Interpretationswechsel:
 
-[
+$$
 \boxed{
 \text{Die No-Gos betreffen den flachen ToC-/DtN-Sektor.}
 }
-]
+$$
 
 Nicht CNNA insgesamt.
 
@@ -2014,15 +2014,15 @@ Nicht CNNA insgesamt.
 
 In Geometrie/Eichtheorie:
 
-[
-[\nabla_\mu,\nabla_\nu]=R_{\mu\nu}
-]
+$$
+$$\nabla_\mu,\nabla_\nu$$=R_{\mu\nu}
+$$
 
 bzw.
 
-[
-[D_\mu,D_\nu]=F_{\mu\nu}.
-]
+$$
+$$D_\mu,D_\nu$$=F_{\mu\nu}.
+$$
 
 **Befund**
 
@@ -2036,9 +2036,9 @@ Krümmung darf nicht als Retter importiert werden. Sie müsste aus Handoff-/Regu
 
 Offener Curved-sector target:
 
-[
+$$
 \text{Block-RG/DtN}\to\text{Connection}\to\text{Holonomie/Krümmung}.
-]
+$$
 
 ---
 
@@ -2050,38 +2050,38 @@ Offener Curved-sector target:
 
 Statt eines universalen Einzel-ToC:
 
-[
+$$
 T_b^\infty
-]
+$$
 
 definiert man ein ToC-Faser-Gitter:
 
-[
+$$
 \mathcal I_{\mathrm{ToCGrid}}
 =============================
 
 \Gamma_\infty\times T_b^\infty.
-]
+$$
 
 Mit:
 
-[
+$$
 x\in\Gamma_\infty,
 \qquad
 w\in T_b^\infty.
-]
+$$
 
 Zwei Unendlichkeiten:
 
-[
+$$
 \Gamma_\infty
-]
+$$
 
 transversal und
 
-[
+$$
 T_b^\infty
-]
+$$
 
 intern pro Faser.
 
@@ -2089,9 +2089,9 @@ intern pro Faser.
 
 Vollidealer Sektor:
 
-[
+$$
 \text{flach, homogen, reziprok, intern ToC-skaleninvariant}.
-]
+$$
 
 Transversale Isotropie nur diskret bzw. abhängig von (\Gamma_\infty).
 
@@ -2111,44 +2111,44 @@ Sehr sinnvoller letzter ToC-naher Test vor Substratwechsel.
 
 Berechenbarer Sektor:
 
-[
+$$
 \Omega_{R,L}
 ============
 
 W_R\times T_{\le L}.
-]
+$$
 
 Mit:
 
-[
+$$
 W_R\subset\Gamma_\infty,
 \qquad
 T_{\le L}\subset T_b^\infty.
-]
+$$
 
 **Befund**
 
 Subsystem-Sein bricht zwingend die IDEAL-Symmetrie:
 
-[
+$$
 \operatorname{Aut}(\mathcal I_{\mathrm{ToCGrid}})
 \to
 \operatorname{Aut}(\Omega_{R,L}).
-]
+$$
 
 Es entstehen:
 
-[
+$$
 \text{äußeres Gitter-Komplement},
-]
+$$
 
-[
+$$
 \text{interner UV-tail},
-]
+$$
 
-[
+$$
 \text{Rand/Ecken/Mischkomplemente}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -2166,20 +2166,20 @@ Positiver Geometrie-/DtN-Test, negativer (J)-Test im flachen reziproken Fall.
 
 Operator auf (\Omega_{R,L}):
 
-[
+$$
 L_{R,L}.
-]
+$$
 
 Schur/DtN:
 
-[
+$$
 \Lambda_{R,L}
 =============
 
 ## L_{\partial\partial}
 
 L_{\partial I}L_{II}^{-1}L_{I\partial}.
-]
+$$
 
 **Befund**
 
@@ -2193,11 +2193,11 @@ Solange das Gitter homogen, reziprok und flach ist, entstehen zwar Spektrum und 
 
 Wichtiger letzter Referenztest:
 
-[
+$$
 \boxed{
 \text{ToC-Faser-Gitter kann Geometrie testen, nicht }J\text{ erzwingen.}
 }
-]
+$$
 
 ---
 
@@ -2209,32 +2209,32 @@ Wichtiger letzter Referenztest:
 
 Für lokale Handoff-Räume:
 
-[
+$$
 H_x,\qquad H_y
-]
+$$
 
 bräuchte man derived Intertwiner:
 
-[
+$$
 U_{xy}:H_x\to H_y.
-]
+$$
 
 Loop-Holonomie:
 
-[
+$$
 U_\gamma
 ========
 
 U_{wx}U_{zw}U_{yz}U_{xy}.
-]
+$$
 
 **Befund**
 
 Im homogenen flachen Fall erwartbar:
 
-[
+$$
 U_\gamma=I
-]
+$$
 
 oder gauge-trivial.
 
@@ -2256,9 +2256,9 @@ Offener Curved-sector-Test. Noch nicht positiv gezeigt.
 
 Signatur:
 
-[
+$$
 \eta=\operatorname{diag}(-1,+1,\ldots,+1).
-]
+$$
 
 **Befund**
 
@@ -2268,15 +2268,15 @@ Trennt zeitartig und raumartig.
 
 Zeitumkehr bleibt Symmetrie:
 
-[
+$$
 T\eta T=\eta.
-]
+$$
 
 Lichtkegel bleibt Doppelkegel:
 
-[
+$$
 C^+\cup C^-.
-]
+$$
 
 **Status**
 
@@ -2290,25 +2290,25 @@ Reduziert Problem auf Zeitorientierung, löst sie nicht.
 
 Reell-symmetrischer Generator (H), Flusspaar:
 
-[
+$$
 {e^{+tH},e^{-tH}}.
-]
+$$
 
 **Befund**
 
 Liefert:
 
-[
+$$
 {+\tau,-\tau}.
-]
+$$
 
 **Obstruktions-Ort**
 
 Für reell-symmetrisches (H) bleibt jede spektrale Funktion symmetrisch. Ein (J) ist antisymmetrisch:
 
-[
+$$
 J\neq f(H).
-]
+$$
 
 **Status**
 
@@ -2328,17 +2328,17 @@ Offene Quantendynamik / Lindblad-Generator.
 
 Dissipation kann Zeitrichtung wählen:
 
-[
+$$
 +\tau.
-]
+$$
 
 **Obstruktions-Ort**
 
 Hamiltonischer Term enthält bereits:
 
-[
--i[H,\rho].
-]
+$$
+-i$$H,\rho$$.
+$$
 
 Also setzt OQS (i) bzw. (J) voraus.
 
@@ -2356,28 +2356,28 @@ Pillar C kann (\tau) wählen, aber (J) nicht allein erzeugen.
 
 Pillar A soll nicht direkt Type III beweisen, sondern Vorläufer liefern:
 
-[
+$$
 \mathcal C_{d,k}
 ================
 
 (Q_{d,k}\oplus P_{d,k},g_{d,k},\omega_{d,k},{J,-J}).
-]
+$$
 
 Endlich:
 
-[
+$$
 k<\infty
 \Rightarrow
 \text{Type-I-artige Vorläufer}.
-]
+$$
 
 Unendlich:
 
-[
+$$
 k\to\infty
 \Rightarrow
 \text{Type-III-fähige Komplementfamilien-Vorläufer}.
-]
+$$
 
 **Befund**
 
@@ -2387,9 +2387,9 @@ Architektonisch sinnvoll.
 
 Dimension/Unendlichkeit liefert keine Orientierung:
 
-[
+$$
 \text{finite/infinite}\neq J\text{-sign}.
-]
+$$
 
 **Status**
 
@@ -2405,21 +2405,21 @@ Handoffs sind nicht passive Pfeile, sondern eigene Interface-Objekte.
 
 Triade:
 
-[
+$$
 C\text{-Regulator}
 \triangleright
 H_{B|B'}(B,B')
 \to
 \text{stable record}.
-]
+$$
 
 **Befund**
 
 Bester Ort für:
 
-[
+$$
 \omega_{\mathrm{lock}}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -2439,31 +2439,31 @@ Weiterhin wichtigster offener (J)-Locking-Kandidat.
 
 Ein Detektor besteht aus vielen lokalen ToC-Fasern:
 
-[
+$$
 T_1,T_2,\ldots,T_N.
-]
+$$
 
 Jede trägt lokal:
 
-[
+$$
 {J_i,-J_i}.
-]
+$$
 
 **Befund**
 
 Lokales Vorzeichen kann Gauge sein:
 
-[
+$$
 J_i\mapsto -J_i.
-]
+$$
 
 Physikalisch relevant wären relative oder zyklische Daten:
 
-[
+$$
 \sigma_{ij},
 \qquad
 \Phi_\gamma=\prod_{(ij)\in\gamma}\sigma_{ij}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -2481,17 +2481,17 @@ Starker Kandidat für nächsten nichtlokalen Test.
 
 Viele lokale ToC-Fasern werden gekoppelt. Mögliches Zyklusprodukt:
 
-[
+$$
 \Phi_\gamma=-1.
-]
+$$
 
 **Befund**
 
 Falls (\Phi_\gamma) invariant unter lokalen Gauge-Flips
 
-[
+$$
 J_i\mapsto -J_i
-]
+$$
 
 ist, entsteht echte globale Frustration.
 
@@ -2513,17 +2513,17 @@ Wichtigster offener Multi-ToC-Testpfad.
 
 Zweiphasig erzeugt ein Dreiphasenmotor kein stabil gerichtetes Drehfeld, sondern Überlagerung:
 
-[
+$$
 \text{Vorwärtsdrehfeld}+\text{Rückwärtsdrehfeld}.
-]
+$$
 
 **Befund**
 
 Gute Analogie zu:
 
-[
+$$
 {+J,-J}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -2541,19 +2541,19 @@ Didaktisch stark.
 
 Balanciertes System:
 
-[
+$$
 (1,a,a^2),
 \qquad
 a=e^{2\pi i/3}.
-]
+$$
 
 Vertauschung:
 
-[
+$$
 (1,a,a^2)
 \leftrightarrow
 (1,a^2,a).
-]
+$$
 
 **Befund**
 
@@ -2581,9 +2581,9 @@ Guter Kandidat für Multi-ToC-Handoff-Sequence-Gate.
 
 Route:
 
-[
+$$
 \mathbb R\to\mathbb C\to\mathbb H\to\mathbb O.
-]
+$$
 
 **Befund**
 
@@ -2619,7 +2619,7 @@ Der Einzel-ToC als globaler Weltbaum scheitert am (J)-Gate.
 
 Als lokale Faser bleibt ToC wertvoll:
 
-[
+$$
 \text{Provenienz}
 \to
 \text{Approximant}
@@ -2627,7 +2627,7 @@ Als lokale Faser bleibt ToC wertvoll:
 \text{Schur/DtN}
 \to
 \text{lokaler Handoff-Operator}.
-]
+$$
 
 **Obstruktions-Ort**
 
@@ -2645,11 +2645,11 @@ Kein Totalverwerfen des ToC; Rollenwechsel.
 
 Ereignisstrukturen besitzen zwei Relationen:
 
-[
+$$
 \leq
 \qquad\text{und}\qquad
 #.
-]
+$$
 
 **Befund**
 
@@ -2751,9 +2751,9 @@ multi_toc_frustration_gate.py
 
 Gauge-invariante Zyklusprodukte:
 
-[
+$$
 \Phi_\gamma=\prod\sigma_{ij}.
-]
+$$
 
 ```text
 handoff_phase_sequence_gate.py
@@ -2767,17 +2767,17 @@ Handoff-Sequenz-/Mehrphasen-Gate.
 
 ## 33.1 Reziprozität
 
-[
+$$
 \Lambda=\Lambda^T.
-]
+$$
 
 Passive Schur-/DtN-Reduktion bleibt symmetrisch. Kein antisymmetrischer (J)-Generator.
 
 ## 33.2 Reelle Konjugationssymmetrie
 
-[
+$$
 J\mapsto -J.
-]
+$$
 
 Reelle Strukturen wählen keine komplexe Orientierung.
 
@@ -2789,9 +2789,9 @@ Geschwisterpermutationen halten kanonische Größen im trivialen Sektor. Keine S
 
 F1 liefert Ordnung:
 
-[
+$$
 n\to n+1.
-]
+$$
 
 Aber nur entlang einer Achse. Nichtkommutativität braucht zwei unabhängige Achsen.
 
@@ -2801,9 +2801,9 @@ Entartete Eigenräume dürfen nicht durch willkürliche numerische Basis geschni
 
 ## 33.6 Keine partielle Spur auf Knoten
 
-[
+$$
 \mathbb R^N=\mathbb R^S\oplus\mathbb R^E
-]
+$$
 
 ist direkte Summe, kein Tensorprodukt.
 
@@ -2811,23 +2811,23 @@ ist direkte Summe, kein Tensorprodukt.
 
 Adresszyklen können Drehsinn spiegeln:
 
-[
+$$
 \rho\leftrightarrow\rho^{-1}.
-]
+$$
 
 ## 33.8 Boundary reversal
 
 UV/Env-Coorientierung liefert:
 
-[
+$$
 {J,-J}.
-]
+$$
 
 ## 33.9 Handoff reversal
 
-[
+$$
 A_{\gamma^{-1}}=-A_\gamma.
-]
+$$
 
 Ohne gerichtete Handoff-Sequenz kein absoluter Drehsinn.
 
@@ -2839,45 +2839,45 @@ Lindblad/OQS kann Zeitrichtung liefern, setzt aber Hamilton-(i) voraus.
 
 Im flachen ToC-/DtN-Sektor fehlen:
 
-[
+$$
 \text{Connection},
 \qquad
 \text{Holonomie},
 \qquad
 \text{Krümmung}.
-]
+$$
 
 ---
 
 # 34. Aktuelle Gesamtformel
 
-[
+$$
 \boxed{
 \text{Alle Einzelbaum-, Einzelapproximant-, passiven Schur-/DtN- und lokalen Triadentests enden bei }{J,-J}.
 }
-]
+$$
 
-[
+$$
 \boxed{
 \text{Exakte und cluster-sichere Handoff-Operatoren im flachen ToC-/DtN-Sektor kommutieren.}
 }
-]
+$$
 
-[
+$$
 \boxed{
 \text{Nichtkommutativität entsteht bisher nur durch gesetzte Ordnung, nicht-kanonische Trunkierung oder asymmetrische Randvorschrift.}
 }
-]
+$$
 
-[
+$$
 \boxed{
 \text{Der nächste echte positive Suchraum ist nicht ein weiterer flacher Einzel-ToC-Test, sondern Curved-sector, Multi-ToC-Frustration oder triadisches Handoff-Locking.}
 }
-]
+$$
 
 Der wichtigste nächste ToC-nahe Test vor Substratwechsel bleibt:
 
-[
+$$
 \boxed{
 \mathcal I_{\mathrm{ToCGrid}}=\Gamma_\infty\times T_b^\infty,
 \qquad
@@ -2885,16 +2885,16 @@ Der wichtigste nächste ToC-nahe Test vor Substratwechsel bleibt:
 \qquad
 \Lambda_{R,L}.
 }
-]
+$$
 
 Ziel:
 
-[
+$$
 \text{effektive Geometrie aus Subsystem-Sein testen},
-]
+$$
 
 aber getrennt davon:
 
-[
+$$
 \text{(J)-/Chirotopie-/Nichtkommutativitäts-Gate weiter offen halten}.
-]
+$$
