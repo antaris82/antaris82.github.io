@@ -1,11 +1,6 @@
-# CNNA-ToC / $J$-Vorzeichen / Nichtkommutativität — vollständiges Test- und Obstruktionsinventar
+# CNNA-ToC / J-Vorzeichen / Nichtkommutativität — vollständiges Test- und Obstruktionsinventar
 
-Jan Seeck, ChatGPT 5.5, Claude Opus 4.8
-
-12.06.2026
-
-
-Die meisten Befunde sind numerisch, konzeptionell oder aus den hier ausgewiesenen Diagnostikartefakten abgeleitet. Das zentrale Ergebnis ist inzwischen präziser als am Anfang:
+Status: nach Chatstand, nicht als Lean-Theorem. Die meisten Befunde sind numerisch, konzeptionell oder aus den hier ausgewiesenen Diagnostikartefakten abgeleitet. Das zentrale Ergebnis ist inzwischen präziser als am Anfang:
 
 Diese Fassung enthält zusätzlich das Substrat-Gate aus der überarbeiteten Paper-Fassung: Ereignisstrukturen werden nicht mehr als zulässiger Fundament-Kandidat behandelt, weil sie mit $\\leq$ bereits eine kausale bzw. zeitartige Ordnung als primitives Datum enthalten würden. Sie bleiben nur Vergleichs- oder Zielstruktur.
 
@@ -263,7 +258,7 @@ $$
 das Wort, das durch Entfernen des letzten Symbols von $w$ entsteht. Die Kinder von $w$ sind
 
 $$
-\\operatorname{Child}(w)={wi:i\\in A\_b}.
+\\mathrm{Child}(w)={wi:i\\in A\_b}.
 $$
 
 ### 0.5.2 Präfixordnung, Kantenrelation und Unit-edge-Graph
@@ -558,7 +553,7 @@ $$
 
 Die Größen $\\alpha\_{\\mathrm{UV}}$, $\\alpha\_{\\mathrm{Env}}$, $C\_k$ und $\\Xi$ sind Diagnosegrößen, solange sie nicht aus den vollständigen Komplementfamilien abgeleitet sind. In den frühen Tests bedeutet $C\_k$ eine schnitt- bzw. tiefenabhängige Normierungs-/Kapazitätsgröße des Approximanten; ihr genauer Wert ist artefakt- bzw. diagnostikabhängig und daher nicht als universale CNNA-Konstante zu lesen.
 
-### 0.5.6 $J$-Problem, F1/F2 und Locking-Objekt
+### 0.5.6 J-Problem, F1/F2 und Locking-Objekt
 
 Eine komplexe Struktur auf einem reellen Handoff-Raum ist ein Endomorphismus $J$ mit
 
@@ -707,7 +702,7 @@ Heuristische Motivation; später durch echte DtN-/Schur-Tests ersetzt.
 
 # 2\. Einzel-Approximant-Schur-/DtN-Tests
 
-## 2.1 Projected-tail $J$-/Rotationstest
+## 2.1 Projected-tail J-/Rotationstest
 
 **Artefaktbezug**
 
@@ -958,9 +953,9 @@ Technische Form der Motor-/Kondensator-Analogie: Reeller Widerstandssektor kann 
 
 \---
 
-# 3\. $\\alpha\_{\\mathrm{orth}}$- und Invarianten-Tests
+# 3\. alpha\_orth- und Invarianten-Tests
 
-## 3.1 $\\Xi$- / $\\alpha\_{\\mathrm{orth}}$-Diagnostik
+## 3.1 Xi- / alpha\_orth-Diagnostik
 
 **Artefaktbezug**
 
@@ -1361,7 +1356,7 @@ $$
 Metrik:
 
 $$
-g=\\operatorname{diag}(k\_{\\mathrm{Env}},k\_{\\mathrm{UV}},1/k\_{\\mathrm{Env}},1/k\_{\\mathrm{UV}}).
+g=\\mathrm{diag}(k\_{\\mathrm{Env}},k\_{\\mathrm{UV}},1/k\_{\\mathrm{Env}},1/k\_{\\mathrm{UV}}).
 $$
 
 Konstruktion:
@@ -1485,9 +1480,9 @@ Möglicher Kandidat für Environment-Ableitung; kein Vorzeichenbeweis.
 
 \---
 
-# 9\. Geschwister-, $S\_b$- und Adresssymmetrie-Tests
+# 9\. Geschwister-, S\_b- und Adresssymmetrie-Tests
 
-## 9.1 $S\_b$-Sibling-Obstruktion
+## 9.1 S\_b-Sibling-Obstruktion
 
 **Ausgangslage**
 
@@ -1667,7 +1662,7 @@ Sehr zentrale No-Go-Formulierung.
 
 \---
 
-## 10.3 $Z\_b$-Zyklizität ist nicht genug
+## 10.3 Z\_b-Zyklizität ist nicht genug
 
 **Ausgangslage**
 
@@ -1721,7 +1716,7 @@ Der angehängte SG/H₁-Test stützt die Hauptlinie: mehr Topologie als im Baum 
 
 # 11\. Hodge-, Dirac- und Dualkomplex-Tests
 
-## 11.1 Cellular Dirac $K=d-d^\*$
+## 11.1 Cellular Dirac K = d - d\*
 
 **Ausgangslage**
 
@@ -1739,7 +1734,7 @@ $$
 
 **Befund**
 
-$K$ ist reell schief. Auf $\\operatorname{im}K$ kann eine formale Polarstruktur einen J-artigen Anteil liefern.
+$K$ ist reell schief. Auf $\\mathrm{im}K$ kann eine formale Polarstruktur einen J-artigen Anteil liefern.
 
 **Obstruktions-Ort**
 
@@ -2310,7 +2305,7 @@ Bei Connes ist die nichtkommutative Algebra typischerweise Eingabestruktur, nich
 CNNA müsste erst eine Handoff-Algebra liefern:
 
 $$
-\\mathcal A\_{\\mathrm{eff}} = \\operatorname{Alg}{\\Lambda\_i}
+\\mathcal A\_{\\mathrm{eff}} = \\mathrm{Alg}{\\Lambda\_i}
 $$
 
 mit
@@ -2694,9 +2689,9 @@ $$
 Subsystem-Sein bricht zwingend die IDEAL-Symmetrie:
 
 $$
-\\operatorname{Aut}(\\mathcal I\_{\\mathrm{ToCGrid}})
+\\mathrm{Aut}(\\mathcal I\_{\\mathrm{ToCGrid}})
 \\to
-\\operatorname{Aut}(\\Omega\_{R,L}).
+\\mathrm{Aut}(\\Omega\_{R,L}).
 $$
 
 Es entstehen:
@@ -2808,7 +2803,7 @@ Offener Curved-sector-Test. Noch nicht positiv gezeigt.
 Signatur:
 
 $$
-\\eta=\\operatorname{diag}(-1,+1,\\ldots,+1).
+\\eta=\\mathrm{diag}(-1,+1,\\ldots,+1).
 $$
 
 **Befund**
@@ -3403,7 +3398,7 @@ $$
 
 Reelle Strukturen wählen keine komplexe Orientierung.
 
-## 33.3 $S\_b$-Äquivarianz
+## 33.3 S\_b-Äquivarianz
 
 Geschwisterpermutationen halten kanonische Größen im trivialen Sektor. Keine Signum-Auswahl.
 
@@ -3453,7 +3448,7 @@ $$
 
 Ohne gerichtete Handoff-Sequenz kein absoluter Drehsinn.
 
-## 33.10 OQS-Abhängigkeit von $i$
+## 33.10 OQS-Abhängigkeit von i
 
 Lindblad/OQS kann Zeitrichtung liefern, setzt aber Hamilton-$i$ voraus.
 
