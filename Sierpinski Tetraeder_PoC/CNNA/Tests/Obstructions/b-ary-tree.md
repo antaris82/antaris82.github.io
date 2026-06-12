@@ -1,24 +1,15 @@
 # CNNA-ToC / $J$-Vorzeichen / Nichtkommutativität — vollständiges Test- und Obstruktionsinventar
 
-
-
 Jan Seeck, ChatGPT 5.5, Claude Opus 4.8
 
 12.06.2026
-
-
-
 
 
 Die meisten Befunde sind numerisch, konzeptionell oder aus den hier ausgewiesenen Diagnostikartefakten abgeleitet. Das zentrale Ergebnis ist inzwischen präziser als am Anfang:
 
 Diese Fassung enthält zusätzlich das Substrat-Gate aus der überarbeiteten Paper-Fassung: Ereignisstrukturen werden nicht mehr als zulässiger Fundament-Kandidat behandelt, weil sie mit $\\leq$ bereits eine kausale bzw. zeitartige Ordnung als primitives Datum enthalten würden. Sie bleiben nur Vergleichs- oder Zielstruktur.
 
-$$
-\\boxed{
-\\text{Der flache, reellwertige, reziproke ToC-/Schur-/DtN-Sektor erzeugt keine ausgezeichnete }J\\text{-Orientierung.}
-}
-$$
+> \*\*Kernaussage.\*\* Der flache, reellwertige, reziproke ToC-/Schur-/DtN-Sektor erzeugt keine ausgezeichnete J-Orientierung.
 
 Er liefert mehrfach:
 
@@ -28,19 +19,11 @@ $$
 
 Er liefert bisher nicht:
 
-$$
-\\boxed{
-J\\text{ statt }-J.
-}
-$$
+> \*\*Kernaussage.\*\* J statt -J.
 
 Die einheitliche Obstruktion lautet jetzt nicht mehr nur „Symmetrie“, sondern genauer:
 
-$$
-\\boxed{
-\\text{Eine abgeleitete Achse }F1\\text{ genügt nicht. Nichtkommutativität braucht mindestens zwei nicht gemeinsam diagonalisierbare abgeleitete Operatorachsen; Chiralität braucht zusätzlich eine abgeleitete Orientierungs- bzw. Sign-Line-Auswahl.}
-}
-$$
+> \*\*Kernaussage.\*\* Eine abgeleitete Achse F1 genügt nicht. Nichtkommutativität braucht mindestens zwei nicht gemeinsam diagonalisierbare abgeleitete Operatorachsen; Chiralität braucht zusätzlich eine abgeleitete Orientierungs- bzw. Sign-Line-Auswahl.
 
 \---
 
@@ -104,11 +87,7 @@ $$
 
 Das ist nicht trivial. Es bedeutet:
 
-$$
-\\boxed{
-\\text{Der ToC ist als lokale Provenienzfaser und flacher Referenzsektor wertvoll.}
-}
-$$
+> \*\*Kernaussage.\*\* Der ToC ist als lokale Provenienzfaser und flacher Referenzsektor wertvoll.
 
 Dabei ist ein ToC-Knoten kein physikalischer Freiheitsgrad. Seine Rolle im flachen Referenzsektor ist zunächst die eines Provenienzindex. Der zulässige Lesepfad ist:
 
@@ -136,11 +115,7 @@ $$
 
 Nicht geliefert wird eine absolute Orientierung:
 
-$$
-\\boxed{
-J \\neq \\text{derived uniquely from flat ToC data}.
-}
-$$
+> \*\*Kernaussage.\*\* J ≠ derived uniquely from flat ToC data.
 
 Auch nicht geliefert werden bisher:
 
@@ -168,35 +143,19 @@ $$
 
 Die Tests betreffen nicht „CNNA überhaupt“, sondern den spezifischen Sektor:
 
-$$
-\\boxed{
-\\text{flacher, homogener, reell-reziproker ToC-/DtN-Sektor.}
-}
-$$
+> \*\*Kernaussage.\*\* flacher, homogener, reell-reziproker ToC-/DtN-Sektor.
 
 Daraus folgt:
 
-$$
-\\boxed{
-\\text{Der b-äre Einzelbaum ist unter den flach-reziproken Derived-only-Prämissen als globaler }J\\text{-Generator falsifiziert.}
-}
-$$
+> \*\*Kernaussage.\*\* Der b-äre Einzelbaum ist unter den flach-reziproken Derived-only-Prämissen als globaler J-Generator falsifiziert.
 
 Aber nicht:
 
-$$
-\\boxed{
-\\text{lokale ToC-Fasern, DtN-Geometrie oder CNNA als Gesamtprogramm sind falsifiziert.}
-}
-$$
+> \*\*Kernaussage.\*\* lokale ToC-Fasern, DtN-Geometrie oder CNNA als Gesamtprogramm sind falsifiziert.
 
 Ebenso ist nicht das ToC-Konzept als solches obstruiert. Obstruiert ist bisher nur die Lesart
 
-$$
-\\boxed{
-\\text{b-ärer Einzelbaum} = \\text{globaler Träger des Universums und einer ausgezeichnet gerichteten komplexen Struktur.}
-}
-$$
+> \*\*Kernaussage.\*\* b-ärer Einzelbaum = globaler Träger des Universums und einer ausgezeichnet gerichteten komplexen Struktur.
 
 Das positive Gegenfinding ist sogar stärker: Komplement-, Handoff- und lokale-Algebra-Strukturen bleiben nicht nur zulässig, sondern wirken für den Anschluss an AQFT-artige lokale Algebren weiterhin notwendig. Diese Aussage ist hier kein bewiesener AQFT-Rekonstruktionssatz, sondern ein Architektur- und Anschlussbefund:
 
@@ -208,11 +167,7 @@ $$
 
 Der Rollenwechsel ist daher selbst ein Finding:
 
-$$
-\\boxed{
-\\text{Der b-äre Einzelbaum ist nicht Weltbaum, sondern lokale Provenienzfaser.}
-}
-$$
+> \*\*Kernaussage.\*\* Der b-äre Einzelbaum ist nicht Weltbaum, sondern lokale Provenienzfaser.
 
 Ein endlicher Approximant ist entsprechend nicht automatisch ein Vielteilchensystem. Er ist zunächst ein effektiver lokaler Handoff-/Objektkandidat:
 
@@ -234,11 +189,7 @@ $$
 
 Der nächste Substratkandidat darf keine der Strukturen enthalten, die CNNA erst rekonstruieren soll:
 
-$$
-\\boxed{
-\\text{kein primitives }i,\\quad\\text{kein primitives }J,\\quad\\text{keine primitive Orientierung,}\\quad\\text{keine primitive Tensorstruktur,}\\quad\\text{keine primitive Kausalität.}
-}
-$$
+> \*\*Kernaussage.\*\* kein primitives i, · kein primitives J, · keine primitive Orientierung, · keine primitive Tensorstruktur, · keine primitive Kausalität.
 
 Insbesondere sind Ereignisstrukturen mit einer gegebenen Relation $\\leq$ nicht als Fundament zulässig, sofern $\\leq$ kausal oder zeitartig gelesen wird. Eine solche Relation würde bereits eine Zeit-/Kausalordnung einführen. Zulässig ist nur die umgekehrte Richtung:
 
@@ -1056,11 +1007,7 @@ $$
 
 Also:
 
-$$
-\\boxed{
-\\text{UV-Auflösung treibt Orthogonalität.}
-}
-$$
+> \*\*Kernaussage.\*\* UV-Auflösung treibt Orthogonalität.
 
 **Obstruktions-Ort**
 
@@ -1183,11 +1130,7 @@ Flow kann eine gerichtete Anregung enthalten. Dann wäre das Vorzeichen nicht ab
 
 Methodische Regel:
 
-$$
-\\boxed{
-\\text{Schur zuerst, Flow nur als Konsistenztest.}
-}
-$$
+> \*\*Kernaussage.\*\* Schur zuerst, Flow nur als Konsistenztest.
 
 \---
 
@@ -2508,11 +2451,7 @@ Warnung: Nicht-kanonische Trunkierung mitten durch entartete Eigenräume ist ein
 
 Starker Negativbefund:
 
-$$
-\\boxed{
-\\text{relabeling-natürliche exakte und cluster-sichere DtN-Reduktionen kommutieren.}
-}
-$$
+> \*\*Kernaussage.\*\* relabeling-natürliche exakte und cluster-sichere DtN-Reduktionen kommutieren.
 
 \---
 
@@ -2592,11 +2531,7 @@ Knoten-Elimination erzeugt keine OQS-Irreversibilität und keinen antisymmetrisc
 
 Zentrale Methodenkorrektur:
 
-$$
-\\boxed{
-\\text{Auf Knoten wird eliminiert, nicht ausgespurt.}
-}
-$$
+> \*\*Kernaussage.\*\* Auf Knoten wird eliminiert, nicht ausgespurt.
 
 \---
 
@@ -2636,11 +2571,7 @@ $$
 
 Interpretationswechsel:
 
-$$
-\\boxed{
-\\text{Die No-Gos betreffen den flachen ToC-/DtN-Sektor.}
-}
-$$
+> \*\*Kernaussage.\*\* Die No-Gos betreffen den flachen ToC-/DtN-Sektor.
 
 Nicht CNNA insgesamt.
 
@@ -2820,11 +2751,7 @@ Solange das Gitter homogen, reziprok und flach ist, entstehen zwar Spektrum und 
 
 Wichtiger letzter Referenztest:
 
-$$
-\\boxed{
-\\text{ToC-Faser-Gitter kann Geometrie testen, nicht }J\\text{ erzwingen.}
-}
-$$
+> \*\*Kernaussage.\*\* ToC-Faser-Gitter kann Geometrie testen, nicht J erzwingen.
 
 \---
 
@@ -3290,9 +3217,7 @@ Globale Ontologie als einzelner Baum ist zu arm für zweite Achse, Chirotopie, K
 
 Kein Totalverwerfen des ToC und keine Falsifikation der Complement Net Architecture; Rollenwechsel:
 
-$$
-\\boxed{\\text{b-ärer Einzelbaum nicht Weltbaum, sondern lokale Provenienzfaser.}}
-$$
+> \*\*Kernaussage.\*\* b-ärer Einzelbaum nicht Weltbaum, sondern lokale Provenienzfaser.
 
 Die Komplementseite bleibt im Gegenteil strukturell notwendig, sobald lokale Handoff-Operatoren, lokale Algebren, relative Komplemente und spätere AQFT-Anschlussbedingungen ernst genommen werden.
 
@@ -3347,21 +3272,13 @@ $$
 
 Nur wäre der importierte Inhalt hier:
 
-$$
-\\boxed{
-\\text{Kausalität setzen.}
-}
-$$
+> \*\*Kernaussage.\*\* Kausalität setzen.
 
 **Status**
 
 Ereignisstrukturen sind als nächster Fundament-Kandidat zurückzustufen. Sie bleiben Ziel-/Vergleichsstruktur, aber kein zulässiger Substratkern vor einer abgeleiteten Kausalitätsrekonstruktion.
 
-$$
-\\boxed{
-\\text{Ereignisstrukturen: Vergleichsstruktur ja, Fundament nein.}
-}
-$$
+> \*\*Kernaussage.\*\* Ereignisstrukturen: Vergleichsstruktur ja, Fundament nein.
 
 ## 31.3 Nicht-kausaler Substratwechsel-Gate
 
@@ -3373,16 +3290,7 @@ Der b-äre Einzelbaum ist als globaler Weltbaum für den $J$-Sektor unter den fl
 
 Ein zulässiger nächster Substratkandidat muss mindestens folgende Ausschlüsse erfüllen:
 
-$$
-\\boxed{
-\\text{kein primitives }i,\\quad
-\\text{kein primitives }J,\\quad
-\\text{keine primitive Chirotopie,}\\quad
-\\text{keine primitive Orientierung,}\\quad
-\\text{keine primitive Tensorfaktorisierung,}\\quad
-\\text{keine primitive Kausalordnung.}
-}
-$$
+> \*\*Kernaussage.\*\* kein primitives i, · kein primitives J, · keine primitive Chirotopie, · keine primitive Orientierung, · keine primitive Tensorfaktorisierung, · keine primitive Kausalordnung.
 
 Er darf eine nicht-kausale relationale, kombinatorische oder topologische Vorstruktur tragen, solange deren spätere kausale Lesart erst durch Handoff, Regimebildung, Spektralstruktur, Regulatoren oder Backreaction erzwungen wird.
 
@@ -3565,11 +3473,7 @@ $$
 
 Eine primitive kausale Ordnung $\\leq$ ist kein neutraler Strukturträger. Sie würde bereits Zeit-/Kausalstruktur mitbringen und damit den späteren Rekonstruktionsschritt überspringen.
 
-$$
-\\boxed{
-(E,\\leq,#)\\text{ ist Zielstruktur, nicht Fundament.}
-}
-$$
+> \*\*Kernaussage.\*\* (E,≤,\\#) ist Zielstruktur, nicht Fundament.
 
 Der zulässige Test lautet daher nicht, ob ein kausales Substrat CNNA tragen kann, sondern ob CNNA aus einer nicht-kausalen Vorstruktur eine kausale Ordnung erzeugen kann.
 
@@ -3577,84 +3481,36 @@ Der zulässige Test lautet daher nicht, ob ein kausales Substrat CNNA tragen kan
 
 # 34\. Aktuelle Gesamtformel
 
-$$
-\\boxed{
-\\text{Alle Einzelbaum-, Einzelapproximant-, passiven Schur-/DtN- und lokalen Triadentests enden bei }{J,-J}.
-}
-$$
+> \*\*Kernaussage.\*\* Alle Einzelbaum-, Einzelapproximant-, passiven Schur-/DtN- und lokalen Triadentests enden bei {J,-J}.
 
-$$
-\\boxed{
-\\text{Exakte und cluster-sichere Handoff-Operatoren im flachen ToC-/DtN-Sektor kommutieren.}
-}
-$$
+> \*\*Kernaussage.\*\* Exakte und cluster-sichere Handoff-Operatoren im flachen ToC-/DtN-Sektor kommutieren.
 
-$$
-\\boxed{
-\\text{Nichtkommutativität entsteht bisher nur durch gesetzte Ordnung, nicht-kanonische Trunkierung oder asymmetrische Randvorschrift.}
-}
-$$
+> \*\*Kernaussage.\*\* Nichtkommutativität entsteht bisher nur durch gesetzte Ordnung, nicht-kanonische Trunkierung oder asymmetrische Randvorschrift.
 
-$$
-\\boxed{
-\\text{ToC-Knoten sind Provenienzindizes, keine physikalischen Freiheitsgrade.}
-}
-$$
+> \*\*Kernaussage.\*\* ToC-Knoten sind Provenienzindizes, keine physikalischen Freiheitsgrade.
 
-$$
-\\boxed{
-\\text{Der b-äre Baum wurde als Provenienzseite von SG/ST gewählt: }SG\\leftrightarrow b=3,\\quad ST\\leftrightarrow b=4.
-}
-$$
+> \*\*Kernaussage.\*\* Der b-äre Baum wurde als Provenienzseite von SG/ST gewählt: SG↔ b=3, · ST↔ b=4.
 
-$$
-\\boxed{
-\\text{Obstruiert ist nicht CNNA und nicht ToC allgemein, sondern der b-äre Einzelbaum als globaler Träger gerichteter komplexer Struktur.}
-}
-$$
+> \*\*Kernaussage.\*\* Obstruiert ist nicht CNNA und nicht ToC allgemein, sondern der b-äre Einzelbaum als globaler Träger gerichteter komplexer Struktur.
 
-$$
-\\boxed{
-\\text{Komplement-, Handoff- und lokale-Algebra-Strukturen bleiben für den AQFT-Anschluss positiv relevant.}
-}
-$$
+> \*\*Kernaussage.\*\* Komplement-, Handoff- und lokale-Algebra-Strukturen bleiben für den AQFT-Anschluss positiv relevant.
 
-$$
-\\boxed{
-\\text{UV/Env erzeugen einen echten radialen Skalenbruch, aber keine Chiralität.}
-}
-$$
+> \*\*Kernaussage.\*\* UV/Env erzeugen einen echten radialen Skalenbruch, aber keine Chiralität.
 
-$$
-\\boxed{
-\\omega\_\\partial\\Rightarrow{+J,-J},
-\\qquad
-\\omega\_{\\mathrm{lock}}\\text{ bleibt das offene Locking-Objekt.}
-}
-$$
+> \*\*Kernaussage.\*\* \\omega\_\\partial⇒{+J,-J}, · \\omega\_{lock} bleibt das offene Locking-Objekt.
 
-$$
-\\boxed{
-\\text{Relative Holonomie/Frustration ist nicht automatisch absolute Orientierung.}
-}
-$$
+> \*\*Kernaussage.\*\* Relative Holonomie/Frustration ist nicht automatisch absolute Orientierung.
 
-$$
-\\boxed{
-\\text{Der nächste echte positive Suchraum ist nicht ein weiterer flacher Einzel-ToC-Test, sondern Curved-sector, Multi-ToC-Frustration oder triadisches Handoff-Locking.}
-}
-$$
+> \*\*Kernaussage.\*\* Der nächste echte positive Suchraum ist nicht ein weiterer flacher Einzel-ToC-Test, sondern Curved-sector, Multi-ToC-Frustration oder triadisches Handoff-Locking.
 
 Der wichtigste nächste ToC-nahe Test vor Substratwechsel bleibt:
 
 $$
-\\boxed{
 \\mathcal I\_{\\mathrm{ToCGrid}}=\\Gamma\_\\infty\\times T\_b^\\infty,
 \\qquad
 \\Omega\_{R,L}=W\_R\\times T\_{\\le L},
 \\qquad
 \\Lambda\_{R,L}.
-}
 $$
 
 Ziel:
