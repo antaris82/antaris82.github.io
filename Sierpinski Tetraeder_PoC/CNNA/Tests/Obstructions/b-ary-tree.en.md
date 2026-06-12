@@ -1,23 +1,18 @@
-# CNNA-ToC / $J$-sign / Non-commutativity — Complete Inventory of Tests and Obstacles
+# CNNA-ToC / J-sign / Non-commutativity — complete inventory of tests and obstructions
 
-Jan Seeck, ChatGPT 5.5, Claude Opus 4.8
+Status: based on chat discussions, not as a lean theorem. Most findings are numerical, conceptual, or derived from the diagnostic artifacts listed here. The central result is now more precise than at the outset:
 
-June 12, 2026
-
-
-Most findings are numerical, conceptual, or derived from the diagnostic artifacts presented here. The central result is now more precise than it was at the outset:
-
-This version additionally includes the Substrate Gate from the revised paper version: Event structures are no longer treated as valid foundation candidates because they would already contain a causal or temporal order as primitive data via $\\leq$. They remain only as reference or target structures.
+This version additionally includes the substrate gate from the revised paper version: Event structures are no longer treated as valid foundation candidates because they would already contain a causal or temporal order as primitive data via $\\leq$. They remain only as comparison or target structures.
 
 > \*\*Key statement.\*\* The flat, real-valued, reciprocal ToC/Schur/DtN sector does not generate a distinguished J-orientation.
 
-It delivers multiple times:
+It yields multiple times:
 
 $$
 {+J,-J},\\qquad {+\\tau,-\\tau},\\qquad \\text{radiale Ordnung},\\qquad \\text{DtN-/Spektralstruktur}.
 $$
 
-It does not yet deliver:
+It does not yet yield:
 
 > \*\*Key statement.\*\* J instead of -J.
 
@@ -137,7 +132,7 @@ Viele Objekte, Detektoren oder Vakuum-Gluing-Strukturen entstehen erst aus einer
 $$
 {T\_i}\_{i\\in I}
 \\Rightarrow
-\\text{Multi-ToC/gluing structure}.
+\\text{multi-ToC/gluing structure}.
 $$
 
 §§X6§§0.4 Zusätzlicher Substrat-Gate: keine primitive Kausalität
@@ -218,7 +213,7 @@ $$
 das Wort, das durch Entfernen des letzten Symbols von $w$ entsteht. Die Kinder von $w$ sind
 
 $$
-\\operatorname{Child}(w)={wi:i\\in A\_b}.
+\\mathrm{Child}(w)={wi:i\\in A\_b}.
 $$
 
 §§X9§§0.5.2 Präfixordnung, Kantenrelation und Unit-edge-Graph
@@ -410,9 +405,9 @@ $$
 
 Er zerfällt in den UV-tail an den Blättern von $\\Omega(a,L)$ und, falls $k>0$, in the environment part on the parent/root side. For $k=0$, the noOuterEnvironment interpretation applies.
 
-The Environment port is, if $k>0$, the root-side interface port at the approximant root $a$. It is not an additional Bright node, but rather the interface to the outer complement side.
+The Environment port, if $k>0$, is the root-side interface port at the approximant root $a$. It is not an additional Bright node, but rather the interface to the external complement side.
 
-The approximant itself also initially has a role limitation: $\\Omega(a,L)$ is not an automatically interpreted many-particle system. In the flat ToC sector, it is a section-relative local handoff/object candidate. Only the Schur/DtN data generated from it and subsequent gluing/regime formations can carry physical degrees of freedom or multi-object structures.
+The Approximant itself also initially has a role limitation: $\\Omega(a,L)$ is not an automatically interpreted many-particle system. In the flat ToC sector, it is a section-relative local handoff/object candidate. Only the Schur/DtN data generated from it and subsequent gluing/regime formations can carry physical degrees of freedom or multi-object structures.
 
 ### 0.5.5 Bright-Laplace Operator and Complement Loads
 
@@ -513,7 +508,7 @@ $$
 
 The quantities $\\alpha\_{\\mathrm{UV}}$, $\\alpha\_{\\mathrm{Env}}$, $C\_k$, and $\\Xi$ are diagnostic quantities as long as they are not derived from the complete complement families. In the early tests, $C\_k$ denotes a cut- or depth-dependent normalization/capacity measure of the approximator; its exact value depends on the artifact or diagnostic and should therefore not be interpreted as a universal CNNA constant.
 
-### 0.5.6 $J$-problem, F1/F2, and locking object
+### 0.5.6 J-Problem, F1/F2, and Locking Object
 
 A complex structure on a real handoff space is an endomorphism $J$ with
 
@@ -604,7 +599,7 @@ $$
 \\text{Interface}.
 $$
 
-**Obstruction Location**
+**Location of Obstruction**
 
 Visualization is not proof. Early tilt/angle values were partly chart/rendering proxies, not DtN invariants.
 
@@ -662,7 +657,7 @@ Heuristic motivation; later replaced by true DtN/Schur tests.
 
 # 2\. Single-Approximant Schur/DtN Tests
 
-## 2.1 Projected-tail $J$-/rotation test
+## 2.1 Projected-tail J-/rotation test
 
 **Artifact reference**
 
@@ -682,7 +677,7 @@ $$
 u\_{\\mathrm{Env}},\\qquad u\_{\\mathrm{UV}}.
 $$
 
-Measured Quantity:
+Measurement Variable:
 
 $$
 \\rho\_M
@@ -755,7 +750,7 @@ A single mode can be orthogonal while the full boundary response space still car
 
 **Status**
 
-Strong evidence of true shear/DtN orthogonality in certain modes; no $J$ sign.
+Strong indication of true shear/DtN orthogonality in certain modes; no $J$ sign.
 
 \---
 
@@ -775,9 +770,9 @@ $$
 
 More specifically: Does the tree or the Dirichlet network need to be artificially regularized, or does a set UV or environment cut already have a regularizing effect in itself?
 
-**Findings**
+**Finding**
 
-No, the Dirichlet network does not need to be artificially regularized. A true UV cut or environment cut already has a regularizing effect in itself, because the removed complementary portion is treated as a Dirichlet/boundary side. This makes the interior block
+No, the Dirichlet network does not need to be artificially regularized. A true UV cut or environment cut already has a regularizing effect in itself, because the removed complementary part is treated as a Dirichlet/boundary side. This makes the interior block
 
 $$
 L\_{II}
@@ -877,7 +872,7 @@ Positive finding for the approximant physics and for $F1$. No proof of $J$-sign.
 
 ## 2.5 Passive Dirichlet/resistance networks do not generate phase
 
-**Artifact Reference**
+**Artifact reference**
 
 Cross-sectional finding from the real Schur/DtN, Cauchy-Shell, and motor analogy tests; no independent additional artifact reference.
 
@@ -905,7 +900,7 @@ $$
 
 **Obstruction Location**
 
-For oscillation, phase, or Hamiltonian-like rotation, a second storage structure, a derived skew sector, or a handoff locking mechanism would be required—one that is not already imported as a complex phase.
+For oscillation, phase, or Hamiltonian-like rotation, a second storage structure would be required—either a derived skew sector or a handoff locking mechanism—that is not already imported as a complex phase.
 
 **Status**
 
@@ -913,11 +908,11 @@ Technical form of the motor/capacitor analogy: The real resistance sector can pr
 
 \---
 
-# 3\. $\\alpha\_{\\mathrm{orth}}$ and invariant tests
+# 3\. alpha\_orth and invariant tests
 
-## 3.1 $\\Xi$ / $\\alpha\_{\\mathrm{orth}}$ diagnostics
+## 3.1 Xi / alpha\_orth diagnostics
 
-**Artifact Reference**
+**Artifact reference**
 
 ```text
 Anhang: cnna\_alpha\_orth\_invariant\_v7(1).zip
@@ -960,7 +955,7 @@ $$
 |\\rho|\\sim b^{-k/2}.
 $$
 
-Thus:
+Therefore:
 
 > \*\*Key message.\*\* UV resolution drives orthogonality.
 
@@ -1077,7 +1072,7 @@ Possible handoff types:
 
 Restriction/Aggregation/Schur are more canonical than Flow.
 
-**Location of Obstruction**
+**Location of obstruction**
 
 Flow may contain a directed excitation. In that case, the sign would not be derived but set.
 
@@ -1100,7 +1095,7 @@ Anhang: cnna\_alpha\_orth\_invariant\_v7(1).zip
 Datei darin: cnna\_alpha\_orth\_invariant\_v7/two\_boundary\_shell\_chirality.py
 ```
 
-**Initial situation**
+**Initial conditions**
 
 Parent–child difference shell, two boundary ports, real DtN matrix:
 
@@ -1120,7 +1115,7 @@ $$
 p=\\Lambda q.
 $$
 
-**Findings**
+**Result**
 
 For self-adjoint DtN graphs:
 
@@ -1128,13 +1123,13 @@ $$
 \\omega((q,\\Lambda q),(r,\\Lambda r)) = q^T\\Lambda r-r^T\\Lambda q = 0.
 $$
 
-**Obstruction location**
+**Obstruction Point**
 
 A single passive symmetric DtN graph is Lagrangian.
 
 **Status**
 
-Clean negative result. Too narrow for family/handoff tests, but correct for a single graph.
+Clear negative result. Too restrictive for family/handoff tests, but correct for a single graph.
 
 \---
 
@@ -1254,7 +1249,7 @@ Triadic signal yes. Chiral sibling asymmetry no.
 
 ## 6.2 Non-canonical positive controls
 
-**Artifact reference**
+**Artifact Reference**
 
 ```text
 Anhang: cnna\_alpha\_orth\_invariant\_v7(1).zip
@@ -1263,7 +1258,7 @@ Dateien darin:
 - cnna\_alpha\_orth\_invariant\_v7/family\_handoff\_chirality.py
 ```
 
-**Initial condition**
+**Initial Situation**
 
 Control Modes:
 
@@ -1274,7 +1269,7 @@ cyclic\_order
 
 **Findings**
 
-They produce expected sign/flip effects.
+They predictably generate sign/flip effects.
 
 **Obstruction Location**
 
@@ -1288,7 +1283,7 @@ Detector check only. No CNNA-derived proof.
 
 # 7\. V7 — Oriented UV/Environment Cauchy shell
 
-## 7.1 Oppositely oriented UV/Env edge faces
+## 7.1 Oppositely oriented UV/Env boundary sides
 
 **Artifact reference**
 
@@ -1299,7 +1294,7 @@ Datei darin: cnna\_alpha\_orth\_invariant\_v7/oriented\_cauchy\_shell\_gate.py
 
 **Initial Situation**
 
-UV-tail and Environment-tail are interpreted as oppositely oriented boundary sides of a shell.
+The UV-tail and Environment-tail are interpreted as oppositely oriented boundary sides of a shell.
 
 Cauchy data space:
 
@@ -1316,7 +1311,7 @@ $$
 Metric:
 
 $$
-g=\\operatorname{diag}(k\_{\\mathrm{Env}},k\_{\\mathrm{UV}},1/k\_{\\mathrm{Env}},1/k\_{\\mathrm{UV}}).
+g=\\mathrm{diag}(k\_{\\mathrm{Env}},k\_{\\mathrm{UV}},1/k\_{\\mathrm{Env}},1/k\_{\\mathrm{UV}}).
 $$
 
 Construction:
@@ -1325,7 +1320,7 @@ $$
 J=-g^{-1}\\omega\_\\partial.
 $$
 
-**Findings**
+**Result**
 
 Tested:
 
@@ -1388,7 +1383,7 @@ $$
 \\ell\\to\\infty
 $$
 
-Inward.
+inward.
 
 **Findings**
 
@@ -1436,17 +1431,17 @@ A negative root family does not automatically remain chiral under real passive s
 
 **Status**
 
-Possible candidate for environment derivative; no sign proof.
+Possible candidate for environment derivation; no sign proof.
 
 \---
 
-# 9\. Sibling, $S\_b$, and Address Symmetry Tests
+# 9\. Sibling, S\_b, and address symmetry tests
 
-## 9.1 $S\_b$ Sibling Obstruction
+## 9.1 S\_b-Sibling Obstruction
 
 **Initial Situation**
 
-In an unordered b-ary tree, siblings are
+In the unordered b-ary tree, siblings are
 
 $$
 S\_b
@@ -1454,11 +1449,11 @@ $$
 
 interchangeable.
 
-**Result**
+**Findings**
 
-Canonical sizes lie in the trivial $S\_b$-component.
+Canonical variables lie in the trivial $S\_b$-component.
 
-**Obstruction Point**
+**Obstruction location**
 
 The signum representation is not chosen canonically:
 
@@ -1508,7 +1503,7 @@ Structural finding, but achiral.
 
 ## 9.3 Cyclic Bit Shift
 
-**Initial State**
+**Initial Situation**
 
 At approximately:
 
@@ -1550,7 +1545,7 @@ Important candidate for multi-ToC/frustration structures. No local $J$ sign.
 
 ## 10.1 SG/ST as IFS/quotient structures
 
-**Initial situation**
+**Starting point**
 
 The Sierpinski Gasket (SG) and Sierpinski Tetrahedron/Tetrix (ST) were considered as ToC-like quotient/IFS structures. Their role in the history of testing was no accident: due to their tractability, high symmetry, p.c.f. controllability, and scale invariance.
 
@@ -1800,9 +1795,9 @@ $$
 Subsystem-Sein bricht zwingend die IDEAL-Symmetrie:
 
 $$
-\\operatorname{Aut}(\\mathcal I\_{\\mathrm{ToCGrid}})
+\\mathrm{Aut}(\\mathcal I\_{\\mathrm{ToCGrid}})
 \\to
-\\operatorname{Aut}(\\Omega\_{R,L}).
+\\mathrm{Aut}(\\Omega\_{R,L}).
 $$
 
 Es entstehen:
@@ -1914,7 +1909,7 @@ Offener Curved-sector-Test. Noch nicht positiv gezeigt.
 Signatur:
 
 $$
-\\eta=\\operatorname{diag}(-1,+1,\\ldots,+1).
+\\eta=\\mathrm{diag}(-1,+1,\\ldots,+1).
 $$
 
 **Befund**
@@ -1956,7 +1951,7 @@ $$
 Liefert:
 
 $$
-{+\tau, -\tau}.
+{+\\tau,-\\tau}.
 $$
 
 **Obstruktions-Ort**
@@ -1964,7 +1959,7 @@ $$
 Für reell-symmetrisches $H$ bleibt jede spektrale Funktion symmetrisch. Ein $J$ ist antisymmetrisch:
 
 $$
-J \neq f(H).
+J\\neq f(H).
 $$
 
 **Status**
@@ -1986,7 +1981,7 @@ Offene Quantendynamik / Lindblad-Generator.
 Dissipation kann Zeitrichtung wählen:
 
 $$
-+\tau.
++\\tau.
 $$
 
 **Obstruktions-Ort**
@@ -1994,7 +1989,7 @@ $$
 Hamiltonischer Term enthält bereits:
 
 $$
--i[H, \rho].
+-i\[H,\\rho].
 $$
 
 Also setzt OQS $i$ bzw. $J$ voraus.
@@ -2398,7 +2393,7 @@ A permissible next substrate candidate must satisfy at least the following exclu
 
 > \*\*Key statement.\*\* no primitive i, · no primitive J, · no primitive chiropathy, · no primitive orientation, · no primitive tensor factorization, · no primitive causal order.
 
-It may carry a non-causal relational, combinatorial, or topological pre-structure, as long as its subsequent causal interpretation is enforced only through handoff, regime formation, spectral structure, regulators, or backreaction.
+It may carry a non-causal relational, combinatorial, or topological pre-structure, provided that its subsequent causal interpretation is enforced only through handoff, regime formation, spectral structure, regulators, or backreaction.
 
 **Obstruction Site**
 
@@ -2443,7 +2438,7 @@ $$
 \\text{derived }J\\text{-Vorzeichen}.
 $$
 
-In particular, it remains to be checked whether every loop, area, trace, or Hodge-like structure used truly arises from the non-causal pre-structure or was imported via embedding/orientation.
+In particular, it remains to be verified whether every loop, area, trace, or Hodge-like structure used truly arises from the non-causal pre-structure or was imported via embedding/orientation.
 
 **Status**
 
@@ -2475,7 +2470,7 @@ cnna\_alpha\_orth\_invariant\_v7/triadic\_interface\_chirality.py
 cnna\_alpha\_orth\_invariant\_v7/oriented\_cauchy\_shell\_gate.py
 ```
 
-The appendix also contains associated CSV, JSON, PNG, and Markdown reports. These artifacts form the documented reproducible basis for the $\\alpha\_{\\mathrm{orth}}$-, flow sign-, Cauchy shell-, family handoff-, triadic interface-, and UV/Env-Cauchy shell findings in this version.
+The appendix also contains associated CSV, JSON, PNG, and Markdown reports. These artifacts form the documented reproducible basis for the $\\alpha\_{\\mathrm{orth}}$-, flow sign-, Cauchy shell-, family handoff-, triadic interface-, and UV/Env-Cauchy shell findings of this version.
 
 ## 32.3 Appendix `files(1).zip`
 
@@ -2487,7 +2482,7 @@ generator\_test.py
 h1\_tests.py
 ```
 
-This appendix documents the Baum vs. Sierpinski Gasket control test: Baum as a $b\_1=0$ control group, Gasket as a non-trivial $H\_1$ stress case, generative $\\kappa$ blindness test, and $H\_1$ dynamical test.
+This appendix documents the Baum vs. Sierpinski Gasket control test: Baum as a $b\_1=0$ control group, Gasket as a non-trivial $H\_1$ stress case, generative $\\kappa$ blindness test, and $H\_1$ dynamism test.
 
 \---
 
@@ -2509,9 +2504,9 @@ $$
 
 Real structures do not choose a complex orientation.
 
-## 33.3 $S\_b$-Equivariance
+## 33.3 S\_b-Equivariance
 
-Sibling permutations preserve canonical quantities in the trivial sector. No sign choice.
+Sibling permutations preserve canonical quantities in the trivial sector. No sign selection.
 
 ## 33.4 Radial Uniaxial Structure (F1)
 
@@ -2525,7 +2520,7 @@ But only along one axis. Non-commutativity requires two independent axes.
 
 ## 33.5 Degeneracy
 
-Degenerate eigenspaces must not be cut by arbitrary numerical bases. Only entire clusters are relabeling-natural.
+Degenerate eigenspaces must not be cut by an arbitrary numerical basis. Only entire clusters are relabeling-natural.
 
 ## 33.6 No partial trace on nodes
 
@@ -2559,9 +2554,9 @@ $$
 
 Without a directed handoff sequence, there is no absolute direction of rotation.
 
-## 33.10 OQS dependence on $i$
+## 33.10 OQS dependence on i
 
-Lindblad/OQS can provide the direction of time, but requires Hamiltonian $i$.
+Lindblad/OQS can provide a time direction, but requires Hamilton-$i$.
 
 ## 33.11 Flatness
 
@@ -2575,9 +2570,9 @@ $$
 \\text{Krümmung}.
 $$
 
-## 33.12 Causality import
+## 33.12 Causality Import
 
-A primitive causal order $\\leq$ is not a neutral structure carrier. It would already bring time/causal structure with it and thus skip the subsequent reconstruction step.
+A primitive causal order $\\leq$ is not a neutral structure carrier. It would already bring with it a time/causal structure and thus skip the subsequent reconstruction step.
 
 > \*\*Key statement.\*\* (E,≤,\\#) is the target structure, not the foundation.
 
@@ -2591,7 +2586,7 @@ The permissible test is therefore not whether a causal substrate can carry CNNA,
 
 > \*\*Key statement.\*\* Exact and cluster-safe handoff operators in the flat ToC/DtN sector commute.
 
-> \*\*Key statement.\*\*Non-commutativity arises so far only through imposed order, non-canonical truncation, or asymmetric boundary conditions.
+> \*\*Key statement.\*\* Non-commutativity arises so far only through imposed order, non-canonical truncation, or asymmetric boundary conditions.
 
 > \*\*Key statement.\*\* ToC nodes are provenance indices, not physical degrees of freedom.
 
