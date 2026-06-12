@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "4675dd8997674bc645a73d5eecf8f8c1e5038a2a",
-    "size": 66,
+    "sha": "fea1f7fcfd26e312782aacae47fdd0cf03f02ef7",
+    "size": 74,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "cc074f769b972ff6aff9c4143abaff931a2c23eb",
+    "sha": "6ebd11806c7ef95a95b27ff88b919605b05fc8f1",
     "size": 69736,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "0b153473079f14104576b896b3dc86d78cdfcee2",
+    "sha": "7b3720eecbd70f6a11de9417b3b3dd173bf4e744",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -778,15 +778,15 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/b-ary-tree.en.md",
-    "sha": "a0ac751dddcd09677b4319e32ae114cd7b760a8a",
-    "size": 13220,
+    "sha": "9511bdbf7f2619a128ca4abee13bf89051cf23a5",
+    "size": 57145,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/b-ary-tree.md",
-    "sha": "fba9a9692415c628e6eef51d0e843f560170ccb2",
-    "size": 73614,
+    "sha": "d42b2d3e45d40d889b6e03f559958b9d46ba0467",
+    "size": 73594,
     "type": "blob",
     "mode": "100644"
   },
