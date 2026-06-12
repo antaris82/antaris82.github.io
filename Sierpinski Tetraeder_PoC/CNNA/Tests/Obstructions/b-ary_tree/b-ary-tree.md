@@ -4,6 +4,9 @@ Jan Seeck (antaris), ChatGPT5.5, Claude Opus 4.8
 
 12.06.2026
 
+
+
+
 Die meisten Befunde sind numerisch, konzeptionell oder aus den hier ausgewiesenen Diagnostikartefakten abgeleitet. Das zentrale Ergebnis ist inzwischen präziser als am Anfang:
 
 Diese Fassung enthält zusätzlich das Substrat-Gate aus der überarbeiteten Paper-Fassung: Ereignisstrukturen werden nicht mehr als zulässiger Fundament-Kandidat behandelt, weil sie mit $\leq$ bereits eine kausale bzw. zeitartige Ordnung als primitives Datum enthalten würden. Sie bleiben nur Vergleichs- oder Zielstruktur.
