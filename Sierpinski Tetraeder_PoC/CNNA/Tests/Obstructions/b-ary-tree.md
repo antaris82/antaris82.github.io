@@ -1,6 +1,12 @@
 # CNNA-ToC / J-Vorzeichen / Nichtkommutativität — vollständiges Test- und Obstruktionsinventar
 
-Status: nach Chatstand, nicht als Lean-Theorem. Die meisten Befunde sind numerisch, konzeptionell oder aus den hier ausgewiesenen Diagnostikartefakten abgeleitet. Das zentrale Ergebnis ist inzwischen präziser als am Anfang:
+
+Jan Seeck, ChatGPT 5.5, Claude Opus 4.8
+12.06.2026
+
+
+
+Die meisten Befunde sind numerisch, konzeptionell oder aus den hier ausgewiesenen Diagnostikartefakten abgeleitet. Das zentrale Ergebnis ist inzwischen präziser als am Anfang:
 
 Diese Fassung enthält zusätzlich das Substrat-Gate aus der überarbeiteten Paper-Fassung: Ereignisstrukturen werden nicht mehr als zulässiger Fundament-Kandidat behandelt, weil sie mit $\\leq$ bereits eine kausale bzw. zeitartige Ordnung als primitives Datum enthalten würden. Sie bleiben nur Vergleichs- oder Zielstruktur.
 
@@ -255,10 +261,10 @@ $$
 \\pi(w)
 $$
 
-das Wort, das durch Entfernen des letzten Symbols von $w$ entsteht. Die Kinder von $w$ sind
+das Wort, das durch Entfernen des letzten Symbols von $w$ entsteht. Die Kindermenge von $w$ wird mit $C\_b(w)$ bezeichnet:
 
 $$
-\\mathrm{Child}(w)={wi:i\\in A\_b}.
+C\_b(w)={wi:i\\in A\_b}.
 $$
 
 ### 0.5.2 Präfixordnung, Kantenrelation und Unit-edge-Graph
@@ -463,7 +469,7 @@ $$
 ===
 
 \\begin{cases}
-\\deg\_\\Omega(x), \& x=y,\\
+d\_\\Omega(x), \& x=y,\\
 -1, \& x\\sim y\\text{ innerhalb von }\\Omega,\\
 0, \& \\text{sonst}.
 \\end{cases}
@@ -472,7 +478,7 @@ $$
 Dabei ist
 
 $$
-\\deg\_\\Omega(x)=|{y\\in\\Omega:x\\sim y}|
+d\_\\Omega(x)=|{y\\in\\Omega:x\\sim y}|
 $$
 
 und zählt nur Nachbarn innerhalb von $\\Omega$. Komplementzweige werden nicht in $\\deg\_\\Omega$ mitgezählt. Ihre Wirkung wird ausschließlich über Schur-/DtN-/Load-Terme ergänzt. Dadurch wird eine Doppelzählung von Außenkanten vermieden.
@@ -1356,7 +1362,13 @@ $$
 Metrik:
 
 $$
-g=\\mathrm{diag}(k\_{\\mathrm{Env}},k\_{\\mathrm{UV}},1/k\_{\\mathrm{Env}},1/k\_{\\mathrm{UV}}).
+g=
+\\begin{pmatrix}
+k\_{\\mathrm{Env}} \& 0 \& 0 \& 0\\
+0 \& k\_{\\mathrm{UV}} \& 0 \& 0\\
+0 \& 0 \& k\_{\\mathrm{Env}}^{-1} \& 0\\
+0 \& 0 \& 0 \& k\_{\\mathrm{UV}}^{-1}
+\\end{pmatrix}.
 $$
 
 Konstruktion:
