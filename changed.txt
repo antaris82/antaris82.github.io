@@ -1,1 +1,1 @@
-Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary-tree.en.md
+Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/b-ary-tree.md
