@@ -1,6 +1,7 @@
 # CNNA-ToC / J-Vorzeichen / Nichtkommutativität — vollständiges Test- und Obstruktionsinventar
 
 Jan Seeck (antaris), ChatGPT5.5, Claude Opus 4.8
+
 12.06.2026
 
 Die meisten Befunde sind numerisch, konzeptionell oder aus den hier ausgewiesenen Diagnostikartefakten abgeleitet. Das zentrale Ergebnis ist inzwischen präziser als am Anfang:
