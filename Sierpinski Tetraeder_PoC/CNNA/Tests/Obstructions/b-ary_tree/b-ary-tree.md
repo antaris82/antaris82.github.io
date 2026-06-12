@@ -3007,10 +3007,10 @@ Die Komplementseite bleibt im Gegenteil strukturell notwendig, sobald lokale Han
 Ereignisstrukturen besitzen typischerweise zwei Relationen:
 
 $$
-\leq \qquad\text{und}\qquad \#.
+\leq \qquad\text{and}\qquad \mathrm{conf}.
 $$
 
-Dabei ist $\leq$ nicht neutral, sobald es als kausale oder zeitartige Ordnung gelesen wird. Die Relation $\#$ markiert Konflikt, Inkompatibilität oder Exklusion.
+Dabei ist $\leq$ nicht neutral, sobald es als kausale oder zeitartige Ordnung gelesen wird. Die Relation $\mathrm{conf}$ markiert Konflikt, Inkompatibilität oder Exklusion.
 
 **Befund**
 
@@ -3019,7 +3019,7 @@ Als spätere Ziel- oder Vergleichsstruktur sind Ereignisstrukturen interessant. 
 Die zulässige Richtung ist daher:
 
 $$
-\text{CNNA-derived nicht-kausale Vorstruktur} \longrightarrow \text{emergente Ereignisse} \longrightarrow (E,\leq,\#).
+\text{CNNA-derived nicht-kausale Vorstruktur} \longrightarrow \text{emergente Ereignisse} \longrightarrow (E,\leq,\mathrm{conf}).
 $$
 
 **Obstruktions-Ort**
@@ -3029,7 +3029,7 @@ Als Fundament wären Ereignisstrukturen zu stark. Die Relation $\leq$ würde Kau
 Die unzulässige Richtung wäre:
 
 $$
-(E,\leq,\#) \longrightarrow \text{CNNA-Fundament}.
+(E,\leq,\mathrm{conf}) \longrightarrow \text{CNNA-Fundament}.
 $$
 
 Das wäre methodisch derselbe Importtyp wie:
@@ -3232,7 +3232,7 @@ $$
 
 Eine primitive kausale Ordnung $\leq$ ist kein neutraler Strukturträger. Sie würde bereits Zeit-/Kausalstruktur mitbringen und damit den späteren Rekonstruktionsschritt überspringen.
 
-> **Kernaussage.** (E,≤,\#) ist Zielstruktur, nicht Fundament.
+> **Kernaussage.** (E,≤,\mathrm{conf}) ist Zielstruktur, nicht Fundament.
 
 Der zulässige Test lautet daher nicht, ob ein kausales Substrat CNNA tragen kann, sondern ob CNNA aus einer nicht-kausalen Vorstruktur eine kausale Ordnung erzeugen kann.
 
