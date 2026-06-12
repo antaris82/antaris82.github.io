@@ -1,18 +1,24 @@
-# CNNA-ToC / J-sign / Non-commutativity — complete inventory of tests and obstructions
+# CNNA-ToC / J-Sign / Non-commutativity — Complete Test and Obstruction Inventory
 
-Status: based on chat discussions, not as a lean theorem. Most findings are numerical, conceptual, or derived from the diagnostic artifacts listed here. The central result is now more precise than at the outset:
 
-This version additionally includes the substrate gate from the revised paper version: Event structures are no longer treated as valid foundation candidates because they would already contain a causal or temporal order as primitive data via $\\leq$. They remain only as comparison or target structures.
+Jan Seeck, ChatGPT 5.5, Claude Opus 4.8
+June 12, 2026
+
+
+
+Most findings are numerical, conceptual, or derived from the diagnostic artifacts presented here. The central result is now more precise than it was at the outset:
+
+This version additionally includes the substrate gate from the revised paper version: Event structures are no longer treated as valid foundation candidates because they would already contain a causal or temporal order as primitive data via $\\leq$. They remain only as reference or target structures.
 
 > \*\*Key statement.\*\* The flat, real-valued, reciprocal ToC/Schur/DtN sector does not generate a distinguished J-orientation.
 
-It yields multiple times:
+It delivers multiple times:
 
 $$
 {+J,-J},\\qquad {+\\tau,-\\tau},\\qquad \\text{radiale Ordnung},\\qquad \\text{DtN-/Spektralstruktur}.
 $$
 
-It does not yet yield:
+It does not yet deliver:
 
 > \*\*Key statement.\*\* J instead of -J.
 
@@ -210,10 +216,10 @@ $$
 \\pi(w)
 $$
 
-das Wort, das durch Entfernen des letzten Symbols von $w$ entsteht. Die Kinder von $w$ sind
+das Wort, das durch Entfernen des letzten Symbols von $w$ entsteht. Die Kindermenge von $w$ wird mit $C\_b(w)$ bezeichnet:
 
 $$
-\\mathrm{Child}(w)={wi:i\\in A\_b}.
+C\_b(w)={wi:i\\in A\_b}.
 $$
 
 §§X9§§0.5.2 Präfixordnung, Kantenrelation und Unit-edge-Graph
@@ -405,9 +411,9 @@ $$
 
 Er zerfällt in den UV-tail an den Blättern von $\\Omega(a,L)$ und, falls $k>0$, in the environment part on the parent/root side. For $k=0$, the noOuterEnvironment interpretation applies.
 
-The Environment port, if $k>0$, is the root-side interface port at the approximant root $a$. It is not an additional Bright node, but rather the interface to the external complement side.
+The Environment port is, if $k>0$, the root-side interface port at the approximant root $a$. It is not an additional Bright node, but rather the interface to the outer complement side.
 
-The Approximant itself also initially has a role limitation: $\\Omega(a,L)$ is not an automatically interpreted many-particle system. In the flat ToC sector, it is a section-relative local handoff/object candidate. Only the Schur/DtN data generated from it and subsequent gluing/regime formations can carry physical degrees of freedom or multi-object structures.
+The approximant itself also initially has a role limitation: $\\Omega(a,L)$ is not an automatically interpreted many-particle system. In the flat ToC sector, it is a section-relative local handoff/object candidate. Only the Schur/DtN data generated from it and subsequent gluing/regime formations can carry physical degrees of freedom or multi-object structures.
 
 ### 0.5.5 Bright-Laplace Operator and Complement Loads
 
@@ -418,7 +424,7 @@ $$
 §§X134§§
 
 \\begin{cases}
-\\deg\_\\Omega(x), \& x=y,\\
+d\_\\Omega(x), \& x=y,\\
 -1, \& x\\sim y\\text{ innerhalb von }\\Omega,\\
 0, \& \\text{sonst}.
 \\end{cases}
@@ -427,10 +433,10 @@ $$
 Here,
 
 $$
-\\deg\_\\Omega(x)=|{y\\in\\Omega:x\\sim y}|
+d\_\\Omega(x)=|{y\\in\\Omega:x\\sim y}|
 $$
 
-and counts only neighbors within $\\Omega$. Complementary branches are not included in $\\deg\_\\Omega$. Their effect is supplemented exclusively via Schur/DtN/Load terms. This avoids double counting of out-edges.
+and counts only neighbors within $\\Omega$. Complementary branches are not included in $\\deg\_\\Omega$. Their effect is supplemented exclusively via Schur/DtN/Load terms. This avoids double counting of external edges.
 
 A UV-cut or environment-cut is already a Dirichlet-type boundary condition. Schur/DtN elimination is therefore not stabilized by an external numerical regularization, but by the cut-relative boundary status itself. The regularization is internal to the cut:
 
@@ -599,7 +605,7 @@ $$
 \\text{Interface}.
 $$
 
-**Location of Obstruction**
+**Obstruction Location**
 
 Visualization is not proof. Early tilt/angle values were partly chart/rendering proxies, not DtN invariants.
 
@@ -758,7 +764,7 @@ Strong indication of true shear/DtN orthogonality in certain modes; no $J$ sign.
 
 **Artifact Reference**
 
-No standalone appended artifact in this version; the section establishes the methodological findings.
+No standalone appended artifact in this version; the section establishes the methodological finding.
 
 **Initial Situation**
 
@@ -770,7 +776,7 @@ $$
 
 More specifically: Does the tree or the Dirichlet network need to be artificially regularized, or does a set UV or environment cut already have a regularizing effect in itself?
 
-**Finding**
+**Findings**
 
 No, the Dirichlet network does not need to be artificially regularized. A true UV cut or environment cut already has a regularizing effect in itself, because the removed complementary part is treated as a Dirichlet/boundary side. This makes the interior block
 
@@ -900,7 +906,7 @@ $$
 
 **Obstruction Location**
 
-For oscillation, phase, or Hamiltonian-like rotation, a second storage structure would be required—either a derived skew sector or a handoff locking mechanism—that is not already imported as a complex phase.
+For oscillation, phase, or Hamiltonian-like rotation, a second storage structure, a derived skew sector, or a handoff locking mechanism would be required—one that is not already imported as a complex phase.
 
 **Status**
 
@@ -955,7 +961,7 @@ $$
 |\\rho|\\sim b^{-k/2}.
 $$
 
-Therefore:
+Thus:
 
 > \*\*Key message.\*\* UV resolution drives orthogonality.
 
@@ -979,7 +985,7 @@ Good diagnostic quantity. No fine-structure constant claim. No $J$ sign.
 
 \---
 
-## 3.2 Environment Sensitivity Models
+## 3.2 Environment-Sensitivity Models
 
 **Artifact Reference**
 
@@ -1311,7 +1317,13 @@ $$
 Metric:
 
 $$
-g=\\mathrm{diag}(k\_{\\mathrm{Env}},k\_{\\mathrm{UV}},1/k\_{\\mathrm{Env}},1/k\_{\\mathrm{UV}}).
+g=
+\\begin{pmatrix}
+k\_{\\mathrm{Env}} \& 0 \& 0 \& 0\\
+0 \& k\_{\\mathrm{UV}} \& 0 \& 0\\
+0 \& 0 \& k\_{\\mathrm{Env}}^{-1} \& 0\\
+0 \& 0 \& 0 \& k\_{\\mathrm{UV}}^{-1}
+\\end{pmatrix}.
 $$
 
 Construction:
@@ -1383,7 +1395,7 @@ $$
 \\ell\\to\\infty
 $$
 
-inward.
+Inward.
 
 **Findings**
 
@@ -1451,7 +1463,7 @@ interchangeable.
 
 **Findings**
 
-Canonical variables lie in the trivial $S\_b$-component.
+Canonical sizes lie in the trivial $S\_b$-component.
 
 **Obstruction location**
 
@@ -1503,7 +1515,7 @@ Structural finding, but achiral.
 
 ## 9.3 Cyclic Bit Shift
 
-**Initial Situation**
+**Initial State**
 
 At approximately:
 
@@ -1951,7 +1963,7 @@ $$
 Liefert:
 
 $$
-{+\\tau,-\\tau}.
+{+\tau, -\tau}.
 $$
 
 **Obstruktions-Ort**
@@ -1959,7 +1971,7 @@ $$
 Für reell-symmetrisches $H$ bleibt jede spektrale Funktion symmetrisch. Ein $J$ ist antisymmetrisch:
 
 $$
-J\\neq f(H).
+J \neq f(H).
 $$
 
 **Status**
@@ -1981,7 +1993,7 @@ Offene Quantendynamik / Lindblad-Generator.
 Dissipation kann Zeitrichtung wählen:
 
 $$
-+\\tau.
++\tau.
 $$
 
 **Obstruktions-Ort**
@@ -1989,7 +2001,7 @@ $$
 Hamiltonischer Term enthält bereits:
 
 $$
--i\[H,\\rho].
+-i[H, \rho].
 $$
 
 Also setzt OQS $i$ bzw. $J$ voraus.
@@ -2385,7 +2397,7 @@ Event structures must be downgraded as the next candidate for a foundation. They
 
 **Initial situation**
 
-The b-ary single tree is falsified as a global world tree for the $J$-sector under the flat-reciprocal derived-only premises. It does not follow from this that arbitrarily richer relational substrates are permissible. A new substrate must not simply contain the missing target structures as primitive relations.
+The b-ary single tree is falsified as a global world tree for the $J$-sector under the flat-reciprocal derived-only premises. It does not follow from this that arbitrarily richer relational substrates are admissible. A new substrate must not simply contain the missing target structures as primitive relations.
 
 **Findings**
 
@@ -2430,7 +2442,7 @@ $$
 
 **Obstruction Location**
 
-However, more holes or wilder boundary structures do not automatically result in a derived-only orientation:
+However, more holes or a more irregular boundary structure do not automatically result in a derived-only orientation:
 
 $$
 \\text{mehr Löcher}
@@ -2438,7 +2450,7 @@ $$
 \\text{derived }J\\text{-Vorzeichen}.
 $$
 
-In particular, it remains to be verified whether every loop, area, trace, or Hodge-like structure used truly arises from the non-causal pre-structure or was imported via embedding/orientation.
+In particular, it remains to be checked whether every loop, area, trace, or Hodge-like structure used truly arises from the non-causal pre-structure or was imported via embedding/orientation.
 
 **Status**
 
@@ -2446,9 +2458,9 @@ Meaningful substrate stress class, but no current foundation candidate and no so
 
 \---
 
-# 32\. Identified artifact locations in this version
+# 32\. Identified artifacts in this version
 
-This version lists only artifacts that have either been appended or are explicitly referenced as Hugging Face visualizations. Older package names, non-attached follow-up tests, and hypothetical future implementations are no longer listed as a reproducible artifact basis for this file.
+This version lists only artifacts that have either been appended or are explicitly referenced as Hugging Face visualizations. Older package names, non-attached follow-up tests, and hypothetical future implementations are no longer listed as a reproducible artifact base for this file.
 
 ## 32.1 Hugging Face visualization
 
@@ -2470,7 +2482,7 @@ cnna\_alpha\_orth\_invariant\_v7/triadic\_interface\_chirality.py
 cnna\_alpha\_orth\_invariant\_v7/oriented\_cauchy\_shell\_gate.py
 ```
 
-The appendix also contains associated CSV, JSON, PNG, and Markdown reports. These artifacts form the documented reproducible basis for the $\\alpha\_{\\mathrm{orth}}$-, flow sign-, Cauchy shell-, family handoff-, triadic interface-, and UV/Env-Cauchy shell findings of this version.
+The appendix also contains associated CSV, JSON, PNG, and Markdown reports. These artifacts form the documented reproducible basis for the $\\alpha\_{\\mathrm{orth}}$-, flow sign-, Cauchy shell-, family handoff-, triadic interface-, and UV/Env-Cauchy shell findings in this version.
 
 ## 32.3 Appendix `files(1).zip`
 
@@ -2482,7 +2494,7 @@ generator\_test.py
 h1\_tests.py
 ```
 
-This appendix documents the Baum vs. Sierpinski Gasket control test: Baum as a $b\_1=0$ control group, Gasket as a non-trivial $H\_1$ stress case, generative $\\kappa$ blindness test, and $H\_1$ dynamism test.
+This appendix documents the Baum vs. Sierpinski Gasket control test: Baum as a $b\_1=0$ control group, Gasket as a non-trivial $H\_1$ stress case, generative $\\kappa$ blindness test, and $H\_1$ dynamical test.
 
 \---
 
@@ -2574,7 +2586,7 @@ $$
 
 A primitive causal order $\\leq$ is not a neutral structure carrier. It would already bring with it a time/causal structure and thus skip the subsequent reconstruction step.
 
-> \*\*Key statement.\*\* (E,≤,\\#) is the target structure, not the foundation.
+> \*\*Key point.\*\* (E,≤,\\#) is the target structure, not the foundation.
 
 The permissible test is therefore not whether a causal substrate can carry CNNA, but whether CNNA can generate a causal order from a non-causal pre-structure.
 
@@ -2586,7 +2598,7 @@ The permissible test is therefore not whether a causal substrate can carry CNNA,
 
 > \*\*Key statement.\*\* Exact and cluster-safe handoff operators in the flat ToC/DtN sector commute.
 
-> \*\*Key statement.\*\* Non-commutativity arises so far only through imposed order, non-canonical truncation, or asymmetric boundary conditions.
+> \*\*Key statement.\*\*Non-commutativity arises so far only through imposed order, non-canonical truncation, or asymmetric boundary conditions.
 
 > \*\*Key statement.\*\* ToC nodes are provenance indices, not physical degrees of freedom.
 
