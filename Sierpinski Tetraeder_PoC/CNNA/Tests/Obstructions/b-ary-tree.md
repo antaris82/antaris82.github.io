@@ -230,7 +230,7 @@ Der unendliche b-äre ToC ist der Wortbaum
 
 $$
 T\_b^\\infty=A\_b^{<\\omega}
-===
+=
 
 \\bigcup\_{n\\ge 0} A\_b^n.
 $$
