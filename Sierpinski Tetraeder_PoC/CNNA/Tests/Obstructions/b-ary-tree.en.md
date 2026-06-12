@@ -32,7 +32,7 @@ The uniform obstruction is now no longer just “symmetry,” but more precisely
 
 ## 0.0 Why the b-ary tree was chosen as the ToC reference substrate
 
-The b-ary tree was not introduced as just any world tree. The historical motivation was the tamability, symmetry, and scale invariance of the Sierpinski Gasket (SG) and the Sierpinski Tetrahedron/Tetrix (ST). These objects were attractive because they form a controlled, self-similar, and highly symmetric test class. It was precisely this tameness that was methodologically important: if even the most symmetric and controlled candidate does not enforce the desired direction of $J$, then the obstruction lies not in numerical wildness, but in the structure of the flat real-reciprocal sector.
+The b-ary tree was not introduced as an arbitrary world tree. The historical motivation was the tamability, symmetry, and scale invariance of the Sierpinski Gasket (SG) and the Sierpinski Tetrahedron/Tetrix (ST). These objects were attractive because they form a controlled, self-similar, and highly symmetric test class. It was precisely this tameness that was methodologically important: if even the most symmetric and controlled candidate does not enforce the desired direction of $J$, then the obstruction lies not in numerical wildness, but in the structure of the flat real-reciprocal sector.
 
 The corresponding provenance page of SG and ST is a binary address tree. For the Sierpinski gasket, the natural address tree is ternary; for the Sierpinski tetrahedron, it is quaternary:
 
@@ -436,7 +436,7 @@ $$
 d\_\\Omega(x)=|{y\\in\\Omega:x\\sim y}|
 $$
 
-and counts only neighbors within $\\Omega$. Complementary branches are not included in $\\deg\_\\Omega$. Their effect is supplemented exclusively via Schur/DtN/Load terms. This avoids double counting of external edges.
+and counts only neighbors within $\\Omega$. Complementary branches are not included in $\\deg\_\\Omega$. Their effect is supplemented exclusively via Schur/DtN/Load terms. This avoids double counting of out-edges.
 
 A UV-cut or environment-cut is already a Dirichlet-type boundary condition. Schur/DtN elimination is therefore not stabilized by an external numerical regularization, but by the cut-relative boundary status itself. The regularization is internal to the cut:
 
@@ -538,7 +538,7 @@ $$
 
 A second axis $F2$ is not an input, but an open target object: an independently derived transverse structure that is not trivialized by full $S\_b$-symmetry.
 
-$\\omega\_{\\mathrm{lock}}$ denotes the still open handoff form, which would have to couple a $J$-orientation with a flow/time/handoff orientation $\\tau$. It is not identical to a mere Cauchy boundary form as long as the latter only
+$\\omega\_{\\mathrm{lock}}$ denotes the still open handoff form, which would have to couple a $J$-orientation with a flow/time/handoff orientation $\\tau$. It is not identical to a mere Cauchy boundary form, as long as the latter only
 
 $$
 {+J,-J}
@@ -565,7 +565,7 @@ Hugging-Face-Space: https://huggingface.co/spaces/antaris/b-ary\_tree
 app.py
 ```
 
-`app.py` is the visualization script for the Hugging Face Space. It is intended solely for illustrative purposes and not as proof or primary diagnostics.
+`app.py` is the visualization script for the Hugging Face Space. It is intended for illustrative purposes only and does not serve as proof or primary diagnostics.
 
 **Initial Situation**
 
@@ -605,7 +605,7 @@ $$
 \\text{Interface}.
 $$
 
-**Obstruction Location**
+**Location of Obstruction**
 
 Visualization is not proof. Early tilt/angle values were partly chart/rendering proxies, not DtN invariants.
 
@@ -776,9 +776,9 @@ $$
 
 More specifically: Does the tree or the Dirichlet network need to be artificially regularized, or does a set UV or environment cut already have a regularizing effect in itself?
 
-**Findings**
+**Finding**
 
-No, the Dirichlet network does not need to be artificially regularized. A true UV cut or environment cut already has a regularizing effect in itself, because the removed complementary part is treated as a Dirichlet/boundary side. This makes the interior block
+No, the Dirichlet network does not need to be artificially regularized. A true UV cut or environment cut already has a regularizing effect in itself, because the removed complementary portion is treated as a Dirichlet/boundary side. This makes the interior block
 
 $$
 L\_{II}
@@ -816,7 +816,7 @@ The cut-internal regularization thus provides a well-defined DtN/Schur operator 
 
 **Status**
 
-Important positive result: UV and environment cuts provide the necessary Dirichlet regularization themselves. No ridge/pseudoinverse/mass term setting is necessary.
+Important positive result: UV and environment cuts provide the necessary Dirichlet regularization themselves. No ridge/pseudoinverse/mass term settings are necessary.
 
 \---
 
@@ -981,11 +981,11 @@ Therefore, the exact numerical value was not a fully derived physical value.
 
 **Status**
 
-Good diagnostic quantity. No fine-structure constant claim. No $J$ sign.
+Good diagnostic measure. No fine-structure constant claim. No $J$ sign.
 
 \---
 
-## 3.2 Environment-Sensitivity Models
+## 3.2 Environment Sensitivity Models
 
 **Artifact Reference**
 
@@ -1090,7 +1090,7 @@ Methodological rule:
 
 \---
 
-# 5\. Two-boundary/shell chirality tests
+# 5\. Two-Boundary/Shell Chirality Tests
 
 ## 5.1 V4 — Two-boundary shell chirality
 
@@ -1557,11 +1557,11 @@ Important candidate for multi-ToC/frustration structures. No local $J$ sign.
 
 ## 10.1 SG/ST as IFS/quotient structures
 
-**Starting point**
+**Initial situation**
 
-The Sierpinski Gasket (SG) and Sierpinski Tetrahedron/Tetrix (ST) were considered as ToC-like quotient/IFS structures. Their role in the history of testing was no accident: due to their tractability, high symmetry, p.c.f. controllability, and scale invariance.
+The Sierpinski Gasket (SG) and Sierpinski Tetrahedron/Tetrix (ST) were considered as ToC-close quotient/IFS structures. Their role in the history of testing was no accident: due to their tractability, high symmetry, p.c.f. controllability, and scale invariance.
 
-The b-ary tree is the provenance or address side of these structures:
+The binary tree serves as the provenance or address side of these structures:
 
 $$
 SG:\\quad A\_3^{§§X148§§ \*\*Kernaussage.\*\* relabeling-natürliche exakte und cluster-sichere DtN-Reduktionen kommutieren.
@@ -2397,15 +2397,15 @@ Event structures must be downgraded as the next candidate for a foundation. They
 
 **Initial situation**
 
-The b-ary single tree is falsified as a global world tree for the $J$-sector under the flat-reciprocal derived-only premises. It does not follow from this that arbitrarily richer relational substrates are admissible. A new substrate must not simply contain the missing target structures as primitive relations.
+The b-ary single tree is falsified as a global world tree for the $J$-sector under the flat-reciprocal derived-only premises. It does not follow from this that arbitrarily richer relational substrates are permissible. A new substrate must not simply contain the missing target structures as primitive relations.
 
 **Findings**
 
 A permissible next substrate candidate must satisfy at least the following exclusions:
 
-> \*\*Key statement.\*\* no primitive i, · no primitive J, · no primitive chiropathy, · no primitive orientation, · no primitive tensor factorization, · no primitive causal order.
+> \*\*Key statement.\*\* no primitive i, · no primitive J, · no primitive chirotopy, · no primitive orientation, · no primitive tensor factorization, · no primitive causal order.
 
-It may carry a non-causal relational, combinatorial, or topological pre-structure, provided that its subsequent causal interpretation is enforced only through handoff, regime formation, spectral structure, regulators, or backreaction.
+It may carry a non-causal relational, combinatorial, or topological pre-structure, as long as its subsequent causal interpretation is enforced only through handoff, regime formation, spectral structure, regulators, or backreaction.
 
 **Obstruction Site**
 
@@ -2442,7 +2442,7 @@ $$
 
 **Obstruction Location**
 
-However, more holes or a more irregular boundary structure do not automatically result in a derived-only orientation:
+However, more holes or wilder boundary structures do not automatically result in a derived-only orientation:
 
 $$
 \\text{mehr Löcher}
@@ -2460,7 +2460,7 @@ Meaningful substrate stress class, but no current foundation candidate and no so
 
 # 32\. Identified artifacts in this version
 
-This version lists only artifacts that have either been appended or are explicitly referenced as Hugging Face visualizations. Older package names, non-attached follow-up tests, and hypothetical future implementations are no longer listed as a reproducible artifact base for this file.
+This version only lists artifacts that have either been appended or are explicitly referenced as Hugging Face visualizations. Older package names, non-attached follow-up tests, and hypothetical future implementations are no longer listed as a reproducible artifact base for this file.
 
 ## 32.1 Hugging Face visualization
 
@@ -2586,7 +2586,7 @@ $$
 
 A primitive causal order $\\leq$ is not a neutral structure carrier. It would already bring with it a time/causal structure and thus skip the subsequent reconstruction step.
 
-> \*\*Key point.\*\* (E,≤,\\#) is the target structure, not the foundation.
+> \*\*Key statement.\*\* (E,≤,\\#) is the target structure, not the foundation.
 
 The permissible test is therefore not whether a causal substrate can carry CNNA, but whether CNNA can generate a causal order from a non-causal pre-structure.
 
@@ -2606,7 +2606,7 @@ The permissible test is therefore not whether a causal substrate can carry CNNA,
 
 > \*\*Key point.\*\* It is not CNNA or ToC in general that is obstructed, but rather the binary single tree as the global carrier of a directed complex structure.
 
-> \*\*Key message.\*\* Complementary, handoff, and local algebra structures remain positively relevant for the AQFT connection.
+> \*\*Key statement.\*\* Complementary, handoff, and local algebra structures remain positively relevant for the AQFT connection.
 
 > \*\*Key statement.\*\* UV/Env generate a genuine radial scale break, but no chirality.
 
