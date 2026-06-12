@@ -1,4 +1,4 @@
-# CNNA-ToC / J-Vorzeichen / Nichtkommutativität — vollständiges Test- und Obstruktionsinventar
+# CNNA-ToC / J-Vorzeichen / Nichtkommutativität — vollständiges Test- und Obstruktionsinventar (vorläufige Fassung)
 
 Jan Seeck (antaris), ChatGPT5.5, Claude Opus 4.8
 
