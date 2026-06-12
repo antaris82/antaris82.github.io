@@ -1,2866 +1,3149 @@
-# CNNA-ToC / (J)-sign / Non-commutativity — complete inventory of tests and obstructions
+# CNNA-ToC / $J$-Prefix / Non-commutativity — Complete Test and Obstruction Inventory
 
-Status: based on chat history, not as a lean theorem. Most findings are numerical, conceptual, or derived from Python diagnostics. The central result is now more precise than at the beginning:
+
+
+Jan Seeck, ChatGPT 5.5, Claude Opus 4.8
+
+June 12, 2026
+
+
+
+
+Most findings are numerical, conceptual, or derived from the diagnostic artifacts presented here. The central result is now more precise than at the outset:
+
+This version additionally includes the substrate gate from the revised paper version: Event structures are no longer treated as permissible foundation candidates because they would already contain a causal or temporal order as primitive data via $\\leq$. They remain only as comparison or target structures.
 
 $$
-\boxed{
-\text{Der flache, reellwertige, reziproke ToC-/Schur-/DtN-Sektor erzeugt keine ausgezeichnete }J\text{-Orientierung.}
+\\boxed{
+\\text{Der flache, reellwertige, reziproke ToC-/Schur-/DtN-Sektor erzeugt keine ausgezeichnete }J\\text{-Orientierung.}
 }
 $$
 
 It delivers multiple times:
 
 $$
-{+J,-J},\qquad {+\tau,-\tau},\qquad \text{radiale Ordnung},\qquad \text{DtN-/Spektralstruktur}.
+{+J,-J},\\qquad {+\\tau,-\\tau},\\qquad \\text{radiale Ordnung},\\qquad \\text{DtN-/Spektralstruktur}.
 $$
 
-It has not yet yielded:
+It has not yet delivered:
 
 $$
-\boxed{
-J\text{ statt }-J.
+\\boxed{
+J\\text{ statt }-J.
 }
 $$
 
 The uniform obstruction is now no longer just “symmetry,” but more precisely:
 
 $$
-\boxed{
-\text{Eine abgeleitete Achse }F1\text{ genügt nicht. Nichtkommutativität/Chiralität braucht eine zweite abgeleitete Achse.}
+\\boxed{
+\\text{Eine abgeleitete Achse }F1\\text{ genügt nicht. Nichtkommutativität braucht mindestens zwei nicht gemeinsam diagonalisierbare abgeleitete Operatorachsen; Chiralität braucht zusätzlich eine abgeleitete Orientierungs- bzw. Sign-Line-Auswahl.}
 }
 $$
 
----
+\---
 
-# 0. Global status of the test series
+# 0\. Global status of the test series
 
-## 0.1 What A/ToC has delivered positively so far
+## 0.0 Why the b-ary tree was chosen as the ToC reference substrate
 
-The ToC/DtN sector delivers robust precursors:
+The b-ary tree was not introduced as an arbitrary world tree. The historical motivation was the tamability, symmetry, and scale invariance of the Sierpinski Gasket (SG) and the Sierpinski Tetrahedron/Tetrix (ST). These objects were attractive because they form a controlled, self-similar, and highly symmetric test class. It was precisely this tameness that was methodologically important: if even the most symmetric and controlled candidate does not enforce the desired direction of $J$, then the obstruction lies not in numerical wildness, but in the structure of the flat real-reciprocal sector.
 
-$$
-\text{radiale Provenienzordnung},
-$$
+The corresponding provenance page of SG and ST is a binary address tree. For the Sierpinski gasket, the natural address tree is ternary; for the Sierpinski tetrahedron, it is quaternary:
 
 $$
-\text{UV/Env-Coorientierung},
+SG:\\quad b=3,\\qquad ST:\\quad b=4.
 $$
 
+Underlying every geometric embedding, every quotient relation, and every orientation is the pure address/provenance structure
+
 $$
-\text{Cauchy-Dopplung},
+A\_b^{§§X146§§0$, in den Environment-Anteil auf der Parent-/Root-Seite. Für $k=0$ gilt die noOuterEnvironment-Lesart.
+
+Der Environment-Port ist, falls $k>0$, der rootseitige Interface-Port am Approximantenroot $a$. Er ist kein zusätzlicher Bright-Knoten, sondern die Schnittstelle zur äußeren Komplementseite.
+
+Auch der Approximant selbst hat zunächst eine Rollenbegrenzung: $\\Omega(a,L)$ ist kein automatisch interpretiertes Vielteilchensystem. Im flachen ToC-Sektor ist er ein schnittrelativer lokaler Handoff-/Objektkandidat. Erst die aus ihm erzeugten Schur-/DtN-Daten und spätere Gluing-/Regimebildungen können physikalische Freiheitsgrade oder Vielobjektstruktur tragen.
+
+§§X13§§0.5.5 Bright-Laplaceoperator und Komplement-Loads
+
+Der Bright-Laplaceoperator $L\_\\Omega$ ist der Laplaceoperator des induzierten Bright-Graphen $G\_\\Omega$:
+
 $$
+(L\_\\Omega)\_{xy}
+===
+
+\\begin{cases}
+\\deg\_\\Omega(x), \& x=y,\\
+-1, \& x\\sim y\\text{ within }\\Omega,\\
+0, \& \\text{otherwise}.
+\\end{cases}
+$$
+
+Dabei ist
+
+$$
+\\deg\_\\Omega(x)=|{y\\in\\Omega:x\\sim y}|
+$$
+
+und zählt nur Nachbarn innerhalb von $\\Omega$. Komplementzweige werden nicht in $\\deg\_\\Omega$ mitgezählt. Ihre Wirkung wird ausschließlich über Schur-/DtN-/Load-Terme ergänzt. Dadurch wird eine Doppelzählung von Außenkanten vermieden.
+
+Ein UV-cut oder Environment-cut ist bereits eine Dirichlet-artige Randsetzung. Die Schur-/DtN-Eliminierung wird daher nicht durch eine externe numerische Regularisierung stabilisiert, sondern durch den schnittrelativen Boundary-Status selbst. Die Regularisierung ist schnittintern:
+
+$$
+\\text{UV-cut or environment-cut}
+\\Rightarrow
+\\text{Dirichlet boundary}
+\\Rightarrow
+L\_{II}^{-1}\\text{ is well-defined},
+$$
+
+sofern der betrachtete Innenblock tatsächlich an die gesetzte Boundary gekoppelt ist. Externe Hilfssetzungen wie Ridge-Terme, Pseudoinversen oder künstliche Massenterme gehören nicht zum flachen derived-only ToC-/DtN-Kern.
+
+Der effektive Operator hat die Form
+
+$$
+M\_\\Omega=L\_\\Omega+\\Sigma\_{\\mathrm{Env}}+\\Sigma\_{\\mathrm{UV}}.
+$$
+
+Im einfachsten load-basierten Proxy kann man schreiben
+
+$$
+\\Sigma\_{\\mathrm{Env}}
+===
+
+\\sigma\_{\\mathrm{Env}},P\_{\\mathrm{root}},
+\\qquad
+\\Sigma\_{\\mathrm{UV}}
+===
+
+\\sigma\_{\\mathrm{UV}},P\_{\\partial\_{\\mathrm{UV}}\\Omega},
+$$
+
+wobei dies nur dann als derived gilt, wenn die Werte aus einer expliziten Schur-/DtN-Eliminierung der jeweiligen Komplementfamilien stammen. Frühe Konstanten- oder Ladder-Modelle für $\\sigma\_{\\mathrm{Env}}$ bzw. $\\alpha\_{\\mathrm{Env}}$ sind Diagnosemodelle, keine ontischen CNNA-Eingaben.
+
+Die beiden Loads wirken an entgegengesetzten Seiten des Approximanten:
+
+$$
+\\Sigma\_{\\mathrm{UV}}\\text{ acts on the leaf side at the finest/cut nodes},
+\\qquad
+\\Sigma\_{\\mathrm{Env}}\\text{ acts on the root side at the parent/environment port}.
+$$
+
+Damit erzeugt der Schnitt einen echten inneren Skalenbruch des Approximanten. Dieser Skalenbruch ist jedoch zunächst radial bzw. longitudinal:
+
+$$
+\\text{UV/Env scale breaking}\\≠\\text{chirality}.
+$$
+
+Für Kanalquellen $f\_{\\mathrm{Env}}$ und $f\_{\\mathrm{UV}}$ sind die Antworten
+
+$$
+u\_{\\mathrm{Env}}=M\_\\Omega^{-1}f\_{\\mathrm{Env}},
+\\qquad
+u\_{\\mathrm{UV}}=M\_\\Omega^{-1}f\_{\\mathrm{UV}}.
+$$
+
+Standarddiagnostisch ist $f\_{\\mathrm{Env}}$ eine rootseitige Quelle am Environment-Port und $f\_{\\mathrm{UV}}$ eine symmetrische bzw. normierte Blattquelle auf $\\partial\_{\\mathrm{UV}}\\Omega$. Jede abweichende Normierung muss im jeweiligen Artefakt explizit dokumentiert werden.
+
+Das Energie-Innenprodukt ist
+
+$$
+\\langle x,y\\rangle\_M=x^TM\_\\Omega y.
+$$
+
+Die Orthogonalitätsdiagnose ist
+
+$$
+\\rho\_M
+===
+
+\\frac{\\langle u\_{\\mathrm{Env}},u\_{\\mathrm{UV}}\\rangle\_M}
+{|u\_{\\mathrm{Env}}|*M|u*{\\mathrm{UV}}|\_M}.
+$$
+
+Die Größen $\\alpha\_{\\mathrm{UV}}$, $\\alpha\_{\\mathrm{Env}}$, $C\_k$ und $\\Xi$ sind Diagnosegrößen, solange sie nicht aus den vollständigen Komplementfamilien abgeleitet sind. In den frühen Tests bedeutet $C\_k$ eine schnitt- bzw. tiefenabhängige Normierungs-/Kapazitätsgröße des Approximanten; ihr genauer Wert ist artefakt- bzw. diagnostikabhängig und daher nicht als universale CNNA-Konstante zu lesen.
+
+§§X14§§0.5.6 $J$-Problem, F1/F2 und Locking-Objekt
+
+Eine komplexe Struktur auf einem reellen Handoff-Raum ist ein Endomorphismus $J$ mit
+
+$$
+J^2=-I.
+$$
+
+Das $J$-Vorzeichenproblem ist nicht die bloße Existenz eines solchen Blocks, sondern die derived-only-Auswahl von $J$ gegenüber $-J$. Eine reelle, symmetrische, relabeling-natürliche Struktur liefert daher höchstens
 
 $$
 {+J,-J},
 $$
 
-$$
-{+\tau,-\tau},
-$$
+solange keine zusätzliche abgeleitete Orientierungs- oder Locking-Struktur vorliegt.
+
+$F1$ bezeichnet die radiale Provenienz-/Tiefenachse
 
 $$
-\text{reelle DtN-/Schur-Handoff-Matrizen}.
+|w|\\mapsto |w|+1.
 $$
 
-This is not trivial. It means:
+Eine zweite Achse $F2$ ist kein Input, sondern ein offenes Zielobjekt: eine unabhängig abgeleitete transversale Struktur, die nicht durch volle $S\_b$-Symmetrie trivialisiert wird.
+
+$\\omega\_{\\mathrm{lock}}$ bezeichnet die noch offene Handoff-Form, die eine $J$-Orientierung mit einer Fluss-/Zeit-/Handoff-Orientierung $\\tau$ koppeln müsste. Sie ist nicht identisch mit einer bloßen Cauchy-Randform, solange diese nur
 
 $$
-\boxed{
-\text{Der ToC ist als lokale Provenienzfaser und flacher Referenzsektor wertvoll.}
-}
+{+J,-J}
 $$
 
-## 0.2 What A/ToC has not yet delivered
-
-What has not been delivered is an absolute orientation:
+liefert. Die Cauchy-Shell kann also positiv sein, ohne das eigentliche Locking-Problem zu lösen:
 
 $$
-\boxed{
-J \neq \text{derived uniquely from flat ToC data}.
-}
+\\omega\_\\partial\\Rightarrow{+J,-J},
+\\qquad
+\\omega\_{\\mathrm{lock}}:(J,\\tau)\\mapsto\\text{stable oriented record}.
 $$
 
-Also not yet delivered are:
+\---
+
+§§X15§§1\. Didaktische und Proxy-Tests
+
+§§X16§§1.1 Hugging-Face-ToC-Concept-Explorer
+
+**Artefaktbezug**
+
+§§X147§§
+
+§§X166§§ ist das Visualisierungsskript des Hugging-Face-Spaces. Es dient nur der Anschauung und nicht als Beweis- oder Primärdiagnostik.
+
+**Ausgangslage**
+
+Visualisierung eines (b)-ären ToC mit Parametern:
 
 $$
-\text{Chirotopie},
+b,\\qquad L\_{\\max},\\qquad \\text{approximant root},\\qquad L.
 $$
 
-$$
-\text{nichttriviale Holonomie},
-$$
+Dargestellte Stufen:
 
 $$
-\text{Krümmung},
+\\text{ToC}
+\\to
+\\text{proper subsystem}
+\\to
+\\text{UV-tail}
+\\to
+\\text{Environment}
+\\to
+\\text{Cauchy–}J\\text{-candidate}
+\\to
+\\text{Complex-plane overlay}.
 $$
 
-$$
-\text{nichtkommutative Handoff-Algebra},
-$$
+**Befund**
+
+Didaktisch stark. Es trennt sichtbar:
 
 $$
-\text{echte partielle Spur/OQS-Struktur}.
+\\text{Approximant},
+\\qquad
+\\text{UV-tail},
+\\qquad
+\\text{Environment},
+\\qquad
+\\text{Interface}.
 $$
 
-## 0.3 New interpretive status
+**Obstruktions-Ort**
 
-The tests do not concern “CNNA in general,” but rather the specific sector:
-
-$$
-\boxed{
-\text{flacher, homogener, reell-reziproker ToC-/DtN-Sektor.}
-}
-$$
-
-It follows that:
-
-$$
-\boxed{
-\text{Der globale Einzel-ToC als ontischer Weltbaum ist für }J\text{ falsifiziert.}
-}
-$$
-
-But not:
-
-$$
-\boxed{
-\text{lokale ToC-Fasern, DtN-Geometrie oder CNNA als Gesamtprogramm sind falsifiziert.}
-}
-$$
-
----
-
-# 1. Didactic and Proxy Tests
-
-## 1.1 Gradio ToC Concept Explorer
-
-**Script / File**
-
-```text
-app.py
-```
-
-**Initial Situation**
-
-Visualization of a (b)inary ToC with parameters:
-
-$$
-b,\qquad L_{\max},\qquad \text{Approximant root},\qquad L.
-$$
-
-Levels shown:
-
-$$
-\text{ToC}
-\to
-\text{proper subsystem}
-\to
-\text{UV-tail}
-\to
-\text{Environment}
-\to
-\text{Cauchy-/}J\text{-Kandidat}
-\to
-\text{Complex-plane overlay}.
-$$
-
-**Findings**
-
-Highly effective for teaching. It visually distinguishes:
-
-$$
-\text{Approximant},
-\qquad
-\text{UV-tail},
-\qquad
-\text{Environment},
-\qquad
-\text{Interface}.
-$$
-
-**Obstruction Location**
-
-Visualization is not proof. Early tilt/angle values were partly chart/rendering proxies, not DtN invariants.
+Visualisierung ist kein Beweis. Frühe Tilt-/Winkelwerte waren teilweise Chart-/Rendering-Proxies, nicht DtN-Invarianten.
 
 **Status**
 
-Didactically valuable, mathematically secondary.
+Didaktisch wertvoll, mathematisch sekundär.
 
----
+\---
 
-## 1.2 Stage-6 Chart Proxy / Tilt Test
+§§X17§§1.2 Stage-6 Chart-Proxy / Tilt-Test
 
-**Script / File**
+**Artefaktbezug**
 
-Part of the interactive `app.py`.
+Teil der Hugging-Face-Visualisierung §§X167§§; nur Anschauungs- und Proxyebene.
 
-**Initial Situation**
+**Ausgangslage**
 
-Deep embedding of approximants, e.g.
-
-$$
-0.1,\qquad 0.1.1,\qquad 0.1.1.0,\ldots
-$$
-
-with fixed parameters such as:
+Tiefe Einbettung von Approximanten, z. B.
 
 $$
-b=3,\qquad L_{\max}=4.
+0.1,\\qquad 0.1.1,\\qquad 0.1.1.0,\\ldots
 $$
 
-**Findings**
-
-Visual tilt decreased with deeper embedding:
+bei festen Parametern wie:
 
 $$
-|\mathrm{tilt}|\downarrow.
+b=3,\\qquad L\_{\\max}=4.
+$$
+
+**Befund**
+
+Visueller Tilt wurde mit tieferer Einbettung kleiner:
+
+$$
+|\\mathrm{tilt}|\\downarrow.
 $$
 
 **Interpretation**
 
-Deeper-embedded approximants appeared more balanced between UV and Env.
+Tiefer eingebettete Approximanten wirkten balancierter zwischen UV und Env.
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-No true Schur/DtN value:
+Kein echter Schur-/DtN-Wert:
 
 $$
-\text{Proxy} \neq \text{Invariante}.
+\\text{Proxy} \\neq \\text{Invariance}.
 $$
 
 **Status**
 
-Heuristic motivation; later replaced by true DtN/Schur tests.
+Heuristische Motivation; später durch echte DtN-/Schur-Tests ersetzt.
 
----
+\---
 
-# 2. Single-Approximant Schur/DtN Tests
+§§X18§§2\. Einzel-Approximant-Schur-/DtN-Tests
 
-## 2.1 Projected-tail (J)/Rotation Test
+§§X19§§2.1 Projected-tail $J$-/Rotationstest
 
-**Script / File**
+**Artefaktbezug**
 
-Implemented in Chat; functionality was later incorporated into (\alpha_{\mathrm{orth}})- and DtN diagnostics.
+Kein eigenständiger angehängter Artefakt in dieser Fassung; der Abschnitt bleibt als konsolidierter Befund aus der späteren $\\alpha\_{\\mathrm{orth}}$- und DtN-Diagnostik.
 
-**Initial situation**
+**Ausgangslage**
 
-Finite approximant with effective operator:
-
-$$
-M=L_\Omega+\text{projected UV/Env loads}.
-$$
-
-Two channel responses:
+Endlicher Approximant mit effektivem Operator:
 
 $$
-u_{\mathrm{Env}},\qquad u_{\mathrm{UV}}.
+M=L\_\\Omega+\\text{projected UV/Env loads}.
 $$
 
-Measured variable:
+Zwei Kanalantworten:
 
 $$
-\rho_M
-§§X118§§
-
-\frac{\langle u_{\mathrm{Env}},u_{\mathrm{UV}}\rangle_M}
-{|u_{\mathrm{Env}}|*M,|u*{\mathrm{UV}}|_M}.
+u\_{\\mathrm{Env}},\\qquad u\_{\\mathrm{UV}}.
 $$
 
-**Findings**
-
-Near orthogonality:
+Messgröße:
 
 $$
-|\rho_M|\ll 1,
+\\rho\_M
+===
+
+\\frac{\\langle u\_{\\mathrm{Env}},u\_{\\mathrm{UV}}\\rangle\_M}
+{|u\_{\\mathrm{Env}}|*M,|u*{\\mathrm{UV}}|\_M}.
 $$
 
-partially numerically close (90^\circ).
+**Befund**
 
-**Obstruction location**
+Nahe Orthogonalität:
 
-Orthogonality of a real 2-plane yields at most:
+$$
+|\\rho\_M|\\ll 1,
+$$
+
+teilweise numerisch nahe $90^\\circ$.
+
+**Obstruktions-Ort**
+
+Orthogonalität einer reellen 2-Ebene liefert höchstens:
 
 $$
 {+J,-J}.
 $$
 
-The plane exists; the direction of rotation does not.
+Die Ebene ist da; der Drehsinn nicht.
 
 **Status**
 
-Positive precursor of a pre-complex plane. No sign proof.
+Positiver Vorläufer einer prä-komplexen Ebene. Kein Vorzeichenbeweis.
 
----
+\---
 
-## 2.2 Real finite-network Schur/DtN test
+§§X20§§2.2 Real finite-network Schur/DtN-Test
 
-**Script / File**
+**Artefaktbezug**
 
-Implemented in the chat as a finite unit-edge graph test; no uniquely isolated final filename.
+Kein eigenständiger angehängter Artefakt in dieser Fassung; der Abschnitt bleibt als konsolidierter methodischer Befund.
 
-**Initial situation**
+**Ausgangslage**
 
-Finite tree graph with Laplace matrix:
-
-$$
-L_{\mathrm{graph}}.
-$$
-
-Edge (B), internal node (I), Schur complement:
+Endlicher Baumgraph mit Laplace-Matrix:
 
 $$
-\Lambda_B
-§§X120§§
-
-L_{BB}-L_{BI}L_{II}^{-1}L_{IB}.
+L\_{\\mathrm{graph}}.
 $$
 
-**Result**
-
-Numerically practically orthogonal for deterministic centered single modes, for example:
+Rand (B), Innenknoten (I), Schur-Komplement:
 
 $$
-|\rho_M|\approx 10^{-18}.
+\\Lambda\_B
+===
+
+L\_{BB}-L\_{BI}L\_{II}^{-1}L\_{IB}.
 $$
 
-**Obstruction location**
+**Befund**
 
-A single mode can be orthogonal while the full boundary response space still retains structure. Furthermore, the DtN operator remains real-symmetric.
+Für deterministische zentrierte Einzelmodi numerisch praktisch orthogonal, etwa:
+
+$$
+|\\rho\_M|\\approx 10^{-18}.
+$$
+
+**Obstruktions-Ort**
+
+Ein Einzelmodus kann orthogonal sein, während der volle Randantwortsraum noch Struktur trägt. Außerdem bleibt der DtN-Operator reell symmetrisch.
 
 **Status**
 
-Strong indication of true Schur/DtN orthogonality in certain modes; no (J) sign.
+Starker Hinweis auf echte Schur-/DtN-Orthogonalität in bestimmten Modi; kein $J$-Vorzeichen.
 
----
+\---
 
-## 2.3 Dirichlet/Cut Regularization Test
+§§X21§§2.3 Dirichlet-/Cut-Regularisierungstest
 
-**Script / File**
+**Artefaktbezug**
 
-Part of the Schur/DtN tests.
+Kein eigenständiger angehängter Artefakt in dieser Fassung; der Abschnitt fixiert den methodischen Befund.
 
-**Initial situation**
+**Ausgangslage**
 
-Question:
-
-$$
-\text{Braucht man eine externe Regularisierung oder Pseudoinverse?}
-$$
-
-**Result**
-
-No, provided that a genuine Dirichlet/Boundary-Cut is set. Then the inner block:
+Frage:
 
 $$
-L_{II}
+\\text{Is external regularization or the pseudoinverse needed?}
 $$
 
-is invertible.
+Genauer: Muss der Baum bzw. das Dirichlet-Netzwerk künstlich regularisiert werden, oder wirkt ein gesetzter UV- bzw. Environment-cut bereits selbst regularisierend?
 
-**Obstruction point**
+**Befund**
 
-The DtN operator is cut-relative:
+Nein, das Dirichlet-Netzwerk muss nicht künstlich regularisiert werden. Ein echter UV-cut oder Environment-cut wirkt selbst bereits regularisierend, weil der entfernte Komplementanteil als Dirichlet-/Boundary-Seite behandelt wird. Dadurch wird der Innenblock
 
 $$
-\Lambda_{\partial A}.
+L\_{II}
 $$
 
-There is no cut-free universal DtN operator for the entire infinite ToC.
+invertierbar, sofern der betrachtete Innenbereich tatsächlich an die gesetzte Boundary gekoppelt ist.
+
+Die Regularisierung ist daher schnittintern:
+
+$$
+\\text{UV-cut or environment-cut}
+\\Rightarrow
+\\text{Dirichlet boundary}
+\\Rightarrow
+L\_{II}^{-1}\\text{ is well-defined}.
+$$
+
+Sie ist keine externe numerische Hilfssetzung:
+
+$$
+\\text{no ridge},\\qquad
+\\text{no pseudoinverse},\\qquad
+\\text{no artificial mass term}.
+$$
+
+**Obstruktions-Ort**
+
+Der DtN-Operator bleibt cut-relativ:
+
+$$
+\\Lambda\_{\\partial A}.
+$$
+
+Die schnittinterne Regularisierung liefert also einen wohldefinierten DtN-/Schur-Operator für den jeweiligen Cut, aber keinen cut-freien universalen DtN-Operator des ganzen unendlichen ToC.
 
 **Status**
 
-Important positive result: no Ridge/pseudoinverse setting required.
+Wichtiges positives Ergebnis: UV- und Environment-cuts liefern die nötige Dirichlet-Regularisierung selbst. Keine Ridge-/Pseudoinversen-/Massenterm-Setzung nötig.
 
----
+\---
 
-# 3. $\alpha_{\mathrm{orth}}$- and invariant tests
+§§X22§§2.4 Harter UV/Env-Skalenbruch im Approximanten
 
-## 3.1 $\Xi$- / $\alpha_{\mathrm{orth}}$-diagnostics
+**Artefaktbezug**
 
-**Script / File**
+Konzeptionell aus den Schur-/DtN- und $\\alpha\_{\\mathrm{orth}}$-Tests; in den angehängten Diagnostikartefakten über $M\_\\Omega$, $\\Sigma\_{\\mathrm{UV}}$ und $\\Sigma\_{\\mathrm{Env}}$ nachvollziehbar.
 
-```text
-alpha_orth_invariant.py
-```
+**Ausgangslage**
 
-Packages:
-
-```text
-cnna_alpha_orth_invariant_v2.zip
-cnna_alpha_orth_invariant_v3.zip
-cnna_alpha_orth_invariant_v4.zip
-cnna_alpha_orth_invariant_v5.zip
-cnna_alpha_orth_invariant_v6.zip
-cnna_alpha_orth_invariant_v7.zip
-```
-
-**Initial Situation**
-
-Control variable:
+Ein proper subsystem besitzt zwei verschiedene Komplementseiten:
 
 $$
-\Xi=(1+\lambda_{\mathrm{UV}})(1+\lambda_{\mathrm{Env}}),
+\\text{UV-tail at the finest/cut node},
+\\qquad
+\\text{Environment at the root/parent port}.
 $$
 
-with
+**Befund**
+
+Die beiden Komplementprojektionen laden den Approximanten nicht gleichartig, sondern entgegengesetzt in der inneren Skalenrichtung:
 
 $$
-\lambda_{\mathrm{UV}}
-§§X123§§
-
-\frac{b^k\alpha_{\mathrm{UV}}}{C_k},
-\qquad
-\lambda_{\mathrm{Env}}
-§§X124§§
-
-\frac{\alpha_{\mathrm{Env}}}{C_k}.
+\\text{UV-tail}
+\\Rightarrow
+\\text{Load at finest/cut nodes},
 $$
 
-Typical orthogonality diagnosis:
-
 $$
-|\rho|\sim \Xi^{-1/2}.
-$$
-
-**Findings**
-
-The UV term dominates strongly for increasing depth:
-
-$$
-|\rho|\sim b^{-k/2}.
+\\text{Environment}
+\\Rightarrow
+\\text{Load at root/parent port}.
 $$
 
-Thus:
+Also:
 
 $$
-\boxed{
-\text{UV-Auflösung treibt Orthogonalität.}
+\\Sigma\_{\\mathrm{UV}}\\text{ acts on the leaf side},
+\\qquad
+\\Sigma\_{\\mathrm{Env}}\\text{ acts on the root side}.
+$$
+
+Das ist ein echter harter Skalenbruch im Approximanten. Er ist nicht bloß Visualisierung oder Chart-Artefakt.
+
+**Obstruktions-Ort**
+
+Der Bruch ist radial bzw. longitudinal. Er unterscheidet innen/außen, fein/grob, UV/Environment, aber er erzeugt noch keine transversale Händigkeit:
+
+$$
+\\text{scale break}\\≠\\text{chiralitas}.
+$$
+
+**Status**
+
+Positives Finding für die Approximantenphysik und für $F1$. Kein $J$-Vorzeichenbeweis.
+
+\---
+
+§§X23§§2.5 Passive Dirichlet-/Widerstandsnetzwerke erzeugen keine Phase
+
+**Artefaktbezug**
+
+Querschnittsbefund aus den realen Schur-/DtN-, Cauchy-Shell- und Motor-Analogie-Tests; kein eigenständiger zusätzlicher Artefaktbezug.
+
+**Ausgangslage**
+
+Der flache ToC-/DtN-Sektor ist reell, passiv und reziprok. Er verhält sich mathematisch wie ein Dirichlet-/Widerstandsnetzwerk mit Energieform, Diffusion und symmetrischer Randantwort.
+
+**Befund**
+
+Ein rein resistiver/passiver Sektor liefert Imbalance, Achsen, Loads, Dirichletenergie, Diffusion und DtN-Antworten:
+
+$$
+\\text{passive resistance/load}
+\\Rightarrow
+\\text{imbalance/axis}.
+$$
+
+Er liefert aber keine eigenständige $90^\\circ$-Phasenverschiebung und kein stabil gerichtetes Drehfeld:
+
+$$
+\\text{passive resistance/load}
+\\not\\Rightarrow
+\\text{rotating phase}.
+$$
+
+**Obstruktions-Ort**
+
+Für Oszillation, Phase oder Hamilton-artige Rotation bräuchte man eine zweite Speicherstruktur, einen abgeleiteten skew-Sektor oder ein Handoff-Locking, das nicht bereits als komplexe Phase importiert wird.
+
+**Status**
+
+Technische Form der Motor-/Kondensator-Analogie: Reeller Widerstandssektor kann eine Achse und Pulsation liefern, aber nicht die fehlende Phase selbst.
+
+\---
+
+§§X24§§3\. $\\alpha\_{\\mathrm{orth}}$- und Invarianten-Tests
+
+§§X25§§3.1 $\\Xi$- / $\\alpha\_{\\mathrm{orth}}$-Diagnostik
+
+**Artefaktbezug**
+
+§§X148§§
+
+**Ausgangslage**
+
+Kontrollgröße:
+
+$$
+\\Xi=(1+\\lambda\_{\\mathrm{UV}})(1+\\lambda\_{\\mathrm{Env}}),
+$$
+
+mit
+
+$$
+\\lambda\_{\\mathrm{UV}}
+===
+
+\\frac{b^k\\alpha\_{\\mathrm{UV}}}{C\_k},
+\\qquad
+\\lambda\_{\\mathrm{Env}}
+===
+
+\\frac{\\alpha\_{\\mathrm{Env}}}{C\_k}.
+$$
+
+Typische Orthogonalitätsdiagnose:
+
+$$
+|\\rho|\\sim \\Xi^{-1/2}.
+$$
+
+**Befund**
+
+Der UV-Term dominiert für wachsende Tiefe stark:
+
+$$
+|\\rho|\\sim b^{-k/2}.
+$$
+
+Also:
+
+$$
+\\boxed{
+\\text{UV resolution drives orthogonality.}
 }
 $$
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-(\alpha_{\mathrm{Env}}) was model-dependent in early versions:
+$\\alpha\_{\\mathrm{Env}}$ war in frühen Versionen modellabhängig:
 
-```text
-none
-constant
-power
-exponential
-ladder
-```
+§§X149§§
 
-Therefore, the exact numerical value was not a fully derived physical value.
+Daher war der exakte Zahlenwert kein vollständig abgeleiteter physikalischer Wert.
 
 **Status**
 
-Good diagnostic parameter. No fine-structure constant claim. No (J) sign.
+Gute Diagnosegröße. Kein Feinstrukturkonstanten-Claim. Kein $J$-Vorzeichen.
 
----
+\---
 
-## 3.2 Environment-sensitive models
+§§X26§§3.2 Environment-Sensitivitätsmodelle
 
-**Script / File**
+**Artefaktbezug**
 
-```text
-alpha_orth_invariant.py
-```
+§§X150§§
 
-**Initial Situation**
+**Ausgangslage**
 
-Comparison of various (\alpha_{\mathrm{Env}}) models.
+Vergleich verschiedener $\\alpha\_{\\mathrm{Env}}$-Modelle.
 
-**Findings**
+**Befund**
 
-For large (k), the UV term often dominates so strongly that the choice of environment model becomes subdominant.
+Für große $k$ dominiert häufig der UV-Term so stark, dass die Environment-Modellwahl subdominant wird.
 
-**Location of obstruction**
+**Obstruktions-Ort**
 
-In regimes where Environment is not subdominant, a true complement family/DtN derivation of (\alpha_{\mathrm{Env}}) is required.
+In Regimen, in denen Environment nicht subdominant ist, braucht man eine echte Komplementfamilien-/DtN-Ableitung von $\\alpha\_{\\mathrm{Env}}$.
 
 **Status**
 
-Good methodological findings:
+Guter methodischer Befund:
 
 $$
-\text{definierbar}\neq\text{erzwungen}.
+\\text{definable}\\≠\\text{enforced}.
 $$
 
----
+\---
 
-# 4. Parent–Child and Handoff Tests
+§§X27§§4\. Parent–Child- und Handoff-Tests
 
-## 4.1 Two-Approximant / Flow-Sign Test
+§§X28§§4.1 Two-Approximant / Flow-Sign-Test
 
-**Script / File**
+**Artefaktbezug**
 
-```text
-two_approximant_flow_sign.py
-```
+§§X151§§
 
-**Initial Situation**
+**Ausgangslage**
 
-Parent–Child Handoff:
+Parent–Child-Handoff:
 
 $$
-A_{\mathrm{parent}}\to A_{\mathrm{child}}.
+A\_{\\mathrm{parent}}\\to A\_{\\mathrm{child}}.
 $$
 
-Objective: to check whether the transition yields a (J) sign.
+Ziel: prüfen, ob der Übergang ein $J$-Vorzeichen liefert.
 
-**Findings**
+**Befund**
 
-Radial transition signatures may arise.
+Radiale Übergangssignaturen können entstehen.
 
-**Obstruction Location**
+**Obstruktions-Ort**
 
-Radiality is not chirality:
+Radialität ist nicht Chiralität:
 
 $$
-\text{Parent}\to\text{Child}
+\\text{Parent}\\to\\text{Child}
 $$
 
-Yields depth direction, but no direction of rotation.
+liefert Tieferichtung, aber keinen Drehsinn.
 
-Furthermore, flow can easily introduce a sign via the excitation direction.
+Außerdem kann Flow leicht durch Anregungsrichtung ein Vorzeichen einschmuggeln.
 
 **Status**
 
-Radial handoff structure: yes. (J) sign: no.
+Radiale Handoff-Struktur: ja. $J$-Vorzeichen: nein.
 
----
+\---
 
-## 4.2 Schur-before-Flow criterion
+§§X29§§4.2 Schur-vor-Flow-Kriterium
 
-**Script / File**
+**Artefaktbezug**
 
-Methodologically derived from parent–child tests.
+Methodisch aus den Parent–Child-Tests abgeleitet; kein zusätzlicher eigenständiger Artefakt.
 
-**Initial Situation**
+**Ausgangslage**
 
-Possible handoff types:
+Mögliche Handoff-Typen:
 
 1. Restriction
 2. Aggregation
-3. Schur handoff
-4. Flow handoff
+3. Schur-Handoff
+4. Flow-Handoff
 
-**Findings**
+**Befund**
 
-Restriction/Aggregation/Schur are more canonical than Flow.
+Restriction/Aggregation/Schur sind kanonischer als Flow.
 
-**Location of obstruction**
+**Obstruktions-Ort**
 
-Flow may contain a directed stimulus. In that case, the sign would not be derived but set.
+Flow kann eine gerichtete Anregung enthalten. Dann wäre das Vorzeichen nicht abgeleitet, sondern gesetzt.
 
 **Status**
 
-Methodological rule:
+Methodische Regel:
 
 $$
-\boxed{
-\text{Schur zuerst, Flow nur als Konsistenztest.}
+\\boxed{
+\\text{Schur first, Flow only as a consistency check.}
 }
 $$
 
----
+\---
 
-# 5. Two-boundary/shell chirality tests
+§§X30§§5\. Zwei-Rand-/Shell-Chiralitätstests
 
-## 5.1 V4 — Two-boundary shell chirality
+§§X31§§5.1 V4 — Two-boundary shell chirality
 
-**Script / File**
+**Artefaktbezug**
 
-```text
-two_boundary_shell_chirality.py
-```
+§§X152§§
 
-Package:
+**Ausgangslage**
 
-```text
-cnna_alpha_orth_invariant_v4.zip
-```
-
-**Initial conditions**
-
-Parent–child difference shell, two boundary ports, real DtN matrix:
+Parent–Child-Differenzschale, zwei Boundary-Ports, reale DtN-Matrix:
 
 $$
-\Lambda_\Delta.
+\\Lambda\_\\Delta.
 $$
 
-Cauchy pairing:
+Cauchy-Paarung:
 
 $$
-\omega((q,p),(q',p'))=q^Tp'-p^Tq'.
+\\omega((q,p),(q',p'))=q^Tp'-p^Tq'.
 $$
 
-The following holds for a DtN graph:
+Auf einem DtN-Graphen gilt:
 
 $$
-p=\Lambda q.
+p=\\Lambda q.
 $$
 
-**Result**
+**Befund**
 
-For self-adjoint DtN graphs:
+Für selbstadjungierten DtN-Graphen:
 
 $$
-\omega((q,\Lambda q),(r,\Lambda r)) = q^T\Lambda r-r^T\Lambda q = 0.
+\\omega((q,\\Lambda q),(r,\\Lambda r)) = q^T\\Lambda r-r^T\\Lambda q = 0.
 $$
 
-**Obstruction Location**
+**Obstruktions-Ort**
 
-A single passive symmetric DtN graph is Lagrangian.
+Ein einzelner passiver symmetrischer DtN-Graph ist Lagrangesch.
 
 **Status**
 
-Clean negative result. Too restrictive for family/handoff tests, but correct for a single graph.
+Sauberes Negativergebnis. Zu eng für Familien-/Handoff-Tests, aber korrekt für Einzelgraph.
 
----
+\---
 
-## 5.2 V5 — Family handoff chirality
+§§X32§§5.2 V5 — Family handoff chirality
 
-**Script / File**
+**Artefaktbezug**
 
-```text
-family_handoff_chirality.py
-```
+§§X153§§
 
-Package:
+**Ausgangslage**
 
-```text
-cnna_alpha_orth_invariant_v5.zip
-```
-
-**Initial situation**
-
-Family of DtN matrices:
+Familie von DtN-Matrizen:
 
 $$
-{\Lambda_i}.
+{\\Lambda\_i}.
 $$
 
-Cross-graph Cauchy pairing:
+Cross-Graph-Cauchy-Pairing:
 
 $$
-\omega_{ij}(q,r)=q^T\Lambda_jr-r^T\Lambda_iq.
+\\omega\_{ij}(q,r)=q^T\\Lambda\_jr-r^T\\Lambda\_iq.
 $$
 
-Additionally, Handoff Square:
+Zusätzlich Handoff-Square:
 
 $$
-A\to B_i\to C,
-\qquad
-A\to B_j\to C.
+A\\to B\_i\\to C,
+\\qquad
+A\\to B\_j\\to C.
 $$
 
-**Findings**
+**Befund**
 
-Cross-graph signals may occur:
+Cross-Graph-Signale können auftreten:
 
 $$
-\omega_{ij}\neq 0.
+\\omega\_{ij}\\neq 0.
 $$
 
-But:
+Aber:
 
-```text
-sibling_flip_detected = false
-handoff_holonomy_detected = false
-```
+§§X154§§
 
-**Obstruction Location**
+**Obstruktions-Ort**
 
-Signal is family/metric difference, not chirality. No sibling sign reversal, no true handoff holonomy.
+Signal ist Familien-/Metrikdifferenz, nicht Chiralität. Keine Geschwister-Vorzeichenumkehr, keine echte Handoff-Holonomie.
 
 **Status**
 
-Important test: “Not just a graph” was checked. Result remains achiral.
+Wichtiger Test: „Nicht nur ein Graph“ wurde geprüft. Ergebnis bleibt achiral.
 
----
+\---
 
-# 6. Triadic tests
+§§X33§§6\. Triadische Tests
 
-## 6.1 V6 — Triadic interface chirality
+§§X34§§6.1 V6 — Triadic interface chirality
 
-**Script / File**
+**Artefaktbezug**
 
-```text
-triadic_interface_chirality.py
-```
+§§X155§§
 
-Package:
+**Ausgangslage**
 
-```text
-cnna_alpha_orth_invariant_v6.zip
-```
-
-**Initial situation**
-
-Triad:
+Triade:
 
 $$
-\text{UV-channel},
-\qquad
-\text{Environment-channel},
-\qquad
-\text{Handoff/Regulator-channel}.
+\\text{UV-channel},
+\\qquad
+\\text{Environment-channel},
+\\qquad
+\\text{Handoff/Regulator-channel}.
 $$
 
-Regulator candidate:
+Regulator-Kandidat:
 
 $$
-r_i=(\Lambda_{\mathrm{child},i}-\Lambda_{\mathrm{parent}})a.
+r\_i=(\\Lambda\_{\\mathrm{child},i}-\\Lambda\_{\\mathrm{parent}})a.
 $$
 
-Triadic surface:
+Triadische Fläche:
 
 $$
-\tau_i
-§§X131§§
+\\tau\_i
+===
 
-\det(e_{\mathrm{UV}}-e_{\mathrm{Env}},,r_i-e_{\mathrm{Env}}).
+\\det(e\_{\\mathrm{UV}}-e\_{\\mathrm{Env}},,r\_i-e\_{\\mathrm{Env}}).
 $$
 
-**Findings**
+**Befund**
 
-For canonical modes:
+Für kanonische Modi:
 
-```text
-tau_signs = 1,1,1
-nonzero_tau_count = 3
-sibling_flip_detected = false
-```
+§§X156§§
 
-**Obstruction site**
+**Obstruktions-Ort**
 
-The triad is radially or sibling-invariant.
+Die Triade ist radial bzw. sibling-invariant.
 
 **Status**
 
-Triadic signal yes. Chiral sibling asymmetry no.
+Triadisches Signal ja. Chirale Geschwister-Asymmetrie nein.
 
----
+\---
 
-## 6.2 Non-canonical positive controls
+§§X35§§6.2 Nichtkanonische positive Controls
 
-**Script / File**
+**Artefaktbezug**
 
-```text
-triadic_interface_chirality.py
-family_handoff_chirality.py
-```
+§§X157§§
 
-**Initial Situation**
+**Ausgangslage**
 
-Control modes:
+Kontrollmodi:
 
-```text
-sibling_index
-cyclic_order
-```
+§§X158§§
 
-**Findings**
+**Befund**
 
-They predictably generate sign/flip effects.
+Sie erzeugen erwartbar Vorzeichen-/Flip-Effekte.
 
-**Obstruction Location**
+**Obstruktions-Ort**
 
-They break symmetry via label or external order.
+Sie brechen Symmetrie per Label oder externer Ordnung.
 
 **Status**
 
-Detector check only. No CNNA-derived proof.
+Nur Detektorkontrolle. Kein CNNA-derived Beweis.
 
----
+\---
 
-# 7. V7 — Oriented UV/Environment Cauchy shell
+§§X36§§7\. V7 — Oriented UV/Environment Cauchy shell
 
-## 7.1 Oppositely oriented UV/Env boundary sides
+§§X37§§7.1 Gegengerichtete UV/Env-Randseiten
 
-**Script / File**
+**Artefaktbezug**
 
-```text
-oriented_cauchy_shell_gate.py
-```
+§§X159§§
 
-Package:
+**Ausgangslage**
 
-```text
-cnna_alpha_orth_invariant_v7.zip
-```
+UV-tail und Environment-tail werden als gegengerichtete Randseiten einer Shell gelesen.
 
-**Initial condition**
-
-UV-tail and Environment-tail are interpreted as oppositely oriented boundary faces of a shell.
-
-Cauchy data space:
+Cauchy-Datenraum:
 
 $$
-(q_{\mathrm{Env}},q_{\mathrm{UV}},p_{\mathrm{Env}},p_{\mathrm{UV}}).
+(q\_{\\mathrm{Env}},q\_{\\mathrm{UV}},p\_{\\mathrm{Env}},p\_{\\mathrm{UV}}).
 $$
 
-Oriented boundary form:
+Orientierte Randform:
 
 $$
-\omega_\partial=\omega_{\mathrm{Env}}-\omega_{\mathrm{UV}}.
+\\omega\_\\partial=\\omega\_{\\mathrm{Env}}-\\omega\_{\\mathrm{UV}}.
 $$
 
-Metric:
+Metrik:
 
 $$
-g=\operatorname{diag}(k_{\mathrm{Env}},k_{\mathrm{UV}},1/k_{\mathrm{Env}},1/k_{\mathrm{UV}}).
+g=\\operatorname{diag}(k\_{\\mathrm{Env}},k\_{\\mathrm{UV}},1/k\_{\\mathrm{Env}},1/k\_{\\mathrm{UV}}).
 $$
 
-Construction:
+Konstruktion:
 
 $$
-J=-g^{-1}\omega_\partial.
+J=-g^{-1}\\ω\_\\partial.
 $$
 
-**Findings**
+**Befund**
 
-Tested:
+Getestet:
 
-```text
-J_square_error = 0.0
-metric_compat_error = 0.0
-omega_compat_error = 0.0
-swap_to_minus_J_error = 0.0
-```
+§§X160§§
 
-Thus:
+Also:
 
 $$
 J^2=-I,
-\qquad
+\\qquad
 J^TgJ=g,
-\qquad
-J^T\omega J=\omega.
+\\qquad
+J^T\\omega J=\\omega.
 $$
 
-**Obstruction-Location**
+**Obstruktions-Ort**
 
-The co-orientation is chosen. With the opposite choice, the following also arises consistently:
-
-$$
-J\mapsto -J.
-$$
-
-**Status**
-
-Very important positive result:
+Die Ko-Orientierung wird gewählt. Mit der Gegenwahl entsteht ebenso konsistent:
 
 $$
-\text{UV/Env-Coorientierung}\Rightarrow {J,-J}\text{-Cauchy-Struktur}.
+J\\mapsto -J.
 $$
 
-No absolute sign.
-
----
-
-# 8. Root, Co-root, and Depth-Reading Tests
-
-## 8.1 Root as the outer model boundary
-
-**Initial Situation**
-
-The ToC does not grow ontically; it is infinitely given.
+Die Cauchy-Randform ist daher nicht identisch mit dem gesuchten Locking-Objekt. Sie liefert eine symplektisch-kompatible Cauchy-Struktur, aber noch keine Verriegelung von $J$ mit einer Fluss-/Zeit-/Handoff-Orientierung $\\tau$:
 
 $$
-\ell(\mathrm{root})=0,
-\qquad
-\ell\to\infty
-$$
-
-Inward.
-
-**Findings**
-
-Depth order provides relative oppositeness:
-
-$$
-\text{Env-Seite}: \ell\downarrow,
-\qquad
-\text{UV-Seite}: \ell\uparrow.
-$$
-
-**Site of obstruction**
-
-Depth order is polar, not chiral:
-
-$$
-\text{innen/außen}\neq\text{Drehsinn}.
+\\omega\_\\partial\\Rightarrow{+J,-J},
+\\qquad
+\\omega\_{\\mathrm{lock}}:(J,\\tau)\\mapsto\\text{stable oriented record}.
 $$
 
 **Status**
 
-Semantically supports V7. Not absolute (J).
-
----
-
-## 8.2 Negative-root / Co-root Hypothesis
-
-**Initial Situation**
-
-Hypothesis:
+Sehr wichtiges Positivergebnis:
 
 $$
-\text{formale Root ist Interface;}
-\qquad
-\text{dahinter liegt negative Wurzelfamilie}.
+\\text{UV/Env co-orientation}\\Rightarrow {+J,-J}\\text{-Cauchy structure}.
 $$
 
-**Findings**
+Cauchy-Shell positiv, aber Locking fehlt. Kein absolutes Vorzeichen.
 
-Could support Cauchy doubling and (\alpha_{\mathrm{Env}})-derivation.
+\---
 
-**Obstruction point**
+§§X38§§8\. Root-, Co-root- und Tiefenlesart-Tests
 
-A negative root family does not automatically remain chiral under real passive symmetry.
+§§X39§§8.1 Root als äußerer Modellrand
 
-**Status**
+**Ausgangslage**
 
-Possible candidate for environment derivation; no sign proof.
-
----
-
-# 9. Sibling, $S_b$, and address symmetry tests
-
-## 9.1 $S_b$-sibling obstruction
-
-**Initial position**
-
-In an unordered binary tree, siblings are
+Der ToC wächst nicht ontisch; er ist unendlich gegeben.
 
 $$
-S_b
+\\ell(\\mathrm{root})=0,
+\\qquad
+\\ell\\to\\infty
 $$
 
-interchangeable.
+nach innen.
 
-**Result**
+**Befund**
 
-Canonical sizes lie in the trivial $S_b$ component.
-
-**Obstruction Point**
-
-The signum representation is not chosen canonically:
+Tiefenordnung liefert relative Gegengerichtetheit:
 
 $$
-S_b\text{-Äquivarianz}
-\Rightarrow
-\text{keine kanonische sibling-chirality}.
+\\text{Env side}: \\ell\\downarrow,
+\\qquad
+\\text{UV side}: \\ell\\uparrow.
+$$
+
+**Obstruktions-Ort**
+
+Tiefenordnung ist polar, nicht chiral:
+
+$$
+\\text{inside/outside}\\≠\\text{direction of rotation}.
 $$
 
 **Status**
 
-Robust negative line.
+Stützt V7 semantisch. Kein absolutes $J$.
 
----
+\---
 
-## 9.2 Hamming weight classes
+§§X40§§8.2 Negative-root / Co-root-Hypothese
 
-**Initial situation**
+**Ausgangslage**
 
-Pages such as:
+Hypothese:
+
+$$
+\\text{formal root is interface;}
+\\qquad
+\\text{behind it lies a negative root family}.
+$$
+
+**Befund**
+
+Könnte Cauchy-Doppelung und $\\alpha\_{\\mathrm{Env}}$-Ableitung unterstützen.
+
+**Obstruktions-Ort**
+
+Eine negative Wurzelfamilie bleibt bei reeller passiver Symmetrie nicht automatisch chiral.
+
+**Status**
+
+Möglicher Kandidat für Environment-Ableitung; kein Vorzeichenbeweis.
+
+\---
+
+§§X41§§9\. Geschwister-, $S\_b$- und Adresssymmetrie-Tests
+
+§§X42§§9.1 $S\_b$-Sibling-Obstruktion
+
+**Ausgangslage**
+
+Im ungeordneten b-ären Baum sind Geschwister unter
+
+$$
+S\_b
+$$
+
+austauschbar.
+
+**Befund**
+
+Kanonische Größen liegen in der trivialen $S\_b$-Komponente.
+
+**Obstruktions-Ort**
+
+Die Signum-Darstellung wird nicht kanonisch ausgewählt:
+
+$$
+S\_b\\text{-equivariance}
+\\Rightarrow
+\\text{no canonical sibling chirality}.
+$$
+
+**Status**
+
+Robuste Negativlinie.
+
+\---
+
+§§X43§§9.2 Hamming-Gewichtsklassen
+
+**Ausgangslage**
+
+Blätter wie:
 
 $$
 000,001,010,011,100,101,110,111.
 $$
 
-Classes:
+Klassen:
 
 $$
-|x|_1=1,
-\qquad
-|x|_1=2.
+|x|\_1=1,
+\\qquad
+|x|\_1=2.
 $$
 
-**Findings**
+**Befund**
 
-Address-intrinsic relation transverse to the prefix structure.
+Adressintrinsische Relation quer zur Präfixstruktur.
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-Hamming weight is magnitude, not orientation. Bit reversal remains possible.
+Hamming-Gewicht ist Betrag, keine Orientierung. Bit-Umkehr bleibt möglich.
 
 **Status**
 
-Structural finding, but achiral.
+Strukturfund, aber achiral.
 
----
+\---
 
-## 9.3 Cyclic bit shift
+§§X44§§9.3 Zyklische Bitverschiebung
 
-**Initial state**
+**Ausgangslage**
 
-Approximately:
+Auf etwa:
 
 $$
 {001,010,100}
 $$
 
-there is a cyclic shift:
+gibt es zyklische Verschiebung:
 
 $$
-001\to010\to100\to001.
+001\\to010\\to100\\to001.
 $$
 
-**Findings**
+**Befund**
 
-Address-intrinsic loop without geometric embedding.
+Adressintrinsische Schleife ohne geometrische Einbettung.
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-Bit reversal conjugates left shift into right shift:
-
-$$
-\mathrm{reverse}\circ\rho=\rho^{-1}\circ\mathrm{reverse}.
-$$
-
-Thus:
+Bit-Reversal konjugiert Links-Shift in Rechts-Shift:
 
 $$
-\text{Schleife ja, Drehsinn nein.}
+\\mathrm{reverse}\\circ\\rho=\\rho^{-1}\\circ\\mathrm{reverse}.
 $$
 
-**Status**
-
-Important candidate for multi-ToC/frustration structures. No local (J) sign.
-
----
-
-# 10. SG/ST, chirotopy, and sign-line tests
-
-## 10.1 SG/ST as IFS/quotient structures
-
-**Initial situation**
-
-The Sierpinski Gasket (SG) and Sierpinski Tetrahedron/Tetrix (ST) were considered as ToC-related quotient/IFS structures.
-
-**Findings**
-
-They introduce loops and co-cycles:
+Also:
 
 $$
-H^1\neq0.
-$$
-
-Exemplary dimensions:
-
-$$
-d_s(SG)=\frac{2\log 3}{\log 5},
-\qquad
-d_s(ST)=\frac{2\log 4}{\log 6}.
-$$
-
-**Obstruction site**
-
-SG/ST are not the bare ToC. They are IFS/address quotients. Their additional relations are not automatically derived from the ToC.
-
-**Status**
-
-Useful as a comparison and structure test; no direct (J) breakthrough.
-
----
-
-## 10.2 Chirotopy / Sign-Line (S_b/A_b)
-
-**Initial situation**
-
-Chirality on siblings lies in the sign information:
-
-$$
-S_b/A_b\simeq \mathbb Z_2.
-$$
-
-**Findings**
-
-If the local isotropy group (H) does not lie in (A_b), there is no canonical non-vanishing chiral topology.
-
-For the symmetric ToC:
-
-$$
-H=S_b.
-$$
-
-**Obstruction point**
-
-$$
-S_b\not\subset A_b.
-$$
-
-Therefore, a sign line is not canonically distinguished.
-
-**Status**
-
-A very central "no-go" statement.
-
----
-
-## 10.3 $Z_b$-cyclicity is not enough
-
-**Starting point**
-
-Test whether the cyclic order $Z_b$ replaces the missing chiropathy.
-
-**Result**
-
-No. For (b=4), a 4-cycle can be odd as a label permutation; geometric orientation and permutation parity do not automatically coincide.
-
-**Obstruction point**
-
-Cyclic order is not yet a sign line.
-
-**Status**
-
-Important correction against hasty “cycle = orientation” conclusions.
-
----
-
-# 11. Hodge, Dirac, and Dual Complex Tests
-
-## 11.1 Cellular Dirac $K=d-d^*$
-
-**Initial Situation**
-
-Cellular operator:
-
-$$
-K=d-d^*
-$$
-
-on
-
-$$
-C^0\oplus C^1\oplus C^2.
-$$
-
-**Result**
-
-(K) is real skew. On $\operatorname{im}K$, a formal polar structure can provide a J-like component.
-
-**Obstruction point**
-
-The operator mixes degrees. On a pure $C^1$ space, the relevant block is not automatically a local (J).
-
-**Status**
-
-Formal (J)-like structure possible, but not derived as a local handoff (J).
-
----
-
-## 11.2 Hodge Star / Dual Complex
-
-**Initial Situation**
-
-Test whether dual cells or Hodge (\star) provide the orientation.
-
-**Result**
-
-A genuine Hodge $\star$ requires an orientation or a metric/volume structure.
-
-With full $S_b$-symmetry, there is no canonical skew-equivariant operator.
-
-With chirotopy, the symmetry is reduced and a (J)-block may appear.
-
-**Obstruction Point**
-
-Direction is:
-
-$$
-\text{Chirotopie}\Rightarrow J\text{-Modus},
-$$
-
-not:
-
-$$
-J\text{-Modus}\Rightarrow\text{Chirotopie}.
+\\text{Loop yes, direction of rotation no.}
 $$
 
 **Status**
 
-Confirms that orientation does not arise from Hodge alone.
+Wichtiger Kandidat für Multi-ToC-/Frustrationsstrukturen. Kein lokales $J$-Vorzeichen.
 
----
+\---
 
-# 12. Recursive SG/ST and Schur/DtN Tests
+§§X45§§10\. SG/ST-, Chirotopie- und Sign-Line-Tests
 
-## 12.1 Recursive SG/ST-DtN Matrices
+§§X46§§10.1 SG/ST als IFS-/Quotient-Strukturen
 
-**Initial Situation**
+**Ausgangslage**
 
-Boundary-DtN matrices for recursive SG/ST approximations.
+Sierpinski-Gasket (SG) und Sierpinski-Tetrahedron/Tetrix (ST) wurden als ToC-nahe Quotient-/IFS-Strukturen betrachtet. Ihre Rolle in der Testgeschichte war nicht zufällig: SG und ST waren wegen Zahmheit, hoher Symmetrie, p.c.f.-Kontrollierbarkeit und Skaleninvarianz die ersten natürlichen Fraktal-Stressobjekte.
 
-**Result**
-
-Boundary-DtN remains fully symmetric:
+Der b-äre Baum ist dabei die Provenienz- bzw. Adressseite dieser Strukturen:
 
 $$
-\Lambda_n=a_n(bI-\mathbf 1\mathbf 1^T).
+SG:\\quad A\_3^{<\\omega},\\qquad ST:\\quad A\_4^{<\\omega}.
 $$
 
-Typically:
+SG/ST selbst entstehen erst, wenn zur reinen Adressprovenienz zusätzliche IFS-/Quotient-/Randidentifikationen und meist eine geometrische Einbettung hinzukommen. Diese Zusatzrelationen dürfen im CNNA-derived-only-Test nicht unkontrolliert als Orientierung, Hodge-Struktur oder komplexe Phase zurückimportiert werden.
+
+**Befund**
+
+Sie bringen Schleifen und Kozyklen:
 
 $$
-a_n(SG)=\left(\frac35\right)^n,
-\qquad
-a_n(ST)=\left(\frac23\right)^n.
+H^1\\neq0.
 $$
 
-**Obstruction point**
-
-Full (S_b)-invariance is preserved. No reduction:
+Beispielhafte Größen:
 
 $$
-S_b\to A_b.
+d\_s(SG)=\\frac{2\\log 3}{\\log 5},
+\\qquad
+d\_s(ST)=\\frac{2\\log 4}{\\log 6}.
+$$
+
+**Obstruktions-Ort**
+
+SG/ST sind nicht der bare ToC. Sie sind IFS-/Adressquotienten. Ihre zusätzlichen Relationen sind nicht automatisch aus dem ToC abgeleitet.
+
+**Status**
+
+Nützlich als Vergleichs- und Strukturtest; kein direkter $J$-Durchbruch. Der b-äre Baum bleibt die bewusst entkleidete Provenienzseite von SG/ST, nicht deren geometrisch orientierte Einbettung.
+
+\---
+
+§§X47§§10.2 Chirotopie / Sign-Line (S\_b/A\_b)
+
+**Ausgangslage**
+
+Chiralität auf Geschwistern liegt in der Signum-Information:
+
+$$
+S\_b/A\_b\\simeq \\mathbb Z\_2.
+$$
+
+**Befund**
+
+Wenn die lokale Isotropiegruppe $H$ nicht in $A\_b$ liegt, gibt es keine kanonische nichtverschwindende Chirotopie.
+
+Für den symmetrischen ToC:
+
+$$
+H=S\_b.
+$$
+
+**Obstruktions-Ort**
+
+$$
+S\_b\\not\\subset A\_b.
+$$
+
+Daher ist eine Sign-Line nicht kanonisch ausgezeichnet.
+
+**Status**
+
+Sehr zentrale No-Go-Formulierung.
+
+\---
+
+§§X48§§10.3 $Z\_b$-Zyklizität ist nicht genug
+
+**Ausgangslage**
+
+Test, ob zyklische Ordnung $Z\_b$ die fehlende Chirotopie ersetzt.
+
+**Befund**
+
+Nein. Bei $b=4$ kann ein 4-Zyklus als Labelpermutation ungerade sein; geometrische Orientierung und Permutationsparität fallen nicht automatisch zusammen.
+
+**Obstruktions-Ort**
+
+Zyklische Ordnung ist noch keine Sign-Line.
+
+**Status**
+
+Wichtige Korrektur gegen voreilige „Zyklus = Orientierung“-Schlüsse.
+
+\---
+
+§§X49§§10.4 Angehangener SG/H₁-Kontrolltest
+
+**Artefaktbezug**
+
+§§X161§§
+
+**Ausgangslage**
+
+Der b-äre Baum wurde als Kontrollgruppe gegen das Sierpinski-Gasket betrachtet: Der Baum hat keinen Zyklenraum, während das Gasket bereits auf Graphniveau viele Zyklen besitzt. Damit prüft der Test die Hypothese, ob das fehlende $i$ bzw. $J$ nicht im Baum, sondern in Schleifen bzw. $H\_1$ liegen könnte.
+
+**Befund**
+
+Der Baum hat erwartungsgemäß $b\_1=0$. Das Gasket besitzt nichttriviales $H\_1$, aber die reine Graphenform reicht nicht aus, um ein kanonisches $J$ zu erzwingen. Die planare Zyklenorientierung hängt an einer gewählten Ebenenorientierung und kippt unter Spiegelung. Der reine Down-Kanten-Laplace annihiliert den Zyklenraum, weil Zyklen im Graphen harmonisch sind.
+
+**Obstruktions-Ort**
+
+Schleifen allein liefern noch keine Dynamik und keine kanonische komplexe Orientierung. Für eine nichttriviale Dynamik auf $H\_1$ wären echte $2$-Zellen bzw. ein Kettenkomplex mit Up-Laplace erforderlich. Das wäre eine neue, separat zu prüfende Struktur und darf nicht aus der planaren Einbettung importiert werden.
+
+**Status**
+
+Der angehängte SG/H₁-Test stützt die Hauptlinie: mehr Topologie als im Baum ist hilfreich als Stressklasse, aber reine Graphenschleifen liefern noch kein derived-only $J$-Vorzeichen.
+
+\---
+
+§§X50§§11\. Hodge-, Dirac- und Dualkomplex-Tests
+
+§§X51§§11.1 Cellular Dirac $K=d-d^\*$
+
+**Ausgangslage**
+
+Zellulärer Operator:
+
+$$
+K=d-d^\*
+$$
+
+auf
+
+$$
+C^0\\oplus C^1\\oplus C^2.
+$$
+
+**Befund**
+
+$K$ ist reell schief. Auf $\\operatorname{im}K$ kann eine formale Polarstruktur einen J-artigen Anteil liefern.
+
+**Obstruktions-Ort**
+
+Der Operator mischt Grade. Auf reinem $C^1$-Raum ist der relevante Block nicht automatisch ein lokales $J$.
+
+**Status**
+
+Formale $J$-ähnliche Struktur möglich, aber nicht als lokaler Handoff-$J$ abgeleitet.
+
+\---
+
+§§X52§§11.2 Hodge-Star / Dualkomplex
+
+**Ausgangslage**
+
+Test, ob duale Zellen oder Hodge-$\\star$ die Orientierung liefern.
+
+**Befund**
+
+Ein echter Hodge-$\\star$ braucht Orientierung bzw. Metrik-/Volumenstruktur.
+
+Bei voller $S\_b$-Symmetrie gibt es keinen kanonischen schiefen äquivarianten Operator.
+
+Mit Chirotopie reduziert sich die Symmetrie und ein $J$-Block kann erscheinen.
+
+**Obstruktions-Ort**
+
+Richtung ist:
+
+$$
+\\text{Chirotopy}\\Rightarrow J\\text{-mode},
+$$
+
+nicht:
+
+$$
+J-mode\\Rightarrow\\text{chirotopy}.
 $$
 
 **Status**
 
-SG/ST-Schur/DtN provides scale structure, no chirotopy.
+Bestätigt, dass Orientierung nicht durch Hodge allein entsteht.
 
----
+\---
 
-## 12.2 IFS Generation Process Test
+§§X53§§12\. Recursive SG/ST- und Schur/DtN-Tests
 
-**Initial Situation**
+§§X54§§12.1 Rekursive SG/ST-DtN-Matrizen
 
-Test whether the IFS growth process itself generates an order.
+**Ausgangslage**
 
-**Findings**
+Boundary-DtN-Matrizen für rekursive SG/ST-Approximationen.
 
-Unordered contractions:
+**Befund**
+
+Boundary-DtN bleibt voll symmetrisch:
 
 $$
-{\phi_i}
+\\Lambda\_n=a\_n(bI-\\mathbf 1\\mathbf 1^T).
 $$
 
-remain (S_b)-equivariant.
+Typisch:
 
-**Obstruction Point**
+$$
+a\_n(SG)=\\left(\\frac35\\right)^n,
+\\qquad
+a\_n(ST)=\\left(\\frac23\\right)^n.
+$$
 
-An ordered/chiral IFS family could carry chirotopy, but only if the order itself is derived.
+**Obstruktions-Ort**
+
+Volle $S\_b$-Invarianz bleibt erhalten. Keine Reduktion:
+
+$$
+S\_b\\to A\_b.
+$$
 
 **Status**
 
-IFS growth alone does not solve the sign problem.
+SG/ST-Schur/DtN liefert Skalenstruktur, keine Chirotopie.
 
----
+\---
 
-# 13. Multicell Holonomy
+§§X55§§12.2 IFS-Erzeugungsprozess-Test
 
-## 13.1 Permutation Holonomy between Local ToC Fibers
+**Ausgangslage**
 
-**Initial situation**
+Test, ob der IFS-Wachstumsprozess selbst eine Ordnung erzeugt.
 
-Gluing edges with:
+**Befund**
 
-$$
-\varphi_{\alpha\beta}\in S_b.
-$$
-
-Loop holonomy:
+Ungeordnete Kontraktionen:
 
 $$
-h_\gamma
-§§X147§§
-
-\varphi_{\alpha_{k-1}\alpha_k}\cdots\varphi_{\alpha_0\alpha_1}.
+{\\phi\_i}
 $$
 
-**Result**
+bleiben $S\_b$-äquivariant.
 
-If the centralizer
+**Obstruktions-Ort**
 
-$$
-C_{S_b}(h_\gamma)
-$$
+Eine geordnete/chirale IFS-Familie könnte Chirotopie tragen, aber nur, wenn die Ordnung selbst abgeleitet ist.
 
-lies in (A_b), local odd permutations can be ruled out.
+**Status**
 
-Example:
+IFS-Wachstum allein löst das Vorzeichenproblem nicht.
 
-$$
-b=3,\quad h=(012),
-\qquad
-C_{S_3}(h)=A_3.
-$$
+\---
 
-**Obstruction point**
+§§X56§§13\. Mehrzellen-Holonomie
 
-The direction
+§§X57§§13.1 Permutations-Holonomie zwischen lokalen ToC-Fasern
+
+**Ausgangslage**
+
+Gluing-Kanten mit:
 
 $$
-h \text{ vs. } h^{-1}
+\\varphi\_{\\alpha\\beta}\\in S\_b.
 $$
 
-leaves exactly the chiral choice. Unoriented class:
+Loop-Holonomie:
+
+$$
+h\_\\gamma
+===
+
+\\varphi\_{\\alpha\_{k-1}\\alpha\_k}\\cdots\\varphi\_{\\alpha\_0\\alpha\_1}.
+$$
+
+**Befund**
+
+Wenn der Zentralisator
+
+$$
+C\_{S\_b}(h\_\\gamma)
+$$
+
+in $A\_b$ liegt, können lokale odd permutations ausgeschlossen werden.
+
+Beispiel:
+
+$$
+b=3,\\quad h=(012),
+\\qquad
+C\_{S\_3}(h)=A\_3.
+$$
+
+**Obstruktions-Ort**
+
+Die Richtung
+
+$$
+h \\text{ vs. } h^{-1}
+$$
+
+bleibt genau die chirale Wahl. Unorientierte Klasse:
 
 $$
 {h,h^{-1}}
 $$
 
-localizes only one pair.
+lokalisiert nur ein Paar.
 
 **Status**
 
-Strong multi-ToC candidate, but without derived directed holonomy, no (J) sign.
+Starker Multi-ToC-Kandidat, aber ohne derived gerichtete Holonomie kein $J$-Vorzeichen.
 
----
+\---
 
-# 14. F1 Holonomy and F1-only No-Go
+§§X58§§14\. F1-Holonomie und F1-only-No-Go
 
-## 14.1 F1-only Port Rules
+§§X59§§14.1 F1-only Port-Regeln
 
-**Initial Situation**
+**Ausgangslage**
 
-F1 is the radial provenance/filling arrow. Test: Can an F1-only rule permute ports in a non-trivial way?
+F1 ist der radiale Provenienz-/Auffüllpfeil. Test: Kann eine F1-only-Regel Ports nichttrivial permutieren?
 
-**Result**
+**Befund**
 
-An F1-only port rule that is relabeling-natural must commute with all
+Eine relabeling-natürliche F1-only-Portregel muss mit allen
 
 $$
-\sigma\in S_b
+\\sigma\\in S\_b
 $$
 
-. Therefore, it lies at the center:
+kommutieren. Daher liegt sie im Zentrum:
 
 $$
 Z(S_b)={e}
-\qquad (b\ge3).
+\\qquad (b\ge3).
 $$
 
-**Obstruction Point**
+**Obstruktions-Ort**
 
-F1 alone has no transverse port order.
+F1 allein hat keine transversale Portordnung.
 
 **Status**
 
-Strong no-go: Nonlinearity in depth does not help as long as relabeling naturalness applies.
+Starker No-Go: Nichtlinearität in Tiefe hilft nicht, solange Relabeling-Natürlichkeit gilt.
 
----
+\---
 
-## 14.2 Screw rule as an import
+§§X60§§14.2 Screw-Regel als Import
 
-**Initial situation**
+**Ausgangslage**
 
-Rule such as:
-
-$$
-(n,i)\mapsto(n+1,\sigma(i)),
-\qquad
-\sigma=(012).
-$$
-
-**Findings**
-
-Seems to generate rotation.
-
-**Obstruction location**
-
-Under odd relabeling:
+Regel wie:
 
 $$
-\tau\sigma\tau^{-1}=\sigma^{-1}.
+(n,i)\\mapsto(n+1,\\sigma(i)),
+\\qquad
+\\sigma=(012).
 $$
 
-The rule imports a port order.
+**Befund**
+
+Erzeugt scheinbar Drehung.
+
+**Obstruktions-Ort**
+
+Unter odd relabeling:
+
+$$
+\\tau\\sigma\\tau^{-1}=\\sigma^{-1}.
+$$
+
+Die Regel importiert eine Portordnung.
 
 **Status**
 
-Control import, not a CNNA-derived mechanism.
+Kontrollimport, kein CNNA-derived Mechanismus.
 
----
+\---
 
-# 15. Value-based F1-Coupling
+§§X61§§15\. Value-based F1-Coupling
 
-## 15.1 Depth-dependent value coupling
+§§X62§§15.1 Tiefenabhängige Wertkopplung
 
-**Script / File**
+**Artefaktbezug**
 
-Documented in the process as `toc_paper_v10_f1_value_coupling`; Python test in chat.
+Kein angehängter Artefaktbezug in dieser Fassung; der Abschnitt bleibt als konzeptioneller Befund.
 
-**Initial situation**
+**Ausgangslage**
 
-Not port permutation, but value-based coupling:
+Nicht Portpermutation, sondern wertbasierte Kopplung:
 
 $$
-w_{\alpha\beta}=f(d_\alpha,d_\beta,\ldots).
+w\_{\\alpha\\beta}=f(d\_\\alpha,d\_\\beta,\\ldots).
 $$
 
-**Findings**
+**Befund**
 
-Skew components can arise when binding is depth-dependent and not symmetric.
+Skew-Komponenten können entstehen, wenn Kopplung tiefenabhängig und nicht symmetrisch ist.
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-“Deep feeds strongly” and “shallow feeds strongly” are two sign choices:
+„Tief speist stark“ und „flach speist stark“ sind zwei Vorzeichenwahlen:
 
 $$
 K^+=-K^-.
 $$
 
-The rule selects a sign if it is not derived.
+Die Regel wählt ein Vorzeichen, wenn sie nicht abgeleitet ist.
 
 **Status**
 
-Shows how non-reciprocity could arise. But without derived selection, ({+K,-K}) remains.
+Zeigt, wie Nichtreziprozität entstehen könnte. Aber ohne derived Auswahl bleibt ({+K,-K}).
 
----
+\---
 
-# 16. Block RG and Shell Coupling
+§§X63§§16\. Block-RG und Schalenkopplung
 
-## 16.1 Collective Shell Coupling
+§§X64§§16.1 Kollektive Schalenkopplung
 
-**Initial Situation**
+**Ausgangslage**
 
-Not node-to-node, but relabeling-natural level-shell-to-level-shell:
-
-$$
-S_k(A)\leftrightarrow S_k(B),
-$$
-
-with mean mode:
+Nicht Knoten-an-Knoten, sondern relabeling-natürliche Level-Schale an Level-Schale:
 
 $$
-u_{A,k}
-§§X152§§
-
-\frac{1}{\sqrt{|S_k|}}\mathbf 1_{S_k(A)}.
+S\_k(A)\\leftrightarrow S\_k(B),
 $$
 
-Coupling:
+mit Mean-Mode:
 
 $$
-C_{AB}
-§§X153§§
+u\_{A,k}
+===
 
-\sum_k\gamma_k u_{A,k}u_{B,k}^T.
+\\frac{1}{\\sqrt{|S\_k|}}\\mathbf 1\_{S\_k(A)}.
 $$
 
-**Findings**
-
-Reciprocal shell coupling generates spectral structure and, if applicable, cycles.
-
-**Obstruction Site**
-
-The coupling remains symmetric:
+Kopplung:
 
 $$
-C_{AB}=C_{BA}^T.
+C\_{AB}
+===
+
+\\sum\_k\\gamma\_k u\_{A,k}u\_{B,k}^T.
 $$
 
-Therefore, A/B mirroring survives.
+**Befund**
+
+Reziproke Schalenkopplung erzeugt Spektralstruktur und ggf. Zyklen.
+
+**Obstruktions-Ort**
+
+Die Kopplung bleibt symmetrisch:
+
+$$
+C\_{AB}=C\_{BA}^T.
+$$
+
+Daher überlebt A/B-Spiegelung.
 
 **Status**
 
-Structure yes, chirality no.
+Struktur ja, Chiralität nein.
 
----
+\---
 
-## 16.2 Four-case test: Address-fixed vs. Role-fixed
+§§X65§§16.2 Vier-Fälle-Test: Adress-fixiert vs. Rollen-fixiert
 
-**Initial situation**
+**Ausgangslage**
 
-Distinction:
-
-$$
-\text{Adressort}
-\neq
-\text{Skalenrolle}.
-$$
-
-Four cases:
-
-| Case | Scale reading | Bonding location |
-| ---- | ------------ | ------------------------------ |
-| A    | Root coarse  | Root |
-| B    | Root fine  | Root |
-| C    | Root coarse  | Coarse end = Root |
-| D    | Root fine  | Coarse end = Level-(L)-shell |
-
-**Findings**
-
-Case D is structurally new.
-
-Reported finding:
+Unterscheidung:
 
 $$
-\beta_1: 0\to 6560,
+\\text{Address role}
+\\≠
+\\text{Scale role}.
+$$
+
+Vier Fälle:
+
+|Fall|Skalenlesart|Verklebungsort|
+|-|-|-|
+|A|Wurzel grob|Wurzel|
+|B|Wurzel fein|Wurzel|
+|C|Wurzel grob|grobes Ende = Wurzel|
+|D|Wurzel fein|grobes Ende = Level-$L$-Schale|
+
+**Befund**
+
+Fall D ist strukturell neu.
+
+Gemeldeter Befund:
+
+$$
+\\beta\_1: 0\\to 6560,
 $$
 
 $$
-d_s: 1.385\to 3.647.
+d\_s: 1.385\\to 3.647.
 $$
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-Despite significant structural changes, A/B mirroring persists in all cases.
+Trotz starker Strukturänderung überlebt A/B-Spiegelung in allen Fällen.
 
-Reason:
+Grund:
 
 $$
-\text{Gate hängt an Reziprozität der transversalen Kopplung, nicht am Verklebungsort.}
+\\text{Gate depends on the reciprocity of the transverse coupling, not on the bonding site.}
 $$
 
 **Status**
 
-Very important finding: inverse scale reading is a true structural parameter, but not a (J) mechanism.
+Sehr wichtiger Befund: inverse Skalenlesart ist echter Strukturparameter, aber kein $J$-Mechanismus.
 
----
+\---
 
-# 17. Inverse UV/Env-Cut
+§§X66§§17\. Inverser UV/Env-Cut
 
-## 17.1 UV-cut under inverse scale reading
+§§X67§§17.1 UV-cut unter umgekehrter Skalenlesart
 
-**Initial situation**
+**Ausgangslage**
 
 Standard:
 
 $$
-\text{UV an Blättern},
-\qquad
-\text{Env an Wurzel}.
+\\text{UV on leaves},
+\\qquad
+\\text{Env at root}.
 $$
 
-Inverse reading:
+Inverse Lesart:
 
 $$
-\text{UV an Wurzel},
-\qquad
-\text{Env an Blättern}.
+\\text{UV at root},
+\\qquad
+\\text{Env on leaves}.
 $$
 
-**Findings**
+**Befund**
 
-Identified as a genuine additional test; not fully concluded as a separate final positive finding.
+Als echter weiterer Test identifiziert; nicht vollständig als eigener finaler positiver Befund abgeschlossen.
 
-**Obstruction Site**
+**Obstruktions-Ort**
 
-Would introduce scale roles directly into the operator structure. However, as long as the resulting operators remain real-symmetric and relabeling-natural, chirality is not to be expected.
+Würde Skalenrollen direkt in die Operatorstruktur einbringen. Aber solange die resultierenden Operatoren reell symmetrisch und relabeling-natürlich bleiben, ist Chiralität nicht zu erwarten.
 
 **Status**
 
-Open or marked as the next precise test, but partially classified by subsequent DtN/flatness diagnosis.
+Offen bzw. als nächster präziser Test markiert, aber durch spätere DtN-/Flachheitsdiagnose teilweise eingeordnet.
 
----
+\---
 
-# 18. DtN Handoff Operator Tests
+§§X68§§18\. DtN-Handoff-Operator-Tests
 
-## 18.1 Two DtN Matrices on a Shared Handoff Space
+§§X69§§18.1 Zwei DtN-Matrizen auf gemeinsamem Handoff-Raum
 
-**Initial situation**
+**Ausgangslage**
 
-After correction: Handoff no longer sees ToC nodes, but operators:
-
-$$
-(H_\partial,\Lambda).
-$$
-
-Target:
+Nach Korrektur: Handoff sieht keine ToC-Knoten mehr, sondern Operatoren:
 
 $$
-K=$$\Lambda_A,\Lambda_B$$.
+(H\_\\partial,\\Lambda).
 $$
 
-**Findings**
+Ziel:
 
-Only meaningful if both operators reside on the same handoff space.
+$$
+K=\[\\Lambda\_A,\\Lambda\_B].
+$$
 
-**Obstruction-Location**
+**Befund**
 
-Spectral order alone does not identify eigenspaces. Diagonalized in their respective eigenspaces, both commute trivially.
+Nur sinnvoll, wenn beide Operatoren auf demselben Handoff-Raum leben.
+
+**Obstruktions-Ort**
+
+Spektralordnung allein identifiziert keine Eigenräume. In jeweiliger Eigenbasis diagonalisiert, kommutieren beide trivial.
 
 **Status**
 
-Important category correction.
+Wichtige Kategoriekorrektur.
 
----
+\---
 
-## 18.2 DtN-RG commutator
+§§X70§§18.2 DtN-RG-Kommutator
 
-**Initial Situation**
+**Ausgangslage**
 
-Successive RG/Schur steps of the same sequence:
-
-$$
-\Lambda_n,
-\qquad
-\widetilde{\Lambda}_{n+1}.
-$$
-
-Commutator:
+Aufeinanderfolgende RG-/Schur-Stufen derselben Sequenz:
 
 $$
-K_n=$$\Lambda_n,\widetilde{\Lambda}_{n+1}$$.
+\\Lambda\_n,
+\\qquad
+\\widetilde{\\Lambda}\_{n+1}.
 $$
 
-**Result**
-
-Reported:
+Kommutator:
 
 $$
-K_n=0
+K\_n=\[\\Lambda\_n,\\widetilde{\\Lambda}\_{n+1}].
 $$
 
-for canonical RG projection.
+**Befund**
 
-**Obstruction point**
+Gemeldet:
 
-Both operators lie on the same radial F1 axis and share the same symmetry-adapted shell basis.
+$$
+K\_n=0
+$$
+
+für kanonische RG-Projektion.
+
+**Obstruktions-Ort**
+
+Beide Operatoren liegen auf derselben radialen F1-Achse und teilen dieselbe symmetrieadaptierte Schalenbasis.
 
 **Status**
 
-Very important mechanism:
+Sehr wichtiger Mechanismus:
 
 $$
-\text{abgeleitete Reihenfolge durch F1}
-\Rightarrow
-\text{gleiche Achse}
-\Rightarrow
-\text{Kommutativität}.
+\\text{order derived by F1}
+\\Rightarrow
+\\text{same axis}
+\\Rightarrow
+\\text{commutativity}.
 $$
 
----
+\---
 
-# 19. Superimposed DtN Matrix Algebra Towers
+§§X71§§19\. Überlagerte DtN-Matrixalgebra-Türme
 
-## 19.1 Matrix Tower Idea
+§§X72§§19.1 Matrix-Tower-Idee
 
-**Initial Situation**
+**Ausgangslage**
 
-Proposal:
-
-$$
-M_2\to M_4\to M_8\to\cdots
-$$
-
-or multiple ToC-DtN matrices on growing handoff spaces.
-
-**Findings**
-
-Non-commutativity could arise if several symmetric operators on the same space do not share a common eigenbasis.
-
-**Obstruction Point**
-
-Examples involving spin chains introduce tensor product order and neighborhood:
+Vorschlag:
 
 $$
-A_{12},\qquad A_{23}.
+M\_2\\to M\_4\\to M\_8\\to\\cdots
 $$
 
-This left-right structure is not derived from the bare ToC.
+bzw. mehrere ToC-DtN-Matrizen auf wachsenden Handoff-Räumen.
+
+**Befund**
+
+Nichtkommutativität könnte entstehen, wenn mehrere symmetrische Operatoren auf demselben Raum keine gemeinsame Eigenbasis haben.
+
+**Obstruktions-Ort**
+
+Beispiele mit Spin-Ketten importieren Tensorproduktordnung und Nachbarschaft:
+
+$$
+A\_{12},\\qquad A\_{23}.
+$$
+
+Diese Links-Rechts-Struktur ist nicht aus barem ToC abgeleitet.
 
 **Status**
 
-Interesting as a possible A→B algebra path, but only allowed with derived embeddings.
+Als möglicher A→B-Algebraweg interessant, aber nur mit derived Einbettungen erlaubt.
 
----
+\---
 
-## 19.2 Child Partition/ToC-Derived Embedding Test
+§§X73§§19.2 Kinderpartition-/ToC-derived-Einbettungstest
 
-**Initial Situation**
+**Ausgangslage**
 
-Derived embeddings via child subtrees or (S_b)-symmetric partitions.
+Abgeleitete Einbettungen über Kinder-Teilbäume bzw. $S\_b$-symmetrische Partitionen.
 
-**Result**
+**Befund**
 
-Child-restricted DtN operators commute:
+Kind-restringierte DtN-Operatoren kommutieren:
 
-* disjoint supports → trivial commutators,
-* full DtN vs. block-diagonal part → commutes numerically.
+* disjunkte Supports → triviale Kommutatoren,
+* volle DtN gegen blockdiagonalen Teil → kommutiert numerisch.
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-All decompositions respect the same (S_b)/radial symmetry and share the symmetry-adapted eigenbasis.
-
-**Status**
-
-Matrix Tower route negative in the flat derived ToC sector.
-
----
-
-# 20. Connes/Noncommutativity route
-
-## 20.1 Fundamental Question: Where Does Noncommutativity Come From in Connes?
-
-**Starting Point**
-
-Connes replaces space with algebra:
-
-$$
-(\mathcal A,\mathcal H,D).
-$$
-
-Noncommutativity lies in:
-
-$$
-ab\neq ba.
-$$
-
-**Finding**
-
-In Connes, the noncommutative algebra is typically the input structure, not derived from a flat ToC.
-
-**Obstruction point for CNNA**
-
-CNNA would first have to provide a handoff algebra:
-
-$$
-\mathcal A_{\mathrm{eff}} = \operatorname{Alg}\{\Lambda_i\}
-$$
-
-with
-
-$$
-$$\Lambda_i,\Lambda_j$$\neq0.
-$$
+Alle Zerlegungen respektieren dieselbe $S\_b$-/Radialsymmetrie und teilen die symmetrieadaptierte Eigenbasis.
 
 **Status**
 
-Connes is a target/comparison structure, not a generator.
+Matrix-Tower-Route negativ im flachen abgeleiteten ToC-Sektor.
 
----
+\---
 
-## 20.2 Two reduction regimes
+§§X74§§20\. Connes-/Nichtkommutativitätsroute
 
-**Script / File**
+§§X75§§20.1 Grundfrage: Woher kommt Nichtkommutativität bei Connes?
 
-```text
-two_reduction_regimes.py
-```
+**Ausgangslage**
 
-**Initial Situation**
-
-Comparison:
+Connes ersetzt Raum durch Algebra:
 
 $$
-\Lambda_{\mathrm{UV}}
+(\\mathcal A,\\mathcal H,D).
 $$
 
-versus
+Nichtkommutativität liegt in:
 
 $$
-\Lambda_{\mathrm{Env}}
+ab\\≠ ba.
 $$
 
-on the same leaf-boundary space.
+**Befund**
 
-**Findings**
+Bei Connes ist die nichtkommutative Algebra typischerweise Eingabestruktur, nicht aus einem flachen ToC abgeleitet.
 
-Reported:
+**Obstruktions-Ort für CNNA**
 
-$$
-|$$\Lambda_{\mathrm{UV}},\Lambda_{\mathrm{Env}}$$|\sim 10^{-16}.
-$$
-
-**Obstruction location**
-
-Root self-energy shifts eigenvalues but does not rotate eigenspaces. Radial remains radial.
-
-**Status**
-
-Negative for exact derived regimes.
-
----
-
-## 20.3 Spectrally truncated reduction
-
-**Script / File**
-
-```text
-two_reduction_regimes.py
-truncation_sign_test.py
-```
-
-**Initial situation**
-
-Comparison:
+CNNA müsste erst eine Handoff-Algebra liefern:
 
 $$
-\Lambda_{\mathrm{full}}
+\\mathcal A\_{\\mathrm{eff}} = \\operatorname{Alg}{\\Lambda\_i}
 $$
 
-versus spectrally truncated reduction:
+mit
 
 $$
-\Lambda_{\mathrm{trunc}}.
-$$
-
-**Result**
-
-For any (m):
-
-$$
-|$$\Lambda_{\mathrm{full}},\Lambda_{\mathrm{trunc}}$$|\approx 0.017
-$$
-
-for average (m) values; (K) is skewed.
-
-**Obstruction location**
-
-Initially misinterpreted: (\pm i\lambda) pairs were read as “both chiralities.” Correction:
-
-$$
-\pm i\lambda
-$$
-
-is the normal spectrum of a real (J) block.
-
-The true sign test is:
-
-$$
-K\text{ oder }-K\text{ ausgezeichnet?}
+\[\\Lambda\_i,\\Lambda\_j]\\neq0.
 $$
 
 **Status**
 
-Only an apparently positive candidate; had to be retested to ensure it was free of degeneracy.
+Connes ist Ziel-/Vergleichsstruktur, nicht Generator.
 
----
+\---
 
-## 20.4 Degeneracy-proof cluster truncation
+§§X76§§20.2 Zwei Reduktionsregimes
 
-**Script / File**
+**Artefaktbezug**
 
-Retest of `truncation_sign_test.py`; described in chat.
+Kein angehängter Artefaktbezug in dieser Fassung; der Befund bleibt als konsolidierter Diagnostikstand.
 
-**Initial situation**
+**Ausgangslage**
 
-Truncation not by arbitrary (m), but only by integer eigenvalue clusters:
-
-$$
-P_{\le \lambda} = \sum_{\mu\le\lambda}P_\mu.
-$$
-
-**Findings**
-
-For all canonical cluster boundaries:
+Vergleich:
 
 $$
-|K|\approx 10^{-16}.
+\\Lambda\_{\\mathrm{UV}}
 $$
 
-Non-commutativity occurred only when (m) intersected degenerate eigenspaces exactly in the middle.
+gegen
 
-**Obstruction point**
+$$
+\\Lambda\_{\\mathrm{Env}}
+$$
 
-A cut through degenerate eigenspaces selects a non-canonical `numpy` basis. This is not a ToC-derived mechanism.
+auf demselben Leaf-Boundary-Raum.
+
+**Befund**
+
+Gemeldet:
+
+$$
+|\[\\Lambda\_{\\mathrm{UV}},\\Lambda\_{\\mathrm{Env}}]|\\sim 10^{-16}.
+$$
+
+**Obstruktions-Ort**
+
+Root-Selbstenergie verschiebt Eigenwerte, aber dreht keine Eigenräume. Radial bleibt radial.
 
 **Status**
 
-Strong negative result:
+Negativ für exakte derived Regime.
+
+\---
+
+§§X77§§20.3 Spektral trunkierte Reduktion
+
+**Artefaktbezug**
+
+Kein angehängter Artefaktbezug in dieser Fassung; der Befund bleibt als konsolidierter Diagnostikstand.
+
+**Ausgangslage**
+
+Vergleich:
 
 $$
-\boxed{
-\text{relabeling-natürliche exakte und cluster-sichere DtN-Reduktionen kommutieren.}
+\\Lambda\_{\\mathrm{full}}
+$$
+
+gegen spektral trunkierte Reduktion:
+
+$$
+\\Lambda\_{\\mathrm{trunc}}.
+$$
+
+**Befund**
+
+Bei beliebigem $m$:
+
+$$
+|\[\\Lambda\_{\\mathrm{full}},\\Lambda\_{\\mathrm{trunc}}]|\\approx 0.017
+$$
+
+für mittlere $m$-Werte; $K$ ist schief.
+
+**Obstruktions-Ort**
+
+Zunächst falsch interpretiert: $\\pm i\\lambda$-Paare wurden als „beide Chiralitäten“ gelesen. Korrektur:
+
+$$
+\\pm i\\lambda
+$$
+
+ist normales Spektrum eines reellen $J$-Blocks.
+
+Der echte Vorzeichentest ist:
+
+$$
+K\\text{ or }-K\\text{ distinguished?}
+$$
+
+**Status**
+
+Nur scheinbar positiver Kandidat; musste degenerazien-sicher nachgetestet werden.
+
+\---
+
+§§X78§§20.4 Degenerazien-sichere Cluster-Trunkierung
+
+**Artefaktbezug**
+
+Kein angehängter Artefaktbezug in dieser Fassung; der Abschnitt hält nur den methodischen Nachbefund fest.
+
+**Ausgangslage**
+
+Trunkierung nicht nach beliebigem $m$, sondern nur nach ganzen Eigenwert-Clustern:
+
+$$
+P\_{\\le \\lambda} = \\sum\_{\\mu\\le\\lambda}P\_\\mu.
+$$
+
+**Befund**
+
+Bei allen kanonischen Cluster-Grenzen:
+
+$$
+|K| ≈ 10^(−16).
+$$
+
+Nichtkommutativität trat nur auf, wenn $m$ mitten durch degenerierte Eigenräume schnitt.
+
+**Obstruktions-Ort**
+
+Ein Schnitt durch entartete Eigenräume wählt eine nicht-kanonische §§X168§§-Basis. Das ist kein ToC-derived Mechanismus.
+
+Warnung: Nicht-kanonische Trunkierung mitten durch entartete Eigenräume ist ein Symmetriebruch durch numerische Basiswahl und darf nicht als derived Nichtkommutativität gezählt werden.
+
+**Status**
+
+Starker Negativbefund:
+
+$$
+\\boxed{
+\\text{Relabeling-natural exact and cluster-safe DtN reductions commute.}
 }
 $$
 
----
+\---
 
-# 21. Node Elimination vs. Partial Trail
+§§X79§§21\. Knoten-Elimination vs. partielle Spur
 
-## 21.1 Incorrect “Trail Elimination” Test
+§§X80§§21.1 Falscher „Ausspuren“-Test
 
-**Initial Situation**
+**Ausgangslage**
 
-System/environment nodes were separated:
-
-$$
-\mathbb R^N=\mathbb R^S\oplus\mathbb R^E.
-$$
-
-Then diffusion (e^{-tL}) was calculated and the environment was treated as a steady state.
-
-**Findings**
-
-Skew could have arisen.
-
-**Obstruction Location**
-
-This was not a partial trace. A partial trace requires:
+System/Umwelt-Knoten wurden getrennt:
 
 $$
-\mathcal H=\mathcal H_S\otimes\mathcal H_E.
+\\mathbb R^N=\\mathbb R^S\\oplus\\mathbb R^E.
 $$
 
-However, the node space provides a direct sum, not a tensor product.
+Dann wurde Diffusion $e^{-tL}$ gerechnet und Umgebung mit festem Zustand behandelt.
 
-The skew resulted from asymmetric input/restriction:
+**Befund**
+
+Skew konnte entstehen.
+
+**Obstruktions-Ort**
+
+Das war keine partielle Spur. Eine partielle Spur braucht:
 
 $$
-\text{Umgebung speist ein, System-Abfluss wird verworfen}.
+\\mathcal H=\\mathcal H\_S\\otimes\\mathcal H\_E.
+$$
+
+Der Knotenraum liefert aber direkte Summe, kein Tensorprodukt.
+
+Der Skew kam aus asymmetrischer Einspeisung/Restriktion:
+
+$$
+\\text{Environment feeds in, system outflow is discarded}.
 $$
 
 **Status**
 
-Invalid as an OQS/partial-trace test. At most, a test of an asymmetric boundary condition.
+Ungültig als OQS-/Partial-trace-Test. Höchstens Test einer asymmetrischen Randbedingung.
 
----
+\---
 
-## 21.2 Correct Node Reduction
+§§X81§§21.2 Korrekte Knotenreduktion
 
-**Initial Situation**
+**Ausgangslage**
 
-For node splitting:
+Für Knotenaufteilung:
 
 $$
 L=
-\begin{pmatrix}
-L_{SS} & L_{SE}\
-L_{ES} & L_{EE}
-\end{pmatrix}.
+\\begin{pmatrix}
+L\_{SS} \& L\_{SE}\\
+L\_{ES} \& L\_{EE}
+\\end{pmatrix}.
 $$
 
-Correct elimination:
+Korrekte Eliminierung:
 
 $$
-L_{\mathrm{eff}} = L_{SS}-L_{SE}L_{EE}^{-1}L_{ES}
+L\_{\\mathrm{eff}} = L\_{SS}-L\_{SE}L\_{EE}^{-1}L\_{ES}
 $$
 
-**Findings**
+**Befund**
 
-For real symmetric (L):
+Für reell symmetrisches $L$:
 
 $$
-L_{\mathrm{eff}}^T=L_{\mathrm{eff}}.
+L\_{\\mathrm{eff}}^T=L\_{\\mathrm{eff}}.
 $$
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-Node elimination does not generate OQS irreversibility or an antisymmetric Hamiltonian part.
+Knoten-Elimination erzeugt keine OQS-Irreversibilität und keinen antisymmetrischen Hamilton-Teil.
 
 **Status**
 
-Central method correction:
+Zentrale Methodenkorrektur:
 
 $$
-\boxed{
-\text{Auf Knoten wird eliminiert, nicht ausgespurt.}
+\\boxed{
+\\text{At nodes, we eliminate, not trace.}
 }
 $$
 
----
+\---
 
-# 22. Flat Sector and Curvature
+§§X82§§22\. Flacher Sektor und Krümmung
 
-## 22.1 Flat Real-Reciprocal ToC/DtN Sector
+§§X83§§22.1 Flacher reell-reziproker ToC-/DtN-Sektor
 
-**Initial Situation**
+**Ausgangslage**
 
-Ideal ToC or ToC fibers without curvature, holonomy, or regulator backreaction.
+Idealer ToC bzw. ToC-Fasern ohne Krümmung, Holonomie, Regulator-Backreaction.
 
-**Findings**
+**Befund**
 
-All natural operators remain jointly diagonalizable.
+Alle natürlichen Operatoren bleiben gemeinsam diagonalisierbar.
 
-**Obstruction point**
+**Obstruktions-Ort**
 
-There is no connection:
-
-$$
-\nabla,
-$$
-
-no holonomy:
+Es gibt keine Connection:
 
 $$
-U_\gamma\neq I,
+\\nabla,
 $$
 
-and no curvature:
+keine Holonomie:
 
 $$
-$$\nabla_\mu,\nabla_\nu$$\neq0.
+U\_\\gamma\\neq I,
+$$
+
+und keine Krümmung:
+
+$$
+\[\\nabla\_\\mu,\\nabla\_\\nu]\\neq0.
 $$
 
 **Status**
 
-Change of interpretation:
+Interpretationswechsel:
 
 $$
-\boxed{
-\text{Die No-Gos betreffen den flachen ToC-/DtN-Sektor.}
+\\boxed{
+\\text{The no-gos concern the flat ToC/DtN sector.}
 }
 $$
 
-Not CNNA as a whole.
+Nicht CNNA insgesamt.
 
----
+\---
 
-## 22.2 Curvature as a possible later origin of non-commutativity
+§§X84§§22.2 Krümmung als möglicher späterer Ursprung von Nichtkommutativität
 
-**Initial situation**
+**Ausgangslage**
 
-In geometry/gauge theory:
-
-$$
-$$\nabla_\mu,\nabla_\nu$$=R_{\mu\nu}
-$$
-
-or
+In Geometrie/Eichtheorie:
 
 $$
-$$D_\mu,D_\nu$$=F_{\mu\nu}.
+\[\\nabla\_\\mu,\\nabla\_\\nu]=R\_{\\mu\\nu}.
 $$
 
-**Findings**
+bzw.
 
-In the CNNA context, non-commutativity could rather be an emergent curvature/holonomy phenomenon.
+$$
+\[D\_\\mu,D\_\\nu]=F\_{\\mu\\nu}.
+$$
 
-**Obstruction location**
+**Befund**
 
-Curvature must not be imported as a savior. It would have to arise from handoff/regulator/backreaction data.
+Nichtkommutativität könnte im CNNA-Kontext eher ein emergentes Krümmungs-/Holonomiephänomen sein.
+
+**Obstruktions-Ort**
+
+Krümmung darf nicht als Retter importiert werden. Sie müsste aus Handoff-/Regulator-/Backreaction-Daten entstehen.
 
 **Status**
 
-Open curved-sector target:
+Offener Curved-sector target:
 
 $$
-\text{Block-RG/DtN}\to\text{Connection}\to\text{Holonomie/Krümmung}.
+\\text{Block-RG/DtN}\\to\\text{Connection}\\to\\text{Holonomy/Curvature}.
 $$
 
----
+\---
 
-# 23. IDEAL ToC Fiber Lattice
+§§X85§§23\. IDEAL-ToC-Faser-Gitter
 
-## 23.1 Double-infinite IDEAL Sector
+§§X86§§23.1 Doppelt unendlicher IDEAL-Sektor
 
-**Initial configuration**
+**Ausgangslage**
 
-Instead of a universal single ToC:
-
-$$
-T_b^\infty
-$$
-
-one defines a ToC fiber lattice:
+Statt eines universalen Einzel-ToC:
 
 $$
-\mathcal I_{\mathrm{ToCGrid}} = \Gamma_\infty\times T_b^\infty
+T\_b^\\infty
 $$
 
-With:
+definiert man ein ToC-Faser-Gitter:
 
 $$
-x\in\Gamma_\infty,
-\qquad
-w\in T_b^\infty.
+\\mathcal I\_{\\mathrm{ToCGrid}} = \\Gamma\_\\infty\\times T\_b^\\infty
 $$
 
-Two infinities:
+Mit:
 
 $$
-\Gamma_\infty
+x\\in\\Gamma\_\\infty,
+\\qquad
+w\\in T\_b^\\infty.
 $$
 
-transversal and
+Zwei Unendlichkeiten:
 
 $$
-T_b^\infty
+\\Gamma\_\\infty
 $$
 
-internal per fiber.
-
-**Findings**
-
-Fully ideal sector:
+transversal und
 
 $$
-\text{flach, homogen, reziprok, intern ToC-skaleninvariant}.
+T\_b^\\infty
 $$
 
-Transverse isotropy only discrete or dependent on (\Gamma_\infty).
+intern pro Faser.
 
-**Obstruction point**
+**Befund**
 
-The lattice introduces transverse neighborhood as a new IDEAL reference datum. It is not derived from a single ToC.
+Vollidealer Sektor:
+
+$$
+\\text{flat, homogeneous, reciprocal, internally ToC-scale invariant}.
+$$
+
+Transversale Isotropie nur diskret bzw. abhängig von $\\Gamma\_\\infty$.
+
+**Obstruktions-Ort**
+
+Das Gitter bringt transversale Nachbarschaft als neues IDEAL-Vergleichsdatum mit. Sie ist nicht aus einem einzelnen ToC abgeleitet.
 
 **Status**
 
-A very useful final ToC-related test before substrate change.
+Sehr sinnvoller letzter ToC-naher Test vor Substratwechsel.
 
----
+\---
 
-## 23.2 Finite Double Section
+§§X87§§23.2 Endlicher Doppelschnitt
 
-**Initial Situation**
+**Ausgangslage**
 
-Calculable sector:
-
-$$
-\Omega_{R,L} = W_R\times T_{\le L}​
-$$
-
-With:
+Berechenbarer Sektor:
 
 $$
-W_R\subset\Gamma_\infty,
-\qquad
-T_{\le L}\subset T_b^\infty.
+\\Omega\_{R,L} = W\_R\\times T\_{\\le L}
 $$
 
-**Findings**
-
-Being a subsystem necessarily breaks the IDEAL symmetry:
+Mit:
 
 $$
-\operatorname{Aut}(\mathcal I_{\mathrm{ToCGrid}})
-\to
-\operatorname{Aut}(\Omega_{R,L}).
+W\_R\\subset\\Gamma\_\\infty,
+\\qquad
+T\_{\\le L}\\subset T\_b^\\infty.
 $$
 
-The following arise:
+**Befund**
+
+Subsystem-Sein bricht zwingend die IDEAL-Symmetrie:
 
 $$
-\text{äußeres Gitter-Komplement},
+\\operatorname{Aut}(\\mathcal I\_{\\mathrm{ToCGrid}})
+\\to
+\\operatorname{Aut}(\\Omega\_{R,L}).
 $$
 
+Es entstehen:
+
 $$
-\text{interner UV-tail},
+\\text{outer grid complement},
 $$
 
 $$
-\text{Rand/Ecken/Mischkomplemente}.
+\\text{internal UV-tail},
 $$
 
-**Obstruction point**
+$$
+\\text{edge/corner/mixed complements}.
+$$
 
-Being a subsystem generates effective boundary/spectral/DtN geometry, but not automatically chiropathy.
+**Obstruktions-Ort**
+
+Subsystem-Sein erzeugt effektive Rand-/Spektral-/DtN-Geometrie, aber nicht automatisch Chirotopie.
 
 **Status**
 
-Positive geometry/DtN test, negative (J) test in the flat reciprocal case.
+Positiver Geometrie-/DtN-Test, negativer $J$-Test im flachen reziproken Fall.
 
----
+\---
 
-## 23.3 DtN on the ToC fiber lattice
+§§X88§§23.3 DtN auf dem ToC-Faser-Gitter
 
-**Initial situation**
+**Ausgangslage**
 
-Operator on (\Omega_{R,L}):
+Operator auf $\\Omega\_{R,L}$:
 
 $$
-L_{R,L}.
+L\_{R,L}.
 $$
 
 Schur/DtN:
 
 $$
-\Lambda_{R,L} = L_{\partial\partial} - L_{\partial I}L_{II}^{-1}L_{I\partial}
+\\Lambda\_{R,L} = L\_{\\partial\\partial} - L\_{\\partial I}L\_{II}^{-1}L\_{I\\partial}
 $$
 
-**Findings**
+**Befund**
 
-This is closer to A→B than raw node gluing. B would not see ToC nodes, but rather handoff matrices.
+Dies ist A→B-näher als rohe Knotenverklebung. B würde nicht ToC-Knoten sehen, sondern Handoff-Matrizen.
 
-**Obstruction Location**
+**Obstruktions-Ort**
 
-As long as the lattice is homogeneous, reciprocal, and flat, a spectrum and effective geometry arise, but no excellent chiropathy.
+Solange das Gitter homogen, reziprok und flach ist, entstehen zwar Spektrum und effektive Geometrie, aber keine ausgezeichnete Chirotopie.
 
 **Status**
 
-Important final reference test:
+Wichtiger letzter Referenztest:
 
 $$
-\boxed{
-\text{ToC-Faser-Gitter kann Geometrie testen, nicht }J\text{ erzwingen.}
+\\boxed{
+\\text{ToC fiber lattices can test geometry, not }J\\text{ enforce it.}
 }
 $$
 
----
+\---
 
-# 24. Holonomy/Connection Test in the Fiber Lattice
+§§X89§§24\. Holonomie-/Connection-Test im Faser-Gitter
 
-## 24.1 Effective Intertwiners between Local Handoff Spaces
+§§X90§§24.1 Effektive Intertwiner zwischen lokalen Handoff-Räumen
 
-**Initial Situation**
+**Ausgangslage**
 
-For local handoff spaces:
-
-$$
-H_x,\qquad H_y
-$$
-
-one would need derived intertwiner:
+Für lokale Handoff-Räume:
 
 $$
-U_{xy}:H_x\to H_y.
+H\_x,\\qquad H\_y
 $$
 
-Loop holonomy:
+bräuchte man derived Intertwiner:
 
 $$
-U_\gamma = U_{wx}U_{zw}U_{yz}U_{xy}
+U\_{xy}:H\_x\\to H\_y.
 $$
 
-**Findings**
-
-Expected in the homogeneous flat case:
+Loop-Holonomie:
 
 $$
-U_\gamma=I
+U\_\\gamma = U\_{wx}U\_{zw}U\_{yz}U\_{xy}
 $$
 
-or gauge-trivial.
+**Befund**
 
-**Obstruction point**
+Im homogenen flachen Fall erwartbar:
 
-A non-trivial rotational component would have to come from inhomogeneity, the regulator, backreaction, or frustration.
+$$
+U\_\\gamma=I
+$$
+
+oder gauge-trivial.
+
+**Obstruktions-Ort**
+
+Ein nichttrivialer Rotationsanteil müsste aus Inhomogenität, Regulator, Backreaction oder Frustration kommen.
 
 **Status**
 
-Open curved-sector test. Not yet proven positive.
+Offener Curved-sector-Test. Noch nicht positiv gezeigt.
 
----
+\---
 
-# 25. Lorentz/time-structure tests
+§§X91§§25\. Lorentz-/Zeitstruktur-Tests
 
-## 25.1 Lorentz signature
+§§X92§§25.1 Lorentz-Signatur
 
-**Initial situation**
+**Ausgangslage**
 
-Signature:
-
-$$
-\eta=\operatorname{diag}(-1,+1,\ldots,+1).
-$$
-
-**Findings**
-
-Separates time-like and space-like.
-
-**Obstruction location**
-
-Time reversal remains a symmetry:
+Signatur:
 
 $$
-T\eta T=\eta.
+\\eta=\\operatorname{diag}(-1,+1,\\ldots,+1).
 $$
 
-Light cone remains a double cone:
+**Befund**
+
+Trennt zeitartig und raumartig.
+
+**Obstruktions-Ort**
+
+Zeitumkehr bleibt Symmetrie:
 
 $$
-C^+\cup C^-.
+T\\eta T=\\eta.
+$$
+
+Lichtkegel bleibt Doppelkegel:
+
+$$
+C^+\\cup C^-.
 $$
 
 **Status**
 
-Reduces problem to temporal orientation, does not solve it.
+Reduziert Problem auf Zeitorientierung, löst sie nicht.
 
----
+\---
 
-## 25.2 Real-time flow precursor
+§§X93§§25.2 Reeller Zeitfluss-Vorläufer
 
-**Initial Situation**
+**Ausgangslage**
 
-Real-symmetric generator (H), flow pair:
+Reell-symmetrischer Generator $H$, Flusspaar:
 
 $$
 {e^{+tH},e^{-tH}}.
 $$
 
-**Findings**
+**Befund**
 
-Delivers:
-
-$$
-{+\tau,-\tau}.
-$$
-
-**Obstruction point**
-
-For real-symmetric (H), every spectral function remains symmetric. A (J) is antisymmetric:
+Liefert:
 
 $$
-J\neq f(H).
+{+\\tau,-\\tau}.
 $$
 
-**Status**
+**Obstruktions-Ort**
 
-Time pair yes. Locking with (J) no.
-
----
-
-# 26. Pillar C / OQS / Entropy
-
-## 26.1 Lindblad/OQS Time Arrow
-
-**Initial Situation**
-
-Open quantum dynamics / Lindblad generator.
-
-**Findings**
-
-Dissipation can choose the direction of time:
+Für reell-symmetrisches $H$ bleibt jede spektrale Funktion symmetrisch. Ein $J$ ist antisymmetrisch:
 
 $$
-+\tau.
-$$
-
-**Obstruction location**
-
-Hamiltonian term already contains:
-
-$$
--i$$H,\rho$$.
-$$
-
-Thus, OQS presupposes (i) or (J).
-
-**Status**
-
-Pillar C can choose (\tau), but cannot generate (J) on its own.
-
----
-
-# 27. AQFT / Type-I / Type-III / Handoff Structure
-
-## 27.1 A as a Type-I/Type-III precursor layer
-
-**Initial situation**
-
-Pillar A is not intended to directly prove Type III, but rather to provide precursors:
-
-$$
-\mathcal C_{d,k} = (Q_{d,k}\oplus P_{d,k},g_{d,k},\omega_{d,k},\{J,-J\})
-$$
-
-Finite:
-
-$$
-k<\infty
-\Rightarrow
-\text{Type-I-artige Vorläufer}.
-$$
-
-Infinite:
-
-$$
-k\to\infty
-\Rightarrow
-\text{Type-III-fähige Komplementfamilien-Vorläufer}.
-$$
-
-**Findings**
-
-Architecturally sound.
-
-**Location of obstruction**
-
-Dimension/infinity provides no orientation:
-
-$$
-\text{finite/infinite}\neq J\text{-sign}.
+J≠ f(H).
 $$
 
 **Status**
 
-Important architectural shift.
+Zeitpaar ja. Verriegelung mit $J$ nein.
 
----
+\---
 
-## 27.2 Triadic Handoff (B|B'|C)
+§§X94§§26\. Pillar C / OQS / Entropie
 
-**Initial Situation**
+§§X95§§26.1 Lindblad-/OQS-Zeitpfeil
 
-Handoffs are not passive arrows, but separate interface objects.
+**Ausgangslage**
 
-Triad:
+Offene Quantendynamik / Lindblad-Generator.
 
-$$
-C\text{-Regulator}
-\triangleright
-H_{B|B'}(B,B')
-\to
-\text{stable record}.
-$$
+**Befund**
 
-**Findings**
-
-Best location for:
+Dissipation kann Zeitrichtung wählen:
 
 $$
-\omega_{\mathrm{lock}}.
++τ.
 $$
 
-**Obstruction location**
+**Obstruktions-Ort**
 
-Not yet formalized. Type I/Type III asymmetry is initially algebraic/dimensional asymmetry, not orientation.
+Hamiltonischer Term enthält bereits:
+
+$$
+-i[H, ρ].
+$$
+
+Also setzt OQS $i$ bzw. $J$ voraus.
 
 **Status**
 
-Still the most important open (J)-locking candidate.
+Pillar C kann $\\tau$ wählen, aber $J$ nicht allein erzeugen.
 
----
+\---
 
-# 28. Multi-ToC / Detector / Multi-particle structure
+§§X96§§27\. AQFT / Type-I / Type-III / Handoff-Struktur
 
-## 28.1 Mini-ToCs as detector elements
+§§X97§§27.1 A als Type-I-/Type-III-Vorläuferschicht
 
-**Initial situation**
+**Ausgangslage**
 
-A detector consists of many local ToC fibers:
-
-$$
-T_1,T_2,\ldots,T_N.
-$$
-
-Each carries locally:
+Pillar A soll nicht direkt Type III beweisen, sondern Vorläufer liefern:
 
 $$
-{J_i,-J_i}.
+\\mathcal C\_{d,k} = (Q\_{d,k}\\oplus P\_{d,k},g\_{d,k},\\omega\_{d,k},{J,-J})
 $$
 
-**Findings**
-
-Local sign can be gauge:
+Endlich:
 
 $$
-J_i\mapsto -J_i.
+k<\\infty
+\\Rightarrow
+\\text{Type-I-like precursors}.
 $$
 
-Relevant physical data would include relative or cyclic data:
+Unendlich:
 
 $$
-\sigma_{ij},
-\qquad
-\Phi_\gamma=\prod_{(ij)\in\gamma}\sigma_{ij}.
+k\\to\\infty
+\\Rightarrow
+\\text{Type-III-capable complement family precursors}.
 $$
 
-**Obstruction Location**
+**Befund**
 
-The mechanism for (\sigma_{ij}) has not yet been derived.
+Architektonisch sinnvoll.
+
+**Obstruktions-Ort**
+
+Dimension/Unendlichkeit liefert keine Orientierung:
+
+$$
+\\text{finite/infinite}\\neq J\\text{-sign}.
+$$
 
 **Status**
 
-Strong candidate for the next non-local test.
+Wichtiger Architekturshift.
 
----
+\---
 
-## 28.2 Frustration / Spin-net-like structure
+§§X98§§27.2 Triadischer Handoff (B|B'|C)
 
-**Initial situation**
+**Ausgangslage**
 
-Many local ToC fibers are coupled. Possible cycle product:
+Handoffs sind nicht passive Pfeile, sondern eigene Interface-Objekte.
 
-$$
-\Phi_\gamma=-1.
-$$
-
-**Findings**
-
-If (\Phi_\gamma) is invariant under local gauge flips
+Triade:
 
 $$
-J_i\mapsto -J_i
+C\\text{-regulator}
+\\triangleright
+H\_{B|B'}(B,B')
+\\to
+\\text{stable record}.
 $$
 
-, true global frustration arises.
+**Befund**
 
-**Obstruction location**
+Bester Ort für:
 
-(\sigma_{ij}) must not be set.
+$$
+\\omega\_{\\mathrm{lock}}.
+$$
+
+**Obstruktions-Ort**
+
+Noch nicht formalisiert. Type-I/Type-III-Asymmetrie ist zunächst Algebra-/Dimensionsasymmetrie, nicht Orientierung.
 
 **Status**
 
-Most important open multi-ToC test path.
+Weiterhin wichtigster offener $J$-Locking-Kandidat.
 
----
+\---
 
-# 29. Motor/Multiphase Analogy
+§§X99§§28\. Multi-ToC / Detektor / Vielobjektstruktur
 
-## 29.1 Two-phase three-phase motor
-
-**Initial Situation**
-
-In two-phase operation, a three-phase motor does not generate a stably directed rotating field, but rather a superposition:
+Dieser Abschnitt darf nicht als Rückfall in die Lesart „ToC-Knoten sind Teilchen“ verstanden werden. Viele Objekte entstehen nicht durch viele Knoten innerhalb eines einzelnen ToC, sondern durch viele lokale ToC-Fasern, deren Approximanten und Handoff-Daten relativ zueinander verklebt werden.
 
 $$
-\text{Vorwärtsdrehfeld}+\text{Rückwärtsdrehfeld}.
+{T\_i}\_{i\\in I}
+\\Rightarrow
+\\text{Multi-ToC/gluing structure},
+\\qquad
+T\_i\\text{-nodes}\\≠\\text{particles}.
 $$
 
-**Findings**
+§§X100§§28.1 Mini-ToCs als Detektorelemente
 
-Good analogy to:
+**Ausgangslage**
+
+Ein Detektor besteht aus vielen lokalen ToC-Fasern:
+
+$$
+T\_1,T\_2,\\ldots,T\_N.
+$$
+
+Jede trägt lokal:
+
+$$
+{J\_i,-J\_i}.
+$$
+
+**Befund**
+
+Lokales Vorzeichen kann Gauge sein:
+
+$$
+J\_i\\mapsto -J\_i.
+$$
+
+Physikalisch relevant wären relative oder zyklische Daten:
+
+$$
+\\sigma\_{ij},
+\\qquad
+\\Phi\_\\gamma=\\prod\_{(ij)\\in\\gamma}\\sigma\_{ij}.
+$$
+
+**Obstruktions-Ort**
+
+Mechanismus für $\\sigma\_{ij}$ ist noch nicht derived. Außerdem wäre ein Zyklusprodukt zunächst eine relative, gauge-invariante Struktur, nicht automatisch ein absolutes $J$-Vorzeichen:
+
+$$
+\\Phi\_\\gamma=\\prod\_{(ij)\\in\\gamma}\\sigma\_{ij}
+\\quad\\Rightarrow\\quad
+\\text{relative orientation},
+$$
+
+aber nicht unmittelbar
+
+$$
+\\Rightarrow\\text{absolute orientation}.
+$$
+
+**Status**
+
+Starker Kandidat für nächsten nichtlokalen Test. Methodisch gilt:
+
+$$
+\\text{relative orientation}\\≠\\text{absolute orientation}.
+$$
+
+\---
+
+§§X101§§28.2 Frustration / Spin-netz-artige Struktur
+
+**Ausgangslage**
+
+Viele lokale ToC-Fasern werden gekoppelt. Mögliches Zyklusprodukt:
+
+$$
+\\Phi\_\\gamma=-1.
+$$
+
+**Befund**
+
+Falls $\\Phi\_\\gamma$ invariant unter lokalen Gauge-Flips
+
+$$
+J\_i\\mapsto -J\_i
+$$
+
+ist, entsteht echte globale Frustration.
+
+**Obstruktions-Ort**
+
+$\\sigma\_{ij}$ darf nicht gesetzt werden. Auch ein nichttriviales $\\Phi\_\\gamma$ wäre zunächst eine globale Sektor-/Frustrationsstruktur. Es müsste zusätzlich gezeigt werden, dass daraus ein orientierter Record oder ein $\\omega\_{\\mathrm{lock}}$ folgt, nicht nur eine relative Holonomieklasse.
+
+**Status**
+
+Wichtigster offener Multi-ToC-Testpfad. Positiv wäre hier zuerst eine gauge-invariante relative Struktur; das absolute $J$-Vorzeichen bliebe danach separat zu prüfen.
+
+\---
+
+§§X102§§29\. Motor-/Mehrphasen-Analogie
+
+§§X103§§29.1 Zweiphasiger Dreiphasenmotor
+
+**Ausgangslage**
+
+Zweiphasig erzeugt ein Dreiphasenmotor kein stabil gerichtetes Drehfeld, sondern Überlagerung:
+
+$$
+\\text{forward rotating field}+\\text{reverse rotating field}.
+$$
+
+**Befund**
+
+Gute Analogie zu:
 
 $$
 {+J,-J}.
 $$
 
-**Location of obstruction**
+**Obstruktions-Ort**
 
-Without a third-phase configuration or connection arrangement, there is no stable direction of rotation.
+Ohne dritte Phasenordnung bzw. Anschlussordnung kein stabiler Drehsinn.
 
 **Status**
 
-Highly effective for teaching.
+Didaktisch stark. Technische Lesart: Der reelle passive Dirichlet-/Widerstandssektor kann Imbalance, Achse und Pulsation erzeugen, aber keine eigenständige Phase. Die fehlende Rolle ist die eines abgeleiteten kapazitiven/speichernden/skew-Hamilton-artigen Sektors oder eines äquivalenten Handoff-Lockings.
 
----
+\---
 
-## 29.2 Three Phases / Connection Order
+§§X104§§29.2 Drei Phasen / Anschlussordnung
 
-**Initial Situation**
+**Ausgangslage**
 
-Balanced system:
+Balanciertes System:
 
 $$
 (1,a,a^2),
-\qquad
-a=e^{2\pi i/3}.
+\\qquad
+a=e^{2\\pi i/3}.
 $$
 
-Swapping:
+Vertauschung:
 
 $$
 (1,a,a^2)
-\leftrightarrow
+\\leftrightarrow
 (1,a^2,a).
 $$
 
-**Findings**
+**Befund**
 
-Direction of rotation is determined by the connection order.
+Drehrichtung liegt in der Anschlussordnung.
 
-**CNNA Translation**
+**CNNA-Übersetzung**
 
-Not the local (J_i) sign, but rather the handoff sequence or cycle order could be decisive.
+Nicht lokales (J\_i)-Vorzeichen, sondern Handoff-Sequenz bzw. Zyklusordnung könnte entscheidend sein.
 
-**Obstruction Location**
+**Obstruktions-Ort**
 
-Connection order must be derived.
+Anschlussordnung muss derived sein.
 
 **Status**
 
-Good candidate for Multi-ToC-Handoff-Sequence-Gate.
+Guter Kandidat für Multi-ToC-Handoff-Sequence-Gate.
 
----
+\---
 
-# 30. Cayley-Dickson / higher division algebras
+§§X105§§30\. Cayley-Dickson / höhere Divisionsalgebren
 
-## 30.1 CD-/Hurwitz candidate
+§§X106§§30.1 CD-/Hurwitz-Kandidat
 
-**Initial situation**
+**Ausgangslage**
 
 Route:
 
 $$
-\mathbb R\to\mathbb C\to\mathbb H\to\mathbb O.
+\\mathbb R\\to\\mathbb C\\to\\mathbb H\\to\\mathbb O.
 $$
 
-**Findings**
+**Befund**
 
-Negative for the first (J)-sign problem. Higher algebra does not resolve the origin of the first complex orientation.
+Für das erste $J$-Vorzeichenproblem negativ. Höhere Algebra löst nicht die Herkunft der ersten komplexen Orientierung.
 
-**Obstruction Location**
+**Obstruktions-Ort**
 
-Dimensional doubling and norm multiplicativity are not enforced from intersection data.
+Dimensionsverdopplung und Normmultiplikativität werden nicht aus Schnittdaten erzwungen.
 
-Open Objects:
+Offene Objekte:
 
-```text
-positiveDefiniteNormSq
-divisionFromNormSq
-alternativeLaw
-```
+§§X162§§
 
 **Status**
 
-Not a current path for (J)-sign. Not ruled out as a later target structure.
+Nicht aktueller Weg für $J$-Vorzeichen. Als spätere Zielstruktur nicht ausgeschlossen.
 
----
+\---
 
-# 31. Substrate-change candidates
+§§X107§§31\. Substratwechsel-Kandidaten
 
-## 31.1 ToC remains local provenance fiber
+§§X108§§31.1 ToC bleibt lokale Provenienzfaser
 
-**Initial situation**
+**Ausgangslage**
 
-The single ToC as a global world tree fails at the (J)-gate.
+Der b-äre Einzelbaum als flacher ToC-Referenzsektor scheitert unter den flach-reziproken Derived-only-Prämissen am $J$-Gate. Damit ist nicht das ToC-Konzept insgesamt obstruiert, sondern nur die spezielle Lesart, dass ein einzelner b-ärer Baum globaler Träger des Universums und zugleich Ursprung einer ausgezeichnet gerichteten komplexen Struktur sein kann.
 
-**Findings**
+**Befund**
 
-As a local fiber, ToC remains valuable:
+Als lokale Faser bleibt ToC wertvoll. Der präzise Rollenpfad lautet:
 
 $$
-\text{Provenienz}
-\to
-\text{Approximant}
-\to
-\text{Schur/DtN}
-\to
-\text{lokaler Handoff-Operator}.
+\\text{ToC node}
+\\to
+\\text{provenance index}
+\\to
+\\text{approximant}
+\\to
+\\text{Schur/DtN}
+\\to
+\\text{local handoff operator}
+\\to
+\\text{possible physical degree of freedom}.
 $$
 
-**Site of obstruction**
+Ein endlicher Approximant ist daher zunächst ein effektiver lokaler Handoff-/Objektkandidat, kein automatisch gegebenes Vielteilchensystem.
 
-Global ontology as a single tree is too limited for a second axis, chirotopy, curvature.
+**Obstruktions-Ort**
+
+Globale Ontologie als einzelner Baum ist zu arm für zweite Achse, Chirotopie, Krümmung. Umgekehrt wäre die direkte Deutung von ToC-Knoten als physikalische Freiheitsgrade ein Rollenfehler.
 
 **Status**
 
-No total rejection of the ToC; a change of roles.
-
----
-
-## 31.2 Event Structures as Candidates
-
-**Initial Situation**
-
-Event structures possess two relations:
+Kein Totalverwerfen des ToC und keine Falsifikation der Complement Net Architecture; Rollenwechsel:
 
 $$
-\leq \qquad\text{und}\qquad \#
+\\boxed{\\text{b-ary single tree is not a world tree, but a local provenance fiber.}}
 $$
 
-**Findings**
+Die Komplementseite bleibt im Gegenteil strukturell notwendig, sobald lokale Handoff-Operatoren, lokale Algebren, relative Komplemente und spätere AQFT-Anschlussbedingungen ernst genommen werden.
 
-They could represent two axes, namely causality and conflict.
+\---
 
-**Obstruction Location**
+§§X109§§31.2 Ereignisstrukturen als Vergleichsstruktur, kein Fundament
 
-Both relations would initially be primitive input data as long as they are not CNNA-derived.
+**Ausgangslage**
+
+Ereignisstrukturen besitzen typischerweise zwei Relationen:
+
+$$
+\\leq \\qquad\\text{and}\\qquad #.
+$$
+
+Dabei ist $\\leq$ nicht neutral, sobald es als kausale oder zeitartige Ordnung gelesen wird. Die Relation $#$ markiert Konflikt, Inkompatibilität oder Exklusion.
+
+**Befund**
+
+Als spätere Ziel- oder Vergleichsstruktur sind Ereignisstrukturen interessant. Sie könnten beschreiben, wie aus einer CNNA-derived Vorstruktur emergente Ereignisse, Konflikte und eine kausale Ordnung entstehen.
+
+Die zulässige Richtung ist daher:
+
+$$
+\\text{CNNA-derived non-causal pre-structure}
+\\longrightarrow
+\\text{emergent events}
+\\longrightarrow
+(E,\\leq,#).
+$$
+
+**Obstruktions-Ort**
+
+Als Fundament wären Ereignisstrukturen zu stark. Die Relation $\\leq$ würde Kausalität bzw. Zeitordnung bereits als primitives Datum einführen. Damit würde genau das gesetzt, was CNNA erst rekonstruieren müsste.
+
+Die unzulässige Richtung wäre:
+
+$$
+(E,\\leq,#)
+\\longrightarrow
+\\text{CNNA foundation}.
+$$
+
+Das wäre methodisch derselbe Importtyp wie:
+
+$$
+\\text{set complex numbers},\\qquad
+\\text{set orientation},\\qquad
+\\text{set tensor product},\\qquad
+\\text{set Hodge star}.
+$$
+
+Nur wäre der importierte Inhalt hier:
+
+$$
+\\boxed{
+\\text{set causality.}
+}
+$$
 
 **Status**
 
-Strong candidate within (i)-free substrate classes, but not yet a derived result.
-
----
-
-# 32. Essential Scripts by Chat Status
-
-## 32.1 Reliably Named Older Scripts
-
-```text
-app.py
-```
-
-ToC Concept Explorer.
-
-```text
-alpha_orth_invariant.py
-```
-
-(\Xi)-, (\rho)-, (\alpha_{\mathrm{orth}})-diagnostics.
-
-```text
-two_approximant_flow_sign.py
-```
-
-Parent–Child/Flow-Sign diagnostics.
-
-```text
-two_boundary_shell_chirality.py
-```
-
-V4: Single-graph Cauchy pairing.
-
-```text
-family_handoff_chirality.py
-```
-
-V5: Cross-graph Cauchy and Handoff Square.
-
-```text
-triadic_interface_chirality.py
-```
-
-V6: UV/Env/Regulator triad.
-
-```text
-oriented_cauchy_shell_gate.py
-```
-
-V7: Opposite-direction UV/Env Cauchy shell.
-
-## 32.2 Recent test scripts mentioned in the chat
-
-```text
-two_reduction_regimes.py
-```
-
-DtN regimes: bare UV-DtN vs. root-env-DtN; additionally, truncated reduction.
-
-```text
-truncation_sign_test.py
-```
-
-Sign/commutator test for spectral truncation.
-
-## 32.3 Scripts that make sense to implement next
-
-```text
-cluster_safe_truncation_test.py
-```
-
-Explicitly encapsulate degeneracy-safe cluster truncation.
-
-```text
-toc_fiber_grid_dtn_test.py
-```
-
-IDEAL ToC fiber lattice, double cut (\Omega_{R,L}), DtN spectral tests.
-
-```text
-fiber_grid_connection_holonomy_test.py
-```
-
-Derived Intertwiner (U_{xy}) and loop holonomy in the fiber lattice.
-
-```text
-multi_toc_frustration_gate.py
-```
-
-Gauge-invariant cycle products:
+Ereignisstrukturen sind als nächster Fundament-Kandidat zurückzustufen. Sie bleiben Ziel-/Vergleichsstruktur, aber kein zulässiger Substratkern vor einer abgeleiteten Kausalitätsrekonstruktion.
 
 $$
-\Phi_\gamma=\prod\sigma_{ij}.
+\\boxed{
+\\text{Event structures: comparison structure yes, foundation no.}
+}
 $$
 
-```text
-handoff_phase_sequence_gate.py
-```
+§§X110§§31.3 Nicht-kausaler Substratwechsel-Gate
 
-Handoff sequence/multi-phase gate.
+**Ausgangslage**
 
----
+Der b-äre Einzelbaum ist als globaler Weltbaum für den $J$-Sektor unter den flach-reziproken Derived-only-Prämissen falsifiziert. Daraus folgt nicht, dass beliebig reichere relationale Substrate zulässig sind. Ein neues Substrat darf nicht einfach die fehlenden Zielstrukturen als primitive Relationen enthalten.
 
-# 33. Obstruction Locations by Type
+**Befund**
 
-## 33.1 Reciprocity
+Ein zulässiger nächster Substratkandidat muss mindestens folgende Ausschlüsse erfüllen:
 
 $$
-\Lambda=\Lambda^T.
+\\boxed{
+\\text{no primitive }i,\\quad
+\\text{no primitive }J,\\quad
+\\text{no primitive chiropathy,}\\quad
+\\text{no primitive orientation,}\\quad
+\\text{no primitive tensor factorization,}\\quad
+\\text{no primitive causal order.}
+}
 $$
 
-Passive Schur/DtN reduction remains symmetric. No antisymmetric (J) generator.
+Er darf eine nicht-kausale relationale, kombinatorische oder topologische Vorstruktur tragen, solange deren spätere kausale Lesart erst durch Handoff, Regimebildung, Spektralstruktur, Regulatoren oder Backreaction erzwungen wird.
 
-## 33.2 Real conjugation symmetry
+**Obstruktions-Ort**
 
-$$
-J\mapsto -J.
-$$
+Jedes Substrat, das bereits eine gerichtete Zeit-, Kausal-, Orientierungs- oder Phasenstruktur enthält, umgeht den eigentlichen CNNA-Test. Dann wäre die fehlende zweite Achse nicht abgeleitet, sondern importiert.
 
-Real structures do not choose a complex orientation.
+**Status**
 
-## 33.3 (S_b)-Equivariance
-
-Sibling permutations preserve canonical quantities in the trivial sector. No sign selection.
-
-## 33.4 Radial Uniaxial Structure (F1)
-
-F1 provides order:
+Der strengste derzeit zulässige Zwischenschritt bleibt daher das nicht-kausale IDEAL-ToC-Faser-Gitter als flacher Referenztest:
 
 $$
-n\to n+1.
+\\mathcal I\_{\\mathrm{ToCGrid}}=\\Gamma\_\\infty\\times T\_b^\\infty,\\qquad
+\\Omega\_{R,L}=W\_R\\times T\_{\\le L}.
 $$
 
-But only along one axis. Non-commutativity requires two independent axes.
+Hier ist $\\Gamma\_\\infty$ nur ein homogener relationaler Indexträger, nicht bereits Raumzeit und nicht bereits Kausalordnung. Jede metrische, räumliche, gerichtete oder orientierte Lesart von $\\Gamma\_\\infty$ ist Vergleichs-/Teststruktur und kein ontischer Input.
 
-## 33.5 Degeneracy
+\---
 
-Degenerate eigenspaces must not be cut by arbitrary numerical bases. Only entire clusters are relabeling-natural.
+§§X111§§31.4 Sierpinski-Teppich als nicht-p.c.f.-Stressklasse
 
-## 33.6 No partial trace on nodes
+**Ausgangslage**
 
-$$
-\mathbb R^N=\mathbb R^S\oplus\mathbb R^E
-$$
+Der Sierpinski-Teppich ist als nicht-p.c.f.-Stressklasse interessanter als SG/ST, wenn man mehrskalige Boundary-/Trace-Strukturen testen will. Der Mengerschwamm wird in dieser Fassung nicht weiterverfolgt.
 
-is a direct sum, not a tensor product.
+**Befund**
 
-## 33.7 Bit reversal
-
-Address cycles can mirror the direction of rotation:
+Nicht-p.c.f.-Struktur bedeutet: wildere, mehrskalige Schnitt- und Randkontakte sind möglich. Das kann für Handoff-, Trace-, Gluing- und Frustrationstests nützlich sein:
 
 $$
-\rho\leftrightarrow\rho^{-1}.
+\\text{non-p.c.f.}
+\\Rightarrow
+\\text{more irregular, multiscale boundary/trace structure}.
 $$
 
-## 33.8 Boundary reversal
+**Obstruktions-Ort**
 
-UV/Env co-orientation yields:
+Mehr Löcher oder wildere Randstruktur liefern aber nicht automatisch eine derived-only Orientierung:
+
+$$
+\\text{more holes}
+\\neq
+\\text{derived }J\\text{-sign}.
+$$
+
+Insbesondere bleibt zu prüfen, ob jede verwendete Umlaufs-, Flächen-, Trace- oder Hodge-artige Struktur wirklich aus der nicht-kausalen Vorstruktur entsteht oder durch Einbettung/Orientierung importiert wurde.
+
+**Status**
+
+Sinnvolle Substrat-Stressklasse, aber kein aktueller Fundament-Kandidat und keine Lösung des $J$-Vorzeichenproblems.
+
+\---
+
+§§X112§§32\. Ausgewiesene Artefaktlage dieser Fassung
+
+Diese Fassung nennt nur noch Artefakte, die entweder angehängt wurden oder als Hugging-Face-Visualisierung ausdrücklich referenziert sind. Ältere Paketnamen, nicht angehängte Nachtests und hypothetische nächste Implementierungen werden nicht mehr als reproduzierbare Artefaktbasis dieser Datei geführt.
+
+§§X113§§32.1 Hugging-Face-Visualisierung
+
+§§X163§§
+
+Die Visualisierung dient der Anschauung des ToC-/Approximanten-/UV-/Environment-Konzepts. Sie ist selbst nur eine Proxy- und Darstellungsebene; Tilt-, Winkel- oder Chartwerte daraus sind nicht als Schur-/DtN-Invarianten zu lesen.
+
+§§X114§§32.2 Anhang §§X169§§
+
+§§X164§§
+
+Der Anhang enthält außerdem zugehörige CSV-, JSON-, PNG- und Markdown-Reports. Diese Artefakte bilden die ausgewiesene reproduzierbare Basis für die $\\alpha\_{\\mathrm{orth}}$-, Flow-Sign-, Cauchy-Shell-, Familien-Handoff-, triadischen Interface- und UV/Env-Cauchy-Shell-Befunde dieser Fassung.
+
+§§X115§§32.3 Anhang §§X170§§
+
+§§X165§§
+
+Dieser Anhang dokumentiert den Baum-vs.-Sierpinski-Gasket-Kontrolltest: Baum als $b\_1=0$-Kontrollgruppe, Gasket als nichttrivialer $H\_1$-Stressfall, generatorischer $\\kappa$-Blindheitstest und $H\_1$-Dynamiktest.
+
+\---
+
+§§X116§§33\. Obstruktions-Orte nach Typ
+
+§§X117§§33.1 Reziprozität
+
+$$
+\\Lambda=\\Lambda^T.
+$$
+
+Passive Schur-/DtN-Reduktion bleibt symmetrisch. Kein antisymmetrischer $J$-Generator.
+
+§§X118§§33.2 Reelle Konjugationssymmetrie
+
+$$
+J\\mapsto -J.
+$$
+
+Reelle Strukturen wählen keine komplexe Orientierung.
+
+§§X119§§33.3 $S\_b$-Äquivarianz
+
+Geschwisterpermutationen halten kanonische Größen im trivialen Sektor. Keine Signum-Auswahl.
+
+§§X120§§33.4 Radiale Einachsenstruktur (F1)
+
+F1 liefert Ordnung:
+
+$$
+n\\to n+1.
+$$
+
+Aber nur entlang einer Achse. Nichtkommutativität braucht zwei unabhängige Achsen.
+
+§§X121§§33.5 Degenerazien
+
+Entartete Eigenräume dürfen nicht durch willkürliche numerische Basis geschnitten werden. Nur ganze Cluster sind relabeling-natürlich.
+
+§§X122§§33.6 Keine partielle Spur auf Knoten
+
+$$
+\\mathbb R^N=\\mathbb R^S\\oplus\\mathbb R^E
+$$
+
+ist direkte Summe, kein Tensorprodukt.
+
+§§X123§§33.7 Bit-Reversal
+
+Adresszyklen können Drehsinn spiegeln:
+
+$$
+\\rho\\leftrightarrow\\rho^{-1}.
+$$
+
+§§X124§§33.8 Boundary reversal
+
+UV/Env-Ko-Orientierung liefert:
 
 $$
 {J,-J}.
 $$
 
-## 33.9 Handoff reversal
+§§X125§§33.9 Handoff reversal
 
 $$
-A_{\gamma^{-1}}=-A_\gamma.
+A\_{\\gamma^{-1}}=-A\_\\gamma.
 $$
 
-Without a directed handoff sequence, there is no absolute direction of rotation.
+Ohne gerichtete Handoff-Sequenz kein absoluter Drehsinn.
 
-## 33.10 OQS dependence on (i)
+§§X126§§33.10 OQS-Abhängigkeit von $i$
 
-Lindblad/OQS can provide time direction, but requires Hamilton-(i).
+Lindblad/OQS kann Zeitrichtung liefern, setzt aber Hamilton-$i$ voraus.
 
-## 33.11 Flatness
+§§X127§§33.11 Flachheit
 
-Missing in the flat ToC/DtN sector:
-
-$$
-\text{Connection},
-\qquad
-\text{Holonomie},
-\qquad
-\text{Krümmung}.
-$$
-
----
-
-# 34. Current overall formula
+Im flachen ToC-/DtN-Sektor fehlen:
 
 $$
-\boxed{
-\text{Alle Einzelbaum-, Einzelapproximant-, passiven Schur-/DtN- und lokalen Triadentests enden bei }{J,-J}.
+\\text{Connection},
+\\qquad
+\\text{Holonomy},
+\\qquad
+\\text{Curvature}.
+$$
+
+§§X128§§33.12 Kausalitätsimport
+
+Eine primitive kausale Ordnung $\\leq$ ist kein neutraler Strukturträger. Sie würde bereits Zeit-/Kausalstruktur mitbringen und damit den späteren Rekonstruktionsschritt überspringen.
+
+$$
+\\boxed{
+(E,\\leq,#)\\text{ is a target structure, not a foundation.}
+}
+$$
+
+Der zulässige Test lautet daher nicht, ob ein kausales Substrat CNNA tragen kann, sondern ob CNNA aus einer nicht-kausalen Vorstruktur eine kausale Ordnung erzeugen kann.
+
+\---
+
+§§X129§§34\. Aktuelle Gesamtformel
+
+$$
+\\boxed{
+\\text{All single-tree, single-approximant, passive Schur/DtN, and local triad tests end at }{J,-J}.
 }
 $$
 
 $$
-\boxed{
-\text{Exakte und cluster-sichere Handoff-Operatoren im flachen ToC-/DtN-Sektor kommutieren.}
+\\boxed{
+\\text{Exact and cluster-safe handoff operators in the flat ToC/DtN sector commute.}
 }
 $$
 
 $$
-\boxed{
-\text{Nichtkommutativität entsteht bisher nur durch gesetzte Ordnung, nicht-kanonische Trunkierung oder asymmetrische Randvorschrift.}
+\\boxed{
+\\text{Non-commutativity arises so far only through imposed order, non-canonical truncation, or asymmetric boundary conditions.}
 }
 $$
 
 $$
-\boxed{
-\text{Der nächste echte positive Suchraum ist nicht ein weiterer flacher Einzel-ToC-Test, sondern Curved-sector, Multi-ToC-Frustration oder triadisches Handoff-Locking.}
+\\boxed{
+\\text{ToC nodes are provenance indices, not physical degrees of freedom.}
 }
 $$
 
-The most important upcoming ToC-related test before the substrate change remains:
-
 $$
-\boxed{
-\mathcal I_{\mathrm{ToCGrid}}=\Gamma_\infty\times T_b^\infty,
-\qquad
-\Omega_{R,L}=W_R\times T_{\le L},
-\qquad
-\Lambda_{R,L}.
+\\boxed{
+\\text{The b-ary tree was chosen as the provenance side of SG/ST: }SG\\leftrightarrow b=3,\\quad ST\\leftrightarrow b=4.
 }
 $$
 
-Goal:
+$$
+\\boxed{
+\\text{What is obstructed is not CNNA and not ToC in general, but rather the b-ary single tree as a global carrier of directed complex structure.}
+}
+$$
 
 $$
-\text{effektive Geometrie aus Subsystem-Sein testen},
+\\boxed{
+\\text{Complementary, handoff, and local algebra structures remain positively relevant for the AQFT connection.}
+}
 $$
 
-but separate from that:
+$$
+\\boxed{
+\\text{UV/Env generate a genuine radial scale break, but no chirality.}
+}
+$$
 
 $$
-\text{(J)-/Chirotopie-/Nichtkommutativitäts-Gate weiter offen halten}.
+\\boxed{
+\\omega\_\\partial\\Rightarrow{+J,-J},
+\\qquad
+\\omega\_{\\mathrm{lock}}\\text{ remains the open locking object.}
+}
 $$
+
+$$
+\\boxed{
+\\text{Relative holonomy/frustration is not automatically absolute orientation.}
+}
+$$
+
+$$
+\\boxed{
+\\text{The next genuine positive search space is not another flat single-ToC test, but rather curved-sector, multi-ToC frustration, or triadic handoff locking.}
+}
+$$
+
+Der wichtigste nächste ToC-nahe Test vor Substratwechsel bleibt:
+
+$$
+\\boxed{
+\\mathcal I\_{\\mathrm{ToCGrid}}=\\Gamma\_\\infty\\times T\_b^\\infty,
+\\qquad
+\\Omega\_{R,L}=W\_R\\times T\_{\\le L},
+\\qquad
+\\Lambda\_{R,L}.
+}
+$$
+
+Ziel:
+
+$$
+\\text{Testing effective geometry based on subsystem membership},
+$$
+
+aber getrennt davon:
+
+$$
+\\text{Keep the J-/chirotopy-/non-commutativity gate open}.
+$$
+
