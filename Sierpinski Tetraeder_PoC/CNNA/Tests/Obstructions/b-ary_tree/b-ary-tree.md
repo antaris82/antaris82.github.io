@@ -267,7 +267,7 @@ $$
 mit
 
 $$
-E_b^\infty = \bigl\{\{w,wi\}:w\in T_b^\infty,\ i\in A_b\bigr\}.
+E_b^\infty = \{\{w,wi\}:w\in T_b^\infty,\ i\in A_b\}.
 $$
 
 Jede bare Kante hat Gewicht $1$. Es gibt im baren Sektor keine eingebettete Geometrie, keine Winkel, keine Längen außer graph distance, keine Orientierung, keine komplexe Struktur, keine Zeit und keine Kausalordnung. Die einzige bare Abstandsgröße ist die graph distance
@@ -365,7 +365,7 @@ $$
 mit
 
 $$
-E_\Omega = \bigl\{\{x,y\}\in E_b^\infty:x,y\in\Omega(a,L)\bigr\}.
+E_\Omega = \{\{x,y\}\in E_b^\infty:x,y\in\Omega(a,L)\}.
 $$
 
 Seine Knotenanzahl ist
