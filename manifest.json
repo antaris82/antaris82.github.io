@@ -176,8 +176,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "7d9593f4b72cf5bcfee79fa3c294e7cb335f39bb",
-    "size": 465,
+    "sha": "f084ff80cc5d5d662fc8ed1f47475db97925b256",
+    "size": 241,
     "type": "blob",
     "mode": "100644"
   },
@@ -204,14 +204,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "c25ea574f72bc5556477d68539aea75bc7a66985",
-    "size": 99558,
+    "sha": "8902d0b45313d02e28957a5f5675b371d8bb483f",
+    "size": 101544,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "651c9a4d23abd28141747a2c644ecf9a00afbb42",
+    "sha": "c42c21c070d68fb9baa3951e64a811c993d67793",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -945,6 +945,69 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/10_response_weighted_holonomy_test_package/response_weighted_holonomy_out_L9/SUMMARY.txt",
+    "sha": "9d284f3e805b9c286a2936b47bc48f54c65ef6dd",
+    "size": 4203,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/10_response_weighted_holonomy_test_package/RESULTS_response_weighted_holonomy.md",
+    "sha": "aa251473c88c690f66cd576f2a3ae09f82b4acc6",
+    "size": 10451,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/10_response_weighted_holonomy_test_package/test_response_weighted_holonomy.py",
+    "sha": "d8d66c210d56ac6b3218666e20073cc9250470d5",
+    "size": 12656,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/11_response_connection_robustness_test_package/response_connection_robustness_out_L9/SUMMARY.txt",
+    "sha": "6acd19a856d3efaf47c8aced7c2741a7626059ef",
+    "size": 2418,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/11_response_connection_robustness_test_package/RESULTS_response_connection_robustness.md",
+    "sha": "bfcc128875bc33032adc990270d01b7d8519a185",
+    "size": 13101,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/11_response_connection_robustness_test_package/test_response_connection_robustness.py",
+    "sha": "7906ef07663f431133798429099f0d9940e1b516",
+    "size": 13204,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/12_phase_density_scaling_test_package/phase_density_scaling_out_L8/SUMMARY.txt",
+    "sha": "81403c9c85526e129649f163dc2b9a321d8e6f95",
+    "size": 4100,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/12_phase_density_scaling_test_package/RESULTS_phase_density_scaling.md",
+    "sha": "40debdacf00ffb97365928e6917b0c6d2f9d41d0",
+    "size": 13281,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/12_phase_density_scaling_test_package/test_phase_density_scaling.py",
+    "sha": "e367e1e18875c377e8bba6e5011184a46538e1d2",
+    "size": 13420,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/123.en.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
@@ -955,6 +1018,202 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/123.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/13_phase_density_extrapolation_test_package/phase_density_extrapolation_out_tail4/phase_density_extrapolation_fits.csv",
+    "sha": "e3b5d5d94578d97bf4c1d39fe57f3e3ff62602d2",
+    "size": 40170,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/13_phase_density_extrapolation_test_package/phase_density_extrapolation_out_tail4/SUMMARY.txt",
+    "sha": "22d484d304275ea05e2ffc75fdbabbdc99b93c19",
+    "size": 1907,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/13_phase_density_extrapolation_test_package/RESULTS_phase_density_extrapolation.md",
+    "sha": "f6617499b218ef99d60a211724154b2af99837b9",
+    "size": 8176,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/13_phase_density_extrapolation_test_package/test_phase_density_extrapolation.py",
+    "sha": "046e9853da158859500f8ff165981477b00bfd19",
+    "size": 12709,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/RESULTS_shell_phase_limit_highL.md",
+    "sha": "44d8f050eac9608ae57735072f740463e298c470",
+    "size": 9111,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/shell_phase_limit_highL_out_L10/shell_phase_highL_fits.csv",
+    "sha": "bc1e0cf172bc96779ea459f18a32b6f55ac87fed",
+    "size": 1164,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/shell_phase_limit_highL_out_L10/shell_phase_highL_levels.csv",
+    "sha": "44c0326fb70edc343d83c9b6c6d8b2fbc7f848d8",
+    "size": 6598,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/shell_phase_limit_highL_out_L10/SUMMARY.txt",
+    "sha": "3a6f270a5f4cf3761c14e086842fb9e33aa41f85",
+    "size": 2069,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/shell_phase_limit_ultrafast_out_L11/shell_ultrafast_density.csv",
+    "sha": "c41486a8a85c41b44f178992674af4a0f38f5518",
+    "size": 1028,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/shell_phase_limit_ultrafast_out_L11/shell_ultrafast_fits.csv",
+    "sha": "447e66779d3376dc15d85b630eb08991e039968e",
+    "size": 352,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/shell_phase_limit_ultrafast_out_L11/shell_ultrafast_residuals.csv",
+    "sha": "8c7f05fcfc3bc1b273d0bae8bdaea50d6c03950d",
+    "size": 772,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/shell_phase_limit_ultrafast_out_L11/SUMMARY.txt",
+    "sha": "f28f332c616d735958d823f1051c0da0058bb679",
+    "size": 1678,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/test_shell_phase_limit_highL_fast.py",
+    "sha": "963c0b1bf9424434247db913ddecfe50921c7dad",
+    "size": 10348,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/test_shell_phase_limit_highL.py",
+    "sha": "38367da493e3ba78fe5accd20c3dd19486cfc244",
+    "size": 12883,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/14_shell_phase_limit_highL_test_package/test_shell_phase_limit_ultrafast.py",
+    "sha": "d5d66b2c977dff8b0e69bb2e07071a6fadae1e23",
+    "size": 8215,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/15_phase_renormalization_clock_test_package/phase_renormalization_clock_out_L10/phase_renormalization_clock_fits.csv",
+    "sha": "d03f5b1f9adec2ca87e5a47b8bd70251feac26ce",
+    "size": 2241,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/15_phase_renormalization_clock_test_package/phase_renormalization_clock_out_L10/phase_renormalization_clock_levels.csv",
+    "sha": "5c188d200a37d48bb40de1107a18fa2ba1b197a1",
+    "size": 12112,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/15_phase_renormalization_clock_test_package/phase_renormalization_clock_out_L10/SUMMARY.txt",
+    "sha": "260ec55ff2ddd04dd469b7658e10917c4b511866",
+    "size": 3376,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/15_phase_renormalization_clock_test_package/RESULTS_phase_renormalization_clock.md",
+    "sha": "a090a19fe59850422ffca8e167d4d99784f4c0c7",
+    "size": 13214,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/15_phase_renormalization_clock_test_package/test_phase_renormalization_clock.py",
+    "sha": "9302bd408738734fd38652cdfaea0479e301549a",
+    "size": 15255,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/16_residual_curvature_locality_test_package/residual_curvature_locality_out_L10/residual_locality_by_distance.csv",
+    "sha": "98528f4c03ad52c3bddc40caf2092e63ee3302f8",
+    "size": 18880,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/16_residual_curvature_locality_test_package/residual_curvature_locality_out_L10/residual_locality_by_mode_distance.csv",
+    "sha": "859b233259caaba81288b3d50692b36bb7eab37b",
+    "size": 61939,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/16_residual_curvature_locality_test_package/residual_curvature_locality_out_L10/residual_locality_by_mode_sector.csv",
+    "sha": "a05a483858b8ebf7cf517fc4f651902058197ba2",
+    "size": 23054,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/16_residual_curvature_locality_test_package/residual_curvature_locality_out_L10/residual_locality_level_summary.csv",
+    "sha": "bddf87866ca8297659fa7c5a69e4a70e5234d3c4",
+    "size": 4240,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/16_residual_curvature_locality_test_package/residual_curvature_locality_out_L10/residual_locality_local_by_birth_order.csv",
+    "sha": "6f140021601f18d514f9034ebabd5421b4785d7a",
+    "size": 42447,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/16_residual_curvature_locality_test_package/residual_curvature_locality_out_L10/residual_locality_local_by_distance.csv",
+    "sha": "6fe88323f2f8fbf7fb4cc9517a19eeb54ba5d9f0",
+    "size": 14940,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/16_residual_curvature_locality_test_package/residual_curvature_locality_out_L10/residual_locality_local_rows.csv",
+    "sha": "93b37be5c45197770a93b3231576fc4cdb370832",
+    "size": 18710483,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/16_residual_curvature_locality_test_package/RESULTS_residual_curvature_locality.md",
+    "sha": "0f17b20fe6b72de21f52ea00e07d41cd3814354c",
+    "size": 14406,
     "type": "blob",
     "mode": "100644"
   },
