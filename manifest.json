@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "92a547c55749cbff8a473449e83762cf855ca69f",
-    "size": 751,
+    "sha": "2b949d9ac838ef3399ec212cddd3b6ddc7b01e76",
+    "size": 269,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "974379ff62b8ed630670ad1fab2681dc83afb36d",
-    "size": 84414,
+    "sha": "be028c1b903cb23f2bb940204c1a9906b2476321",
+    "size": 93808,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "e9904d644d62c9c339ce2ce9c05b41e2c107cf55",
+    "sha": "cf16781fde2784e51f60e5be4eef659eb5450d45",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -1375,6 +1375,139 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/verification_scripts_schur_cut_spectrum.py",
     "sha": "795bee3ab2bd54f06cde1bbcd6f817c21f02f7da",
     "size": 570,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/7_effective_operator_sector_closure_test_package/effective_operator_sector_closure_out_L9/sector_closure_level_summaries.csv",
+    "sha": "cc7313bc6b0ed9925868618904a889d2c1971c85",
+    "size": 2086,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/7_effective_operator_sector_closure_test_package/effective_operator_sector_closure_out_L9/sector_closure_parent_level_summaries.csv",
+    "sha": "350aa992ef0846a9bc01bbee6398764b1db66c52",
+    "size": 4484,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/7_effective_operator_sector_closure_test_package/effective_operator_sector_closure_out_L9/SUMMARY.txt",
+    "sha": "740a751dfabca60e89daf5ed623e4b0ef87d1c2b",
+    "size": 1510,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/7_effective_operator_sector_closure_test_package/RESULTS_effective_operator_sector_closure.md",
+    "sha": "bcd513028306696d01f71079ba05fa7a2c3bfa78",
+    "size": 9250,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/7_effective_operator_sector_closure_test_package/test_effective_operator_sector_closure.py",
+    "sha": "4b788402e090c61d5a0de6f3c529398b27f24ba4",
+    "size": 9747,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/8_operator_tower_gluing_test_package/operator_tower_gluing_out_L9/local_axes.csv",
+    "sha": "07e697dc9f2ad5f0b8123c53f498cbee28f00ec6",
+    "size": 1245571,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/8_operator_tower_gluing_test_package/operator_tower_gluing_out_L9/sibling_subtower_gluing.csv",
+    "sha": "868418cd7d80540ba1c4325635e265d925bf9f3b",
+    "size": 476609,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/8_operator_tower_gluing_test_package/operator_tower_gluing_out_L9/SUMMARY.txt",
+    "sha": "a09ddeeb423cc141c3a4a5ba254b752e44f7cf73",
+    "size": 1594,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/8_operator_tower_gluing_test_package/operator_tower_gluing_out_L9/vertical_by_child_level.csv",
+    "sha": "d6f95f833d2804721d0f918b03cb36afefe977c7",
+    "size": 1118,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/8_operator_tower_gluing_test_package/operator_tower_gluing_out_L9/vertical_by_parent_level.csv",
+    "sha": "d0e2b0fcd03880ec3ea89f806e79482092b25c22",
+    "size": 1119,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/8_operator_tower_gluing_test_package/operator_tower_gluing_out_L9/vertical_gluing_pairs.csv",
+    "sha": "34d4564b797b779d47cb8eab4efcc687497f516b",
+    "size": 1135175,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/8_operator_tower_gluing_test_package/RESULTS_operator_tower_gluing.md",
+    "sha": "7bd3d38c7bd24f126223d748a42e67d58cd4ddcf",
+    "size": 7257,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/8_operator_tower_gluing_test_package/test_operator_tower_gluing.py",
+    "sha": "2508e46b74d67ccec43fc893e66451cd8bab9e88",
+    "size": 11398,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/closed_geometry_holonomy_out_L9/closed_holonomy_by_level.csv",
+    "sha": "0a83f046294e511e88892a175dc71b0fa0e8f35c",
+    "size": 9182,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/closed_geometry_holonomy_out_L9/closed_holonomy_by_mode.csv",
+    "sha": "dca660b0d56a057aa2abe881a222cba78a4e12d3",
+    "size": 1370,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/closed_geometry_holonomy_out_L9/closed_holonomy_loops.csv",
+    "sha": "2fe55fa7a44bf471eae273552df04a428f024a9b",
+    "size": 3156781,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/closed_geometry_holonomy_out_L9/SUMMARY.txt",
+    "sha": "a3be71fb58270777c7d84db7aeff5e9f27c94c11",
+    "size": 3524,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/RESULTS_closed_geometry_holonomy_frustration.md",
+    "sha": "498eac7c7e034f932af96e41d3ad014cd33f74ec",
+    "size": 9345,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/test_closed_geometry_holonomy_frustration.py",
+    "sha": "38a76f22acee2a9903eb6f01d550d619def2a91b",
+    "size": 8445,
     "type": "blob",
     "mode": "100644"
   },
