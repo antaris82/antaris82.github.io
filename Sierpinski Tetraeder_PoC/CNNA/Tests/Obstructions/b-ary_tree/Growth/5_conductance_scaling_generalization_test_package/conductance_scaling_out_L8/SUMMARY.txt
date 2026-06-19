@@ -1,0 +1,64 @@
+KERNEL inverse_square
+  final level=8, nodes=9841, births=6561
+  root_g=12.961842
+  root_delta_sum=6.485198e+00
+  root_delta_mean_per_birth=9.884467e-04
+  immediate_parent_delta_mean_per_birth=6.326059e-02
+  root/local mean ratio=1.562500e-02
+  local fraction of ancestor delta=0.654698
+  last ratio root_delta_sum L/L-1=2.308426
+  last ratio root_delta_mean_per_birth L/L-1=0.769475
+  last ratio local_mean_per_birth L/L-1=1.005029
+  deepest parent_level=7: mean leakage=2.471751e-02, axis_align=0.936102, frac complex=1.000
+
+KERNEL critical_exp_1over3
+  final level=8, nodes=9841, births=6561
+  root_g=2.463492
+  root_delta_sum=1.884746e-01
+  root_delta_mean_per_birth=2.872650e-05
+  immediate_parent_delta_mean_per_birth=6.282486e-02
+  root/local mean ratio=4.572474e-04
+  local fraction of ancestor delta=0.666768
+  last ratio root_delta_sum L/L-1=1.001949
+  last ratio root_delta_mean_per_birth L/L-1=0.333983
+  last ratio local_mean_per_birth L/L-1=1.001949
+  deepest parent_level=7: mean leakage=2.761156e-02, axis_align=0.933788, frac complex=1.000
+
+KERNEL exp_0p40
+  final level=8, nodes=9841, births=6561
+  root_g=4.063313
+  root_delta_sum=6.787463e-01
+  root_delta_mean_per_birth=1.034517e-04
+  immediate_parent_delta_mean_per_birth=6.314188e-02
+  root/local mean ratio=1.638400e-03
+  local fraction of ancestor delta=0.600393
+  last ratio root_delta_sum L/L-1=1.203034
+  last ratio root_delta_mean_per_birth L/L-1=0.401011
+  last ratio local_mean_per_birth L/L-1=1.002528
+  deepest parent_level=7: mean leakage=2.545189e-02, axis_align=0.935648, frac complex=1.000
+
+KERNEL exp_0p25
+  final level=8, nodes=9841, births=6561
+  root_g=1.643145
+  root_delta_sum=2.504823e-02
+  root_delta_mean_per_birth=3.817746e-06
+  immediate_parent_delta_mean_per_birth=6.254995e-02
+  root/local mean ratio=6.103516e-05
+  local fraction of ancestor delta=0.750011
+  last ratio root_delta_sum L/L-1=0.751210
+  last ratio root_delta_mean_per_birth L/L-1=0.250403
+  last ratio local_mean_per_birth L/L-1=1.001613
+  deepest parent_level=7: mean leakage=2.951991e-02, axis_align=0.932214, frac complex=1.000
+
+KERNEL shell_norm_inverse_square
+  final level=8, nodes=9841, births=6561
+  root_g=1.263668
+  root_delta_sum=2.917818e-03
+  root_delta_mean_per_birth=4.447215e-07
+  immediate_parent_delta_mean_per_birth=6.224678e-02
+  root/local mean ratio=7.144490e-06
+  local fraction of ancestor delta=0.910219
+  last ratio root_delta_sum L/L-1=0.766725
+  last ratio root_delta_mean_per_birth L/L-1=0.255575
+  last ratio local_mean_per_birth L/L-1=1.001436
+  deepest parent_level=7: mean leakage=3.167238e-02, axis_align=0.930483, frac complex=1.000

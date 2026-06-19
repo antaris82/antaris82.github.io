@@ -1,0 +1,65 @@
+MODE linear
+  final nodes=3280, completed triples=1093
+  support H1-rank=21324, directed edges=49206
+  mean log-circulation=0.665658
+  mean neutral norm=0.274921
+  frac forward-cycle complex=1.000
+  frac full-local Markov complex=1.000
+  frac full-raw local complex=1.000
+  control frac sym-raw complex=0.000
+  control frac path-raw complex=0.000
+  root:
+    current g: 7.10429107534 7.4546742549 7.89091754469
+    log-circulation: 1.379981
+    neutral norm: 0.091215
+    forward eig class: complex_pair
+    full Markov eig class: complex_pair
+    full Markov eigs: 1+0j -0.5+0.132389657j -0.5-0.132389657j
+    sym raw eig class: real_or_degenerate
+    path raw eig class: real_or_degenerate
+    kappa flips selected forward J: True
+    kappa preserves birth order: False
+
+MODE log
+  final nodes=3280, completed triples=1093
+  support H1-rank=21324, directed edges=49206
+  mean log-circulation=0.510948
+  mean neutral norm=0.005599
+  frac forward-cycle complex=1.000
+  frac full-local Markov complex=1.000
+  frac full-raw local complex=1.000
+  control frac sym-raw complex=0.000
+  control frac path-raw complex=0.000
+  root:
+    current g: 3.93661980664 3.9995631905 4.03314614667
+    log-circulation: 1.238490
+    neutral norm: 0.021273
+    forward eig class: complex_pair
+    full Markov eig class: complex_pair
+    full Markov eigs: 1+0j -0.5+0.138051716j -0.5-0.138051716j
+    sym raw eig class: real_or_degenerate
+    path raw eig class: real_or_degenerate
+    kappa flips selected forward J: True
+    kappa preserves birth order: False
+
+MODE saturating
+  final nodes=3280, completed triples=1093
+  support H1-rank=21324, directed edges=49206
+  mean log-circulation=1.912531
+  mean neutral norm=0.028381
+  frac forward-cycle complex=1.000
+  frac full-local Markov complex=1.000
+  frac full-raw local complex=1.000
+  control frac sym-raw complex=0.000
+  control frac path-raw complex=0.000
+  root:
+    current g: 5.00968884062 5.1490679768 5.17597572033
+    log-circulation: 2.782875
+    neutral norm: 0.030245
+    forward eig class: complex_pair
+    full Markov eig class: complex_pair
+    full Markov eigs: 1+0j -0.5+0.212180858j -0.5-0.212180858j
+    sym raw eig class: real_or_degenerate
+    path raw eig class: real_or_degenerate
+    kappa flips selected forward J: True
+    kappa preserves birth order: False

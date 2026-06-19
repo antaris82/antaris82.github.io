@@ -1,0 +1,20 @@
+MODE linear
+  root birth conductances: [1.22, 1.500478, 1.856992]
+  root current conductances after L=7: [7.104291, 7.454674, 7.890918]
+  root current |Z|: 0.682590, phase deg: -146.394
+  root local cycle log-bias forward/reverse: 1.379981
+  final level: nodes=3280, H1_support=21324, mean neutral norm=0.274921, mean cycle log-bias=0.665658, g range=[2.438981, 13.118242]
+
+MODE log
+  root birth conductances: [1.152492, 1.256192, 1.333861]
+  root current conductances after L=7: [3.93662, 3.999563, 4.033146]
+  root current |Z|: 0.084873, phase deg: -159.960
+  root local cycle log-bias forward/reverse: 1.238490
+  final level: nodes=3280, H1_support=21324, mean neutral norm=0.005599, mean cycle log-bias=0.510948, g range=[1.433720, 6.476644]
+
+MODE saturating
+  root birth conductances: [1.45, 1.643973, 1.729891]
+  root current conductances after L=7: [5.009689, 5.149068, 5.175976]
+  root current |Z|: 0.154599, phase deg: -171.331
+  root local cycle log-bias forward/reverse: 2.782875
+  final level: nodes=3280, H1_support=21324, mean neutral norm=0.028381, mean cycle log-bias=1.912531, g range=[1.804461, 7.988163]

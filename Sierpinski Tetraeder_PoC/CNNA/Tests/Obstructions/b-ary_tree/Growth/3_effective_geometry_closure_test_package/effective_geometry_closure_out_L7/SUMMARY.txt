@@ -1,0 +1,32 @@
+MODE linear
+  radial_tree: V=3280 E=3279 F=0 b1=0 b2=0 mean|face_curv|=0.000000 frac face curv!=0=0.000 mean|sibling_curv|=0.665658 full-local complex=1.000
+  sibling_cycle_unfilled: V=3280 E=6558 F=0 b1=3279 b2=0 mean|face_curv|=0.000000 frac face curv!=0=0.000 mean|sibling_curv|=0.665658 full-local complex=1.000
+  sibling_triangle_filled: V=3280 E=6558 F=1093 b1=2186 b2=0 mean|face_curv|=0.665658 frac face curv!=0=1.000 mean|sibling_curv|=0.665658 full-local complex=1.000
+  parent_fan_filled: V=3280 E=6558 F=3279 b1=0 b2=0 mean|face_curv|=0.744179 frac face curv!=0=1.000 mean|sibling_curv|=0.665658 full-local complex=1.000
+  full_local_surface: V=3280 E=6558 F=4372 b1=0 b2=1093 mean|face_curv|=0.724549 frac face curv!=0=1.000 mean|sibling_curv|=0.665658 full-local complex=1.000
+  root g=7.10429108 7.45467425 7.89091754
+  root sibling curvature=1.379981
+  root neutral |Z|=0.682590, phase=-146.394 deg
+  root full-local Markov=complex_pair, eigs=1+0j -0.5+0.132389657j -0.5-0.132389657j
+
+MODE log
+  radial_tree: V=3280 E=3279 F=0 b1=0 b2=0 mean|face_curv|=0.000000 frac face curv!=0=0.000 mean|sibling_curv|=0.510948 full-local complex=1.000
+  sibling_cycle_unfilled: V=3280 E=6558 F=0 b1=3279 b2=0 mean|face_curv|=0.000000 frac face curv!=0=0.000 mean|sibling_curv|=0.510948 full-local complex=1.000
+  sibling_triangle_filled: V=3280 E=6558 F=1093 b1=2186 b2=0 mean|face_curv|=0.510948 frac face curv!=0=1.000 mean|sibling_curv|=0.510948 full-local complex=1.000
+  parent_fan_filled: V=3280 E=6558 F=3279 b1=0 b2=0 mean|face_curv|=0.692698 frac face curv!=0=1.000 mean|sibling_curv|=0.510948 full-local complex=1.000
+  full_local_surface: V=3280 E=6558 F=4372 b1=0 b2=1093 mean|face_curv|=0.647261 frac face curv!=0=1.000 mean|sibling_curv|=0.510948 full-local complex=1.000
+  root g=3.93661981 3.99956319 4.03314615
+  root sibling curvature=1.238490
+  root neutral |Z|=0.084873, phase=-159.960 deg
+  root full-local Markov=complex_pair, eigs=1+0j -0.5+0.138051716j -0.5-0.138051716j
+
+MODE saturating
+  radial_tree: V=3280 E=3279 F=0 b1=0 b2=0 mean|face_curv|=0.000000 frac face curv!=0=0.000 mean|sibling_curv|=1.912531 full-local complex=1.000
+  sibling_cycle_unfilled: V=3280 E=6558 F=0 b1=3279 b2=0 mean|face_curv|=0.000000 frac face curv!=0=0.000 mean|sibling_curv|=1.912531 full-local complex=1.000
+  sibling_triangle_filled: V=3280 E=6558 F=1093 b1=2186 b2=0 mean|face_curv|=1.912531 frac face curv!=0=1.000 mean|sibling_curv|=1.912531 full-local complex=1.000
+  parent_fan_filled: V=3280 E=6558 F=3279 b1=0 b2=0 mean|face_curv|=2.109853 frac face curv!=0=1.000 mean|sibling_curv|=1.912531 full-local complex=1.000
+  full_local_surface: V=3280 E=6558 F=4372 b1=0 b2=1093 mean|face_curv|=2.060523 frac face curv!=0=1.000 mean|sibling_curv|=1.912531 full-local complex=1.000
+  root g=5.00968884 5.14906798 5.17597572
+  root sibling curvature=2.782875
+  root neutral |Z|=0.154599, phase=-171.331 deg
+  root full-local Markov=complex_pair, eigs=1+0j -0.5+0.212180858j -0.5-0.212180858j

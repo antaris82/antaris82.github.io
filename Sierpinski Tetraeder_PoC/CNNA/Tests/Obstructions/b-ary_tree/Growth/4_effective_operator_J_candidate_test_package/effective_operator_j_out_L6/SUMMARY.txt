@@ -1,0 +1,62 @@
+MODE linear
+  final nodes=1093, completed triples=364
+  mean neutral norm=0.274849
+  frac Markov complex=1.000
+  frac Markov J2 ok=1.000
+  mean Markov J2 residual=9.858145e-17
+  mean Markov sum-zero leakage=6.193109e-02
+  mean Markov axis alignment with constant=0.848852
+  frac Markov kappa flip ok=1.000
+  control: frac selected forward J2 ok=1.000
+  control: path no-closure complex=0.000
+  control: sym raw complex=0.000
+  root child g=4.07827492541 4.37041099007 4.7393881029
+  root Markov eigs=1+0j -0.5+0.132389657j -0.5-0.132389657j
+  root Markov alpha=0.184722920
+  root Markov J2 residual=3.142722e-16
+  root Markov axis alignment=0.896878862
+  root Markov kappa flip residual=2.452182e-16
+  root Markov S2 eigs=-0.628823662 -0.371176338
+  root kappa preserves birth order=False
+
+MODE log
+  final nodes=1093, completed triples=364
+  mean neutral norm=0.007699
+  frac Markov complex=1.000
+  frac Markov J2 ok=1.000
+  mean Markov J2 residual=1.070557e-16
+  mean Markov sum-zero leakage=3.093996e-02
+  mean Markov axis alignment with constant=0.931491
+  frac Markov kappa flip ok=1.000
+  control: frac selected forward J2 ok=1.000
+  control: path no-closure complex=0.000
+  control: sym raw complex=0.000
+  root child g=2.66312503161 2.72491751176 2.75743649686
+  root Markov eigs=1+0j -0.5+0.138051716j -0.5-0.138051716j
+  root Markov alpha=0.171062068
+  root Markov J2 residual=1.765745e-16
+  root Markov axis alignment=0.922785039
+  root Markov kappa flip residual=1.550322e-16
+  root Markov S2 eigs=-0.601014627 -0.398985373
+  root kappa preserves birth order=False
+
+MODE saturating
+  final nodes=1093, completed triples=364
+  mean neutral norm=0.026327
+  frac Markov complex=1.000
+  frac Markov J2 ok=1.000
+  mean Markov J2 residual=1.120182e-16
+  mean Markov sum-zero leakage=1.331002e-01
+  mean Markov axis alignment with constant=0.868945
+  frac Markov kappa flip ok=1.000
+  control: frac selected forward J2 ok=1.000
+  control: path no-closure complex=0.000
+  control: sym raw complex=0.000
+  root child g=3.38976999179 3.528453305 3.5547911978
+  root Markov eigs=1+0j -0.5+0.212180858j -0.5-0.212180858j
+  root Markov alpha=0.300969116
+  root Markov J2 residual=4.142670e-17
+  root Markov axis alignment=0.893893500
+  root Markov kappa flip residual=2.346084e-16
+  root Markov S2 eigs=-0.71345185 -0.28654815
+  root kappa preserves birth order=False
