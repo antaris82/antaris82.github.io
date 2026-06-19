@@ -1,0 +1,33 @@
+PHASE AGING OF FIXED LAYERS
+  max_level=10
+
+  L=1: nodes=4, completed=1, stored_drift=0.000000000e+00, neutral_phase_drift=0.000000000, neutral_norm_delta=0.000000000, gspread_delta=0.000000000, stored_loop=nan, neutral_loop=nan, elapsed=0.00s
+  L=2: nodes=13, completed=4, stored_drift=0.000000000e+00, neutral_phase_drift=0.003020522, neutral_norm_delta=-0.001734413, gspread_delta=-0.001969422, stored_loop=0.136892345, neutral_loop=0.078733215, elapsed=0.00s
+  L=3: nodes=40, completed=13, stored_drift=0.000000000e+00, neutral_phase_drift=0.007382486, neutral_norm_delta=-0.001474000, gspread_delta=-0.001667035, stored_loop=0.385962622, neutral_loop=0.392688932, elapsed=0.01s
+  L=4: nodes=121, completed=40, stored_drift=0.000000000e+00, neutral_phase_drift=0.014029241, neutral_norm_delta=-0.001051858, gspread_delta=-0.001179882, stored_loop=0.355452909, neutral_loop=0.609928326, elapsed=0.02s
+  L=5: nodes=364, completed=121, stored_drift=0.000000000e+00, neutral_phase_drift=0.023428389, neutral_norm_delta=-0.000744202, gspread_delta=-0.000823093, stored_loop=0.280956939, neutral_loop=0.748012816, elapsed=0.06s
+  L=6: nodes=1093, completed=364, stored_drift=0.000000000e+00, neutral_phase_drift=0.034760726, neutral_norm_delta=-0.000553045, gspread_delta=-0.000599436, stored_loop=0.217305724, neutral_loop=0.823571771, elapsed=0.16s
+  L=7: nodes=3280, completed=1093, stored_drift=0.000000000e+00, neutral_phase_drift=0.046300906, neutral_norm_delta=-0.000440719, gspread_delta=-0.000466417, stored_loop=0.171757124, neutral_loop=0.848569476, elapsed=0.52s
+  L=8: nodes=9841, completed=3280, stored_drift=0.000000000e+00, neutral_phase_drift=0.056453832, neutral_norm_delta=-0.000375970, gspread_delta=-0.000388659, stored_loop=0.142420786, neutral_loop=0.849947920, elapsed=1.59s
+  L=9: nodes=29524, completed=9841, stored_drift=0.000000000e+00, neutral_phase_drift=0.064420034, neutral_norm_delta=-0.000338763, gspread_delta=-0.000343341, stored_loop=0.124682857, neutral_loop=65.081360537, elapsed=4.56s
+  L=10: nodes=88573, completed=29524, stored_drift=0.000000000e+00, neutral_phase_drift=0.070163353, neutral_norm_delta=-0.000317300, gspread_delta=-0.000317319, stored_loop=0.114290571, neutral_loop=52.354270420, elapsed=13.73s
+
+FINAL LEVEL AGE SUMMARY
+  parent_level=0, age=9, count=1, stored_drift=0.000e+00, neutral_phase_drift=0.013052121, neutral_norm_delta=-0.010319386, gspread_delta=-0.011718780
+  parent_level=1, age=8, count=3, stored_drift=0.000e+00, neutral_phase_drift=0.030080540, neutral_norm_delta=-0.005219365, gspread_delta=-0.005885237
+  parent_level=2, age=7, count=9, stored_drift=0.000e+00, neutral_phase_drift=0.055517012, neutral_norm_delta=-0.003206767, gspread_delta=-0.003566427
+  parent_level=3, age=6, count=27, stored_drift=0.000e+00, neutral_phase_drift=0.090320194, neutral_norm_delta=-0.002243186, gspread_delta=-0.002444975
+  parent_level=4, age=5, count=81, stored_drift=0.000e+00, neutral_phase_drift=0.129731385, neutral_norm_delta=-0.001731310, gspread_delta=-0.001842117
+  parent_level=5, age=4, count=243, stored_drift=0.000e+00, neutral_phase_drift=0.166683635, neutral_norm_delta=-0.001435223, gspread_delta=-0.001490883
+  parent_level=6, age=3, count=729, stored_drift=0.000e+00, neutral_phase_drift=0.196052203, neutral_norm_delta=-0.001240671, gspread_delta=-0.001262499
+  parent_level=7, age=2, count=2187, stored_drift=0.000e+00, neutral_phase_drift=0.215132541, neutral_norm_delta=-0.001074597, gspread_delta=-0.001075910
+  parent_level=8, age=1, count=6561, stored_drift=0.000e+00, neutral_phase_drift=0.213996639, neutral_norm_delta=-0.000839654, gspread_delta=-0.000831607
+  parent_level=9, age=0, count=19683, stored_drift=0.000e+00, neutral_phase_drift=0.000000000, neutral_norm_delta=0.000000000, gspread_delta=0.000000000
+
+FINAL LEVEL LOOP SUMMARY
+  stored_response / parent_child_ring: count=9841, mean_abs_res=0.137512566, p95=0.299574848
+  stored_response / parent_fan_triangle: count=29523, mean_abs_res=0.118213050, p95=0.270215921
+  stored_response / sibling_cycle: count=9841, mean_abs_res=0.079301136, p95=0.175869757
+  refreshed_neutral / parent_child_ring: count=9841, mean_abs_res=85.165026394, p95=124.132204097
+  refreshed_neutral / parent_fan_triangle: count=29523, mean_abs_res=29.311610830, p95=41.729835728
+  refreshed_neutral / sibling_cycle: count=9841, mean_abs_res=88.671493215, p95=128.689419433
