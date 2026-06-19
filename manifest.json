@@ -113,7 +113,7 @@
   },
   {
     "path": "changed.txt",
-    "sha": "fea1f7fcfd26e312782aacae47fdd0cf03f02ef7",
+    "sha": "5f04105e33ccfb4e21dcaa68dbdbba532b27d4c6",
     "size": 74,
     "type": "blob",
     "mode": "100644"
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "bb249dca0f2917fc61f4b129e0eff7d2e9577aea",
-    "size": 69736,
+    "sha": "7a24007d1c56d9d2807ff4b14dd6a9a7034ba042",
+    "size": 69945,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "11f592c13798854b918c4cb8fa726ca5d2d1e2b3",
+    "sha": "8c3be0d7973572398548329d1f0175aa255eacef",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -805,9 +805,359 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/output/all_level_summaries.csv",
+    "sha": "21954f306d85333afa87f08c28fc06eeb676b782",
+    "size": 5173,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/output/events_linear.csv",
+    "sha": "b4d006d663bea7558ab8070d24cd86f4c55d5477",
+    "size": 662589,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/output/events_log.csv",
+    "sha": "a691b6ad0b22e0a2cc1b779f6cebdec3087c6241",
+    "size": 665128,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/output/events_saturating.csv",
+    "sha": "2d919e7dd7fe480a548c3fbd42d1885339f51168",
+    "size": 682057,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/output/levels_linear.csv",
+    "sha": "5d7d9ace72d688b017ba07ca660d10a880dd4c55",
+    "size": 1921,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/output/levels_log.csv",
+    "sha": "dff4f187bfa6dc04a8f8d528b63a076e3aea2e5b",
+    "size": 1897,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/output/levels_saturating.csv",
+    "sha": "812dde8690282140efe1ae1836a343b5ceb63be5",
+    "size": 1937,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/output/SUMMARY.txt",
+    "sha": "564daec831d892d1feddc1199e6e656bf5432057",
+    "size": 1123,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/RESULTS_dynamic_birth_conductance.md",
+    "sha": "6631774b35469ac9728aff5e25afe83b51665c96",
+    "size": 7890,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/test_dynamic_birth_conductance.py",
+    "sha": "ba3c68297038e6b7e3354cbbcd9d8f2276e54f53",
+    "size": 14656,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/123.en.md",
+    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+    "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/123.md",
     "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
     "size": 1,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/all_level_summaries.csv",
+    "sha": "3e3c4d58833c4e3761ac153ba56296e0bd185e91",
+    "size": 5360,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/events_linear.csv",
+    "sha": "2e4cd40a9b9211d01d31dcb9795fb657b583214b",
+    "size": 445218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/events_log.csv",
+    "sha": "74edaf339f0a18de9e1d4830ec8f265a9c1c53c5",
+    "size": 439016,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/events_saturating.csv",
+    "sha": "90ba472290e097ec2f04b1f3deeec6c09eb26e39",
+    "size": 459829,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/levels_linear.csv",
+    "sha": "af9e2a9347bd5a6f0cbb7e13a182b107a623097a",
+    "size": 2083,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/levels_log.csv",
+    "sha": "8bb1a1f307409a32b3c54573be37138fd5abe307",
+    "size": 2080,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/levels_saturating.csv",
+    "sha": "e7ca3aa6567a2b25d52ace99c85fa8690356a05b",
+    "size": 2111,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/triples_linear.csv",
+    "sha": "441902a8a97576cc40525e402b92f60ded6dde28",
+    "size": 887834,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/triples_log.csv",
+    "sha": "b727382967eed1624246bfdb2a9c16830b9ff1df",
+    "size": 900593,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/csv_outputs_L7/triples_saturating.csv",
+    "sha": "cb8cffcfe5bbed88e8deedc7a5721b4caa45ccf7",
+    "size": 893065,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/RESULTS_dynamic_birth_monodromy.md",
+    "sha": "2b782ad02b034a1c70e2ebd96ccec3aba0da0c09",
+    "size": 12042,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/SUMMARY.txt",
+    "sha": "a0ccde397c990a563ceab191d7b69301e9587095",
+    "size": 2319,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/2_dynamic_birth_monodromy_test_package/test_dynamic_birth_monodromy.py",
+    "sha": "950503f2b87f543bafa0621686efba748caf9c9a",
+    "size": 22361,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/3_effective_geometry_closure_test_package/effective_geometry_closure_out_L7/geometry_level_summaries.csv",
+    "sha": "942824f3abdbf42755fb48bfe278b50f1b5a33b6",
+    "size": 13974,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/3_effective_geometry_closure_test_package/effective_geometry_closure_out_L7/SUMMARY.txt",
+    "sha": "88b94c6336bd2c9b64407885cd537362140f4178",
+    "size": 3003,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/3_effective_geometry_closure_test_package/RESULTS_effective_geometry_closure.md",
+    "sha": "b7aff294be9fdab865c068c64b4775be7a96df86",
+    "size": 8564,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/3_effective_geometry_closure_test_package/test_effective_geometry_closure.py",
+    "sha": "8f6fbfdd03941b11e249ee0fc987d3025f1b7694",
+    "size": 16214,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/4_effective_operator_J_candidate_test_package/effective_operator_j_out_L6/operator_level_summaries.csv",
+    "sha": "b5ed47264a09cebf71bc26c72283ce3c7f6cfa67",
+    "size": 3684,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/4_effective_operator_J_candidate_test_package/effective_operator_j_out_L6/operator_parent_rows_linear.csv",
+    "sha": "abeb7c631c66369b2f0789790acb93b53180221c",
+    "size": 483230,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/4_effective_operator_J_candidate_test_package/effective_operator_j_out_L6/operator_parent_rows_log.csv",
+    "sha": "64319bc8a4e991da177440488903eda2f73f5371",
+    "size": 488960,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/4_effective_operator_J_candidate_test_package/effective_operator_j_out_L6/operator_parent_rows_saturating.csv",
+    "sha": "f79d9917a8bd7e0a08a9189a3418277c65d79531",
+    "size": 481864,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/4_effective_operator_J_candidate_test_package/effective_operator_j_out_L6/SUMMARY.txt",
+    "sha": "e939e56d475d6807cb4c116b5b4d2630ad56120e",
+    "size": 2367,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/4_effective_operator_J_candidate_test_package/RESULTS_effective_operator_J_candidate.md",
+    "sha": "21a44433e84f438c7f306ad5b599012153256d1f",
+    "size": 9170,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/4_effective_operator_J_candidate_test_package/test_effective_operator_J_candidate.py",
+    "sha": "84467cc419a5ffd3125b10463507588b5e6aeec1",
+    "size": 18226,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/all_event_summaries.csv",
+    "sha": "98d2a5df8e79c58db5a5bce939613d20314a3cbe",
+    "size": 15451,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/all_operator_summaries.csv",
+    "sha": "917b6da87455a5a01d013415a9ba15f0890a5007",
+    "size": 20347,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/events_critical_exp_1over3.csv",
+    "sha": "678941b3e74034056b3bacdd5b82fdda488da0db",
+    "size": 3488,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/events_exp_0p25.csv",
+    "sha": "fa018e470f0b1541a7d9436071a1a3a36f622631",
+    "size": 3430,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/events_exp_0p40.csv",
+    "sha": "202e61401218e789a71a20b69c564ed717d607d0",
+    "size": 3392,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/events_inverse_square.csv",
+    "sha": "afd777ef7c0e21252464f7b97320632c767179cf",
+    "size": 3424,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/events_shell_norm_inverse_square.csv",
+    "sha": "45af673360a93c76fd7dd8116e1428d7b03660db",
+    "size": 3589,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/operators_critical_exp_1over3.csv",
+    "sha": "5146da54f558cbc435d22aaaa787d317869e1c01",
+    "size": 4340,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/operators_exp_0p25.csv",
+    "sha": "afe398656c4cf2ade26319ed081c3eb12ce122c6",
+    "size": 3916,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/operators_exp_0p40.csv",
+    "sha": "6ea887c4c210a2205e9493163fdbe9b0dbad2ccd",
+    "size": 3929,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/operators_inverse_square.csv",
+    "sha": "aa5fdbb552e91288ca130ea57e67a1e1ddf65b5e",
+    "size": 4123,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/operators_shell_norm_inverse_square.csv",
+    "sha": "e5e5a4e8763669b31393849ab733a6052cf129e8",
+    "size": 4531,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/conductance_scaling_out_L8/SUMMARY.txt",
+    "sha": "17e6715c92e5257c9c53e232125b8af4a0b8101f",
+    "size": 2634,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/RESULTS_conductance_scaling_generalization.md",
+    "sha": "4bc42614839e019331db5045b1f46b38f0668499",
+    "size": 10403,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/test_conductance_scaling_generalization.py",
+    "sha": "ce0ecb30e9f40873d452960dcd3bf3712f11e769",
+    "size": 16218,
     "type": "blob",
     "mode": "100644"
   },
