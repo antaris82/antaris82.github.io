@@ -1,2 +1,1 @@
-Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/19_response_operator_refresh_rule_package_v2_two_layer/response_operator_refresh_rule_package/RESULTS_response_operator_refresh_rule.md
-Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/19_response_operator_refresh_rule_package_v2_two_layer/response_operator_refresh_rule_package/TWO_LAYER_MODEL_SETTING.md
+Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/123.en.md
