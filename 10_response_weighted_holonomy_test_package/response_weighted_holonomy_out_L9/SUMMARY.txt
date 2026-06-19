@@ -1,0 +1,38 @@
+RESPONSE-WEIGHTED HOLONOMY TEST
+  final level=9, nodes=29524, local operators=9841, loops=17501
+  mean local theta=167.727636213 deg
+  mean |local theta|=167.727636213 deg
+  local polar reflection fraction=0.000000
+
+BY MODE
+  level_birth_ring: count=8, mean|excess|=102.327720517 deg, p95|excess|=158.539564474, max|excess|=165.305257135, mean gauge phase=3.945e-13, mean local theta per step=165.713295524, mean cond=1.000000, mean len=1230.00
+  level_birth_ring_chunk9: count=1093, mean|excess|=69.581947035 deg, p95|excess|=70.668596393, max|excess|=70.797744987, mean gauge phase=9.004e-15, mean local theta per step=167.731327448, mean cond=1.000000, mean len=9.00
+  parent_child_ring: count=3280, mean|excess|=49.279323281 deg, p95|excess|=50.672416738, max|excess|=85.400133335, mean gauge phase=5.883e-15, mean local theta per step=167.680169180, mean cond=1.000000, mean len=4.00
+  parent_fan_triangle: count=9840, mean|excess|=142.991652170 deg, p95|excess|=143.545003441, max|excess|=143.689041031, mean gauge phase=4.945e-15, mean local theta per step=167.663884057, mean cond=1.000000, mean len=3.00
+  sibling_cycle: count=3280, mean|excess|=143.187073647 deg, p95|excess|=143.600425745, max|excess|=143.670192573, mean gauge phase=5.059e-15, mean local theta per step=167.729024549, mean cond=1.000000, mean len=3.00
+
+SELECTED BY LEVEL
+  parent_child_ring L=0: count=1, mean|excess|=85.400133335, max|excess|=85.400133335, mean theta/step=158.649966666
+  parent_child_ring L=1: count=3, mean|excess|=69.249194950, max|excess|=70.118473488, mean theta/step=162.687701262
+  parent_child_ring L=2: count=9, mean|excess|=60.256259154, max|excess|=61.224569429, mean theta/step=164.935935212
+  parent_child_ring L=3: count=27, mean|excess|=55.137779118, max|excess|=56.011440356, mean theta/step=166.215555220
+  parent_child_ring L=4: count=81, mean|excess|=52.178687380, max|excess|=52.927542185, mean theta/step=166.955328155
+  parent_child_ring L=5: count=243, mean|excess|=50.449381277, max|excess|=51.088896760, mean theta/step=167.387654681
+  parent_child_ring L=6: count=729, mean|excess|=49.431552510, max|excess|=49.986441181, mean theta/step=167.642111872
+  parent_child_ring L=7: count=2187, mean|excess|=48.829781054, max|excess|=49.322884171, mean theta/step=167.792554736
+  parent_fan_triangle L=0: count=3, mean|excess|=114.422048595, max|excess|=114.764279457, mean theta/step=158.140682865
+  parent_fan_triangle L=1: count=9, mean|excess|=127.226476056, max|excess|=127.988857009, mean theta/step=162.408825352
+  parent_fan_triangle L=2: count=27, mean|excess|=134.337270229, max|excess|=135.077803432, mean theta/step=164.779090076
+  parent_fan_triangle L=3: count=81, mean|excess|=138.376970794, max|excess|=139.010682519, mean theta/step=166.125656931
+  parent_fan_triangle L=4: count=243, mean|excess|=140.709291776, max|excess|=141.238607196, mean theta/step=166.903097259
+  parent_fan_triangle L=5: count=729, mean|excess|=142.071086097, max|excess|=142.517662346, mean theta/step=167.357028699
+  parent_fan_triangle L=6: count=2187, mean|excess|=142.872142535, max|excess|=143.258147697, mean theta/step=167.624047512
+  parent_fan_triangle L=7: count=6561, mean|excess|=143.345580949, max|excess|=143.689041031, mean theta/step=167.781860316
+  sibling_cycle L=1: count=1, mean|excess|=120.533454208, max|excess|=120.533454208, mean theta/step=160.177818069
+  sibling_cycle L=2: count=3, mean|excess|=130.572986980, max|excess|=131.006083633, mean theta/step=163.524328993
+  sibling_cycle L=3: count=9, mean|excess|=136.219411853, max|excess|=136.683702421, mean theta/step=165.406470618
+  sibling_cycle L=4: count=27, mean|excess|=139.455750264, max|excess|=139.859525268, mean theta/step=166.485250088
+  sibling_cycle L=5: count=81, mean|excess|=141.336062532, max|excess|=141.669157296, mean theta/step=167.112020844
+  sibling_cycle L=6: count=243, mean|excess|=142.438597879, max|excess|=142.712130271, mean theta/step=167.479532626
+  sibling_cycle L=7: count=729, mean|excess|=143.088914863, max|excess|=143.317432005, mean theta/step=167.696304954
+  sibling_cycle L=8: count=2187, mean|excess|=143.473913991, max|excess|=143.670192573, mean theta/step=167.824637997
