@@ -1,0 +1,32 @@
+OPERATOR TOWER GLUING TEST
+  final level=9, nodes=29524, completed local axes=9841
+  vertical parent-child gluing pairs=9840
+  sibling-subtower gluing triples=3280
+  global mean axis=(0.516566646, 0.289319796, 0.805886441)
+  global axis mean norm=0.999995639
+  global axis coherence=0.999995639
+
+VERTICAL GLUING ALL
+  mean |dot|=0.999996197
+  min |dot|=0.999909504
+  mean angle deg=0.128991460
+  max angle deg=0.770826471
+  mean plane distance=2.251319481e-03
+  mean J mismatch=3.183795286e-03
+
+SIBLING-SUBTOWER GLUING
+  mean child-axis |dot|=0.999999199
+  min child-axis |dot|=0.999998152
+  mean child angle deg=0.066919346
+  max child angle deg=0.110162934
+  mean parent-to-child-mean angle deg=0.128848378
+
+VERTICAL BY PARENT LEVEL
+  parent_level=0: count=3, mean |dot|=0.999997734, max angle=0.155466888, mean J mismatch=2.928751191e-03
+  parent_level=1: count=9, mean |dot|=0.999930528, max angle=0.734075426, mean J mismatch=1.663224424e-02
+  parent_level=2: count=27, mean |dot|=0.999925404, max angle=0.770826471, mean J mismatch=1.723416478e-02
+  parent_level=3: count=81, mean |dot|=0.999955262, max angle=0.637748111, mean J mismatch=1.331957954e-02
+  parent_level=4: count=243, mean |dot|=0.999978619, max angle=0.480600051, mean J mismatch=9.162564448e-03
+  parent_level=5: count=729, mean |dot|=0.999990818, max angle=0.352444768, mean J mismatch=5.931987579e-03
+  parent_level=6: count=2187, mean |dot|=0.999996182, max angle=0.261281141, mean J mismatch=3.710611845e-03
+  parent_level=7: count=6561, mean |dot|=0.999998337, max angle=0.200711783, mean J mismatch=2.280114397e-03

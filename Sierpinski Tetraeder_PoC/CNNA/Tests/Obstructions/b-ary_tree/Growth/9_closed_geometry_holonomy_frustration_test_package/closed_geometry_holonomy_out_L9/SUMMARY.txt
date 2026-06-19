@@ -1,0 +1,35 @@
+CLOSED GEOMETRY HOLONOMY / FRUSTRATION TEST
+  final level=9, nodes=29524, local axes=9841, loops=17501
+
+BY MODE
+  level_birth_ring: count=8, mean|phase|=0.000000000 deg, p95|phase|=0.000000000, max|phase|=0.000000000, mean axis residual=2.460e-09, mean J mismatch=3.479e-09, mean len=1230.00
+  level_birth_ring_chunk9: count=1093, mean|phase|=0.000000000 deg, p95|phase|=0.000000000, max|phase|=0.000000000, mean axis residual=1.800e-11, mean J mismatch=2.545e-11, mean len=9.00
+  parent_child_ring: count=3280, mean|phase|=0.000000000 deg, p95|phase|=0.000000000, max|phase|=0.000000000, mean axis residual=8.000e-12, mean J mismatch=1.131e-11, mean len=4.00
+  parent_fan_triangle: count=9840, mean|phase|=0.000000000 deg, p95|phase|=0.000000000, max|phase|=0.000000000, mean axis residual=6.000e-12, mean J mismatch=8.485e-12, mean len=3.00
+  sibling_cycle: count=3280, mean|phase|=0.000000000 deg, p95|phase|=0.000000000, max|phase|=0.000000000, mean axis residual=6.000e-12, mean J mismatch=8.485e-12, mean len=3.00
+
+SELECTED BY LEVEL
+  parent_child_ring L=0: count=1, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=1.131e-11
+  parent_child_ring L=1: count=3, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=1.131e-11
+  parent_child_ring L=2: count=9, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=1.131e-11
+  parent_child_ring L=3: count=27, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=1.131e-11
+  parent_child_ring L=4: count=81, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=1.131e-11
+  parent_child_ring L=5: count=243, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=1.131e-11
+  parent_child_ring L=6: count=729, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=1.131e-11
+  parent_child_ring L=7: count=2187, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=1.131e-11
+  parent_fan_triangle L=0: count=3, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  parent_fan_triangle L=1: count=9, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  parent_fan_triangle L=2: count=27, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  parent_fan_triangle L=3: count=81, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  parent_fan_triangle L=4: count=243, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  parent_fan_triangle L=5: count=729, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  parent_fan_triangle L=6: count=2187, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  parent_fan_triangle L=7: count=6561, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  sibling_cycle L=1: count=1, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.484e-12
+  sibling_cycle L=2: count=3, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  sibling_cycle L=3: count=9, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  sibling_cycle L=4: count=27, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  sibling_cycle L=5: count=81, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  sibling_cycle L=6: count=243, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  sibling_cycle L=7: count=729, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12
+  sibling_cycle L=8: count=2187, mean|phase|=0.000000000, max|phase|=0.000000000, mean Jmis=8.485e-12

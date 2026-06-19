@@ -1,0 +1,23 @@
+SHELL-NORMALIZED EFFECTIVE OPERATOR SECTOR CLOSURE
+  final level=9, nodes=29524, completed triples=9841
+  frac complex pair=1.000
+  mean standard-sector leakage=3.158444e-02
+  mean standard-sector J2 residual=1.226331e-16
+  mean axis alignment with constant=0.930553
+  axis mean norm=0.999996
+  axis coherence to mean=0.999996
+  mean derived-plane J2 residual=1.200349e-16
+  mean derived-plane leakage=3.373067e-18
+  frac S-derived-plane sign-definite=1.000
+  mean S-derived-plane anisotropy=0.301999
+
+LEVEL TREND
+  L=1: nodes=4, triples=1, std_leak=7.142813e-02, axis_align=0.922785, axis_coh=1.000000, S_aniso=0.221386
+  L=2: nodes=13, triples=4, std_leak=5.780349e-02, axis_align=0.922483, axis_coh=1.000000, S_aniso=0.258684
+  L=3: nodes=40, triples=13, std_leak=4.794665e-02, axis_align=0.923958, axis_coh=0.999986, S_aniso=0.277239
+  L=4: nodes=121, triples=40, std_leak=4.135134e-02, axis_align=0.925871, axis_coh=0.999968, S_aniso=0.287268
+  L=5: nodes=364, triples=121, std_leak=3.716960e-02, axis_align=0.927551, axis_coh=0.999966, S_aniso=0.293244
+  L=6: nodes=1093, triples=364, std_leak=3.460376e-02, axis_align=0.928802, axis_coh=0.999974, S_aniso=0.297027
+  L=7: nodes=3280, triples=1093, std_leak=3.305750e-02, axis_align=0.929655, axis_coh=0.999984, S_aniso=0.299463
+  L=8: nodes=9841, triples=3280, std_leak=3.213395e-02, axis_align=0.930207, axis_coh=0.999991, S_aniso=0.301019
+  L=9: nodes=29524, triples=9841, std_leak=3.158444e-02, axis_align=0.930553, axis_coh=0.999996, S_aniso=0.301999
