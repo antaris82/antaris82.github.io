@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "5f04105e33ccfb4e21dcaa68dbdbba532b27d4c6",
-    "size": 74,
+    "sha": "92a547c55749cbff8a473449e83762cf855ca69f",
+    "size": 751,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "7a24007d1c56d9d2807ff4b14dd6a9a7034ba042",
-    "size": 69945,
+    "sha": "974379ff62b8ed630670ad1fab2681dc83afb36d",
+    "size": 84414,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "8c3be0d7973572398548329d1f0175aa255eacef",
+    "sha": "e9904d644d62c9c339ce2ce9c05b41e2c107cf55",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -861,6 +861,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/RESULTS_dynamic_birth_conductance.en.md",
+    "sha": "ab18c8e3fc3d67b395ab231480e04770e3b68f06",
+    "size": 7939,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/1_dynamic_birth_conductance_test_package/RESULTS_dynamic_birth_conductance.md",
     "sha": "6631774b35469ac9728aff5e25afe83b51665c96",
     "size": 7890,
@@ -1158,6 +1165,216 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/test_conductance_scaling_generalization.py",
     "sha": "ce0ecb30e9f40873d452960dcd3bf3712f11e769",
     "size": 16218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator56a_soft_cleanup.sh",
+    "sha": "f85f3928c45d96bdbcbcdc4581ddb08c400bd048",
+    "size": 518,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator57_concrete_symmetric_cut_test.sh",
+    "sha": "c1ae558fc88d4c4648e94ebe727fb2d0e5a4e58c",
+    "size": 282,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator58_concrete_growth_irreversibility_test.sh",
+    "sha": "662695565628c7af094bb6e57988356f5830c7ad",
+    "size": 392,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator59_growth_edge_provenance.sh",
+    "sha": "b95c120dcc1e18c9a2a8d5608ccafe7fdc2f15d0",
+    "size": 362,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator60_local_growth_edge_criterion.sh",
+    "sha": "e3269ab7b6513f490de3bb9bdc8470883dcce765",
+    "size": 308,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator61_address_growth_edge_criterion.sh",
+    "sha": "aca9774bb3392b0fb13ae8dbe2ed188b4abe28d8",
+    "size": 310,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator62_generic_address_growth_criterion.sh",
+    "sha": "93435dc30b33639ffa5202ce6e9135e6d05da191",
+    "size": 351,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator63_abstract_address_type_growth_criterion.sh",
+    "sha": "5675c1f40db1171e1945041517cee368ed573161",
+    "size": 245,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator64_canonical_port_numbering_criterion.sh",
+    "sha": "42f4d811237c4d8936ffb8db6f487e6de5c183cd",
+    "size": 379,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator65_canonical_role_order_criterion.sh",
+    "sha": "be65ae7ac986a846a167384219799ff9382b92f5",
+    "size": 371,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator65a_canonical_role_order_patch.sh",
+    "sha": "e0334e446fbf0e55aa06d2875226c7318c0a15b2",
+    "size": 307,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator65b_canonical_role_order_patch.sh",
+    "sha": "e0334e446fbf0e55aa06d2875226c7318c0a15b2",
+    "size": 307,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator66_canonical_fill_order_criterion.sh",
+    "sha": "fc26f55e8d800381874cf48c109955427565bc29",
+    "size": 263,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator67_fill_endpoint_derivation_criterion.sh",
+    "sha": "ec92359d38e8c19a40dbe2351479c7edfdaf1329",
+    "size": 324,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator68_fill_dynamics_rank_criterion.sh",
+    "sha": "caf79a8eec6c6d7d23f894acb063623cd5a1676e",
+    "size": 531,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator69_frontier_rank_profile_criterion.sh",
+    "sha": "6a519c780a32f4d3d30d2d1cc38f226221716b5b",
+    "size": 540,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator70_frontier_phase_certificate_criterion.sh",
+    "sha": "ce2309c9d675ec64f3d0e2f3a5fe16e4bb381573",
+    "size": 555,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator71_frontier_event_phase_bridge_criterion.sh",
+    "sha": "d88c43ac5faeca62db2775a4231c025d9c35460c",
+    "size": 555,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator72_fill_orbit_basin_criterion.sh",
+    "sha": "a9667cd393214bc0390ad4db351f0ed8a76f6d8f",
+    "size": 525,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator73_fill_orbit_endpoint_code_criterion.sh",
+    "sha": "a11e152db164a56f39c915c1893f1c5e0a596c25",
+    "size": 468,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator74_fill_orbit_cycle_bridge_criterion.sh",
+    "sha": "256081dc71e4acdf8b6fab2fa81af0521a04a1ea",
+    "size": 465,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator75_cycle_circulation_gate.sh",
+    "sha": "8a7bb582007b4aa0bd9df4f342254b78b959880b",
+    "size": 438,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator76_schur_cut_spectral_tower.sh",
+    "sha": "b84f2f327756f8c05470101705a75e1120910667",
+    "size": 617,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/apply_generator77_ancestor_backreaction_kernel_criterion.sh",
+    "sha": "3ed10ba413c74e090f0eb201e99d3ba042dcd032",
+    "size": 652,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/CLAIMS.md",
+    "sha": "dddfc7879c43d2a06b073fd95d3e893535acbfe0",
+    "size": 15168,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/install_generator18.sh",
+    "sha": "b0a9806edccfd48f33333eca6e65ed7937583d05",
+    "size": 240,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/lean.zip",
+    "sha": "2151ef731349d8442ddd291f4055d7697e01c9a2",
+    "size": 137020,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/SUPPORT_MODULES.md",
+    "sha": "12ca8a1bcae284056ce6f06397c2f44d4cb17051",
+    "size": 651,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/test_conductance_scaling_generalization.py",
+    "sha": "ce0ecb30e9f40873d452960dcd3bf3712f11e769",
+    "size": 16218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/6_Generator77_ancestor_backreaction_kernel_criterion/verification_scripts_schur_cut_spectrum.py",
+    "sha": "795bee3ab2bd54f06cde1bbcd6f817c21f02f7da",
+    "size": 570,
     "type": "blob",
     "mode": "100644"
   },
