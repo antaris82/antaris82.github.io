@@ -1,0 +1,52 @@
+PHASE DENSITY SCALING TEST
+  max_level=8
+
+KERNEL inverse_square
+  L=1: triples=1, polar_mean=154.066412456, polar_std=0.000000000, centered_loop_mean=nan
+  L=2: triples=4, polar_mean=158.756244343, polar_std=2.723177259, centered_loop_mean=0.174420110
+  L=3: triples=13, polar_mean=162.336724723, polar_std=2.836766836, centered_loop_mean=0.549480901
+  L=4: triples=40, polar_mean=164.894777319, polar_std=2.412787512, centered_loop_mean=0.609218428
+  L=5: triples=121, polar_mean=166.678121409, polar_std=1.882916346, centered_loop_mean=0.619390681
+  L=6: triples=364, polar_mean=167.949265517, polar_std=1.426052661, centered_loop_mean=0.629296424
+  L=7: triples=1093, polar_mean=168.921267939, polar_std=1.097436381, centered_loop_mean=0.658616138
+  L=8: triples=3280, polar_mean=169.750893640, polar_std=0.900587221, centered_loop_mean=0.716439163
+
+KERNEL critical_exp_1over3
+  L=1: triples=1, polar_mean=154.066412456, polar_std=0.000000000, centered_loop_mean=nan
+  L=2: triples=4, polar_mean=158.809168609, polar_std=2.757202007, centered_loop_mean=0.193097328
+  L=3: triples=13, polar_mean=162.447982197, polar_std=2.881679285, centered_loop_mean=0.578842166
+  L=4: triples=40, polar_mean=165.011285440, polar_std=2.432980936, centered_loop_mean=0.608457952
+  L=5: triples=121, polar_mean=166.713858960, polar_std=1.852286004, centered_loop_mean=0.557396846
+  L=6: triples=364, polar_mean=167.804439851, polar_std=1.329344632, centered_loop_mean=0.496461168
+  L=7: triples=1093, polar_mean=168.488672889, polar_std=0.923033584, centered_loop_mean=0.447529181
+  L=8: triples=3280, polar_mean=168.913121847, polar_std=0.633211745, centered_loop_mean=0.413484207
+
+KERNEL exp_0p40
+  L=1: triples=1, polar_mean=154.066412456, polar_std=0.000000000, centered_loop_mean=nan
+  L=2: triples=4, polar_mean=158.851404765, polar_std=2.784575021, centered_loop_mean=0.207997343
+  L=3: triples=13, polar_mean=162.579467705, polar_std=2.944253632, centered_loop_mean=0.652830457
+  L=4: triples=40, polar_mean=165.263978001, polar_std=2.523998153, centered_loop_mean=0.725120952
+  L=5: triples=121, polar_mean=167.099051982, polar_std=1.958580117, centered_loop_mean=0.700479095
+  L=6: triples=364, polar_mean=168.317244112, polar_std=1.438924754, centered_loop_mean=0.651430736
+  L=7: triples=1093, polar_mean=169.114917092, polar_std=1.028007307, centered_loop_mean=0.605020935
+  L=8: triples=3280, polar_mean=169.634889113, polar_std=0.729715252, centered_loop_mean=0.569053970
+
+KERNEL exp_0p25
+  L=1: triples=1, polar_mean=154.066412456, polar_std=0.000000000, centered_loop_mean=nan
+  L=2: triples=4, polar_mean=158.756244343, polar_std=2.723177259, centered_loop_mean=0.174420110
+  L=3: triples=13, polar_mean=162.293704546, polar_std=2.810518560, centered_loop_mean=0.498619317
+  L=4: triples=40, polar_mean=164.733687467, polar_std=2.338533984, centered_loop_mean=0.490732518
+  L=5: triples=121, polar_mean=166.315903336, polar_std=1.751632546, centered_loop_mean=0.421813016
+  L=6: triples=364, polar_mean=167.303193621, polar_std=1.234434081, centered_loop_mean=0.356361286
+  L=7: triples=1093, polar_mean=167.905724766, polar_std=0.839277482, centered_loop_mean=0.308826369
+  L=8: triples=3280, polar_mean=168.269021240, polar_std=0.561048404, centered_loop_mean=0.278095206
+
+KERNEL shell_norm_inverse_square
+  L=1: triples=1, polar_mean=154.066412456, polar_std=0.000000000, centered_loop_mean=nan
+  L=2: triples=4, polar_mean=158.649966666, polar_std=2.655825087, centered_loop_mean=0.136892345
+  L=3: triples=13, polar_mean=162.024525200, polar_std=2.694171160, centered_loop_mean=0.385962622
+  L=4: triples=40, polar_mean=164.307338357, polar_std=2.209588535, centered_loop_mean=0.355452909
+  L=5: triples=121, polar_mean=165.765279268, polar_std=1.634544393, centered_loop_mean=0.280956939
+  L=6: triples=364, polar_mean=166.664340265, polar_std=1.138370523, centered_loop_mean=0.217305724
+  L=7: triples=1093, polar_mean=167.208050449, polar_std=0.763599552, centered_loop_mean=0.171757124
+  L=8: triples=3280, polar_mean=167.533603072, polar_std=0.500503112, centered_loop_mean=0.142420786

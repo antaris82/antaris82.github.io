@@ -1,0 +1,23 @@
+PHASE DENSITY EXTRAPOLATION TEST
+
+KEY KERNELS — best polar theta fits
+  shell_norm_inverse_square: theta_inf=168.056215644 deg, last=167.533603072, model=theta_inf_plus_A_r_pow_L, rmse=3.024160e-03, regime=shell-normalized local/subcritical candidate
+  exp_0p25: theta_inf=168.862843813 deg, last=168.269021240, model=theta_inf_plus_A_r_pow_L, rmse=3.853056e-03, regime=subcritical exponential remote kernel (3ρ < 1)
+  critical_exp_1over3: theta_inf=169.643995909 deg, last=168.913121847, model=theta_inf_plus_A_r_pow_L, rmse=4.783666e-03, regime=critical remote kernel (3ρ ≈ 1)
+
+KEY KERNELS — best polar phase-std decay
+  shell_norm_inverse_square: last_std=0.500503112, model=C_times_r_pow_L, r=0.688598, rmse=5.319964e-02
+  exp_0p25: last_std=0.561048404, model=C_times_r_pow_L, r=0.698325, rmse=5.461599e-02
+  critical_exp_1over3: last_std=0.633211745, model=C_times_r_pow_L, r=0.712579, rmse=5.349726e-02
+
+KEY KERNELS — best polar centered residual decay
+  shell_norm_inverse_square: last_residual=0.142420786, model=C_times_N_minus_alpha, exponent=0.211120, rmse=3.306415e-03
+  exp_0p25: last_residual=0.278095206, model=C_times_L_minus_p, exponent=0.837055, rmse=5.280547e-03
+  critical_exp_1over3: last_residual=0.413484207, model=C_times_r_pow_L, r=0.905548, rmse=4.025184e-03
+
+ALL KERNELS — best polar theta_inf
+  critical_exp_1over3: theta_inf=169.643995909 deg, last=168.913121847, model=theta_inf_plus_A_r_pow_L, rmse=4.784e-03
+  exp_0p25: theta_inf=168.862843813 deg, last=168.269021240, model=theta_inf_plus_A_r_pow_L, rmse=3.853e-03
+  exp_0p40: theta_inf=170.664563208 deg, last=169.634889113, model=theta_inf_plus_A_r_pow_L, rmse=3.468e-03
+  inverse_square: theta_inf=172.133906480 deg, last=169.750893640, model=theta_inf_plus_A_r_pow_L, rmse=2.829e-02
+  shell_norm_inverse_square: theta_inf=168.056215644 deg, last=167.533603072, model=theta_inf_plus_A_r_pow_L, rmse=3.024e-03

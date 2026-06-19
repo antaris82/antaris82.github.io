@@ -1,0 +1,27 @@
+RESPONSE CONNECTION ROBUSTNESS TEST
+  final level=9, nodes=29524, local operators=9841, loops=17501
+  global mean local phase:
+    polar: 167.727636213 deg
+    eigen: 172.403402463 deg
+    skew_iso: 167.727636213 deg
+    G_weighted: 167.589711739 deg
+
+BY METHOD
+  G_weighted: count=17501, mean|excess|=120.568253680, p95|excess|=143.146218676, mean|centered|=0.526079572, p95|centered|=1.422998852, mean theta step=167.544286442
+  eigen: count=17501, mean|excess|=130.524132711, p95|excess|=157.400930203, mean|centered|=0.265965990, p95|centered|=0.717029496, mean theta step=172.380472924
+  polar: count=17501, mean|excess|=120.861626716, p95|excess|=143.557929860, mean|centered|=0.523515456, p95|centered|=1.414972019, mean theta step=167.682465106
+  skew_iso: count=17501, mean|excess|=120.861626716, p95|excess|=143.557929860, mean|centered|=0.523515456, p95|centered|=1.414972019, mean theta step=167.682465106
+
+SELECTED METHOD × MODE
+  G_weighted / parent_child_ring: count=3280, mean|excess|=49.832089239, mean|centered|=0.545623283, mean theta=167.541977690
+  G_weighted / parent_fan_triangle: count=9840, mean|excess|=142.576810559, mean|centered|=0.425618231, mean theta=167.525603520
+  G_weighted / sibling_cycle: count=3280, mean|excess|=142.773300605, mean|centered|=0.390337739, mean theta=167.591100202
+  eigen / parent_child_ring: count=3280, mean|excess|=30.482763827, mean|centered|=0.276135724, mean theta=172.379309043
+  eigen / parent_fan_triangle: count=9840, mean|excess|=157.113037123, mean|centered|=0.215433027, mean theta=172.371012374
+  eigen / sibling_cycle: count=3280, mean|excess|=157.212597149, mean|centered|=0.197353982, mean theta=172.404199050
+  polar / parent_child_ring: count=3280, mean|excess|=49.279323281, mean|centered|=0.542617833, mean theta=167.680169180
+  polar / parent_fan_triangle: count=9840, mean|excess|=142.991652170, mean|centered|=0.423276140, mean theta=167.663884057
+  polar / sibling_cycle: count=3280, mean|excess|=143.187073647, mean|centered|=0.388178372, mean theta=167.729024549
+  skew_iso / parent_child_ring: count=3280, mean|excess|=49.279323281, mean|centered|=0.542617833, mean theta=167.680169180
+  skew_iso / parent_fan_triangle: count=9840, mean|excess|=142.991652170, mean|centered|=0.423276140, mean theta=167.663884057
+  skew_iso / sibling_cycle: count=3280, mean|excess|=143.187073647, mean|centered|=0.388178372, mean theta=167.729024549

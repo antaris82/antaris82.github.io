@@ -1,0 +1,26 @@
+SHELL PHASE LIMIT HIGH-L TEST
+  max_level=10
+  final nodes=88573
+  final completed=29524
+
+  L=1: nodes=4, completed=1, polar_mean=154.066412456, polar_std=0.000000000, polar_centered=nan, elapsed=0.00s
+  L=2: nodes=13, completed=4, polar_mean=158.649966666, polar_std=2.655825087, polar_centered=0.136892345, elapsed=0.01s
+  L=3: nodes=40, completed=13, polar_mean=162.024525200, polar_std=2.694171160, polar_centered=0.385962622, elapsed=0.01s
+  L=4: nodes=121, completed=40, polar_mean=164.307338357, polar_std=2.209588535, polar_centered=0.355452909, elapsed=0.03s
+  L=5: nodes=364, completed=121, polar_mean=165.765279268, polar_std=1.634544393, polar_centered=0.280956939, elapsed=0.09s
+  L=6: nodes=1093, completed=364, polar_mean=166.664340265, polar_std=1.138370523, polar_centered=0.217305724, elapsed=0.23s
+  L=7: nodes=3280, completed=1093, polar_mean=167.208050449, polar_std=0.763599552, polar_centered=0.171757124, elapsed=0.63s
+  L=8: nodes=9841, completed=3280, polar_mean=167.533603072, polar_std=0.500503112, polar_centered=0.142420786, elapsed=1.88s
+  L=9: nodes=29524, completed=9841, polar_mean=167.727636213, polar_std=0.324339634, polar_centered=0.124682857, elapsed=5.64s
+  L=10: nodes=88573, completed=29524, polar_mean=167.843070223, polar_std=0.210759333, polar_centered=0.114290571, elapsed=17.08s
+
+FITS
+  polar theta_inf=168.028995377, last=167.843070223, r=0.605000, rmse=4.658444e-03
+  polar phase_std decay: last=0.210759333, r=0.672576, rmse=7.376551e-02
+  polar centered_residual decay: last=0.114290571, alpha=0.177134, rmse=1.219678e-02
+  eigen theta_inf=172.553391407, last=172.462082747, r=0.600000, rmse=1.335042e-03
+  eigen phase_std decay: last=0.109800978, r=0.663724, rmse=3.495143e-02
+  eigen centered_residual decay: last=0.058005260, alpha=0.182282, rmse=7.106926e-03
+  G_weighted theta_inf=167.892376169, last=167.705780998, r=0.605000, rmse=4.846052e-03
+  G_weighted phase_std decay: last=0.211738109, r=0.672967, rmse=7.449173e-02
+  G_weighted centered_residual decay: last=0.114922037, alpha=0.176997, rmse=1.219403e-02

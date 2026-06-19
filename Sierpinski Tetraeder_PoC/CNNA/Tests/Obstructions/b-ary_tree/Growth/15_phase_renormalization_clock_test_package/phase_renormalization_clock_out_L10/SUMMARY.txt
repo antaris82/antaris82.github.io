@@ -1,0 +1,36 @@
+PHASE RENORMALIZATION / CLOCK SUBTRACTION TEST
+  max_level=10
+  final nodes=88573
+  final completed=29524
+  theta_inf:
+    polar: 168.027421321 deg
+    eigen: 172.552820014 deg
+    G_weighted: 167.890861027 deg
+
+  L=1: nodes=4, completed=1, polar_mean=154.066412456, gap=-13.961008865, std=0.000000000, clock_res=nan, level_res=nan, heff_loop=nan
+  L=2: nodes=13, completed=4, polar_mean=158.649966666, gap=-9.377454655, std=2.655825087, clock_res=30.007854896, level_res=0.136892345, heff_loop=1.785890342e-01
+  L=3: nodes=40, completed=13, polar_mean=162.024525200, gap=-6.002896121, std=2.694171160, clock_res=20.317291864, level_res=0.385962622, heff_loop=1.209165248e-01
+  L=4: nodes=121, completed=40, polar_mean=164.307338357, gap=-3.720082964, std=2.209588535, clock_res=13.100305185, level_res=0.355452909, heff_loop=7.796528139e-02
+  L=5: nodes=364, completed=121, polar_mean=165.765279268, gap=-2.262142053, std=1.634544393, clock_res=8.171229962, level_res=0.280956939, heff_loop=4.863033604e-02
+  L=6: nodes=1093, completed=364, polar_mean=166.664340265, gap=-1.363081056, std=1.138370523, clock_res=4.997816092, level_res=0.217305724, heff_loop=2.974405042e-02
+  L=7: nodes=3280, completed=1093, polar_mean=167.208050449, gap=-0.819370872, std=0.763599552, clock_res=3.028072216, level_res=0.171757124, heff_loop=1.802129791e-02
+  L=8: nodes=9841, completed=3280, polar_mean=167.533603072, gap=-0.493818249, std=0.500503112, clock_res=1.830803448, level_res=0.142420786, heff_loop=1.089586112e-02
+  L=9: nodes=29524, completed=9841, polar_mean=167.727636213, gap=-0.299785108, std=0.324339634, clock_res=1.111206852, level_res=0.124682857, heff_loop=6.613247070e-03
+  L=10: nodes=88573, completed=29524, polar_mean=167.843070223, gap=-0.184351098, std=0.210759333, clock_res=0.681150781, level_res=0.114290571, heff_loop=4.053807261e-03
+
+FITS
+  polar theta_gap_decay: last=-1.843510975e-01, model=C_r_pow_L, r=0.604988, rmse=5.446975e-03
+  polar phase_std_decay: last=2.107593329e-01, model=C_r_pow_L, r=0.672576, rmse=7.376551e-02
+  polar clock_residual_decay: last=6.811507805e-01, model=C_r_pow_L, r=0.609475, rmse=8.279224e-02
+  polar level_centered_decay: last=1.142905707e-01, model=C_N_minus_alpha, alpha=0.177134, rmse=1.219678e-02
+  polar heff_loop_abs_decay: last=4.053807261e-03, model=C_r_pow_L, r=0.609475, rmse=4.927305e-04
+  eigen theta_gap_decay: last=-9.073726726e-02, model=C_N_minus_alpha, alpha=0.464309, rmse=2.001342e-03
+  eigen phase_std_decay: last=1.098009777e-01, model=C_r_pow_L, r=0.663724, rmse=3.495143e-02
+  eigen clock_residual_decay: last=3.366615074e-01, model=C_r_pow_L, r=0.605149, rmse=3.735331e-02
+  eigen level_centered_decay: last=5.800526022e-02, model=C_N_minus_alpha, alpha=0.182282, rmse=7.106926e-03
+  eigen heff_loop_abs_decay: last=1.951063491e-03, model=C_r_pow_L, r=0.605149, rmse=2.164746e-04
+  G_weighted theta_gap_decay: last=-1.850800290e-01, model=C_r_pow_L, r=0.604897, rmse=5.429302e-03
+  G_weighted phase_std_decay: last=2.117381085e-01, model=C_r_pow_L, r=0.672967, rmse=7.449173e-02
+  G_weighted clock_residual_decay: last=6.839914071e-01, model=C_r_pow_L, r=0.609399, rmse=8.524402e-02
+  G_weighted level_centered_decay: last=1.149220370e-01, model=C_N_minus_alpha, alpha=0.176997, rmse=1.219403e-02
+  G_weighted heff_loop_abs_decay: last=4.074024059e-03, model=C_r_pow_L, r=0.609399, rmse=5.077347e-04

@@ -1,0 +1,22 @@
+SHELL PHASE LIMIT ULTRAFAST POLAR TEST
+  max_level=11
+  tail_start=6
+
+  L=1: nodes=4, triples=1, polar_mean=154.066412456, polar_std=0.000000000, centered_loop_mean=nan, loops=0
+  L=2: nodes=13, triples=4, polar_mean=158.649966666, polar_std=2.655825087, centered_loop_mean=0.136892345, loops=5
+  L=3: nodes=40, triples=13, polar_mean=162.024525200, polar_std=2.694171160, centered_loop_mean=0.385962622, loops=20
+  L=4: nodes=121, triples=40, polar_mean=164.307338357, polar_std=2.209588535, centered_loop_mean=0.355452909, loops=65
+  L=5: nodes=364, triples=121, polar_mean=165.765279268, polar_std=1.634544393, centered_loop_mean=0.280956939, loops=200
+  L=6: nodes=1093, triples=364, polar_mean=166.664340265, polar_std=1.138370523, centered_loop_mean=0.217305724, loops=605
+  L=7: nodes=3280, triples=1093, polar_mean=167.208050449, polar_std=0.763599552, centered_loop_mean=0.171757124, loops=1820
+  L=8: nodes=9841, triples=3280, polar_mean=167.533603072, polar_std=0.500503112, centered_loop_mean=0.142420786, loops=5465
+  L=9: nodes=29524, triples=9841, polar_mean=167.727636213, polar_std=0.324339634, centered_loop_mean=0.124682857, loops=16400
+  L=10: nodes=88573, triples=29524, polar_mean=167.843070223, polar_std=0.210759333, centered_loop_mean=0.114290571, loops=49205
+  L=11: nodes=265720, triples=88573, polar_mean=167.911708102, polar_std=0.140536174, centered_loop_mean=0.108283575, loops=147620
+
+FITS
+  polar theta_inf=168.011604349, last=167.911708102, r=0.595000, rmse=8.033215e-04
+  polar phase_std_decay: last=0.140536174, r=0.656011, rmse=6.718305e-03
+  polar centered_residual_decay: last=0.108283575, r=0.870905, rmse=9.175375e-03
+
+elapsed_sec=18.330
