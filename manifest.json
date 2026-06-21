@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "427318fbdf25c9584f77da1b50ea3f2c00776758",
-    "size": 391,
+    "sha": "3049ccb548d019165d4f651ceeee7f6776f8afd1",
+    "size": 77,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "c0800e4e0c6773d806d061be4623bdbca40fad58",
-    "size": 117640,
+    "sha": "c971fdbb306870ff5b1a7fbdc3db8957aa99718f",
+    "size": 116607,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "beb80304b7614fc9a6ce5fee3b7938c5cbca11cb",
+    "sha": "37737098010bcd6a34b984e6ed1688939bcebbcb",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -945,20 +945,6 @@
     "mode": "100644"
   },
   {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/123.en.md",
-    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
-    "size": 1,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/123.md",
-    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
-    "size": 1,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/13_phase_density_extrapolation_test_package/phase_density_extrapolation_out_tail4/phase_density_extrapolation_fits.csv",
     "sha": "e3b5d5d94578d97bf4c1d39fe57f3e3ff62602d2",
     "size": 40170,
@@ -1368,6 +1354,174 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/22_response_operator_refresh_rule_package_v5_dynamic_dtn/response_operator_refresh_rule_package.zip",
     "sha": "a0b21d9059b9770f6849453ba530196ee06f8c1c",
     "size": 5198135,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/24_cnna_real_local_operator_calculus_longitudinal_transverse_package/lt_calc_pkg/NOTES.md",
+    "sha": "c03ed7237a8e255fe950301a38bdbf048e378378",
+    "size": 903,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/24_cnna_real_local_operator_calculus_longitudinal_transverse_package/lt_calc_pkg/real_local_operator_calculus_out_L6.zip",
+    "sha": "80acccd91d739ec3494e9c8ea2e225323ea16ee0",
+    "size": 7726313,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/24_cnna_real_local_operator_calculus_longitudinal_transverse_package/lt_calc_pkg/real_local_operator_calculus_out_L6/RESULTS_real_local_operator_calculus.md",
+    "sha": "6088d5a92865d801c103a56f562bb2d9168fd70e",
+    "size": 2080,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/24_cnna_real_local_operator_calculus_longitudinal_transverse_package/lt_calc_pkg/real_local_operator_calculus_out_L6/SUMMARY.txt",
+    "sha": "c755a2bd1add17074b09ad56eff9d2d913a1de12",
+    "size": 166,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/24_cnna_real_local_operator_calculus_longitudinal_transverse_package/lt_calc_pkg/test_real_local_operator_calculus_longitudinal_transverse.py",
+    "sha": "60c4e70dce7d0f9de3baf8e2f1055b915693615a",
+    "size": 29426,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/25_cnna_real_local_adjoint_candidate_from_dtn_energy_pairing_package/adjoint_pkg/NOTES.md",
+    "sha": "85d633906e31791c81f3fbd2b8037a4939ac3355",
+    "size": 619,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/25_cnna_real_local_adjoint_candidate_from_dtn_energy_pairing_package/adjoint_pkg/README.md",
+    "sha": "460f340e775ba775ddde63f4c48042df264430bc",
+    "size": 2537,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/25_cnna_real_local_adjoint_candidate_from_dtn_energy_pairing_package/adjoint_pkg/real_local_adjoint_candidate_out_L6.zip",
+    "sha": "1b85859f7fbaedb20cd7899922cfca8b2f59451d",
+    "size": 11836797,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/25_cnna_real_local_adjoint_candidate_from_dtn_energy_pairing_package/adjoint_pkg/real_local_adjoint_candidate_out_L6/RESULTS_real_local_adjoint_candidate.md",
+    "sha": "271fde553bba2d22a20c52e2f5afe8801aaad439",
+    "size": 3218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/25_cnna_real_local_adjoint_candidate_from_dtn_energy_pairing_package/adjoint_pkg/real_local_adjoint_candidate_out_L6/SUMMARY.txt",
+    "sha": "727e35c7e34eedfaac3191b71b996fc63cb55d14",
+    "size": 166,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/25_cnna_real_local_adjoint_candidate_from_dtn_energy_pairing_package/adjoint_pkg/test_real_local_adjoint_candidate_from_dtn_energy_pairing.py",
+    "sha": "a1fa4c1bc13520886efd5f59f7cadf5e1fb50185",
+    "size": 44020,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/26_cnna_port_resolved_rank_one_adjoint_closure_package/port_rank_adjoint_pkg/NOTES.md",
+    "sha": "a076c1a6b49ed602ae8f84805b554d2aceb4336d",
+    "size": 1098,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/26_cnna_port_resolved_rank_one_adjoint_closure_package/port_rank_adjoint_pkg/port_resolved_rank_one_adjoint_out_L6.zip",
+    "sha": "f96a3ba4114eb9805e5cfd17b438df9915c3eb35",
+    "size": 6913994,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/26_cnna_port_resolved_rank_one_adjoint_closure_package/port_rank_adjoint_pkg/port_resolved_rank_one_adjoint_out_L6/RESULTS_port_resolved_rank_one_adjoint_closure.md",
+    "sha": "3af655ac41a63b0fab74c2b24bbc80a002515c7d",
+    "size": 3195,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/26_cnna_port_resolved_rank_one_adjoint_closure_package/port_rank_adjoint_pkg/port_resolved_rank_one_adjoint_out_L6/SUMMARY.txt",
+    "sha": "7d73518349e3ecbca5c305a6fdd15808ebf7c128",
+    "size": 186,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/26_cnna_port_resolved_rank_one_adjoint_closure_package/port_rank_adjoint_pkg/README.md",
+    "sha": "192160d645836463e3252dd0a9f71a0fe74b462a",
+    "size": 929,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/26_cnna_port_resolved_rank_one_adjoint_closure_package/port_rank_adjoint_pkg/test_port_resolved_rank_one_adjoint_closure.py",
+    "sha": "c7287bf4b25c939115f9b8fead61da16a1fec103",
+    "size": 36701,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/27_cnna_record_live_block_adjoint_closure_package/__pycache__/test_record_live_block_adjoint_closure.cpython-313.pyc",
+    "sha": "59c61a905029c23a64cb6decff4e3222e516c88b",
+    "size": 65501,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/27_cnna_record_live_block_adjoint_closure_package/NOTES.md",
+    "sha": "160e3bdd9dd6f165261348eaf88314a8bf319ea4",
+    "size": 908,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/27_cnna_record_live_block_adjoint_closure_package/README.md",
+    "sha": "18ba0a0ca9c0a1edbdde32b09576364d8a500be6",
+    "size": 1263,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/27_cnna_record_live_block_adjoint_closure_package/record_live_block_adjoint_out_L5.zip",
+    "sha": "07cb3bfe7d6bd2f17d9ac983d2b19b12a7a1a1ad",
+    "size": 1399700,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/27_cnna_record_live_block_adjoint_closure_package/record_live_block_adjoint_out_L5/RESULTS_record_live_block_adjoint_closure.md",
+    "sha": "b62c37a8b1453e9b5fbdd7d7c9ebf87a7156c93a",
+    "size": 3490,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/27_cnna_record_live_block_adjoint_closure_package/record_live_block_adjoint_out_L5/SUMMARY.txt",
+    "sha": "42da50dc0ceee50d545b0b233126bbe05735a95d",
+    "size": 175,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/27_cnna_record_live_block_adjoint_closure_package/test_record_live_block_adjoint_closure.py",
+    "sha": "dedd9786045fa1c81591ac1a2ece6c31760539cb",
+    "size": 42682,
     "type": "blob",
     "mode": "100644"
   },
