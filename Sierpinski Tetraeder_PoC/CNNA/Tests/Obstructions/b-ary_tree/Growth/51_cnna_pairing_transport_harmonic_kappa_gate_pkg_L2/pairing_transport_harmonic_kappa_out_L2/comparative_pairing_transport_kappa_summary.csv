@@ -1,0 +1,4 @@
+automatic_pairings_applied,beta0,beta1,beta2,beta3,decision_used_delta_beta_any,harmonic_dim_real,mean_pair_transport_cosine,measured_delta_beta2_sum,pair_kappa_birth_orientation_ratio,pair_kappa_orientation_ratio,pair_orientation_coherence,pair_scalar_harmonic_ratio,pair_transport_harmonic_ratio,scalar_K_harmonic_ratio,variant
+2,1,0,2,0,False,2,-0.3045316761157806,2,0.0339795384678069,0.0339795384678069,0.0541708451561584,0.2081251014986009,0.22012488068699768,0.12161711213082593,real_growth
+0,1,0,0,0,False,0,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,strict_symmetrized_control
+2,1,0,2,0,False,2,-0.13810977136129624,2,0.029671518325448867,0.029671518325448867,0.05192130793287592,0.20886987504924492,0.21605438882272307,0.1289340693873014,no_backreaction
