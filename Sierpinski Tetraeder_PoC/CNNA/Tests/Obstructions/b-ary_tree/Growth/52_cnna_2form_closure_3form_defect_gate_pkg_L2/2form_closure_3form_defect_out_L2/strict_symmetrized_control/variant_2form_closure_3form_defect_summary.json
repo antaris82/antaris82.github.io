@@ -1,0 +1,84 @@
+{
+  "variant": "strict_symmetrized_control",
+  "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; NGF/CQNM-like only as comparison; 2-form closure / 3-form defect diagnostic",
+  "max_level": 2,
+  "source": "record",
+  "mode": "pair_plus_response",
+  "strict_symmetrized": true,
+  "use_backreaction": false,
+  "pairings_requested": 0,
+  "topology": {
+    "n0": 20,
+    "n1": 54,
+    "n2": 52,
+    "n3": 17,
+    "rank_boundary_1": 19,
+    "rank_boundary_2": 35,
+    "rank_boundary_3": 17,
+    "beta0": 1,
+    "beta1": 0,
+    "beta2": 0,
+    "beta3": 0
+  },
+  "applied_pair_count": 0,
+  "decision_used_delta_beta_any": false,
+  "measured_delta_beta2_sum": 0,
+  "chain_dimensions": {
+    "C0": 20,
+    "C1": 54,
+    "C2": 52,
+    "C3": 17
+  },
+  "K2_decomposition": {
+    "total_norm": 0.0,
+    "closed_norm": 0.0,
+    "exact_norm": 0.0,
+    "harmonic_norm": 0.0,
+    "defect_norm": 0.0,
+    "closed_ratio": 0.0,
+    "exact_ratio": 0.0,
+    "harmonic_ratio": 0.0,
+    "defect_ratio": 0.0,
+    "closed_residual_norm": 0.0,
+    "harmonic_dim_real": 0,
+    "closed_dim": 35,
+    "exact_dim": 35
+  },
+  "scalar_absK_decomposition": {
+    "total_norm": 0.0,
+    "closed_norm": 0.0,
+    "exact_norm": 0.0,
+    "harmonic_norm": 0.0,
+    "defect_norm": 0.0,
+    "closed_ratio": 0.0,
+    "exact_ratio": 0.0,
+    "harmonic_ratio": 0.0,
+    "defect_ratio": 0.0,
+    "closed_residual_norm": 0.0,
+    "harmonic_dim_real": 0,
+    "closed_dim": 35,
+    "exact_dim": 35
+  },
+  "orientation_gauge_check": {
+    "flip_closed_ratio_absdiff": 0.0,
+    "flip_harmonic_ratio_absdiff": 0.0,
+    "flip_defect_ratio_absdiff": 0.0,
+    "flip_total_norm_absdiff": 0.0
+  },
+  "relabel_robustness_check": {
+    "relabel_beta_match": true,
+    "relabel_total_norm_rel_absdiff": 0.0,
+    "relabel_closed_ratio_absdiff": 0.0,
+    "relabel_harmonic_ratio_absdiff": 0.0,
+    "relabel_defect_ratio_absdiff": 0.0
+  },
+  "interpretation_flags": {
+    "beta2_positive": false,
+    "closed_ratio_positive": false,
+    "harmonic_ratio_positive": false,
+    "three_form_defect_large": false,
+    "strict_sym_killed": true,
+    "decision_used_delta_beta_any": false,
+    "label_orientation_robust_under_diagnostics": true
+  }
+}

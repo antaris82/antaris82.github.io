@@ -1,0 +1,84 @@
+{
+  "variant": "real_growth_live_pair_plus_response",
+  "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; NGF/CQNM-like only as comparison; 2-form closure / 3-form defect diagnostic",
+  "max_level": 2,
+  "source": "live",
+  "mode": "pair_plus_response",
+  "strict_symmetrized": false,
+  "use_backreaction": true,
+  "pairings_requested": 2,
+  "topology": {
+    "n0": 22,
+    "n1": 60,
+    "n2": 58,
+    "n3": 17,
+    "rank_boundary_1": 21,
+    "rank_boundary_2": 39,
+    "rank_boundary_3": 17,
+    "beta0": 1,
+    "beta1": 0,
+    "beta2": 2,
+    "beta3": 0
+  },
+  "applied_pair_count": 2,
+  "decision_used_delta_beta_any": false,
+  "measured_delta_beta2_sum": 2,
+  "chain_dimensions": {
+    "C0": 22,
+    "C1": 60,
+    "C2": 58,
+    "C3": 17
+  },
+  "K2_decomposition": {
+    "total_norm": 16.500747662708704,
+    "closed_norm": 16.4698690680413,
+    "exact_norm": 16.03586316846181,
+    "harmonic_norm": 3.756019110813134,
+    "defect_norm": 1.944592879676659,
+    "closed_ratio": 0.9981286548161582,
+    "exact_ratio": 0.9718264587914102,
+    "harmonic_ratio": 0.227627207420511,
+    "defect_ratio": 0.11784877385109492,
+    "closed_residual_norm": 1.163184321013471e-14,
+    "harmonic_dim_real": 2,
+    "closed_dim": 41,
+    "exact_dim": 39
+  },
+  "scalar_absK_decomposition": {
+    "total_norm": 16.500747662708704,
+    "closed_norm": 16.48889895854269,
+    "exact_norm": 16.28761204396255,
+    "harmonic_norm": 2.5685565538636967,
+    "defect_norm": 1.2047866381010213,
+    "closed_ratio": 0.9992819292550126,
+    "exact_ratio": 0.9870832750670553,
+    "harmonic_ratio": 0.15566304063108716,
+    "defect_ratio": 0.0730140635277841,
+    "closed_residual_norm": 1.234679795087148e-14,
+    "harmonic_dim_real": 2,
+    "closed_dim": 41,
+    "exact_dim": 39
+  },
+  "orientation_gauge_check": {
+    "flip_closed_ratio_absdiff": 0.0,
+    "flip_harmonic_ratio_absdiff": 0.0,
+    "flip_defect_ratio_absdiff": 0.0,
+    "flip_total_norm_absdiff": 0.0
+  },
+  "relabel_robustness_check": {
+    "relabel_beta_match": true,
+    "relabel_total_norm_rel_absdiff": 4.306124487715589e-16,
+    "relabel_closed_ratio_absdiff": 6.661338147750939e-16,
+    "relabel_harmonic_ratio_absdiff": 2.7755575615628914e-16,
+    "relabel_defect_ratio_absdiff": 1.3877787807814457e-17
+  },
+  "interpretation_flags": {
+    "beta2_positive": true,
+    "closed_ratio_positive": true,
+    "harmonic_ratio_positive": true,
+    "three_form_defect_large": false,
+    "strict_sym_killed": false,
+    "decision_used_delta_beta_any": false,
+    "label_orientation_robust_under_diagnostics": true
+  }
+}

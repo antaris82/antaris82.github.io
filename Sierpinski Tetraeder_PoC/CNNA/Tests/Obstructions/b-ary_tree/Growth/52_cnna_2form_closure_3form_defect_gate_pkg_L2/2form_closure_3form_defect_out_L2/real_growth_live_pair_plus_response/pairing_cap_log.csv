@@ -1,0 +1,3 @@
+applied,cap_vertex,decision_used_delta_beta,event_t,face_a,face_b,measured_delta_beta2,pair_index,strength_full,strength_live,strength_record
+True,20,False,20,"[2, 7, 19]","[2, 6, 18]",1,0,1.4075065679007694,1.4010896760071627,1.4139202292367272
+True,21,False,21,"[2, 6, 18]","[2, 7, 19]",1,1,1.3548480658384268,1.348476617326125,1.3612177561732612
