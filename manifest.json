@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "78cbd90486551a80da09383b094ecadf95e4aa5b",
-    "size": 6068,
+    "sha": "300986d8715541961105c42bcc3a0534b1c7c6bd",
+    "size": 3994,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "6e300533c1a8f04305dbc0783b58fdbff8d8de08",
-    "size": 172152,
+    "sha": "7ac8fa6ee55f59e35e0b0fe75bfe1611111034d3",
+    "size": 215746,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "44eb313b2ac72d3ea221cff3da4f9ba6fd7999bf",
+    "sha": "d0c3a0309acba10d9d5c50358fd1c10b9a7c675d",
     "size": 119,
     "type": "blob",
     "mode": "100644"
@@ -2926,6 +2926,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/42_cnna_cqnm_script_correctness_audit_package/cqnm_script_correctness_audit_package/README.en.md",
+    "sha": "2eab17f159187593ad29bf94a49a55495cb99c1a",
+    "size": 477,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/42_cnna_cqnm_script_correctness_audit_package/cqnm_script_correctness_audit_package/README.md",
     "sha": "9b812777593e20915784fdadbe844278a70e8aab",
     "size": 477,
@@ -2940,9 +2947,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/42_cnna_cqnm_script_correctness_audit_package/cqnm_script_correctness_audit_package/RESULTS.en.md",
+    "sha": "b994769063877c8068c668d5e8c480d00706edaf",
+    "size": 6638,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/42_cnna_cqnm_script_correctness_audit_package/cqnm_script_correctness_audit_package/RESULTS.md",
     "sha": "021dc6c7da95ba6415f220b888eb13fee0b1fdd0",
     "size": 6567,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/42_cnna_cqnm_script_correctness_audit_package/cqnm_script_correctness_audit_package/SUMMARY.en.md",
+    "sha": "1ba63d53ed1705837aa6a3741d940d58365ecb8c",
+    "size": 707,
     "type": "blob",
     "mode": "100644"
   },
@@ -2968,9 +2989,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/43_cnna_response_forced_face_saturation_pkg_L2_cl1/cnna_response_forced_face_saturation_pkg_L2_cl1/README.en.md",
+    "sha": "82d582d4bef05c348bc110d756ea548f8999ee22",
+    "size": 474,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/43_cnna_response_forced_face_saturation_pkg_L2_cl1/cnna_response_forced_face_saturation_pkg_L2_cl1/README.md",
     "sha": "82d582d4bef05c348bc110d756ea548f8999ee22",
     "size": 474,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/43_cnna_response_forced_face_saturation_pkg_L2_cl1/cnna_response_forced_face_saturation_pkg_L2_cl1/RESULTS.en.md",
+    "sha": "6d959592157c15354715cfb100916279ab0317f3",
+    "size": 33623,
     "type": "blob",
     "mode": "100644"
   },
@@ -3017,9 +3052,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/43_cnna_response_forced_face_saturation_pkg_L2_cl1/cnna_response_forced_face_saturation_pkg_L2_cl1/SOURCE_AUDIT_1_40.en.md",
+    "sha": "6ad67504860b379a567067f3f20f65c06c2796bd",
+    "size": 1073,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/43_cnna_response_forced_face_saturation_pkg_L2_cl1/cnna_response_forced_face_saturation_pkg_L2_cl1/SOURCE_AUDIT_1_40.md",
     "sha": "eadae80a23d18ab9664eac7c0902488b4412a775",
     "size": 1059,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/43_cnna_response_forced_face_saturation_pkg_L2_cl1/cnna_response_forced_face_saturation_pkg_L2_cl1/SUMMARY.en.md",
+    "sha": "cd68fd55d29f95ac1c393f73db999ff7352a5fd2",
+    "size": 2566,
     "type": "blob",
     "mode": "100644"
   },
@@ -3073,6 +3122,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/44_cnna_apply_top_ranked_non_shelling_move_and_reaudit_pkg_L3/apply_top_ranked_non_shelling_move_and_reaudit_pkg/README.en.md",
+    "sha": "67e85439975010f90b5949751bc4f36581595c4b",
+    "size": 369,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/44_cnna_apply_top_ranked_non_shelling_move_and_reaudit_pkg_L3/apply_top_ranked_non_shelling_move_and_reaudit_pkg/README.md",
     "sha": "67e85439975010f90b5949751bc4f36581595c4b",
     "size": 369,
@@ -3101,6 +3157,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/44_cnna_apply_top_ranked_non_shelling_move_and_reaudit_pkg_L3/apply_top_ranked_non_shelling_move_and_reaudit_pkg/RESULTS.en.md",
+    "sha": "067d8efb9b80ebd77ea234d6a040f2816cce9923",
+    "size": 2810,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/44_cnna_apply_top_ranked_non_shelling_move_and_reaudit_pkg_L3/apply_top_ranked_non_shelling_move_and_reaudit_pkg/RESULTS.md",
     "sha": "3bd2aefe0e1c7559476e005292cfaa006246c0e9",
     "size": 2781,
@@ -3108,9 +3171,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/44_cnna_apply_top_ranked_non_shelling_move_and_reaudit_pkg_L3/apply_top_ranked_non_shelling_move_and_reaudit_pkg/SOURCE_AUDIT_1_40.en.md",
+    "sha": "7a4bd34b17c48dc13a52730b7f9f56fa26a68883",
+    "size": 507,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/44_cnna_apply_top_ranked_non_shelling_move_and_reaudit_pkg_L3/apply_top_ranked_non_shelling_move_and_reaudit_pkg/SOURCE_AUDIT_1_40.md",
     "sha": "07adb9440d63bba5d62f623c42cb2d80ccd18578",
     "size": 502,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/44_cnna_apply_top_ranked_non_shelling_move_and_reaudit_pkg_L3/apply_top_ranked_non_shelling_move_and_reaudit_pkg/SUMMARY.en.md",
+    "sha": "1b8ae58d6b28e49342c742f52e1bfc48339c2be0",
+    "size": 1038,
     "type": "blob",
     "mode": "100644"
   },
@@ -3227,9 +3304,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/45_cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/README.en.md",
+    "sha": "5a47195b3f419178b911bbf632865b3e47e37068",
+    "size": 581,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/45_cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/README.md",
     "sha": "8a771609a4e4e1a641ff9cfda16b09a144621e03",
     "size": 581,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/45_cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/RESULTS.en.md",
+    "sha": "e631fe821540bdf175d75819839a6da39053c8b6",
+    "size": 2348,
     "type": "blob",
     "mode": "100644"
   },
@@ -3241,9 +3332,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/45_cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/SOURCE_AUDIT_1_40.en.md",
+    "sha": "7010e202030109ff2e528a4744f2bc31274d4376",
+    "size": 977,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/45_cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/SOURCE_AUDIT_1_40.md",
     "sha": "a6810552fabd4793ee165ff58a134192d1accddc",
     "size": 955,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/45_cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/cnna_non_shelling_provenance_face_pairing_gate_pkg_L3/SUMMARY.en.md",
+    "sha": "d75e28245cdc51dab57149403050b6927ad00460",
+    "size": 4021,
     "type": "blob",
     "mode": "100644"
   },
@@ -3311,6 +3416,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/46_cnna_inter_fan_transverse_transport_gate_pkg_L2/out_L2/README.en.md",
+    "sha": "66e547c7649fcf3bb64db1feb3c730786af3aa4d",
+    "size": 253,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/46_cnna_inter_fan_transverse_transport_gate_pkg_L2/out_L2/README.md",
     "sha": "fdc268a8abb6a9153624d7503ecdc00b96814dc4",
     "size": 243,
@@ -3374,6 +3486,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/46_cnna_inter_fan_transverse_transport_gate_pkg_L2/out_L2/RESULTS.en.md",
+    "sha": "f794ba57a42a9581427a7c1c758ac8231451c01a",
+    "size": 30893,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/46_cnna_inter_fan_transverse_transport_gate_pkg_L2/out_L2/RESULTS.md",
     "sha": "f794ba57a42a9581427a7c1c758ac8231451c01a",
     "size": 30893,
@@ -3381,9 +3500,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/46_cnna_inter_fan_transverse_transport_gate_pkg_L2/out_L2/SOURCE_AUDIT_1_40.en.md",
+    "sha": "a9905d336581b80d29568face71881e874a8d830",
+    "size": 776,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/46_cnna_inter_fan_transverse_transport_gate_pkg_L2/out_L2/SOURCE_AUDIT_1_40.md",
     "sha": "027229d1a603c2abce954c831cf579db76710293",
     "size": 768,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/46_cnna_inter_fan_transverse_transport_gate_pkg_L2/out_L2/SUMMARY.en.md",
+    "sha": "a9ae203e047ade37961aec8cc3b6a33057835825",
+    "size": 1615,
     "type": "blob",
     "mode": "100644"
   },
@@ -3500,6 +3633,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/47_cnna_interfan_transport_from_asymmetry_invariants_pkg_L2/asymmetry_invariant_pairing_out_L2/README.en.md",
+    "sha": "21cc086f0086181a2f865aa9dff936a2ddec2a2c",
+    "size": 65,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/47_cnna_interfan_transport_from_asymmetry_invariants_pkg_L2/asymmetry_invariant_pairing_out_L2/README.md",
     "sha": "21cc086f0086181a2f865aa9dff936a2ddec2a2c",
     "size": 65,
@@ -3535,9 +3675,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/47_cnna_interfan_transport_from_asymmetry_invariants_pkg_L2/asymmetry_invariant_pairing_out_L2/RESULTS.en.md",
+    "sha": "9de75499ef2b5fd2800b765bda8703afc8c9c471",
+    "size": 2898,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/47_cnna_interfan_transport_from_asymmetry_invariants_pkg_L2/asymmetry_invariant_pairing_out_L2/RESULTS.md",
     "sha": "8c46f49b6df0971e87074301be426df3ecfa2ee6",
     "size": 2880,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/47_cnna_interfan_transport_from_asymmetry_invariants_pkg_L2/asymmetry_invariant_pairing_out_L2/SOURCE_AUDIT_1_40.en.md",
+    "sha": "f8e23cb60b06b28cb7887bb4c4076058b323ca9e",
+    "size": 737,
     "type": "blob",
     "mode": "100644"
   },
@@ -3577,9 +3731,555 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/47_cnna_interfan_transport_from_asymmetry_invariants_pkg_L2/asymmetry_invariant_pairing_out_L2/SUMMARY.en.md",
+    "sha": "b47337ff5813c82b31e1a940bfc7e952256f8c6d",
+    "size": 2224,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/47_cnna_interfan_transport_from_asymmetry_invariants_pkg_L2/asymmetry_invariant_pairing_out_L2/SUMMARY.md",
     "sha": "7360b7818d080a1e811ed17de7b9b1f7ab80f9b0",
     "size": 2200,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/comparative_auto_pairing_summary.csv",
+    "sha": "a6902f44a5fe7b8b14653ba3d4e60d61108e1099",
+    "size": 875,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/comparative_summary.json",
+    "sha": "82db955e247ea06338f756718a66b2ebc3867cea",
+    "size": 14938,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/historical_symmetrized_birth/automatic_pairing_log.csv",
+    "sha": "9b9c121a94aa28f96c9abba3f39b7165f511c2de",
+    "size": 1078,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/historical_symmetrized_birth/birth_geometry_log.csv",
+    "sha": "48a3b26797f0e070bf5cb142eeb9c4e7a1635f73",
+    "size": 504,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/historical_symmetrized_birth/first_scan_top_candidates.csv",
+    "sha": "d89329964f48ab47cc556edf0cc0a14c33a4a5d3",
+    "size": 6793,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/historical_symmetrized_birth/variant_summary.json",
+    "sha": "8d066b02a2acf1ad01d35501fc28bda680dc3e16",
+    "size": 3544,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/no_backreaction/automatic_pairing_log.csv",
+    "sha": "90286f18e3db9cfdae4f6be6e0314e0794e33375",
+    "size": 1044,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/no_backreaction/birth_geometry_log.csv",
+    "sha": "bf093f203ddf66425b99c3e79ff8d1be74304bf7",
+    "size": 504,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/no_backreaction/first_scan_top_candidates.csv",
+    "sha": "db7adda07bdb83327c5befcc8911640f17326ff0",
+    "size": 6583,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/no_backreaction/variant_summary.json",
+    "sha": "d929d90d21776fa31a80a3ea283f3b2d70809ed9",
+    "size": 3484,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/README.md",
+    "sha": "0b9779f7c09ac9aafb44c5d1aa2a078112d35ac6",
+    "size": 335,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/real_growth/automatic_pairing_log.csv",
+    "sha": "c7c994c66af464c518785a27d5cbe75bac25132c",
+    "size": 1062,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/real_growth/birth_geometry_log.csv",
+    "sha": "bf093f203ddf66425b99c3e79ff8d1be74304bf7",
+    "size": 504,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/real_growth/first_scan_top_candidates.csv",
+    "sha": "d6f3c48ee614e34d99169754ecfbe7065fe4ee27",
+    "size": 6782,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/real_growth/variant_summary.json",
+    "sha": "5f3f0b18fc9a24f8155b1a574fe4ca70f84df377",
+    "size": 3495,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/RESULTS.md",
+    "sha": "255e73d97e42f61dfea611de35660be84f2570a3",
+    "size": 13195,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/SOURCE_AUDIT_1_40.md",
+    "sha": "835a82a48cb94dc4e8c66135a4e4490515fb303d",
+    "size": 724,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/strict_symmetrized_control/automatic_pairing_log.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/strict_symmetrized_control/birth_geometry_log.csv",
+    "sha": "c9a4dbf19d53678dabf309945fc94f878f1e0058",
+    "size": 501,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/strict_symmetrized_control/first_scan_top_candidates.csv",
+    "sha": "1f4ca4ccd2bf0a47c3d6e68bfebb6b58059ef565",
+    "size": 6497,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/strict_symmetrized_control/variant_summary.json",
+    "sha": "60649647a2da801e6fcf72e315ef62ec47e3cb50",
+    "size": 1964,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/auto_asymmetry_pairing_out_L2/SUMMARY.md",
+    "sha": "741c7dc01b0a08d8a35a570218ee719b4b79f814",
+    "size": 1500,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/cnna_non_shelling_core.py",
+    "sha": "dac4270c81ccf52bc35a719aad72c386fe642c35",
+    "size": 51107,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/test_growth_with_asymmetry_gated_complement_pairing.py",
+    "sha": "ec3dabeabd3de350769ec8c490dda46f36c72cbb",
+    "size": 18565,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/48_cnna_growth_with_asymmetry_gated_complement_pairing_pkg_L2/test_interfan_transport_from_asymmetry_invariants.py",
+    "sha": "85f7f8fb006a6cb46fb4d3adeb26b4eac48b99f0",
+    "size": 26723,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/cnna_non_shelling_core.py",
+    "sha": "dac4270c81ccf52bc35a719aad72c386fe642c35",
+    "size": 51107,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/comparative_nonlinear_cascade_summary.csv",
+    "sha": "05bd29496da48dd7120be2fee6f7c3e7d4d2c3f7",
+    "size": 809,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/comparative_summary.json",
+    "sha": "28a864b86a6311416ff7a5b102e7a35a91f89c39",
+    "size": 15211,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/no_backreaction/birth_geometry_log.csv",
+    "sha": "9da5f26bde7b897360307c0e2a0232e0f7aaf875",
+    "size": 506,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/no_backreaction/first_scan_top_candidates.csv",
+    "sha": "36e78075bc78826a74ea3260b3b9f3e8580a36db",
+    "size": 7521,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/no_backreaction/nonlinear_pairing_cascade_log.csv",
+    "sha": "f08a0dbf883a049d7d16b21e1b6e9183c6e3dd57",
+    "size": 1492,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/no_backreaction/variant_summary.json",
+    "sha": "ab19872840390f0079a438ee16221f9051b82e99",
+    "size": 5209,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/README.md",
+    "sha": "6c58d63395e86ed11a4e1ead65ba9c6e2c1d6e8a",
+    "size": 362,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/real_growth/birth_geometry_log.csv",
+    "sha": "9da5f26bde7b897360307c0e2a0232e0f7aaf875",
+    "size": 506,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/real_growth/first_scan_top_candidates.csv",
+    "sha": "963333b8a71861717ad1874400c91fa654930449",
+    "size": 7674,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/real_growth/nonlinear_pairing_cascade_log.csv",
+    "sha": "4b76865daac62d6e8b79ffbd19622d0dfbf6c2cc",
+    "size": 1525,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/real_growth/variant_summary.json",
+    "sha": "e09d4dfe3ea6a295f623e06bf661b6ae7343ecd6",
+    "size": 5238,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/RESULTS.md",
+    "sha": "49bdbd66d758fea628fb1a96174ccadac8a11f63",
+    "size": 14697,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/SOURCE_AUDIT_1_40.md",
+    "sha": "697e198a423c04b162b70dbde86534fecedc5310",
+    "size": 730,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/strict_symmetrized_control/birth_geometry_log.csv",
+    "sha": "c9a4dbf19d53678dabf309945fc94f878f1e0058",
+    "size": 501,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/strict_symmetrized_control/first_scan_top_candidates.csv",
+    "sha": "63ed0017207fc45e0c4e38ffdf88f9246c672048",
+    "size": 7274,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/strict_symmetrized_control/nonlinear_pairing_cascade_log.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/strict_symmetrized_control/variant_summary.json",
+    "sha": "f14fbedc7724d08e01ea59bcc0f2df5628a6d2b5",
+    "size": 2026,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/nonlinear_asymmetry_cascade_out_L2/SUMMARY.md",
+    "sha": "725c157e2238ca94d8935b5599f3f84d1aadc066",
+    "size": 1357,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/test_growth_with_asymmetry_gated_complement_pairing.py",
+    "sha": "ec3dabeabd3de350769ec8c490dda46f36c72cbb",
+    "size": 18565,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/test_interfan_transport_from_asymmetry_invariants.py",
+    "sha": "85f7f8fb006a6cb46fb4d3adeb26b4eac48b99f0",
+    "size": 26723,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2 (2)/test_nonlinear_asymmetry_cascade_growth.py",
+    "sha": "08c2ffdc087cef3f68af71f5e3f06c633b739928",
+    "size": 23644,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/__pycache__/cnna_non_shelling_core.cpython-314.pyc",
+    "sha": "86a492c014bd3c6236913a824c23a455942ddf2d",
+    "size": 97268,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/__pycache__/test_growth_with_asymmetry_gated_complement_pairing.cpython-314.pyc",
+    "sha": "7e0c0e6f113a326456e25fe328cbc357f26a262b",
+    "size": 27950,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/__pycache__/test_interfan_transport_from_asymmetry_invariants.cpython-314.pyc",
+    "sha": "50d0a3176b1c8d32299fcdd5c13aef527b45f943",
+    "size": 42647,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/cnna_non_shelling_core.py",
+    "sha": "dac4270c81ccf52bc35a719aad72c386fe642c35",
+    "size": 51107,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/cnna_nonlinear_asymmetry_cascade_growth_pkg_L2.zip",
+    "sha": "27f2232ae82088c2fc1a12d1dd1105b03ed76765",
+    "size": 57003,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/comparative_nonlinear_cascade_summary.csv",
+    "sha": "09b8205f940b0b0b3ce31eff4a3f84fbad0dc2ba",
+    "size": 811,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/comparative_summary.json",
+    "sha": "b7b510dde1fcff8ae08a99ec7c6d3fe1700e887b",
+    "size": 15196,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/no_backreaction/birth_geometry_log.csv",
+    "sha": "37c4f72794867400ecd8d9522c9550f75a346c98",
+    "size": 1621,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/no_backreaction/first_scan_top_candidates.csv",
+    "sha": "32cab46ccbe11fd323fc9892213c5b08e5798576",
+    "size": 7530,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/no_backreaction/nonlinear_pairing_cascade_log.csv",
+    "sha": "969d8dc3cd33c393b85abeda83e7081ca5f156ad",
+    "size": 1485,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/no_backreaction/variant_summary.json",
+    "sha": "6849e7c6aacb1dab56f8197b4b707cedfe026ab9",
+    "size": 5211,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/README.md",
+    "sha": "6c58d63395e86ed11a4e1ead65ba9c6e2c1d6e8a",
+    "size": 362,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/real_growth/birth_geometry_log.csv",
+    "sha": "37c4f72794867400ecd8d9522c9550f75a346c98",
+    "size": 1621,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/real_growth/first_scan_top_candidates.csv",
+    "sha": "e44f722df5d7bf822e5a8f0bc1e4f67ab553e064",
+    "size": 7669,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/real_growth/nonlinear_pairing_cascade_log.csv",
+    "sha": "e8c5c43947dfc1101a5da8262c76e2b11e7d8197",
+    "size": 1517,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/real_growth/variant_summary.json",
+    "sha": "b59507f1691e4eda75b5a3ea8a9e61f40d30db99",
+    "size": 5239,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/RESULTS.md",
+    "sha": "d5b6fcb6b3ab55550058820f6f9f8fe8019c2158",
+    "size": 14701,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/SOURCE_AUDIT_1_40.md",
+    "sha": "697e198a423c04b162b70dbde86534fecedc5310",
+    "size": 730,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/strict_symmetrized_control/birth_geometry_log.csv",
+    "sha": "8fd608d9e1f1b10b41b656acc92652a78606c9b5",
+    "size": 1618,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/strict_symmetrized_control/first_scan_top_candidates.csv",
+    "sha": "3745e7eaacc58ed1e06d5475541180f6c6cbb959",
+    "size": 7277,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/strict_symmetrized_control/nonlinear_pairing_cascade_log.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/strict_symmetrized_control/variant_summary.json",
+    "sha": "44ef1173ef57cb93361779ace73d19d98c315573",
+    "size": 2028,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L2/SUMMARY.md",
+    "sha": "42c52186f90763f3922effc793c467df25e3c655",
+    "size": 1356,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L3_p4/real_growth/birth_geometry_log.csv",
+    "sha": "9cd245d4532c8a9001051c1beba8c83fc1edf9f9",
+    "size": 1623,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L3_p4/real_growth/first_scan_top_candidates.csv",
+    "sha": "e44f722df5d7bf822e5a8f0bc1e4f67ab553e064",
+    "size": 7669,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L3_p4/real_growth/nonlinear_pairing_cascade_log.csv",
+    "sha": "a4a00ab61ef8f39091b6305742344bc8ae9a413e",
+    "size": 2331,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/nonlinear_asymmetry_cascade_out_L3_p4/real_growth/variant_summary.json",
+    "sha": "78fa7c3f27143390106f8ccf3487578f9130e110",
+    "size": 8448,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/test_growth_with_asymmetry_gated_complement_pairing.py",
+    "sha": "ec3dabeabd3de350769ec8c490dda46f36c72cbb",
+    "size": 18565,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/test_interfan_transport_from_asymmetry_invariants.py",
+    "sha": "85f7f8fb006a6cb46fb4d3adeb26b4eac48b99f0",
+    "size": 26723,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/49_cnna_nonlinear_asymmetry_cascade_growth_pkg_L2/test_nonlinear_asymmetry_cascade_growth.py",
+    "sha": "08c2ffdc087cef3f68af71f5e3f06c633b739928",
+    "size": 23644,
     "type": "blob",
     "mode": "100644"
   },
@@ -3685,6 +4385,125 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/5_conductance_scaling_generalization_test_package/test_conductance_scaling_generalization.py",
     "sha": "ce0ecb30e9f40873d452960dcd3bf3712f11e769",
     "size": 16218,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/cnna_non_shelling_core.py",
+    "sha": "dac4270c81ccf52bc35a719aad72c386fe642c35",
+    "size": 51107,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/comparative_kappa_orientation_summary.csv",
+    "sha": "e3fe565ab0c8cbede2d9905897973c90f00b2089",
+    "size": 1080,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/comparative_summary.json",
+    "sha": "5b0287358b7614dfc846d77e6e348da7d7e7966a",
+    "size": 16861,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/no_backreaction/harmonic_face_projection_top.csv",
+    "sha": "6d1d8cd911841209fb48c80236e04028a7c65a92",
+    "size": 6440,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/no_backreaction/variant_kappa_summary.json",
+    "sha": "cde65f076612185aa77ae59f055fe1c2368e91c3",
+    "size": 5738,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/README.md",
+    "sha": "f439773619befec4a1a9bd44c6812f5e013f04fb",
+    "size": 535,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/real_growth/harmonic_face_projection_top.csv",
+    "sha": "05d726c7af47dd1eb7fb8c28cd68d3d7814b02f1",
+    "size": 6450,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/real_growth/variant_kappa_summary.json",
+    "sha": "6d52cb1f7c0fd3dcbca21ada601bfcc621528046",
+    "size": 5766,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/RESULTS.md",
+    "sha": "45cb1a16f72e769e81457ceb7c58b089beaa07d3",
+    "size": 16528,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/SOURCE_AUDIT_1_40.md",
+    "sha": "17ff7f67b9590bf3b31309f0d1cec0746da67668",
+    "size": 683,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/strict_symmetrized_control/harmonic_face_projection_top.csv",
+    "sha": "cb3c3fd27d56545c80ae20e9c124c9e607999eba",
+    "size": 2861,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/strict_symmetrized_control/variant_kappa_summary.json",
+    "sha": "2434e2a4c6316dde9be2cb6539f68db40e357656",
+    "size": 2392,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/harmonic_k_orientation_kappa_out_L2/SUMMARY.md",
+    "sha": "f6e540521efb2d65a1f995864b779defa23a8f15",
+    "size": 1298,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/test_growth_with_asymmetry_gated_complement_pairing.py",
+    "sha": "ec3dabeabd3de350769ec8c490dda46f36c72cbb",
+    "size": 18565,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/test_harmonic_k_orientation_kappa_gate.py",
+    "sha": "54304543b8c7c6d1e3835f6c334d67dd4eea4cbc",
+    "size": 18930,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/test_interfan_transport_from_asymmetry_invariants.py",
+    "sha": "85f7f8fb006a6cb46fb4d3adeb26b4eac48b99f0",
+    "size": 26723,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/50_cnna_harmonic_k_orientation_kappa_gate_pkg_L2/test_nonlinear_asymmetry_cascade_growth.py",
+    "sha": "08c2ffdc087cef3f68af71f5e3f06c633b739928",
+    "size": 23644,
     "type": "blob",
     "mode": "100644"
   },
