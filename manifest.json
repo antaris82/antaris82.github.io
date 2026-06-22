@@ -113,8 +113,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "ace2ddcf1987e301950d6620eaab4687b5d43180",
-    "size": 693,
+    "sha": "d662aeac5d5871fc7847ca85daf8e644039485ce",
+    "size": 640,
     "type": "blob",
     "mode": "100644"
   },
@@ -141,15 +141,15 @@
   },
   {
     "path": "manifest.json",
-    "sha": "9a5010d4b3cd00e3f197d29d0b23984e663341b3",
-    "size": 267428,
+    "sha": "4d4833be8c46c79a5ee52311b48fcc9a9f35034a",
+    "size": 283356,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "cbf0c7830c1e0aa1a55d3d98502089c9eb3db55d",
-    "size": 119,
+    "sha": "21dba332ec2bb47ec4318b58f047703a049396c4",
+    "size": 120,
     "type": "blob",
     "mode": "100644"
   },
@@ -4893,6 +4893,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/52_cnna_2form_closure_3form_defect_gate_pkg_L2/2form_closure_3form_defect_out_L2/README.en.md",
+    "sha": "7927161784aa30acd6ee6abfa5c847697089ac31",
+    "size": 606,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/52_cnna_2form_closure_3form_defect_gate_pkg_L2/2form_closure_3form_defect_out_L2/README.md",
     "sha": "8afba3d556de2dd45878ce18187813729a349118",
     "size": 608,
@@ -5068,9 +5075,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/52_cnna_2form_closure_3form_defect_gate_pkg_L2/2form_closure_3form_defect_out_L2/RESULTS.en.md",
+    "sha": "f91560d85871732461a4785be0dae0b669bff934",
+    "size": 2648,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/52_cnna_2form_closure_3form_defect_gate_pkg_L2/2form_closure_3form_defect_out_L2/RESULTS.md",
     "sha": "49b4182176bdc0ca0a3090f8fc5a25f3892eac12",
     "size": 2631,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/52_cnna_2form_closure_3form_defect_gate_pkg_L2/2form_closure_3form_defect_out_L2/SOURCE_AUDIT.en.md",
+    "sha": "999958e88639b0ad8c19d27ebb5a80b3a33db266",
+    "size": 1076,
     "type": "blob",
     "mode": "100644"
   },
@@ -5124,6 +5145,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/52_cnna_2form_closure_3form_defect_gate_pkg_L2/2form_closure_3form_defect_out_L2/SUMMARY.en.md",
+    "sha": "1cd3884b7de4acb2d013d0c21e3a6e01e4e32299",
+    "size": 2320,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/52_cnna_2form_closure_3form_defect_gate_pkg_L2/2form_closure_3form_defect_out_L2/SUMMARY.md",
     "sha": "860c654fcc97bed341b1cb9a1745e04456853be1",
     "size": 2299,
@@ -5134,6 +5162,706 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/52_cnna_2form_closure_3form_defect_gate_pkg_L2/test_2form_closure_and_3form_defect_gate.py",
     "sha": "0e4c3213249313f8f8740a4b8b0580e81e40b0f1",
     "size": 34683,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/comparative_real_operator_composition_summary.csv",
+    "sha": "86982163f0134801470d3d336f360e398558d932",
+    "size": 1781,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/comparative_summary.json",
+    "sha": "2c66ac699397b77f9a29428ef90a4dd4804254e4",
+    "size": 22992,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/algebra_closure_growth_log.csv",
+    "sha": "cf394caae413a3a7608dc1e3ca56b39c40c95d45",
+    "size": 391,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/algebra_sharp_residuals_top.csv",
+    "sha": "23f0452575fc8d00168be10aa51faf01c40689c0",
+    "size": 749,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/anti_automorphism_residuals_top.csv",
+    "sha": "41316a5c836d5b5c5e47d2c0ae13b9b517a80871",
+    "size": 3287,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/initial_product_residuals_top.csv",
+    "sha": "3eae15a5525dcc72ec3b26f85df03c8a497cb392",
+    "size": 3258,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/initial_sharp_residuals_top.csv",
+    "sha": "2289898d59d9c455568ad771c0faad75e61a833b",
+    "size": 324,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/operator_generator_summary.csv",
+    "sha": "241685fbd9a24f3bb518a45a47852422faa33cc0",
+    "size": 821,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/pairing_2form_rows.csv",
+    "sha": "ec1ab5ba76ce77ff4dab54b9bd2e596f0889d418",
+    "size": 353,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/pairing_cap_log.csv",
+    "sha": "238e7c2803733ce52341411438b437479511d9d0",
+    "size": 353,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/no_backreaction_record_pair_plus_response/variant_real_operator_composition_summary.json",
+    "sha": "4263374abe5fd6c55c5aec118bd8dc010ec4917d",
+    "size": 3472,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/README.md",
+    "sha": "778e4c0d318c2165a204d3b083c730c6bf006c7b",
+    "size": 576,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/algebra_closure_growth_log.csv",
+    "sha": "e2e968217d4675ece0bc5efe52464233b4da72ae",
+    "size": 126,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/algebra_sharp_residuals_top.csv",
+    "sha": "84456a442bd0ac72fe8ffed9214faa2cb91c0c1c",
+    "size": 310,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/anti_automorphism_residuals_top.csv",
+    "sha": "c8cfe2ae8ea34e0c520bc518ab19bb3e396ce35e",
+    "size": 3277,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/initial_product_residuals_top.csv",
+    "sha": "b07e70610768d54db1f3dde4d932d51cbe35118e",
+    "size": 3231,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/initial_sharp_residuals_top.csv",
+    "sha": "995f127fa651754d23fe3908fa0af493c963bc15",
+    "size": 322,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/operator_generator_summary.csv",
+    "sha": "0a06889b9969d4bd7ddb85eea01ecd799bbd9557",
+    "size": 818,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/pairing_2form_rows.csv",
+    "sha": "0c7b7c2c5bca606b86503011e233c3b1791dbd28",
+    "size": 328,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/pairing_cap_log.csv",
+    "sha": "0546c8fb76e803553f805e527a0ed6b8e0ecb785",
+    "size": 352,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_only/variant_real_operator_composition_summary.json",
+    "sha": "1e1be1c16d2aeb5f04916d8774b6e49bc495a2f0",
+    "size": 3454,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/algebra_closure_growth_log.csv",
+    "sha": "cf394caae413a3a7608dc1e3ca56b39c40c95d45",
+    "size": 391,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/algebra_sharp_residuals_top.csv",
+    "sha": "a4761b257e764b16a5ea019adf88475147c86f36",
+    "size": 750,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/anti_automorphism_residuals_top.csv",
+    "sha": "26039769be831481bf89adb9177fed5ae0980f53",
+    "size": 3283,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/initial_product_residuals_top.csv",
+    "sha": "5dfd57ae11ddfc2cd618b791d83d69d3ea2c8f8a",
+    "size": 3244,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/initial_sharp_residuals_top.csv",
+    "sha": "7ba57f13e239eb33c8c8c2c1e80f4d8284cdd0b6",
+    "size": 321,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/operator_generator_summary.csv",
+    "sha": "4a92681db333dc5924b5163a7779ac04725041c4",
+    "size": 814,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/pairing_2form_rows.csv",
+    "sha": "2d75b96705ced5aeb6a34eb33e22df2bd829bee5",
+    "size": 346,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/pairing_cap_log.csv",
+    "sha": "0546c8fb76e803553f805e527a0ed6b8e0ecb785",
+    "size": 352,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_live_pair_plus_response/variant_real_operator_composition_summary.json",
+    "sha": "f51a6fe3e59f04de331a3ee113ae7d19e51d6213",
+    "size": 3463,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/algebra_closure_growth_log.csv",
+    "sha": "cf394caae413a3a7608dc1e3ca56b39c40c95d45",
+    "size": 391,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/algebra_sharp_residuals_top.csv",
+    "sha": "23f0452575fc8d00168be10aa51faf01c40689c0",
+    "size": 749,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/anti_automorphism_residuals_top.csv",
+    "sha": "41316a5c836d5b5c5e47d2c0ae13b9b517a80871",
+    "size": 3287,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/initial_product_residuals_top.csv",
+    "sha": "3eae15a5525dcc72ec3b26f85df03c8a497cb392",
+    "size": 3258,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/initial_sharp_residuals_top.csv",
+    "sha": "2289898d59d9c455568ad771c0faad75e61a833b",
+    "size": 324,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/operator_generator_summary.csv",
+    "sha": "241685fbd9a24f3bb518a45a47852422faa33cc0",
+    "size": 821,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/pairing_2form_rows.csv",
+    "sha": "ec1ab5ba76ce77ff4dab54b9bd2e596f0889d418",
+    "size": 353,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/pairing_cap_log.csv",
+    "sha": "0546c8fb76e803553f805e527a0ed6b8e0ecb785",
+    "size": 352,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_only_pair_plus_response/variant_real_operator_composition_summary.json",
+    "sha": "a86315b9f3fa3d483c985d50868a977eadd42e33",
+    "size": 3472,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/algebra_closure_growth_log.csv",
+    "sha": "cf394caae413a3a7608dc1e3ca56b39c40c95d45",
+    "size": 391,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/algebra_sharp_residuals_top.csv",
+    "sha": "2cd7f56f0360381f30d5216288460a5ebfaf6d30",
+    "size": 741,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/anti_automorphism_residuals_top.csv",
+    "sha": "ec5f4b8c77ec978475e707b1b2a630b3164a10f3",
+    "size": 3300,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/initial_product_residuals_top.csv",
+    "sha": "1d588162cf7deb9a85223cc18cdd376e914737b4",
+    "size": 3246,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/initial_sharp_residuals_top.csv",
+    "sha": "be84eebff52d81be00e70e3d82faf0da5f6db0a3",
+    "size": 323,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/operator_generator_summary.csv",
+    "sha": "07bc75c1af8cea6eedaba787c583daca4aef3c8c",
+    "size": 825,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/pairing_2form_rows.csv",
+    "sha": "aba64d316ef257535add3380a6c1cc838f15b0cf",
+    "size": 348,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/pairing_cap_log.csv",
+    "sha": "0546c8fb76e803553f805e527a0ed6b8e0ecb785",
+    "size": 352,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/real_growth_record_plus_live_pair_plus_response/variant_real_operator_composition_summary.json",
+    "sha": "edbca047458900973cb92f6937e0aecc7569ac2b",
+    "size": 3476,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/RESULTS.md",
+    "sha": "19fc6e96fe06e35f83a1864d7a1ba240758ad02d",
+    "size": 3798,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/SOURCE_AUDIT.md",
+    "sha": "e6d2fa6e8a11414e584884ea4ed254a7ddaba88f",
+    "size": 1444,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/algebra_closure_growth_log.csv",
+    "sha": "0d136447985e236f0a4df758f0826ca1708416d6",
+    "size": 64,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/algebra_sharp_residuals_top.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/anti_automorphism_residuals_top.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/initial_product_residuals_top.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/initial_sharp_residuals_top.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/operator_generator_summary.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/pairing_2form_rows.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/pairing_cap_log.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/strict_symmetrized_control/variant_real_operator_composition_summary.json",
+    "sha": "53866b71f36acaa66dbd6001ee5e815f33644abf",
+    "size": 2981,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/real_operator_composition_closed_2sector_out_L2/SUMMARY.md",
+    "sha": "3d9b877390ac0a5f796afa0f09c99d37a651d5f2",
+    "size": 2995,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/test_2form_closure_and_3form_defect_gate.py",
+    "sha": "0e4c3213249313f8f8740a4b8b0580e81e40b0f1",
+    "size": 34683,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/53_cnna_real_operator_composition_closed_2sector_gate_pkg_L2/test_real_operator_composition_from_closed_2sector_gate.py",
+    "sha": "f0f6b11aff87431e1a58d8de12be19014e1529a2",
+    "size": 33089,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/candidate_sharp_closure_obstruction_out_L2/comparative_candidate_sharp_obstruction_summary.csv",
+    "sha": "5849b5fb4f57a7d28b03fa7ea9d892e4268499ec",
+    "size": 14576,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/candidate_sharp_closure_obstruction_out_L2/comparative_summary.json",
+    "sha": "edd046f3e49c278c96e404ecefa4bbae62e6aa6a",
+    "size": 178511,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/candidate_sharp_closure_obstruction_out_L2/README.md",
+    "sha": "41dd15f7ac701716b654030bf8287c1eb572f141",
+    "size": 531,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/candidate_sharp_closure_obstruction_out_L2/RESULTS.md",
+    "sha": "2fb66a4af0703a71259a0e024af35bb0a8b492ab",
+    "size": 4261,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/candidate_sharp_closure_obstruction_out_L2/SOURCE_AUDIT.md",
+    "sha": "4cf340839705fb2d804a4d400cad26e656ee7b69",
+    "size": 1181,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/candidate_sharp_closure_obstruction_out_L2/SUMMARY.md",
+    "sha": "d7d83e91fe4ccc95d624f937e8a291537c306d17",
+    "size": 2465,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/test_2form_closure_and_3form_defect_gate.py",
+    "sha": "0e4c3213249313f8f8740a4b8b0580e81e40b0f1",
+    "size": 34683,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/test_candidate_sharp_closure_obstruction_gate.py",
+    "sha": "b3c28ba2b46117e30d6a1c83935b4deff289af6c",
+    "size": 34314,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/54_cnna_candidate_sharp_closure_obstruction_gate_pkg_L2/test_real_operator_composition_from_closed_2sector_gate.py",
+    "sha": "f0f6b11aff87431e1a58d8de12be19014e1529a2",
+    "size": 33089,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/comparative_birth_phase_antisym_operator_summary.csv",
+    "sha": "3df3bef49a58626fabcace788d598adcfc55e59e",
+    "size": 4521,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/comparative_summary.json",
+    "sha": "78102945781eb0c5dd7818c3fcad4a4ead7a902a",
+    "size": 19940,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/no_backreaction_live/antisym_birth_transport_top_harmonic_faces.csv",
+    "sha": "a4b20906b0e5c48504ef8588e22d7d3f6394a06d",
+    "size": 5463,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/no_backreaction_live/antisym_then_sym_control_top_harmonic_faces.csv",
+    "sha": "b210013cdb74858ca56259b6912748f73ff250cc",
+    "size": 5452,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/no_backreaction_live/birth_events.csv",
+    "sha": "0067140ab199d6377507306cc73305991e35f964",
+    "size": 906,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/no_backreaction_live/hollow_cap_pairing_log.csv",
+    "sha": "3d36beba6bb7eb87ca72a8102e7551c31bc838c0",
+    "size": 172,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/no_backreaction_live/legacy_raw_metric_no_final_sym_top_harmonic_faces.csv",
+    "sha": "1aabde590d8def0e10557ad364a3979a79eb2193",
+    "size": 5454,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/no_backreaction_live/legacy_sym_metric_top_harmonic_faces.csv",
+    "sha": "1aabde590d8def0e10557ad364a3979a79eb2193",
+    "size": 5454,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/no_backreaction_live/operator_mode_summary.csv",
+    "sha": "faf742e633b31a1ae43c761584d65ae5ff31c241",
+    "size": 2181,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/no_backreaction_live/variant_birth_phase_antisym_regression_summary.json",
+    "sha": "297fbae921959295b0d57d5ab4f387c0e25f119b",
+    "size": 6147,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/README.md",
+    "sha": "e1d427a56a4e606c06935dff254976d3d75c053c",
+    "size": 337,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/real_growth_live/antisym_birth_transport_top_harmonic_faces.csv",
+    "sha": "b449299f79b0f14b83120598a721503c8b967bd0",
+    "size": 5448,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/real_growth_live/antisym_then_sym_control_top_harmonic_faces.csv",
+    "sha": "8d1fdcd2305e1b985a4dcd076d018562ba68eb32",
+    "size": 5453,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/real_growth_live/birth_events.csv",
+    "sha": "debf3b5e339b8de17cece1341d391d6a3b2aa55d",
+    "size": 855,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/real_growth_live/hollow_cap_pairing_log.csv",
+    "sha": "3d36beba6bb7eb87ca72a8102e7551c31bc838c0",
+    "size": 172,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/real_growth_live/legacy_raw_metric_no_final_sym_top_harmonic_faces.csv",
+    "sha": "ea082b0bca1565559623b95d6d7a5b0448f696c9",
+    "size": 5444,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/real_growth_live/legacy_sym_metric_top_harmonic_faces.csv",
+    "sha": "ea082b0bca1565559623b95d6d7a5b0448f696c9",
+    "size": 5444,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/real_growth_live/operator_mode_summary.csv",
+    "sha": "8acd068f5c22b600c8f07bed883f5d13750a06f1",
+    "size": 2139,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/real_growth_live/variant_birth_phase_antisym_regression_summary.json",
+    "sha": "975f58c5c5022c9a5344d4ff07c798ca92cd3829",
+    "size": 6101,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/SOURCE_AUDIT.md",
+    "sha": "9c8646342e6960f7ef93cf8170105766ecdd8650",
+    "size": 1733,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/strict_symmetrized_control/antisym_birth_transport_top_harmonic_faces.csv",
+    "sha": "88725bbd0d83f534d589dab7bdb493192d801b23",
+    "size": 2598,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/strict_symmetrized_control/antisym_then_sym_control_top_harmonic_faces.csv",
+    "sha": "ada7741b2352160bbce8cc4baf79c5dc80e53d06",
+    "size": 2594,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/strict_symmetrized_control/birth_events.csv",
+    "sha": "01856b39661e236c77c4bd615e2fae1cefbc8684",
+    "size": 1037,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/strict_symmetrized_control/hollow_cap_pairing_log.csv",
+    "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "size": 0,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/strict_symmetrized_control/legacy_raw_metric_no_final_sym_top_harmonic_faces.csv",
+    "sha": "373f9b7028fca3f10dda5c6d119365b30475eb5b",
+    "size": 2593,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/strict_symmetrized_control/legacy_sym_metric_top_harmonic_faces.csv",
+    "sha": "373f9b7028fca3f10dda5c6d119365b30475eb5b",
+    "size": 2593,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/strict_symmetrized_control/operator_mode_summary.csv",
+    "sha": "ea4f3bd4c5c852f09e6d028cf541d38de4082960",
+    "size": 1373,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/birth_phase_antisym_operator_regression_out_L2/strict_symmetrized_control/variant_birth_phase_antisym_regression_summary.json",
+    "sha": "8b70120c7f37db65fe6fc35e26b55aabb150c089",
+    "size": 5344,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/55_cnna_birth_phase_antisym_operator_regression_gate_pkg_L2/test_birth_phase_antisym_operator_regression_gate.py",
+    "sha": "c4b9b1286d6960d1ca9272e233e5182bc96c4840",
+    "size": 33317,
     "type": "blob",
     "mode": "100644"
   },
