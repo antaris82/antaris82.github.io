@@ -1,0 +1,3 @@
+base_face,cap_vertex,decision_used_delta_beta,event_t,local_pair_k_norm,measured_delta_beta2,mode,pair_index,partner_face,source,strength
+"[2, 7, 19]",20,False,20,2.8021793520143254,1,pair_plus_response,0,"[2, 6, 18]",live,1.4010896760071627
+"[2, 6, 18]",21,False,21,2.69695323465225,1,pair_plus_response,1,"[2, 7, 19]",live,1.348476617326125

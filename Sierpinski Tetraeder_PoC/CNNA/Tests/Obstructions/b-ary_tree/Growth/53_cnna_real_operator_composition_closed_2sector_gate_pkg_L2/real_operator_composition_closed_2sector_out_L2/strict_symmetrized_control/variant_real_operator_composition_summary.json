@@ -1,0 +1,81 @@
+{
+  "variant": "strict_symmetrized_control",
+  "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; real closed/harmonic 2-sector operator-composition diagnostic; NGF/CQNM only as comparison",
+  "anti_smuggling_note": "No i, J, Hodge star, positivity axiom, C*-norm, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The candidate sharp map is only a real coefficient-dual plus cap/pair reversal diagnostic; it is not claimed to be a derived C*-adjoint.",
+  "max_level": 2,
+  "source": "record",
+  "mode": "pair_plus_response",
+  "strict_symmetrized": true,
+  "use_backreaction": false,
+  "pairings_requested": 0,
+  "topology": {
+    "n0": 20,
+    "n1": 54,
+    "n2": 52,
+    "n3": 17,
+    "rank_boundary_1": 19,
+    "rank_boundary_2": 35,
+    "rank_boundary_3": 17,
+    "beta0": 1,
+    "beta1": 0,
+    "beta2": 0,
+    "beta3": 0
+  },
+  "chain_dimensions": {
+    "C2": 52,
+    "C3": 17,
+    "carrier_dim": 0
+  },
+  "applied_pair_count": 0,
+  "decision_used_delta_beta_any": false,
+  "K2_sector": {
+    "total_norm_diagnostic": 0.0,
+    "closed_ratio": 0.0,
+    "exact_ratio": 0.0,
+    "harmonic_ratio": 0.0,
+    "defect_ratio": 0.0,
+    "harmonic_dim_real": 0,
+    "closed_dim": 35,
+    "exact_dim": 35
+  },
+  "pair_reversal_candidate": {
+    "signed_pair_reversal": true,
+    "R_squared_identity_residual": 0.0,
+    "R_symmetric_residual": 0.0,
+    "R_nonidentity_entry_count": 0,
+    "is_nontrivial": false
+  },
+  "operator_family": {
+    "generator_names": [],
+    "generator_count": 0,
+    "initial_span_dim": 0,
+    "initial_product_max_residual_to_initial_span": 0.0,
+    "initial_product_mean_residual_to_initial_span": 0.0,
+    "initial_span_product_closed": true,
+    "initial_sharp_max_residual_to_initial_span": 0.0,
+    "initial_sharp_mean_residual_to_initial_span": 0.0,
+    "initial_span_sharp_closed": true,
+    "generated_algebra_dim": 0,
+    "generated_algebra_capped": false,
+    "generated_algebra_post_closure_max_abs_residual": 0.0,
+    "generated_algebra_post_closure_max_relative_residual": 0.0,
+    "generated_algebra_post_closure_max_relative_residual_material_products": 0.0,
+    "generated_algebra_product_closed": true,
+    "generated_algebra_sharp_max_residual": 0.0,
+    "generated_algebra_sharp_mean_residual": 0.0,
+    "generated_algebra_sharp_closed": true,
+    "anti_automorphism_law_max_residual_on_generators": 0.0,
+    "anti_automorphism_law_mean_residual_on_generators": 0.0
+  },
+  "interpretation_flags": {
+    "beta2_positive": false,
+    "harmonic_2sector_positive": false,
+    "pair_reversal_nontrivial": false,
+    "initial_operator_span_already_closed": true,
+    "generated_algebra_closes_under_products": true,
+    "generated_algebra_stable_under_candidate_sharp": true,
+    "strict_sym_killed_nontrivial_sector": true,
+    "candidate_star_not_claimed": true,
+    "decision_used_delta_beta_any": false
+  }
+}

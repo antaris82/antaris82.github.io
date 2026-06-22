@@ -1,0 +1,4346 @@
+{
+  "args": {
+    "max_level": 2,
+    "out": "candidate_sharp_closure_obstruction_out_L2",
+    "zip": "cnna_candidate_sharp_closure_obstruction_gate_pkg_L2.zip",
+    "tol": 1e-09,
+    "closure_threshold": 1e-08,
+    "zero_threshold": 1e-12,
+    "max_product_closure_iter": 8,
+    "max_forced_iter": 5,
+    "max_algebra_dim": 48,
+    "keep_top": 50,
+    "families": [
+      "diag_core",
+      "cap_only",
+      "pair_only",
+      "all_seed"
+    ]
+  },
+  "case_rows": [
+    {
+      "case_id": "real_growth_live_pair_plus_response__signed_R",
+      "variant": "real_growth_live_pair_plus_response",
+      "signed_pair_reversal": true,
+      "source": "live",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": false,
+      "use_backreaction": true,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 6
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9981286548161582,
+        "exact_ratio": 0.9718264587914102,
+        "harmonic_ratio": 0.227627207420511,
+        "defect_ratio": 0.11784877385109492,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 8.64994959620919e-16,
+        "R_symmetric_residual": 3.78471979958469e-17,
+        "R_nonidentity_entry_count": 25,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "real_growth_live_pair_plus_response__signed_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.49915366184100535,
+          "initial_product_mean_residual": 0.0725755311757005,
+          "initial_sharp_max_residual": 0.022415164927827257,
+          "initial_sharp_mean_residual": 0.00790671023734359,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 9.814200504553822e-15,
+          "product_algebra_post_rel_material_residual": 1.7751561883476274e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.534958518559371e-15,
+          "product_algebra_sharp_mean_residual": 1.0342363823231383e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.740530976517229e-14,
+          "forced_product_post_rel_material_residual": 3.1573659838274097e-15,
+          "forced_sharp_max_residual": 2.649358703039675e-15,
+          "forced_sharp_mean_residual": 1.3712297968223723e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B8",
+              "sharp_relative_residual_to_span": 1.534958518559371e-15,
+              "operator_norm_diagnostic": 0.9999999999914785
+            },
+            {
+              "family": "diag_core",
+              "operator": "B40",
+              "sharp_relative_residual_to_span": 1.4930088690943853e-15,
+              "operator_norm_diagnostic": 0.9999883690045076
+            },
+            {
+              "family": "diag_core",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 1.4638636377112108e-15,
+              "operator_norm_diagnostic": 0.9999999999833862
+            },
+            {
+              "family": "diag_core",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.3845938663455226e-15,
+              "operator_norm_diagnostic": 0.9999999991721302
+            },
+            {
+              "family": "diag_core",
+              "operator": "B42",
+              "sharp_relative_residual_to_span": 1.3655101662125156e-15,
+              "operator_norm_diagnostic": 0.9992375751117065
+            },
+            {
+              "family": "diag_core",
+              "operator": "B19",
+              "sharp_relative_residual_to_span": 1.3374159916356347e-15,
+              "operator_norm_diagnostic": 0.9991254021236249
+            },
+            {
+              "family": "diag_core",
+              "operator": "B43",
+              "sharp_relative_residual_to_span": 1.319689766239748e-15,
+              "operator_norm_diagnostic": 0.9999999866795714
+            },
+            {
+              "family": "diag_core",
+              "operator": "B22",
+              "sharp_relative_residual_to_span": 1.2898059504827737e-15,
+              "operator_norm_diagnostic": 0.99921760232427
+            },
+            {
+              "family": "diag_core",
+              "operator": "B23",
+              "sharp_relative_residual_to_span": 1.2747547208087011e-15,
+              "operator_norm_diagnostic": 0.9994760319974816
+            },
+            {
+              "family": "diag_core",
+              "operator": "B24",
+              "sharp_relative_residual_to_span": 1.270481161896744e-15,
+              "operator_norm_diagnostic": 0.9999057219958307
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_plus_response__signed_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.43301270189206464,
+          "initial_product_mean_residual": 0.048141102315423866,
+          "initial_sharp_max_residual": 0.9397998107096511,
+          "initial_sharp_mean_residual": 0.6265332071397635,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 3.154983513076882e-15,
+          "product_algebra_post_rel_material_residual": 1.9579928898622025e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.9599826337102808,
+          "product_algebra_sharp_mean_residual": 0.6741086759297523,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 4.271856447085664e-15,
+          "forced_product_post_rel_material_residual": 2.1465172551332182e-15,
+          "forced_sharp_max_residual": 1.6542395662880049e-15,
+          "forced_sharp_mean_residual": 1.0898198448786425e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.9599826337102808,
+              "operator_norm_diagnostic": 0.9999999999996125
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9581820708427904,
+              "operator_norm_diagnostic": 0.9999999999996115
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9508736717804562,
+              "operator_norm_diagnostic": 0.9999999999996289
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.948334536309656,
+              "operator_norm_diagnostic": 0.9999999999996284
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.90138781886508,
+              "operator_norm_diagnostic": 0.9999999999984953
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 1.321131067647816e-15,
+              "operator_norm_diagnostic": 0.9999999999994521
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.159357062318677e-15,
+              "operator_norm_diagnostic": 0.9999999999995918
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_plus_response__signed_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858404,
+          "initial_product_mean_residual": 0.2651712447533087,
+          "initial_sharp_max_residual": 8.617319170606962e-16,
+          "initial_sharp_mean_residual": 6.610344159701703e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.1855913435317647e-15,
+          "product_algebra_post_rel_material_residual": 1.2588627351160146e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.5753203582723907e-15,
+          "product_algebra_sharp_mean_residual": 8.798426826814805e-16,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.1855913435317647e-15,
+          "forced_product_post_rel_material_residual": 1.2588627351160146e-15,
+          "forced_sharp_max_residual": 1.5753203582723907e-15,
+          "forced_sharp_mean_residual": 8.798426826814805e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.5753203582723907e-15,
+              "operator_norm_diagnostic": 0.9999999999974181
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 9.015705066830494e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 7.742263136560689e-16,
+              "operator_norm_diagnostic": 0.999999999998677
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 6.040075390497526e-16,
+              "operator_norm_diagnostic": 0.9999999999988047
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 5.440886957461411e-16,
+              "operator_norm_diagnostic": 0.9999999999994521
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_plus_response__signed_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 10,
+          "initial_product_max_residual": 0.8938086766815772,
+          "initial_product_mean_residual": 0.10928699916861782,
+          "initial_sharp_max_residual": 0.9185476918183306,
+          "initial_sharp_mean_residual": 0.3596536810642129,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.1697537752412704e-14,
+          "product_algebra_post_rel_material_residual": 2.1332461722678986e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.262904461356009e-15,
+          "product_algebra_sharp_mean_residual": 1.0492299383400772e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.028617943854943e-14,
+          "forced_product_post_rel_material_residual": 1.6796267492266953e-15,
+          "forced_sharp_max_residual": 1.5709134357193876e-15,
+          "forced_sharp_mean_residual": 9.5207854228144e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 2.262904461356009e-15,
+              "operator_norm_diagnostic": 0.999999999991001
+            },
+            {
+              "family": "all_seed",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 1.8490838146039664e-15,
+              "operator_norm_diagnostic": 0.9999999999996066
+            },
+            {
+              "family": "all_seed",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.8363212052449934e-15,
+              "operator_norm_diagnostic": 0.999999999999624
+            },
+            {
+              "family": "all_seed",
+              "operator": "B35",
+              "sharp_relative_residual_to_span": 1.4664464276239995e-15,
+              "operator_norm_diagnostic": 0.9993634155525467
+            },
+            {
+              "family": "all_seed",
+              "operator": "B9",
+              "sharp_relative_residual_to_span": 1.4570822718595132e-15,
+              "operator_norm_diagnostic": 0.9999999999981445
+            },
+            {
+              "family": "all_seed",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 1.3271673029701533e-15,
+              "operator_norm_diagnostic": 0.9999999999994521
+            },
+            {
+              "family": "all_seed",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.3153297005446338e-15,
+              "operator_norm_diagnostic": 0.9999999999996236
+            },
+            {
+              "family": "all_seed",
+              "operator": "B19",
+              "sharp_relative_residual_to_span": 1.2920215133766702e-15,
+              "operator_norm_diagnostic": 0.9999999999813525
+            },
+            {
+              "family": "all_seed",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 1.2118723463314498e-15,
+              "operator_norm_diagnostic": 0.9999999999995136
+            },
+            {
+              "family": "all_seed",
+              "operator": "B7",
+              "sharp_relative_residual_to_span": 1.18505906254357e-15,
+              "operator_norm_diagnostic": 0.9999999999996064
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "real_growth_live_pair_plus_response__unsigned_R",
+      "variant": "real_growth_live_pair_plus_response",
+      "signed_pair_reversal": false,
+      "source": "live",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": false,
+      "use_backreaction": true,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 6
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9981286548161582,
+        "exact_ratio": 0.9718264587914102,
+        "harmonic_ratio": 0.227627207420511,
+        "defect_ratio": 0.11784877385109492,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 9.348517993084538e-16,
+        "R_symmetric_residual": 9.767997713354892e-17,
+        "R_nonidentity_entry_count": 16,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "real_growth_live_pair_plus_response__unsigned_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.49915366184100557,
+          "initial_product_mean_residual": 0.07257553117570045,
+          "initial_sharp_max_residual": 0.022415164927826813,
+          "initial_sharp_mean_residual": 0.007906710237343462,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.3689427908359105e-14,
+          "product_algebra_post_rel_material_residual": 2.510311240793772e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.7486402014226605e-15,
+          "product_algebra_sharp_mean_residual": 1.1226902292147084e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.0166663611855034e-14,
+          "forced_product_post_rel_material_residual": 1.9298721536874794e-15,
+          "forced_sharp_max_residual": 1.739386893050939e-15,
+          "forced_sharp_mean_residual": 1.0905012226761077e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.7486402014226605e-15,
+              "operator_norm_diagnostic": 0.9999999991721301
+            },
+            {
+              "family": "diag_core",
+              "operator": "B47",
+              "sharp_relative_residual_to_span": 1.6107036159560342e-15,
+              "operator_norm_diagnostic": 0.9999999851303416
+            },
+            {
+              "family": "diag_core",
+              "operator": "B42",
+              "sharp_relative_residual_to_span": 1.49298567820137e-15,
+              "operator_norm_diagnostic": 0.999899526039993
+            },
+            {
+              "family": "diag_core",
+              "operator": "B37",
+              "sharp_relative_residual_to_span": 1.4909182096709688e-15,
+              "operator_norm_diagnostic": 0.9999212544457766
+            },
+            {
+              "family": "diag_core",
+              "operator": "B24",
+              "sharp_relative_residual_to_span": 1.4197334938676042e-15,
+              "operator_norm_diagnostic": 0.9997956565082703
+            },
+            {
+              "family": "diag_core",
+              "operator": "B45",
+              "sharp_relative_residual_to_span": 1.365033393112155e-15,
+              "operator_norm_diagnostic": 0.9999999978588914
+            },
+            {
+              "family": "diag_core",
+              "operator": "B29",
+              "sharp_relative_residual_to_span": 1.3174367437708726e-15,
+              "operator_norm_diagnostic": 0.9994190680117232
+            },
+            {
+              "family": "diag_core",
+              "operator": "B31",
+              "sharp_relative_residual_to_span": 1.3097367863838684e-15,
+              "operator_norm_diagnostic": 0.9999980744008825
+            },
+            {
+              "family": "diag_core",
+              "operator": "B8",
+              "sharp_relative_residual_to_span": 1.2895713133202411e-15,
+              "operator_norm_diagnostic": 0.9999999999914784
+            },
+            {
+              "family": "diag_core",
+              "operator": "B44",
+              "sharp_relative_residual_to_span": 1.2748032979482372e-15,
+              "operator_norm_diagnostic": 0.9999999949532709
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_plus_response__unsigned_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.433012701892065,
+          "initial_product_mean_residual": 0.04814765321253648,
+          "initial_sharp_max_residual": 0.939799810709651,
+          "initial_sharp_mean_residual": 0.6265332071397635,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.4914703122492735e-15,
+          "product_algebra_post_rel_material_residual": 1.3258763955960361e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.9599826337102808,
+          "product_algebra_sharp_mean_residual": 0.6741086759297522,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 3.592095885191703e-15,
+          "forced_product_post_rel_material_residual": 1.8029715977608474e-15,
+          "forced_sharp_max_residual": 1.4250756365897711e-15,
+          "forced_sharp_mean_residual": 1.1228023293508856e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.9599826337102808,
+              "operator_norm_diagnostic": 0.9999999999996124
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9581820708427903,
+              "operator_norm_diagnostic": 0.9999999999996118
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9508736717804566,
+              "operator_norm_diagnostic": 0.9999999999996287
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.9483345363096559,
+              "operator_norm_diagnostic": 0.9999999999996283
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.9013878188650799,
+              "operator_norm_diagnostic": 0.9999999999984954
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 9.738143880965293e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 7.749348875209818e-16,
+              "operator_norm_diagnostic": 0.9999999999994521
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_plus_response__unsigned_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858406,
+          "initial_product_mean_residual": 0.265170125701693,
+          "initial_sharp_max_residual": 8.888188407238879e-16,
+          "initial_sharp_mean_residual": 7.301191085794637e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.5479114360582905e-15,
+          "product_algebra_post_rel_material_residual": 1.5479114360575914e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.755441292974424e-15,
+          "product_algebra_sharp_mean_residual": 1.1613523278252825e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.5479114360582905e-15,
+          "forced_product_post_rel_material_residual": 1.5479114360575914e-15,
+          "forced_sharp_max_residual": 1.755441292974424e-15,
+          "forced_sharp_mean_residual": 1.1613523278252825e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.755441292974424e-15,
+              "operator_norm_diagnostic": 0.9999999999974181
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.6471172258314398e-15,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 1.069172436962675e-15,
+              "operator_norm_diagnostic": 0.9999999999986773
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 7.038489528842653e-16,
+              "operator_norm_diagnostic": 0.9999999999988046
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 6.311817304736079e-16,
+              "operator_norm_diagnostic": 0.9999999999994521
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_plus_response__unsigned_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 10,
+          "initial_product_max_residual": 0.8938086766815773,
+          "initial_product_mean_residual": 0.10928869281218974,
+          "initial_sharp_max_residual": 0.9185476918183307,
+          "initial_sharp_mean_residual": 0.3596536810642129,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.5596821499848907e-14,
+          "product_algebra_post_rel_material_residual": 2.541307896625328e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.0384778770407172e-15,
+          "product_algebra_sharp_mean_residual": 1.1551306886830622e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.1138453876265567e-14,
+          "forced_product_post_rel_material_residual": 1.8041336849570403e-15,
+          "forced_sharp_max_residual": 1.5990743339173724e-15,
+          "forced_sharp_mean_residual": 1.0301217824734222e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B14",
+              "sharp_relative_residual_to_span": 2.0384778770407172e-15,
+              "operator_norm_diagnostic": 0.999999999991001
+            },
+            {
+              "family": "all_seed",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.872945517597614e-15,
+              "operator_norm_diagnostic": 0.999999999999624
+            },
+            {
+              "family": "all_seed",
+              "operator": "B35",
+              "sharp_relative_residual_to_span": 1.8096687385137516e-15,
+              "operator_norm_diagnostic": 0.9993802460953137
+            },
+            {
+              "family": "all_seed",
+              "operator": "B44",
+              "sharp_relative_residual_to_span": 1.7681989297519967e-15,
+              "operator_norm_diagnostic": 0.9739383829774113
+            },
+            {
+              "family": "all_seed",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 1.6186527879297936e-15,
+              "operator_norm_diagnostic": 0.9999999999910009
+            },
+            {
+              "family": "all_seed",
+              "operator": "B20",
+              "sharp_relative_residual_to_span": 1.6170242667149278e-15,
+              "operator_norm_diagnostic": 0.9999999984528862
+            },
+            {
+              "family": "all_seed",
+              "operator": "B7",
+              "sharp_relative_residual_to_span": 1.4386833872287836e-15,
+              "operator_norm_diagnostic": 0.9999999999996064
+            },
+            {
+              "family": "all_seed",
+              "operator": "B26",
+              "sharp_relative_residual_to_span": 1.3975673938361878e-15,
+              "operator_norm_diagnostic": 0.9993880686023199
+            },
+            {
+              "family": "all_seed",
+              "operator": "B45",
+              "sharp_relative_residual_to_span": 1.3557948715424704e-15,
+              "operator_norm_diagnostic": 0.9848995241073982
+            },
+            {
+              "family": "all_seed",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.32012150879055e-15,
+              "operator_norm_diagnostic": 0.9999999999995918
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "real_growth_record_only_pair_plus_response__signed_R",
+      "variant": "real_growth_record_only_pair_plus_response",
+      "signed_pair_reversal": true,
+      "source": "record",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": false,
+      "use_backreaction": true,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 6
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9981331611561454,
+        "exact_ratio": 0.9718952169851596,
+        "harmonic_ratio": 0.2273532374982361,
+        "defect_ratio": 0.1177069318277919,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 1.0625864977422564e-15,
+        "R_symmetric_residual": 7.590778082042678e-17,
+        "R_nonidentity_entry_count": 25,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "real_growth_record_only_pair_plus_response__signed_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.4989008923965509,
+          "initial_product_mean_residual": 0.07226497840837846,
+          "initial_sharp_max_residual": 0.022226910062588406,
+          "initial_sharp_mean_residual": 0.007846192926767517,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.640829948771161e-14,
+          "product_algebra_post_rel_material_residual": 2.442037418939219e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.4436029422142962e-15,
+          "product_algebra_sharp_mean_residual": 1.5365047983693012e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.0037538756784468e-14,
+          "forced_product_post_rel_material_residual": 1.910289664327625e-15,
+          "forced_sharp_max_residual": 1.927956890967404e-15,
+          "forced_sharp_mean_residual": 1.1362317545332454e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 2.4436029422142962e-15,
+              "operator_norm_diagnostic": 0.9999999991697984
+            },
+            {
+              "family": "diag_core",
+              "operator": "B21",
+              "sharp_relative_residual_to_span": 1.993969633056339e-15,
+              "operator_norm_diagnostic": 0.999999999993524
+            },
+            {
+              "family": "diag_core",
+              "operator": "B42",
+              "sharp_relative_residual_to_span": 1.9637500574087805e-15,
+              "operator_norm_diagnostic": 0.9999719156638173
+            },
+            {
+              "family": "diag_core",
+              "operator": "B36",
+              "sharp_relative_residual_to_span": 1.9349728168330657e-15,
+              "operator_norm_diagnostic": 0.9999988084432798
+            },
+            {
+              "family": "diag_core",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.9320886950909348e-15,
+              "operator_norm_diagnostic": 0.9999999999762947
+            },
+            {
+              "family": "diag_core",
+              "operator": "B40",
+              "sharp_relative_residual_to_span": 1.8803194290348364e-15,
+              "operator_norm_diagnostic": 0.9999886120529771
+            },
+            {
+              "family": "diag_core",
+              "operator": "B22",
+              "sharp_relative_residual_to_span": 1.8758386206040765e-15,
+              "operator_norm_diagnostic": 0.9992239970981546
+            },
+            {
+              "family": "diag_core",
+              "operator": "B34",
+              "sharp_relative_residual_to_span": 1.860780960082481e-15,
+              "operator_norm_diagnostic": 0.9999998528400351
+            },
+            {
+              "family": "diag_core",
+              "operator": "B25",
+              "sharp_relative_residual_to_span": 1.816626059629852e-15,
+              "operator_norm_diagnostic": 0.9997869427679469
+            },
+            {
+              "family": "diag_core",
+              "operator": "B19",
+              "sharp_relative_residual_to_span": 1.803753451199373e-15,
+              "operator_norm_diagnostic": 0.999112774516816
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_only_pair_plus_response__signed_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.4330127018920662,
+          "initial_product_mean_residual": 0.04815129669803694,
+          "initial_sharp_max_residual": 0.9397998107096542,
+          "initial_sharp_mean_residual": 0.6265332071397657,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.7279062409758803e-15,
+          "product_algebra_post_rel_material_residual": 1.3927242970127533e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.9599826337102809,
+          "product_algebra_sharp_mean_residual": 0.6741086759297522,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 4.958221119529535e-15,
+          "forced_product_post_rel_material_residual": 2.872816718593966e-15,
+          "forced_sharp_max_residual": 2.139933287217505e-15,
+          "forced_sharp_mean_residual": 1.3387563208545294e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.9599826337102809,
+              "operator_norm_diagnostic": 0.9999999999996161
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9581820708427904,
+              "operator_norm_diagnostic": 0.9999999999996152
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9508736717804563,
+              "operator_norm_diagnostic": 0.9999999999996323
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.948334536309656,
+              "operator_norm_diagnostic": 0.9999999999996317
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.9013878188650798,
+              "operator_norm_diagnostic": 0.9999999999985092
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 9.256297891061721e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 8.677571622493443e-16,
+              "operator_norm_diagnostic": 0.9999999999994522
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_only_pair_plus_response__signed_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858406,
+          "initial_product_mean_residual": 0.2651673904379843,
+          "initial_sharp_max_residual": 8.650833961775668e-16,
+          "initial_sharp_mean_residual": 7.104877191079236e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.2865804965312297e-15,
+          "product_algebra_post_rel_material_residual": 1.2865804965306477e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.4555068523448857e-15,
+          "product_algebra_sharp_mean_residual": 1.0905222391141548e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.2865804965312297e-15,
+          "forced_product_post_rel_material_residual": 1.2865804965306477e-15,
+          "forced_sharp_max_residual": 1.4555068523448857e-15,
+          "forced_sharp_mean_residual": 1.0905222391141548e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.4555068523448857e-15,
+              "operator_norm_diagnostic": 0.9999999999974182
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 1.2319449083883122e-15,
+              "operator_norm_diagnostic": 0.9999999999994522
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 1.192052942998678e-15,
+              "operator_norm_diagnostic": 0.9999999999986771
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 1.0235520349572965e-15,
+              "operator_norm_diagnostic": 0.9999999999988047
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 5.495544568816022e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_only_pair_plus_response__signed_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 10,
+          "initial_product_max_residual": 0.8939122898875058,
+          "initial_product_mean_residual": 0.10929766198146354,
+          "initial_sharp_max_residual": 0.9185479007871007,
+          "initial_sharp_mean_residual": 0.35963275646040493,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.2927126192968979e-14,
+          "product_algebra_post_rel_material_residual": 2.3230043530502065e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.788783992143022e-15,
+          "product_algebra_sharp_mean_residual": 1.0952773433353593e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 9.119355525182378e-15,
+          "forced_product_post_rel_material_residual": 1.9401903820652122e-15,
+          "forced_sharp_max_residual": 1.8583851165549276e-15,
+          "forced_sharp_mean_residual": 9.670159961014666e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B13",
+              "sharp_relative_residual_to_span": 1.788783992143022e-15,
+              "operator_norm_diagnostic": 0.9999999999876485
+            },
+            {
+              "family": "all_seed",
+              "operator": "B32",
+              "sharp_relative_residual_to_span": 1.775861297686621e-15,
+              "operator_norm_diagnostic": 0.12054450867549957
+            },
+            {
+              "family": "all_seed",
+              "operator": "B46",
+              "sharp_relative_residual_to_span": 1.7572498518633178e-15,
+              "operator_norm_diagnostic": 0.4241824975839404
+            },
+            {
+              "family": "all_seed",
+              "operator": "B25",
+              "sharp_relative_residual_to_span": 1.6652386364102824e-15,
+              "operator_norm_diagnostic": 0.9994579083781393
+            },
+            {
+              "family": "all_seed",
+              "operator": "B36",
+              "sharp_relative_residual_to_span": 1.5360396003852044e-15,
+              "operator_norm_diagnostic": 0.1368099089903973
+            },
+            {
+              "family": "all_seed",
+              "operator": "B40",
+              "sharp_relative_residual_to_span": 1.5353292236742644e-15,
+              "operator_norm_diagnostic": 0.9619351010002414
+            },
+            {
+              "family": "all_seed",
+              "operator": "B9",
+              "sharp_relative_residual_to_span": 1.513438616463022e-15,
+              "operator_norm_diagnostic": 0.9999999999981447
+            },
+            {
+              "family": "all_seed",
+              "operator": "B28",
+              "sharp_relative_residual_to_span": 1.4476074053245776e-15,
+              "operator_norm_diagnostic": 0.05431599728043104
+            },
+            {
+              "family": "all_seed",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.4339325136211971e-15,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "all_seed",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.39025094847946e-15,
+              "operator_norm_diagnostic": 0.9999999999612881
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "real_growth_record_only_pair_plus_response__unsigned_R",
+      "variant": "real_growth_record_only_pair_plus_response",
+      "signed_pair_reversal": false,
+      "source": "record",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": false,
+      "use_backreaction": true,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 6
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9981331611561454,
+        "exact_ratio": 0.9718952169851596,
+        "harmonic_ratio": 0.2273532374982361,
+        "defect_ratio": 0.1177069318277919,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 1.0091731753517326e-15,
+        "R_symmetric_residual": 7.643945700018115e-17,
+        "R_nonidentity_entry_count": 25,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "real_growth_record_only_pair_plus_response__unsigned_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.49890089239655067,
+          "initial_product_mean_residual": 0.0722649784083785,
+          "initial_sharp_max_residual": 0.022226910062588107,
+          "initial_sharp_mean_residual": 0.00784619292676754,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.430300535135363e-14,
+          "product_algebra_post_rel_material_residual": 2.3882820741006692e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.2765707077080117e-15,
+          "product_algebra_sharp_mean_residual": 1.4425299284639943e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.3439573539643206e-14,
+          "forced_product_post_rel_material_residual": 1.9637092445013396e-15,
+          "forced_sharp_max_residual": 1.8679895595201985e-15,
+          "forced_sharp_mean_residual": 1.220607136963277e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 2.2765707077080117e-15,
+              "operator_norm_diagnostic": 0.9999999999831037
+            },
+            {
+              "family": "diag_core",
+              "operator": "B7",
+              "sharp_relative_residual_to_span": 2.0271047586942148e-15,
+              "operator_norm_diagnostic": 0.9999999999976591
+            },
+            {
+              "family": "diag_core",
+              "operator": "B8",
+              "sharp_relative_residual_to_span": 2.0203839704789107e-15,
+              "operator_norm_diagnostic": 0.999999999991059
+            },
+            {
+              "family": "diag_core",
+              "operator": "B39",
+              "sharp_relative_residual_to_span": 1.797470299432128e-15,
+              "operator_norm_diagnostic": 0.9999527259509908
+            },
+            {
+              "family": "diag_core",
+              "operator": "B26",
+              "sharp_relative_residual_to_span": 1.7366191147800454e-15,
+              "operator_norm_diagnostic": 0.9987468761651151
+            },
+            {
+              "family": "diag_core",
+              "operator": "B11",
+              "sharp_relative_residual_to_span": 1.7000738986217077e-15,
+              "operator_norm_diagnostic": 0.9999999999925538
+            },
+            {
+              "family": "diag_core",
+              "operator": "B34",
+              "sharp_relative_residual_to_span": 1.6537447706289496e-15,
+              "operator_norm_diagnostic": 0.9999995025448535
+            },
+            {
+              "family": "diag_core",
+              "operator": "B45",
+              "sharp_relative_residual_to_span": 1.634623736610228e-15,
+              "operator_norm_diagnostic": 0.9999264773758024
+            },
+            {
+              "family": "diag_core",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.6207848929083097e-15,
+              "operator_norm_diagnostic": 0.9999999991697985
+            },
+            {
+              "family": "diag_core",
+              "operator": "B46",
+              "sharp_relative_residual_to_span": 1.6182221095525397e-15,
+              "operator_norm_diagnostic": 0.9999722306121599
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_only_pair_plus_response__unsigned_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.4330127018920664,
+          "initial_product_mean_residual": 0.048134167093749486,
+          "initial_sharp_max_residual": 0.9397998107096541,
+          "initial_sharp_mean_residual": 0.6265332071397655,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.8600290864641595e-15,
+          "product_algebra_post_rel_material_residual": 1.2779593777423592e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.9599826337102808,
+          "product_algebra_sharp_mean_residual": 0.6741086759297522,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 3.725663220545813e-15,
+          "forced_product_post_rel_material_residual": 2.0606119785770734e-15,
+          "forced_sharp_max_residual": 1.6972077398059907e-15,
+          "forced_sharp_mean_residual": 1.1340212678922143e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.9599826337102808,
+              "operator_norm_diagnostic": 0.9999999999996161
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9581820708427904,
+              "operator_norm_diagnostic": 0.9999999999996153
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9508736717804565,
+              "operator_norm_diagnostic": 0.9999999999996322
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.948334536309656,
+              "operator_norm_diagnostic": 0.9999999999996317
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.9013878188650801,
+              "operator_norm_diagnostic": 0.9999999999985091
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 9.325226701429277e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 6.322938627279489e-16,
+              "operator_norm_diagnostic": 0.9999999999994522
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_only_pair_plus_response__unsigned_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858407,
+          "initial_product_mean_residual": 0.2651693800494365,
+          "initial_sharp_max_residual": 9.53703255972189e-16,
+          "initial_sharp_mean_residual": 7.656047184350281e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.341167772494218e-15,
+          "product_algebra_post_rel_material_residual": 1.3411677724936105e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.5879547300138548e-15,
+          "product_algebra_sharp_mean_residual": 1.0545707397442544e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.341167772494218e-15,
+          "forced_product_post_rel_material_residual": 1.3411677724936105e-15,
+          "forced_sharp_max_residual": 1.5879547300138548e-15,
+          "forced_sharp_mean_residual": 1.0545707397442544e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.5879547300138548e-15,
+              "operator_norm_diagnostic": 0.999999999997418
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.1110198693421394e-15,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 9.66999552957071e-16,
+              "operator_norm_diagnostic": 0.9999999999988047
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 8.96880032966365e-16,
+              "operator_norm_diagnostic": 0.9999999999986772
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 7.09999513441842e-16,
+              "operator_norm_diagnostic": 0.9999999999994522
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_only_pair_plus_response__unsigned_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 10,
+          "initial_product_max_residual": 0.8939122898875058,
+          "initial_product_mean_residual": 0.10929041885749831,
+          "initial_sharp_max_residual": 0.9185479007871005,
+          "initial_sharp_mean_residual": 0.3596327564604048,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.4157517695705113e-14,
+          "product_algebra_post_rel_material_residual": 2.7176813545054447e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.8646789870267036e-15,
+          "product_algebra_sharp_mean_residual": 1.1121533447078193e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.1016788057661219e-14,
+          "forced_product_post_rel_material_residual": 2.3302091073742467e-15,
+          "forced_sharp_max_residual": 2.19280612761175e-15,
+          "forced_sharp_mean_residual": 1.0790438644849702e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B20",
+              "sharp_relative_residual_to_span": 2.8646789870267036e-15,
+              "operator_norm_diagnostic": 0.9999999984906717
+            },
+            {
+              "family": "all_seed",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.7828919593898107e-15,
+              "operator_norm_diagnostic": 0.9999999999996272
+            },
+            {
+              "family": "all_seed",
+              "operator": "B8",
+              "sharp_relative_residual_to_span": 1.7529560977132318e-15,
+              "operator_norm_diagnostic": 0.9999999999985336
+            },
+            {
+              "family": "all_seed",
+              "operator": "B7",
+              "sharp_relative_residual_to_span": 1.7405571676636073e-15,
+              "operator_norm_diagnostic": 0.9999999999996102
+            },
+            {
+              "family": "all_seed",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 1.7330803483407761e-15,
+              "operator_norm_diagnostic": 0.9999999999996103
+            },
+            {
+              "family": "all_seed",
+              "operator": "B22",
+              "sharp_relative_residual_to_span": 1.6658750257537622e-15,
+              "operator_norm_diagnostic": 0.9999999999404063
+            },
+            {
+              "family": "all_seed",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.5593770820161705e-15,
+              "operator_norm_diagnostic": 0.9999999999996274
+            },
+            {
+              "family": "all_seed",
+              "operator": "B47",
+              "sharp_relative_residual_to_span": 1.4981759829961822e-15,
+              "operator_norm_diagnostic": 0.4466094294034054
+            },
+            {
+              "family": "all_seed",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 1.4647473395813096e-15,
+              "operator_norm_diagnostic": 0.9999999999913508
+            },
+            {
+              "family": "all_seed",
+              "operator": "B16",
+              "sharp_relative_residual_to_span": 1.3833392181385177e-15,
+              "operator_norm_diagnostic": 0.9999999999957313
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "real_growth_record_plus_live_pair_plus_response__signed_R",
+      "variant": "real_growth_record_plus_live_pair_plus_response",
+      "signed_pair_reversal": true,
+      "source": "full",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": false,
+      "use_backreaction": true,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 6
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9981308916682122,
+        "exact_ratio": 0.9718605894624366,
+        "harmonic_ratio": 0.22749125599043576,
+        "defect_ratio": 0.11777838792580426,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 7.975571579515595e-16,
+        "R_symmetric_residual": 7.067800784721025e-17,
+        "R_nonidentity_entry_count": 25,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "real_growth_record_plus_live_pair_plus_response__signed_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.49902549505473437,
+          "initial_product_mean_residual": 0.07241786370307778,
+          "initial_sharp_max_residual": 0.022320739191238503,
+          "initial_sharp_mean_residual": 0.0078764480874771,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 9.702764114455229e-15,
+          "product_algebra_post_rel_material_residual": 1.71029345694679e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.6425735821450149e-15,
+          "product_algebra_sharp_mean_residual": 1.1712393589895268e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.0574668276370575e-14,
+          "forced_product_post_rel_material_residual": 1.7778943871679497e-15,
+          "forced_sharp_max_residual": 1.7032595443701167e-15,
+          "forced_sharp_mean_residual": 1.221448540130109e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B32",
+              "sharp_relative_residual_to_span": 1.6425735821450149e-15,
+              "operator_norm_diagnostic": 0.9999999813532522
+            },
+            {
+              "family": "diag_core",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.627286947611946e-15,
+              "operator_norm_diagnostic": 0.9999999999762418
+            },
+            {
+              "family": "diag_core",
+              "operator": "B29",
+              "sharp_relative_residual_to_span": 1.6120435832455996e-15,
+              "operator_norm_diagnostic": 0.9999980156847944
+            },
+            {
+              "family": "diag_core",
+              "operator": "B27",
+              "sharp_relative_residual_to_span": 1.474488208732327e-15,
+              "operator_norm_diagnostic": 0.9992337449854828
+            },
+            {
+              "family": "diag_core",
+              "operator": "B46",
+              "sharp_relative_residual_to_span": 1.4662911491630087e-15,
+              "operator_norm_diagnostic": 0.9999999882254567
+            },
+            {
+              "family": "diag_core",
+              "operator": "B38",
+              "sharp_relative_residual_to_span": 1.4168344432114425e-15,
+              "operator_norm_diagnostic": 0.9999848873872852
+            },
+            {
+              "family": "diag_core",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 1.4043595177250112e-15,
+              "operator_norm_diagnostic": 0.9999999999832457
+            },
+            {
+              "family": "diag_core",
+              "operator": "B7",
+              "sharp_relative_residual_to_span": 1.3938901687847456e-15,
+              "operator_norm_diagnostic": 0.999999999997646
+            },
+            {
+              "family": "diag_core",
+              "operator": "B43",
+              "sharp_relative_residual_to_span": 1.3151492310302746e-15,
+              "operator_norm_diagnostic": 0.999999999381491
+            },
+            {
+              "family": "diag_core",
+              "operator": "B45",
+              "sharp_relative_residual_to_span": 1.3064682104031233e-15,
+              "operator_norm_diagnostic": 0.9999999970699857
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_plus_live_pair_plus_response__signed_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.43301270189206564,
+          "initial_product_mean_residual": 0.04813958058051364,
+          "initial_sharp_max_residual": 0.9397998107096526,
+          "initial_sharp_mean_residual": 0.6265332071397643,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 2.110537299104877e-15,
+          "product_algebra_post_rel_material_residual": 1.567617469281184e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.959982633710281,
+          "product_algebra_sharp_mean_residual": 0.6741086759297523,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 3.3256900164018786e-15,
+          "forced_product_post_rel_material_residual": 1.76797839101618e-15,
+          "forced_sharp_max_residual": 1.74977834114335e-15,
+          "forced_sharp_mean_residual": 1.1204287115298598e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.959982633710281,
+              "operator_norm_diagnostic": 0.9999999999996142
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9581820708427905,
+              "operator_norm_diagnostic": 0.9999999999996135
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9508736717804565,
+              "operator_norm_diagnostic": 0.9999999999996305
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.9483345363096559,
+              "operator_norm_diagnostic": 0.9999999999996302
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.90138781886508,
+              "operator_norm_diagnostic": 0.9999999999985021
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 8.37986504575739e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 8.078244662500525e-16,
+              "operator_norm_diagnostic": 0.9999999999994523
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_plus_live_pair_plus_response__signed_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858405,
+          "initial_product_mean_residual": 0.26516817289415456,
+          "initial_sharp_max_residual": 7.552921456171524e-16,
+          "initial_sharp_mean_residual": 6.60135930195385e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.1595919704833306e-15,
+          "product_algebra_post_rel_material_residual": 1.2235512095578716e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.6782964814045908e-15,
+          "product_algebra_sharp_mean_residual": 9.113549820103546e-16,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.1595919704833306e-15,
+          "forced_product_post_rel_material_residual": 1.2235512095578716e-15,
+          "forced_sharp_max_residual": 1.6782964814045908e-15,
+          "forced_sharp_mean_residual": 9.113549820103546e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.6782964814045908e-15,
+              "operator_norm_diagnostic": 0.999999999997418
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 8.95656695269553e-16,
+              "operator_norm_diagnostic": 0.9999999999994523
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 7.518359934775611e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 6.735736121386204e-16,
+              "operator_norm_diagnostic": 0.9999999999988047
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 5.574121277614474e-16,
+              "operator_norm_diagnostic": 0.9999999999986771
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_plus_live_pair_plus_response__signed_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 10,
+          "initial_product_max_residual": 0.8938617814620029,
+          "initial_product_mean_residual": 0.1092869791785314,
+          "initial_sharp_max_residual": 0.9185477969993033,
+          "initial_sharp_mean_residual": 0.35964321768093055,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 9.677827827686026e-15,
+          "product_algebra_post_rel_material_residual": 1.9218945203779323e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.2627070670495875e-15,
+          "product_algebra_sharp_mean_residual": 9.333496927453422e-16,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 9.41742818801868e-15,
+          "forced_product_post_rel_material_residual": 1.410115212850445e-15,
+          "forced_sharp_max_residual": 1.3175403366150095e-15,
+          "forced_sharp_mean_residual": 8.981153379881717e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B33",
+              "sharp_relative_residual_to_span": 1.2627070670495875e-15,
+              "operator_norm_diagnostic": 0.9999999999938154
+            },
+            {
+              "family": "all_seed",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.2586625131934481e-15,
+              "operator_norm_diagnostic": 0.9999999999612016
+            },
+            {
+              "family": "all_seed",
+              "operator": "B17",
+              "sharp_relative_residual_to_span": 1.2524767330338752e-15,
+              "operator_norm_diagnostic": 0.9999999999937432
+            },
+            {
+              "family": "all_seed",
+              "operator": "B27",
+              "sharp_relative_residual_to_span": 1.1192883240568188e-15,
+              "operator_norm_diagnostic": 0.1937122094801659
+            },
+            {
+              "family": "all_seed",
+              "operator": "B44",
+              "sharp_relative_residual_to_span": 1.1170970350542633e-15,
+              "operator_norm_diagnostic": 0.9729213862589041
+            },
+            {
+              "family": "all_seed",
+              "operator": "B47",
+              "sharp_relative_residual_to_span": 1.110929556958001e-15,
+              "operator_norm_diagnostic": 0.437873923695529
+            },
+            {
+              "family": "all_seed",
+              "operator": "B23",
+              "sharp_relative_residual_to_span": 1.098385726979133e-15,
+              "operator_norm_diagnostic": 0.9999999999968002
+            },
+            {
+              "family": "all_seed",
+              "operator": "B45",
+              "sharp_relative_residual_to_span": 1.0916929662901036e-15,
+              "operator_norm_diagnostic": 0.5862232753310664
+            },
+            {
+              "family": "all_seed",
+              "operator": "B28",
+              "sharp_relative_residual_to_span": 1.085617903922378e-15,
+              "operator_norm_diagnostic": 0.187808439114084
+            },
+            {
+              "family": "all_seed",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 1.067576604805461e-15,
+              "operator_norm_diagnostic": 0.9999999999994523
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "real_growth_record_plus_live_pair_plus_response__unsigned_R",
+      "variant": "real_growth_record_plus_live_pair_plus_response",
+      "signed_pair_reversal": false,
+      "source": "full",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": false,
+      "use_backreaction": true,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 6
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9981308916682122,
+        "exact_ratio": 0.9718605894624366,
+        "harmonic_ratio": 0.22749125599043576,
+        "defect_ratio": 0.11777838792580426,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 8.007648911689136e-16,
+        "R_symmetric_residual": 6.157657491294292e-17,
+        "R_nonidentity_entry_count": 25,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "real_growth_record_plus_live_pair_plus_response__unsigned_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.4990254950547345,
+          "initial_product_mean_residual": 0.07241786370307768,
+          "initial_sharp_max_residual": 0.022320739191238493,
+          "initial_sharp_mean_residual": 0.007876448087476846,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 9.609224605715091e-15,
+          "product_algebra_post_rel_material_residual": 1.689528692195455e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.4839530874048305e-15,
+          "product_algebra_sharp_mean_residual": 1.1031308388326013e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.047996606429335e-14,
+          "forced_product_post_rel_material_residual": 2.319880401594425e-15,
+          "forced_sharp_max_residual": 2.2088497453602685e-15,
+          "forced_sharp_mean_residual": 1.1463962804207582e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.4839530874048305e-15,
+              "operator_norm_diagnostic": 0.9999999991710151
+            },
+            {
+              "family": "diag_core",
+              "operator": "B34",
+              "sharp_relative_residual_to_span": 1.3393422156206116e-15,
+              "operator_norm_diagnostic": 0.9999998710889764
+            },
+            {
+              "family": "diag_core",
+              "operator": "B31",
+              "sharp_relative_residual_to_span": 1.3373682781128735e-15,
+              "operator_norm_diagnostic": 0.9999996464873498
+            },
+            {
+              "family": "diag_core",
+              "operator": "B42",
+              "sharp_relative_residual_to_span": 1.3086679208879783e-15,
+              "operator_norm_diagnostic": 0.9999860629360345
+            },
+            {
+              "family": "diag_core",
+              "operator": "B8",
+              "sharp_relative_residual_to_span": 1.3085288078318109e-15,
+              "operator_norm_diagnostic": 0.9999999999912728
+            },
+            {
+              "family": "diag_core",
+              "operator": "B30",
+              "sharp_relative_residual_to_span": 1.3043924645342992e-15,
+              "operator_norm_diagnostic": 0.9981621598394219
+            },
+            {
+              "family": "diag_core",
+              "operator": "B41",
+              "sharp_relative_residual_to_span": 1.2840121704940146e-15,
+              "operator_norm_diagnostic": 0.999994138243417
+            },
+            {
+              "family": "diag_core",
+              "operator": "B47",
+              "sharp_relative_residual_to_span": 1.2631089337156967e-15,
+              "operator_norm_diagnostic": 0.9999998661559222
+            },
+            {
+              "family": "diag_core",
+              "operator": "B24",
+              "sharp_relative_residual_to_span": 1.2599671801438028e-15,
+              "operator_norm_diagnostic": 0.9996709159009558
+            },
+            {
+              "family": "diag_core",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.2591025616530699e-15,
+              "operator_norm_diagnostic": 0.9999999999762419
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_plus_live_pair_plus_response__unsigned_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.43301270189206553,
+          "initial_product_mean_residual": 0.04815078384779219,
+          "initial_sharp_max_residual": 0.9397998107096526,
+          "initial_sharp_mean_residual": 0.6265332071397643,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.9410214688459973e-15,
+          "product_algebra_post_rel_material_residual": 1.2708362074045544e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.959982633710281,
+          "product_algebra_sharp_mean_residual": 0.6741086759297522,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 4.3284795700673795e-15,
+          "forced_product_post_rel_material_residual": 1.948232904364345e-15,
+          "forced_sharp_max_residual": 1.761368248025837e-15,
+          "forced_sharp_mean_residual": 1.1183169382944273e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.959982633710281,
+              "operator_norm_diagnostic": 0.9999999999996143
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9581820708427904,
+              "operator_norm_diagnostic": 0.9999999999996136
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9508736717804565,
+              "operator_norm_diagnostic": 0.9999999999996304
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.948334536309656,
+              "operator_norm_diagnostic": 0.99999999999963
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.9013878188650798,
+              "operator_norm_diagnostic": 0.9999999999985021
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.2492611116244051e-15,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 4.753334391064669e-16,
+              "operator_norm_diagnostic": 0.9999999999994522
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_plus_live_pair_plus_response__unsigned_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858404,
+          "initial_product_mean_residual": 0.26516818592798386,
+          "initial_sharp_max_residual": 8.314710763607862e-16,
+          "initial_sharp_mean_residual": 5.54230125079042e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.2385456253677397e-15,
+          "product_algebra_post_rel_material_residual": 1.2385456253679811e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.1875657292078474e-15,
+          "product_algebra_sharp_mean_residual": 7.50933554976667e-16,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.2385456253677397e-15,
+          "forced_product_post_rel_material_residual": 1.2385456253679811e-15,
+          "forced_sharp_max_residual": 1.1875657292078474e-15,
+          "forced_sharp_mean_residual": 7.50933554976667e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.1875657292078474e-15,
+              "operator_norm_diagnostic": 0.9999999999974181
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 8.105620741589398e-16,
+              "operator_norm_diagnostic": 0.9999999999986771
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 8.009300196272e-16,
+              "operator_norm_diagnostic": 0.9999999999988047
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 5.36236482845189e-16,
+              "operator_norm_diagnostic": 0.9999999999994522
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 4.193734690441584e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            }
+          ]
+        },
+        {
+          "case": "real_growth_record_plus_live_pair_plus_response__unsigned_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 10,
+          "initial_product_max_residual": 0.8938617814620032,
+          "initial_product_mean_residual": 0.10929331369082339,
+          "initial_sharp_max_residual": 0.9185477969993033,
+          "initial_sharp_mean_residual": 0.3596432176809303,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.3214576819579098e-14,
+          "product_algebra_post_rel_material_residual": 2.35059970848572e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.1224127279645235e-15,
+          "product_algebra_sharp_mean_residual": 1.145094328912627e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 9.288190949526754e-15,
+          "forced_product_post_rel_material_residual": 2.1198462919585675e-15,
+          "forced_sharp_max_residual": 1.8637830538246347e-15,
+          "forced_sharp_mean_residual": 9.71019356333238e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 2.1224127279645235e-15,
+              "operator_norm_diagnostic": 0.9999999999996085
+            },
+            {
+              "family": "all_seed",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.8343470416847427e-15,
+              "operator_norm_diagnostic": 0.9999999999996257
+            },
+            {
+              "family": "all_seed",
+              "operator": "B14",
+              "sharp_relative_residual_to_span": 1.7701801774190978e-15,
+              "operator_norm_diagnostic": 0.9999999999911805
+            },
+            {
+              "family": "all_seed",
+              "operator": "B25",
+              "sharp_relative_residual_to_span": 1.6289713062559881e-15,
+              "operator_norm_diagnostic": 0.9992276028559094
+            },
+            {
+              "family": "all_seed",
+              "operator": "B20",
+              "sharp_relative_residual_to_span": 1.54822377720221e-15,
+              "operator_norm_diagnostic": 0.9999999984762217
+            },
+            {
+              "family": "all_seed",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.516676247491467e-15,
+              "operator_norm_diagnostic": 0.9999999999612018
+            },
+            {
+              "family": "all_seed",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 1.514282751876579e-15,
+              "operator_norm_diagnostic": 0.9999999999998743
+            },
+            {
+              "family": "all_seed",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 1.5040107247054246e-15,
+              "operator_norm_diagnostic": 0.9999999999911806
+            },
+            {
+              "family": "all_seed",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.4845723448368965e-15,
+              "operator_norm_diagnostic": 0.9999999999996255
+            },
+            {
+              "family": "all_seed",
+              "operator": "B23",
+              "sharp_relative_residual_to_span": 1.4705746284630971e-15,
+              "operator_norm_diagnostic": 0.9999999999968003
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "real_growth_live_pair_only__signed_R",
+      "variant": "real_growth_live_pair_only",
+      "signed_pair_reversal": true,
+      "source": "live",
+      "mode": "pair_only",
+      "strict_symmetrized": false,
+      "use_backreaction": true,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 5
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9657597613534157,
+        "exact_ratio": 3.43174795292738e-16,
+        "harmonic_ratio": 0.9657597613534158,
+        "defect_ratio": 0.49999999999987144,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 1.266738453842419e-15,
+        "R_symmetric_residual": 7.506363163038987e-17,
+        "R_nonidentity_entry_count": 16,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "real_growth_live_pair_only__signed_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 5,
+          "full_matrix_dim_on_carrier": 25,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 3,
+          "initial_product_max_residual": 0.31424235108962456,
+          "initial_product_mean_residual": 0.08461806335609903,
+          "initial_sharp_max_residual": 0.03426195383073586,
+          "initial_sharp_mean_residual": 0.017130976915368672,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 25,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.7152471901248153e-15,
+          "product_algebra_post_rel_material_residual": 1.7152471901240586e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.6479731112769578e-15,
+          "product_algebra_sharp_mean_residual": 1.0470993062121955e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 25,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.6620825952277397e-15,
+          "forced_product_post_rel_material_residual": 1.6622954871931026e-15,
+          "forced_sharp_max_residual": 1.4662705797199912e-15,
+          "forced_sharp_mean_residual": 1.0649667985713364e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.6479731112769578e-15,
+              "operator_norm_diagnostic": 0.9999999999995527
+            },
+            {
+              "family": "diag_core",
+              "operator": "B13",
+              "sharp_relative_residual_to_span": 1.5153950585248355e-15,
+              "operator_norm_diagnostic": 0.9999389563429895
+            },
+            {
+              "family": "diag_core",
+              "operator": "B21",
+              "sharp_relative_residual_to_span": 1.5077484911842421e-15,
+              "operator_norm_diagnostic": 0.9999999999843225
+            },
+            {
+              "family": "diag_core",
+              "operator": "B7",
+              "sharp_relative_residual_to_span": 1.4397743006585984e-15,
+              "operator_norm_diagnostic": 0.9999573268185725
+            },
+            {
+              "family": "diag_core",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 1.3829571723185334e-15,
+              "operator_norm_diagnostic": 0.9999999999994408
+            },
+            {
+              "family": "diag_core",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 1.371715019139328e-15,
+              "operator_norm_diagnostic": 0.9999999999531939
+            },
+            {
+              "family": "diag_core",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.3279943963865592e-15,
+              "operator_norm_diagnostic": 0.9999999999531939
+            },
+            {
+              "family": "diag_core",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 1.2916533635666437e-15,
+              "operator_norm_diagnostic": 0.9999999999991708
+            },
+            {
+              "family": "diag_core",
+              "operator": "B8",
+              "sharp_relative_residual_to_span": 1.2375230893950972e-15,
+              "operator_norm_diagnostic": 0.9999999947113413
+            },
+            {
+              "family": "diag_core",
+              "operator": "B32",
+              "sharp_relative_residual_to_span": 1.2130991240807235e-15,
+              "operator_norm_diagnostic": 0.9999990986870579
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_only__signed_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 5,
+          "full_matrix_dim_on_carrier": 25,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.433012701892065,
+          "initial_product_mean_residual": 0.048131971717224824,
+          "initial_sharp_max_residual": 0.938749167775594,
+          "initial_sharp_mean_residual": 0.6258327785170588,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 2.1331339833594897e-15,
+          "product_algebra_post_rel_material_residual": 2.0348207588572704e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.960567406823065,
+          "product_algebra_sharp_mean_residual": 0.6744319461672198,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 3.38376877317294e-15,
+          "forced_product_post_rel_material_residual": 1.7192120462222467e-15,
+          "forced_sharp_max_residual": 1.4057480225228846e-15,
+          "forced_sharp_mean_residual": 1.0940731785136258e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.960567406823065,
+              "operator_norm_diagnostic": 0.9999999999996116
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9587910632814908,
+              "operator_norm_diagnostic": 0.9999999999996111
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9513594198623888,
+              "operator_norm_diagnostic": 0.9999999999996283
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.9489179143385064,
+              "operator_norm_diagnostic": 0.9999999999996277
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.901387818865086,
+              "operator_norm_diagnostic": 0.9999999999985258
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.1155085819068181e-15,
+              "operator_norm_diagnostic": 0.9999999999995527
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 6.736414452930297e-16,
+              "operator_norm_diagnostic": 0.9999999999994408
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_only__signed_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 5,
+          "full_matrix_dim_on_carrier": 25,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858404,
+          "initial_product_mean_residual": 0.2651704858280478,
+          "initial_sharp_max_residual": 1.3866439525662454e-15,
+          "initial_sharp_mean_residual": 1.2250354384770665e-15,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.870626832221759e-15,
+          "product_algebra_post_rel_material_residual": 1.887665594555664e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 2.6589240682071e-15,
+          "product_algebra_sharp_mean_residual": 1.496804861770007e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.870626832221759e-15,
+          "forced_product_post_rel_material_residual": 1.887665594555664e-15,
+          "forced_sharp_max_residual": 2.6589240682071e-15,
+          "forced_sharp_mean_residual": 1.496804861770007e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 2.6589240682071e-15,
+              "operator_norm_diagnostic": 0.9999999999974702
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 1.5100115205637083e-15,
+              "operator_norm_diagnostic": 0.999999999998646
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 1.425572764044854e-15,
+              "operator_norm_diagnostic": 0.999999999998794
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.2488763334397875e-15,
+              "operator_norm_diagnostic": 0.9999999999995527
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 6.40639622594585e-16,
+              "operator_norm_diagnostic": 0.9999999999994408
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_only__signed_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 5,
+          "full_matrix_dim_on_carrier": 25,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 9,
+          "initial_product_max_residual": 0.6990630737106948,
+          "initial_product_mean_residual": 0.09121350226641081,
+          "initial_sharp_max_residual": 0.9184677035223916,
+          "initial_sharp_mean_residual": 0.3628291646699734,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 25,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 4.027890165692859e-15,
+          "product_algebra_post_rel_material_residual": 1.9810591263657482e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.3444041621004175e-15,
+          "product_algebra_sharp_mean_residual": 1.011129367659336e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.3613417029911954e-13,
+          "forced_product_post_rel_material_residual": 1.8935396619872527e-13,
+          "forced_sharp_max_residual": 4.003779931075692e-14,
+          "forced_sharp_mean_residual": 5.150585151618198e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B40",
+              "sharp_relative_residual_to_span": 1.3444041621004175e-15,
+              "operator_norm_diagnostic": 0.4657694234981318
+            },
+            {
+              "family": "all_seed",
+              "operator": "B34",
+              "sharp_relative_residual_to_span": 1.3318811324756627e-15,
+              "operator_norm_diagnostic": 0.9999999999062886
+            },
+            {
+              "family": "all_seed",
+              "operator": "B17",
+              "sharp_relative_residual_to_span": 1.312566543412819e-15,
+              "operator_norm_diagnostic": 0.2161620466728215
+            },
+            {
+              "family": "all_seed",
+              "operator": "B44",
+              "sharp_relative_residual_to_span": 1.3022523032645405e-15,
+              "operator_norm_diagnostic": 0.6365102989936651
+            },
+            {
+              "family": "all_seed",
+              "operator": "B33",
+              "sharp_relative_residual_to_span": 1.3021424584089003e-15,
+              "operator_norm_diagnostic": 0.9999983126188078
+            },
+            {
+              "family": "all_seed",
+              "operator": "B36",
+              "sharp_relative_residual_to_span": 1.2899721375676576e-15,
+              "operator_norm_diagnostic": 0.9999953642869578
+            },
+            {
+              "family": "all_seed",
+              "operator": "B13",
+              "sharp_relative_residual_to_span": 1.2778545438560998e-15,
+              "operator_norm_diagnostic": 0.23029391826273815
+            },
+            {
+              "family": "all_seed",
+              "operator": "B20",
+              "sharp_relative_residual_to_span": 1.2589251560403788e-15,
+              "operator_norm_diagnostic": 0.9999989959341952
+            },
+            {
+              "family": "all_seed",
+              "operator": "B32",
+              "sharp_relative_residual_to_span": 1.2324591214580034e-15,
+              "operator_norm_diagnostic": 0.9999989706893624
+            },
+            {
+              "family": "all_seed",
+              "operator": "B9",
+              "sharp_relative_residual_to_span": 1.2120630937458534e-15,
+              "operator_norm_diagnostic": 0.9999999999235073
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "real_growth_live_pair_only__unsigned_R",
+      "variant": "real_growth_live_pair_only",
+      "signed_pair_reversal": false,
+      "source": "live",
+      "mode": "pair_only",
+      "strict_symmetrized": false,
+      "use_backreaction": true,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 5
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9657597613534157,
+        "exact_ratio": 3.43174795292738e-16,
+        "harmonic_ratio": 0.9657597613534158,
+        "defect_ratio": 0.49999999999987144,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 4.3836470198329446e-16,
+        "R_symmetric_residual": 7.251061127981513e-17,
+        "R_nonidentity_entry_count": 16,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "real_growth_live_pair_only__unsigned_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 5,
+          "full_matrix_dim_on_carrier": 25,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 3,
+          "initial_product_max_residual": 0.3142423510896247,
+          "initial_product_mean_residual": 0.08461806335609874,
+          "initial_sharp_max_residual": 0.03426195383073569,
+          "initial_sharp_mean_residual": 0.017130976915367926,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 25,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 2.043010792856165e-15,
+          "product_algebra_post_rel_material_residual": 2.0430107928690223e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.7030731104169121e-15,
+          "product_algebra_sharp_mean_residual": 9.816731191941165e-16,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 25,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.8491926461837953e-15,
+          "forced_product_post_rel_material_residual": 1.849192646186826e-15,
+          "forced_sharp_max_residual": 1.820796410327354e-15,
+          "forced_sharp_mean_residual": 1.1971044166117723e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B19",
+              "sharp_relative_residual_to_span": 1.7030731104169121e-15,
+              "operator_norm_diagnostic": 0.9999999999965675
+            },
+            {
+              "family": "diag_core",
+              "operator": "B36",
+              "sharp_relative_residual_to_span": 1.2992300949264346e-15,
+              "operator_norm_diagnostic": 0.999945777695205
+            },
+            {
+              "family": "diag_core",
+              "operator": "B35",
+              "sharp_relative_residual_to_span": 1.2471500634897958e-15,
+              "operator_norm_diagnostic": 0.9999732152885075
+            },
+            {
+              "family": "diag_core",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.2196456972837072e-15,
+              "operator_norm_diagnostic": 0.9999999999973612
+            },
+            {
+              "family": "diag_core",
+              "operator": "B9",
+              "sharp_relative_residual_to_span": 1.1775268527252955e-15,
+              "operator_norm_diagnostic": 0.9999998054570486
+            },
+            {
+              "family": "diag_core",
+              "operator": "B25",
+              "sharp_relative_residual_to_span": 1.125270071851297e-15,
+              "operator_norm_diagnostic": 0.9999999999944775
+            },
+            {
+              "family": "diag_core",
+              "operator": "B31",
+              "sharp_relative_residual_to_span": 1.1124819692474836e-15,
+              "operator_norm_diagnostic": 0.9999998448213113
+            },
+            {
+              "family": "diag_core",
+              "operator": "B11",
+              "sharp_relative_residual_to_span": 1.1124225255457091e-15,
+              "operator_norm_diagnostic": 0.9999999357286612
+            },
+            {
+              "family": "diag_core",
+              "operator": "B17",
+              "sharp_relative_residual_to_span": 1.0938434471902199e-15,
+              "operator_norm_diagnostic": 0.9999809356947522
+            },
+            {
+              "family": "diag_core",
+              "operator": "B24",
+              "sharp_relative_residual_to_span": 1.0667190902972237e-15,
+              "operator_norm_diagnostic": 0.9999999998398683
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_only__unsigned_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 5,
+          "full_matrix_dim_on_carrier": 25,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.43301270189206487,
+          "initial_product_mean_residual": 0.04813527303796746,
+          "initial_sharp_max_residual": 0.9387491677755945,
+          "initial_sharp_mean_residual": 0.6258327785170587,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 2.0647935580130116e-15,
+          "product_algebra_post_rel_material_residual": 1.2597261760515125e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.9605674068230651,
+          "product_algebra_sharp_mean_residual": 0.6744319461672201,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 2.637035314552877e-15,
+          "forced_product_post_rel_material_residual": 1.2375322168149268e-15,
+          "forced_sharp_max_residual": 1.0419817415514927e-15,
+          "forced_sharp_mean_residual": 8.658111827523091e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.9605674068230651,
+              "operator_norm_diagnostic": 0.9999999999996115
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9587910632814912,
+              "operator_norm_diagnostic": 0.999999999999611
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9513594198623893,
+              "operator_norm_diagnostic": 0.9999999999996283
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.9489179143385068,
+              "operator_norm_diagnostic": 0.9999999999996277
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.9013878188650868,
+              "operator_norm_diagnostic": 0.9999999999985257
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.1196578276653913e-15,
+              "operator_norm_diagnostic": 0.9999999999995527
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 6.935843159582599e-16,
+              "operator_norm_diagnostic": 0.9999999999994409
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_only__unsigned_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 5,
+          "full_matrix_dim_on_carrier": 25,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858405,
+          "initial_product_mean_residual": 0.2651661719518097,
+          "initial_sharp_max_residual": 7.386582113831898e-16,
+          "initial_sharp_mean_residual": 5.745972306109322e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 9.530357827780772e-16,
+          "product_algebra_post_rel_material_residual": 9.53628400499273e-16,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.0936736590490868e-15,
+          "product_algebra_sharp_mean_residual": 7.164446332436396e-16,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 9.530357827780772e-16,
+          "forced_product_post_rel_material_residual": 9.53628400499273e-16,
+          "forced_sharp_max_residual": 1.0936736590490868e-15,
+          "forced_sharp_mean_residual": 7.164446332436396e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.0936736590490868e-15,
+              "operator_norm_diagnostic": 0.9999999999995527
+            },
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 7.477667438083513e-16,
+              "operator_norm_diagnostic": 0.9999999999974702
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 7.291061548931621e-16,
+              "operator_norm_diagnostic": 0.9999999999987941
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 6.010136245924817e-16,
+              "operator_norm_diagnostic": 0.999999999998646
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 4.1066298387511586e-16,
+              "operator_norm_diagnostic": 0.9999999999994409
+            }
+          ]
+        },
+        {
+          "case": "real_growth_live_pair_only__unsigned_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 5,
+          "full_matrix_dim_on_carrier": 25,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 9,
+          "initial_product_max_residual": 0.6990630737106948,
+          "initial_product_mean_residual": 0.09121016685711383,
+          "initial_sharp_max_residual": 0.9184677035223919,
+          "initial_sharp_mean_residual": 0.3628291646699734,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 25,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 3.1880182443761357e-15,
+          "product_algebra_post_rel_material_residual": 1.673471022195698e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.4684227570482612e-15,
+          "product_algebra_sharp_mean_residual": 9.215764721138415e-16,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 4.177014254860943e-14,
+          "forced_product_post_rel_material_residual": 5.91344414942473e-14,
+          "forced_sharp_max_residual": 3.4650588874830295e-14,
+          "forced_sharp_mean_residual": 3.0206950716693847e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B37",
+              "sharp_relative_residual_to_span": 1.4684227570482612e-15,
+              "operator_norm_diagnostic": 0.9991028729842707
+            },
+            {
+              "family": "all_seed",
+              "operator": "B29",
+              "sharp_relative_residual_to_span": 1.4212635821778088e-15,
+              "operator_norm_diagnostic": 0.27115174666460207
+            },
+            {
+              "family": "all_seed",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 1.3970114921303044e-15,
+              "operator_norm_diagnostic": 0.9999999999991709
+            },
+            {
+              "family": "all_seed",
+              "operator": "B46",
+              "sharp_relative_residual_to_span": 1.2415669614157929e-15,
+              "operator_norm_diagnostic": 0.33207875398240566
+            },
+            {
+              "family": "all_seed",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.2261274343234604e-15,
+              "operator_norm_diagnostic": 0.9999999998565434
+            },
+            {
+              "family": "all_seed",
+              "operator": "B9",
+              "sharp_relative_residual_to_span": 1.2153938658052244e-15,
+              "operator_norm_diagnostic": 0.9999999999235072
+            },
+            {
+              "family": "all_seed",
+              "operator": "B38",
+              "sharp_relative_residual_to_span": 1.172472028142782e-15,
+              "operator_norm_diagnostic": 0.7474818374388372
+            },
+            {
+              "family": "all_seed",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.1698864038769206e-15,
+              "operator_norm_diagnostic": 0.9999999999995527
+            },
+            {
+              "family": "all_seed",
+              "operator": "B40",
+              "sharp_relative_residual_to_span": 1.1646051100630723e-15,
+              "operator_norm_diagnostic": 0.2606499845011096
+            },
+            {
+              "family": "all_seed",
+              "operator": "B34",
+              "sharp_relative_residual_to_span": 1.1565545953122743e-15,
+              "operator_norm_diagnostic": 0.9999999999054603
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "strict_symmetrized_control__signed_R",
+      "variant": "strict_symmetrized_control",
+      "signed_pair_reversal": true,
+      "source": "record",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": true,
+      "use_backreaction": false,
+      "pairings_requested": 0,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 20,
+        "n1": 54,
+        "n2": 52,
+        "n3": 17,
+        "rank_boundary_1": 19,
+        "rank_boundary_2": 35,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 0,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 52,
+        "C3": 17,
+        "carrier_dim": 0
+      },
+      "K2_sector": {
+        "closed_ratio": 0.0,
+        "exact_ratio": 0.0,
+        "harmonic_ratio": 0.0,
+        "defect_ratio": 0.0,
+        "harmonic_dim_real": 0
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 0.0,
+        "R_symmetric_residual": 0.0,
+        "R_nonidentity_entry_count": 0,
+        "is_nontrivial": false
+      },
+      "applied_pair_count": 0,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "strict_symmetrized_control__signed_R",
+          "family": "diag_core",
+          "generator_count": 0,
+          "initial_span_dim": 0,
+          "initial_product_max_residual": 0.0,
+          "initial_sharp_max_residual": 0.0,
+          "product_algebra_dim": 0,
+          "product_algebra_sharp_max_residual": 0.0,
+          "forced_sharp_product_dim": 0,
+          "forced_extra_dim_over_product": 0,
+          "forced_sharp_product_closed": true,
+          "forced_capped": false,
+          "sharp_obstruction_present": false
+        },
+        {
+          "case": "strict_symmetrized_control__signed_R",
+          "family": "cap_only",
+          "generator_count": 0,
+          "initial_span_dim": 0,
+          "initial_product_max_residual": 0.0,
+          "initial_sharp_max_residual": 0.0,
+          "product_algebra_dim": 0,
+          "product_algebra_sharp_max_residual": 0.0,
+          "forced_sharp_product_dim": 0,
+          "forced_extra_dim_over_product": 0,
+          "forced_sharp_product_closed": true,
+          "forced_capped": false,
+          "sharp_obstruction_present": false
+        },
+        {
+          "case": "strict_symmetrized_control__signed_R",
+          "family": "pair_only",
+          "generator_count": 0,
+          "initial_span_dim": 0,
+          "initial_product_max_residual": 0.0,
+          "initial_sharp_max_residual": 0.0,
+          "product_algebra_dim": 0,
+          "product_algebra_sharp_max_residual": 0.0,
+          "forced_sharp_product_dim": 0,
+          "forced_extra_dim_over_product": 0,
+          "forced_sharp_product_closed": true,
+          "forced_capped": false,
+          "sharp_obstruction_present": false
+        },
+        {
+          "case": "strict_symmetrized_control__signed_R",
+          "family": "all_seed",
+          "generator_count": 0,
+          "initial_span_dim": 0,
+          "initial_product_max_residual": 0.0,
+          "initial_sharp_max_residual": 0.0,
+          "product_algebra_dim": 0,
+          "product_algebra_sharp_max_residual": 0.0,
+          "forced_sharp_product_dim": 0,
+          "forced_extra_dim_over_product": 0,
+          "forced_sharp_product_closed": true,
+          "forced_capped": false,
+          "sharp_obstruction_present": false
+        }
+      ]
+    },
+    {
+      "case_id": "strict_symmetrized_control__unsigned_R",
+      "variant": "strict_symmetrized_control",
+      "signed_pair_reversal": false,
+      "source": "record",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": true,
+      "use_backreaction": false,
+      "pairings_requested": 0,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 20,
+        "n1": 54,
+        "n2": 52,
+        "n3": 17,
+        "rank_boundary_1": 19,
+        "rank_boundary_2": 35,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 0,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 52,
+        "C3": 17,
+        "carrier_dim": 0
+      },
+      "K2_sector": {
+        "closed_ratio": 0.0,
+        "exact_ratio": 0.0,
+        "harmonic_ratio": 0.0,
+        "defect_ratio": 0.0,
+        "harmonic_dim_real": 0
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 0.0,
+        "R_symmetric_residual": 0.0,
+        "R_nonidentity_entry_count": 0,
+        "is_nontrivial": false
+      },
+      "applied_pair_count": 0,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "strict_symmetrized_control__unsigned_R",
+          "family": "diag_core",
+          "generator_count": 0,
+          "initial_span_dim": 0,
+          "initial_product_max_residual": 0.0,
+          "initial_sharp_max_residual": 0.0,
+          "product_algebra_dim": 0,
+          "product_algebra_sharp_max_residual": 0.0,
+          "forced_sharp_product_dim": 0,
+          "forced_extra_dim_over_product": 0,
+          "forced_sharp_product_closed": true,
+          "forced_capped": false,
+          "sharp_obstruction_present": false
+        },
+        {
+          "case": "strict_symmetrized_control__unsigned_R",
+          "family": "cap_only",
+          "generator_count": 0,
+          "initial_span_dim": 0,
+          "initial_product_max_residual": 0.0,
+          "initial_sharp_max_residual": 0.0,
+          "product_algebra_dim": 0,
+          "product_algebra_sharp_max_residual": 0.0,
+          "forced_sharp_product_dim": 0,
+          "forced_extra_dim_over_product": 0,
+          "forced_sharp_product_closed": true,
+          "forced_capped": false,
+          "sharp_obstruction_present": false
+        },
+        {
+          "case": "strict_symmetrized_control__unsigned_R",
+          "family": "pair_only",
+          "generator_count": 0,
+          "initial_span_dim": 0,
+          "initial_product_max_residual": 0.0,
+          "initial_sharp_max_residual": 0.0,
+          "product_algebra_dim": 0,
+          "product_algebra_sharp_max_residual": 0.0,
+          "forced_sharp_product_dim": 0,
+          "forced_extra_dim_over_product": 0,
+          "forced_sharp_product_closed": true,
+          "forced_capped": false,
+          "sharp_obstruction_present": false
+        },
+        {
+          "case": "strict_symmetrized_control__unsigned_R",
+          "family": "all_seed",
+          "generator_count": 0,
+          "initial_span_dim": 0,
+          "initial_product_max_residual": 0.0,
+          "initial_sharp_max_residual": 0.0,
+          "product_algebra_dim": 0,
+          "product_algebra_sharp_max_residual": 0.0,
+          "forced_sharp_product_dim": 0,
+          "forced_extra_dim_over_product": 0,
+          "forced_sharp_product_closed": true,
+          "forced_capped": false,
+          "sharp_obstruction_present": false
+        }
+      ]
+    },
+    {
+      "case_id": "no_backreaction_record_pair_plus_response__signed_R",
+      "variant": "no_backreaction_record_pair_plus_response",
+      "signed_pair_reversal": true,
+      "source": "record",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": false,
+      "use_backreaction": false,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 6
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9981331611561454,
+        "exact_ratio": 0.9718952169851596,
+        "harmonic_ratio": 0.2273532374982361,
+        "defect_ratio": 0.1177069318277919,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 1.0625864977422564e-15,
+        "R_symmetric_residual": 7.590778082042678e-17,
+        "R_nonidentity_entry_count": 25,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "no_backreaction_record_pair_plus_response__signed_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.4989008923965509,
+          "initial_product_mean_residual": 0.07226497840837846,
+          "initial_sharp_max_residual": 0.022226910062588406,
+          "initial_sharp_mean_residual": 0.007846192926767517,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.640829948771161e-14,
+          "product_algebra_post_rel_material_residual": 2.442037418939219e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.4436029422142962e-15,
+          "product_algebra_sharp_mean_residual": 1.5365047983693012e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.0037538756784468e-14,
+          "forced_product_post_rel_material_residual": 1.910289664327625e-15,
+          "forced_sharp_max_residual": 1.927956890967404e-15,
+          "forced_sharp_mean_residual": 1.1362317545332454e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 2.4436029422142962e-15,
+              "operator_norm_diagnostic": 0.9999999991697984
+            },
+            {
+              "family": "diag_core",
+              "operator": "B21",
+              "sharp_relative_residual_to_span": 1.993969633056339e-15,
+              "operator_norm_diagnostic": 0.999999999993524
+            },
+            {
+              "family": "diag_core",
+              "operator": "B42",
+              "sharp_relative_residual_to_span": 1.9637500574087805e-15,
+              "operator_norm_diagnostic": 0.9999719156638173
+            },
+            {
+              "family": "diag_core",
+              "operator": "B36",
+              "sharp_relative_residual_to_span": 1.9349728168330657e-15,
+              "operator_norm_diagnostic": 0.9999988084432798
+            },
+            {
+              "family": "diag_core",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.9320886950909348e-15,
+              "operator_norm_diagnostic": 0.9999999999762947
+            },
+            {
+              "family": "diag_core",
+              "operator": "B40",
+              "sharp_relative_residual_to_span": 1.8803194290348364e-15,
+              "operator_norm_diagnostic": 0.9999886120529771
+            },
+            {
+              "family": "diag_core",
+              "operator": "B22",
+              "sharp_relative_residual_to_span": 1.8758386206040765e-15,
+              "operator_norm_diagnostic": 0.9992239970981546
+            },
+            {
+              "family": "diag_core",
+              "operator": "B34",
+              "sharp_relative_residual_to_span": 1.860780960082481e-15,
+              "operator_norm_diagnostic": 0.9999998528400351
+            },
+            {
+              "family": "diag_core",
+              "operator": "B25",
+              "sharp_relative_residual_to_span": 1.816626059629852e-15,
+              "operator_norm_diagnostic": 0.9997869427679469
+            },
+            {
+              "family": "diag_core",
+              "operator": "B19",
+              "sharp_relative_residual_to_span": 1.803753451199373e-15,
+              "operator_norm_diagnostic": 0.999112774516816
+            }
+          ]
+        },
+        {
+          "case": "no_backreaction_record_pair_plus_response__signed_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.4330127018920662,
+          "initial_product_mean_residual": 0.04815129669803694,
+          "initial_sharp_max_residual": 0.9397998107096542,
+          "initial_sharp_mean_residual": 0.6265332071397657,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.7279062409758803e-15,
+          "product_algebra_post_rel_material_residual": 1.3927242970127533e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.9599826337102809,
+          "product_algebra_sharp_mean_residual": 0.6741086759297522,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 4.958221119529535e-15,
+          "forced_product_post_rel_material_residual": 2.872816718593966e-15,
+          "forced_sharp_max_residual": 2.139933287217505e-15,
+          "forced_sharp_mean_residual": 1.3387563208545294e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.9599826337102809,
+              "operator_norm_diagnostic": 0.9999999999996161
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9581820708427904,
+              "operator_norm_diagnostic": 0.9999999999996152
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9508736717804563,
+              "operator_norm_diagnostic": 0.9999999999996323
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.948334536309656,
+              "operator_norm_diagnostic": 0.9999999999996317
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.9013878188650798,
+              "operator_norm_diagnostic": 0.9999999999985092
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 9.256297891061721e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 8.677571622493443e-16,
+              "operator_norm_diagnostic": 0.9999999999994522
+            }
+          ]
+        },
+        {
+          "case": "no_backreaction_record_pair_plus_response__signed_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858406,
+          "initial_product_mean_residual": 0.2651673904379843,
+          "initial_sharp_max_residual": 8.650833961775668e-16,
+          "initial_sharp_mean_residual": 7.104877191079236e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.2865804965312297e-15,
+          "product_algebra_post_rel_material_residual": 1.2865804965306477e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.4555068523448857e-15,
+          "product_algebra_sharp_mean_residual": 1.0905222391141548e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.2865804965312297e-15,
+          "forced_product_post_rel_material_residual": 1.2865804965306477e-15,
+          "forced_sharp_max_residual": 1.4555068523448857e-15,
+          "forced_sharp_mean_residual": 1.0905222391141548e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.4555068523448857e-15,
+              "operator_norm_diagnostic": 0.9999999999974182
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 1.2319449083883122e-15,
+              "operator_norm_diagnostic": 0.9999999999994522
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 1.192052942998678e-15,
+              "operator_norm_diagnostic": 0.9999999999986771
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 1.0235520349572965e-15,
+              "operator_norm_diagnostic": 0.9999999999988047
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 5.495544568816022e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            }
+          ]
+        },
+        {
+          "case": "no_backreaction_record_pair_plus_response__signed_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 10,
+          "initial_product_max_residual": 0.8939122898875058,
+          "initial_product_mean_residual": 0.10929766198146354,
+          "initial_sharp_max_residual": 0.9185479007871007,
+          "initial_sharp_mean_residual": 0.35963275646040493,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.2927126192968979e-14,
+          "product_algebra_post_rel_material_residual": 2.3230043530502065e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 1.788783992143022e-15,
+          "product_algebra_sharp_mean_residual": 1.0952773433353593e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 9.119355525182378e-15,
+          "forced_product_post_rel_material_residual": 1.9401903820652122e-15,
+          "forced_sharp_max_residual": 1.8583851165549276e-15,
+          "forced_sharp_mean_residual": 9.670159961014666e-16,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B13",
+              "sharp_relative_residual_to_span": 1.788783992143022e-15,
+              "operator_norm_diagnostic": 0.9999999999876485
+            },
+            {
+              "family": "all_seed",
+              "operator": "B32",
+              "sharp_relative_residual_to_span": 1.775861297686621e-15,
+              "operator_norm_diagnostic": 0.12054450867549957
+            },
+            {
+              "family": "all_seed",
+              "operator": "B46",
+              "sharp_relative_residual_to_span": 1.7572498518633178e-15,
+              "operator_norm_diagnostic": 0.4241824975839404
+            },
+            {
+              "family": "all_seed",
+              "operator": "B25",
+              "sharp_relative_residual_to_span": 1.6652386364102824e-15,
+              "operator_norm_diagnostic": 0.9994579083781393
+            },
+            {
+              "family": "all_seed",
+              "operator": "B36",
+              "sharp_relative_residual_to_span": 1.5360396003852044e-15,
+              "operator_norm_diagnostic": 0.1368099089903973
+            },
+            {
+              "family": "all_seed",
+              "operator": "B40",
+              "sharp_relative_residual_to_span": 1.5353292236742644e-15,
+              "operator_norm_diagnostic": 0.9619351010002414
+            },
+            {
+              "family": "all_seed",
+              "operator": "B9",
+              "sharp_relative_residual_to_span": 1.513438616463022e-15,
+              "operator_norm_diagnostic": 0.9999999999981447
+            },
+            {
+              "family": "all_seed",
+              "operator": "B28",
+              "sharp_relative_residual_to_span": 1.4476074053245776e-15,
+              "operator_norm_diagnostic": 0.05431599728043104
+            },
+            {
+              "family": "all_seed",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.4339325136211971e-15,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "all_seed",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.39025094847946e-15,
+              "operator_norm_diagnostic": 0.9999999999612881
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case_id": "no_backreaction_record_pair_plus_response__unsigned_R",
+      "variant": "no_backreaction_record_pair_plus_response",
+      "signed_pair_reversal": false,
+      "source": "record",
+      "mode": "pair_plus_response",
+      "strict_symmetrized": false,
+      "use_backreaction": false,
+      "pairings_requested": 2,
+      "model_label": "CNNA deterministic growing primal simplicial complex; provenance tree as birth-history; candidate sharp-closure obstruction diagnostic on the real C2 carrier; NGF/CQNM only as comparison, not as derivation source",
+      "anti_smuggling_note": "No i, J, Hodge star, C*-adjoint, positivity axiom, norm axiom, spin structure, Fourier sign, branch cut, upper/lower half-plane convention, or external orientation package is used as input. The map A# = R A^T R is only a real finite-coefficient reversal diagnostic. It is not claimed to be a derived star operation.",
+      "topology": {
+        "n0": 22,
+        "n1": 60,
+        "n2": 58,
+        "n3": 17,
+        "rank_boundary_1": 21,
+        "rank_boundary_2": 39,
+        "rank_boundary_3": 17,
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 2,
+        "beta3": 0
+      },
+      "chain_dimensions": {
+        "C2": 58,
+        "C3": 17,
+        "carrier_dim": 6
+      },
+      "K2_sector": {
+        "closed_ratio": 0.9981331611561454,
+        "exact_ratio": 0.9718952169851596,
+        "harmonic_ratio": 0.2273532374982361,
+        "defect_ratio": 0.1177069318277919,
+        "harmonic_dim_real": 2
+      },
+      "pair_reversal_candidate": {
+        "R_squared_identity_residual": 1.0091731753517326e-15,
+        "R_symmetric_residual": 7.643945700018115e-17,
+        "R_nonidentity_entry_count": 25,
+        "is_nontrivial": true
+      },
+      "applied_pair_count": 2,
+      "decision_used_delta_beta_any": false,
+      "families": [
+        {
+          "case": "no_backreaction_record_pair_plus_response__unsigned_R",
+          "family": "diag_core",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.49890089239655067,
+          "initial_product_mean_residual": 0.0722649784083785,
+          "initial_sharp_max_residual": 0.022226910062588107,
+          "initial_sharp_mean_residual": 0.00784619292676754,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.430300535135363e-14,
+          "product_algebra_post_rel_material_residual": 2.3882820741006692e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.2765707077080117e-15,
+          "product_algebra_sharp_mean_residual": 1.4425299284639943e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.3439573539643206e-14,
+          "forced_product_post_rel_material_residual": 1.9637092445013396e-15,
+          "forced_sharp_max_residual": 1.8679895595201985e-15,
+          "forced_sharp_mean_residual": 1.220607136963277e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "diag_core",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 2.2765707077080117e-15,
+              "operator_norm_diagnostic": 0.9999999999831037
+            },
+            {
+              "family": "diag_core",
+              "operator": "B7",
+              "sharp_relative_residual_to_span": 2.0271047586942148e-15,
+              "operator_norm_diagnostic": 0.9999999999976591
+            },
+            {
+              "family": "diag_core",
+              "operator": "B8",
+              "sharp_relative_residual_to_span": 2.0203839704789107e-15,
+              "operator_norm_diagnostic": 0.999999999991059
+            },
+            {
+              "family": "diag_core",
+              "operator": "B39",
+              "sharp_relative_residual_to_span": 1.797470299432128e-15,
+              "operator_norm_diagnostic": 0.9999527259509908
+            },
+            {
+              "family": "diag_core",
+              "operator": "B26",
+              "sharp_relative_residual_to_span": 1.7366191147800454e-15,
+              "operator_norm_diagnostic": 0.9987468761651151
+            },
+            {
+              "family": "diag_core",
+              "operator": "B11",
+              "sharp_relative_residual_to_span": 1.7000738986217077e-15,
+              "operator_norm_diagnostic": 0.9999999999925538
+            },
+            {
+              "family": "diag_core",
+              "operator": "B34",
+              "sharp_relative_residual_to_span": 1.6537447706289496e-15,
+              "operator_norm_diagnostic": 0.9999995025448535
+            },
+            {
+              "family": "diag_core",
+              "operator": "B45",
+              "sharp_relative_residual_to_span": 1.634623736610228e-15,
+              "operator_norm_diagnostic": 0.9999264773758024
+            },
+            {
+              "family": "diag_core",
+              "operator": "B10",
+              "sharp_relative_residual_to_span": 1.6207848929083097e-15,
+              "operator_norm_diagnostic": 0.9999999991697985
+            },
+            {
+              "family": "diag_core",
+              "operator": "B46",
+              "sharp_relative_residual_to_span": 1.6182221095525397e-15,
+              "operator_norm_diagnostic": 0.9999722306121599
+            }
+          ]
+        },
+        {
+          "case": "no_backreaction_record_pair_plus_response__unsigned_R",
+          "family": "cap_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 6,
+          "generator_names": [
+            "I",
+            "R",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner"
+          ],
+          "initial_span_dim": 6,
+          "initial_product_max_residual": 0.4330127018920664,
+          "initial_product_mean_residual": 0.048134167093749486,
+          "initial_sharp_max_residual": 0.9397998107096541,
+          "initial_sharp_mean_residual": 0.6265332071397655,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 7,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.8600290864641595e-15,
+          "product_algebra_post_rel_material_residual": 1.2779593777423592e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 0.9599826337102808,
+          "product_algebra_sharp_mean_residual": 0.6741086759297522,
+          "product_algebra_sharp_closed": false,
+          "forced_sharp_product_dim": 17,
+          "forced_extra_dim_over_product": 10,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 3.725663220545813e-15,
+          "forced_product_post_rel_material_residual": 2.0606119785770734e-15,
+          "forced_sharp_max_residual": 1.6972077398059907e-15,
+          "forced_sharp_mean_residual": 1.1340212678922143e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": true,
+          "sharp_obstruction_top": [
+            {
+              "family": "cap_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 0.9599826337102808,
+              "operator_norm_diagnostic": 0.9999999999996161
+            },
+            {
+              "family": "cap_only",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 0.9581820708427904,
+              "operator_norm_diagnostic": 0.9999999999996153
+            },
+            {
+              "family": "cap_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 0.9508736717804565,
+              "operator_norm_diagnostic": 0.9999999999996322
+            },
+            {
+              "family": "cap_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 0.948334536309656,
+              "operator_norm_diagnostic": 0.9999999999996317
+            },
+            {
+              "family": "cap_only",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 0.9013878188650801,
+              "operator_norm_diagnostic": 0.9999999999985091
+            },
+            {
+              "family": "cap_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 9.325226701429277e-16,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "cap_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 6.322938627279489e-16,
+              "operator_norm_diagnostic": 0.9999999999994522
+            }
+          ]
+        },
+        {
+          "case": "no_backreaction_record_pair_plus_response__unsigned_R",
+          "family": "pair_only",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 4,
+          "generator_names": [
+            "I",
+            "R",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 4,
+          "initial_product_max_residual": 0.7071067811858407,
+          "initial_product_mean_residual": 0.2651693800494365,
+          "initial_sharp_max_residual": 9.53703255972189e-16,
+          "initial_sharp_mean_residual": 7.656047184350281e-16,
+          "initial_product_closed": false,
+          "initial_sharp_closed": true,
+          "product_algebra_dim": 5,
+          "product_algebra_full_matrix_saturation": false,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.341167772494218e-15,
+          "product_algebra_post_rel_material_residual": 1.3411677724936105e-15,
+          "product_algebra_closed": true,
+          "product_algebra_sharp_max_residual": 1.5879547300138548e-15,
+          "product_algebra_sharp_mean_residual": 1.0545707397442544e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 5,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": false,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.341167772494218e-15,
+          "forced_product_post_rel_material_residual": 1.3411677724936105e-15,
+          "forced_sharp_max_residual": 1.5879547300138548e-15,
+          "forced_sharp_mean_residual": 1.0545707397442544e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "pair_only",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.5879547300138548e-15,
+              "operator_norm_diagnostic": 0.999999999997418
+            },
+            {
+              "family": "pair_only",
+              "operator": "B0",
+              "sharp_relative_residual_to_span": 1.1110198693421394e-15,
+              "operator_norm_diagnostic": 0.9999999999995918
+            },
+            {
+              "family": "pair_only",
+              "operator": "B2",
+              "sharp_relative_residual_to_span": 9.66999552957071e-16,
+              "operator_norm_diagnostic": 0.9999999999988047
+            },
+            {
+              "family": "pair_only",
+              "operator": "B3",
+              "sharp_relative_residual_to_span": 8.96880032966365e-16,
+              "operator_norm_diagnostic": 0.9999999999986772
+            },
+            {
+              "family": "pair_only",
+              "operator": "B1",
+              "sharp_relative_residual_to_span": 7.09999513441842e-16,
+              "operator_norm_diagnostic": 0.9999999999994522
+            }
+          ]
+        },
+        {
+          "case": "no_backreaction_record_pair_plus_response__unsigned_R",
+          "family": "all_seed",
+          "carrier_operator_matrix_dim": 6,
+          "full_matrix_dim_on_carrier": 36,
+          "generator_count": 10,
+          "generator_names": [
+            "I",
+            "R",
+            "M_closed",
+            "M_harmonic",
+            "cap::A_cap_0_base",
+            "cap::A_cap_0_partner",
+            "cap::A_cap_1_base",
+            "cap::A_cap_1_partner",
+            "pair::P_pair_0_base_to_partner",
+            "pair::P_pair_0_partner_to_base"
+          ],
+          "initial_span_dim": 10,
+          "initial_product_max_residual": 0.8939122898875058,
+          "initial_product_mean_residual": 0.10929041885749831,
+          "initial_sharp_max_residual": 0.9185479007871005,
+          "initial_sharp_mean_residual": 0.3596327564604048,
+          "initial_product_closed": false,
+          "initial_sharp_closed": false,
+          "product_algebra_dim": 36,
+          "product_algebra_full_matrix_saturation": true,
+          "product_algebra_capped": false,
+          "product_algebra_post_abs_residual": 1.4157517695705113e-14,
+          "product_algebra_post_rel_material_residual": 2.7176813545054447e-15,
+          "product_algebra_closed": false,
+          "product_algebra_sharp_max_residual": 2.8646789870267036e-15,
+          "product_algebra_sharp_mean_residual": 1.1121533447078193e-15,
+          "product_algebra_sharp_closed": true,
+          "forced_sharp_product_dim": 36,
+          "forced_extra_dim_over_product": 0,
+          "forced_full_matrix_saturation": true,
+          "forced_capped": false,
+          "forced_product_post_abs_residual": 1.1016788057661219e-14,
+          "forced_product_post_rel_material_residual": 2.3302091073742467e-15,
+          "forced_sharp_max_residual": 2.19280612761175e-15,
+          "forced_sharp_mean_residual": 1.0790438644849702e-15,
+          "forced_sharp_product_closed": true,
+          "sharp_obstruction_present": false,
+          "sharp_obstruction_top": [
+            {
+              "family": "all_seed",
+              "operator": "B20",
+              "sharp_relative_residual_to_span": 2.8646789870267036e-15,
+              "operator_norm_diagnostic": 0.9999999984906717
+            },
+            {
+              "family": "all_seed",
+              "operator": "B5",
+              "sharp_relative_residual_to_span": 1.7828919593898107e-15,
+              "operator_norm_diagnostic": 0.9999999999996272
+            },
+            {
+              "family": "all_seed",
+              "operator": "B8",
+              "sharp_relative_residual_to_span": 1.7529560977132318e-15,
+              "operator_norm_diagnostic": 0.9999999999985336
+            },
+            {
+              "family": "all_seed",
+              "operator": "B7",
+              "sharp_relative_residual_to_span": 1.7405571676636073e-15,
+              "operator_norm_diagnostic": 0.9999999999996102
+            },
+            {
+              "family": "all_seed",
+              "operator": "B6",
+              "sharp_relative_residual_to_span": 1.7330803483407761e-15,
+              "operator_norm_diagnostic": 0.9999999999996103
+            },
+            {
+              "family": "all_seed",
+              "operator": "B22",
+              "sharp_relative_residual_to_span": 1.6658750257537622e-15,
+              "operator_norm_diagnostic": 0.9999999999404063
+            },
+            {
+              "family": "all_seed",
+              "operator": "B4",
+              "sharp_relative_residual_to_span": 1.5593770820161705e-15,
+              "operator_norm_diagnostic": 0.9999999999996274
+            },
+            {
+              "family": "all_seed",
+              "operator": "B47",
+              "sharp_relative_residual_to_span": 1.4981759829961822e-15,
+              "operator_norm_diagnostic": 0.4466094294034054
+            },
+            {
+              "family": "all_seed",
+              "operator": "B15",
+              "sharp_relative_residual_to_span": 1.4647473395813096e-15,
+              "operator_norm_diagnostic": 0.9999999999913508
+            },
+            {
+              "family": "all_seed",
+              "operator": "B16",
+              "sharp_relative_residual_to_span": 1.3833392181385177e-15,
+              "operator_norm_diagnostic": 0.9999999999957313
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+birth_g,child,env_load,growth_rule,level,older_siblings,order,parent,t
+1.0863042507686427,1,1.0,strict_symmetrized_control,1,[],1,0,1
+1.089095591936269,2,1.048883691284589,strict_symmetrized_control,1,[1],2,0,2
+1.0917848917469075,3,1.097892992921721,strict_symmetrized_control,1,"[1, 2]",3,0,3
+1.1184029609500965,4,1.7171670729463253,strict_symmetrized_control,2,[],1,1,4
+1.1203277559637508,5,1.7744153245099583,strict_symmetrized_control,2,[4],2,1,5
+1.1221853934237513,6,1.8317621015183527,strict_symmetrized_control,2,"[4, 5]",3,1,6
+1.1192047625446881,7,1.7407540825466654,strict_symmetrized_control,2,[],1,2,7
+1.1211014672805684,8,1.7980433763294217,strict_symmetrized_control,2,[7],2,2,8
+1.1229323772394604,9,1.8554297576858456,strict_symmetrized_control,2,"[7, 8]",3,2,9
+1.119991334303202,10,1.7642534212385168,strict_symmetrized_control,2,[],1,3,10
+1.1218606414565118,11,1.8215829776631618,strict_symmetrized_control,2,[10],2,3,11
+1.1236654770531258,12,1.879008219247717,strict_symmetrized_control,2,"[10, 11]",3,3,12

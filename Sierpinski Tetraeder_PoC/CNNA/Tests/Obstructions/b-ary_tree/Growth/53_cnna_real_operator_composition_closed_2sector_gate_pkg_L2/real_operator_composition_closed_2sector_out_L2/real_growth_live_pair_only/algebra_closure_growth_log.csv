@@ -1,0 +1,6 @@
+basis_index,generator_index,iteration,new_dim,side
+1,2,1,8,right
+1,2,1,9,left
+2,2,1,10,right
+2,4,1,11,right
+,,2,11,none
