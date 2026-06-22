@@ -1,0 +1,4 @@
+run,beta0,beta1,beta2,beta3,boundary_fraction,K_mean,harmonic_ratio,exact_residual_ratio,shelling_count,cap_count,handle_count,quotient_count,illegal_count,top_handle_rank,top_quotient_rank,topologically_effective_non_shelling_count,best_handle_delta_beta1,best_handle_delta_beta2,best_handle_delta_boundary_faces,best_quotient_delta_beta1,best_quotient_delta_beta2,best_quotient_delta_boundary_faces
+real_growth,1,0,0,0,0.6785714285714225,0.9095255451534915,0.0,0.26722530405981093,88,30,188,218,123,3,1,389,0,1,2,0,0,-8
+symmetrized_birth,1,0,0,0,0.6785714285714225,0.48788065748478227,0.0,0.2801127264822015,88,31,191,218,119,1,2,390,0,1,2,0,0,-8
+no_backreaction,1,0,0,0,0.6785714285714225,0.5877033899420724,0.0,0.2814485436241617,92,29,193,215,118,1,2,395,0,1,4,0,0,-8

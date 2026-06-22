@@ -1,0 +1,9 @@
+variant,target_class,selector,status,candidate_id,move_class,selector_response_rank,encoded_move,delta_beta1,delta_beta2,delta_beta3,delta_boundary_faces,after_beta0,after_beta1,after_beta2,after_beta3,after_boundary_fraction,after_edge_link_cycle_fraction,after_K_mean,after_harmonic_ratio,after_exact_residual_ratio
+real_local_only,shelling_disk_move,response,ok,2,shelling_disk_move,49,3 4 7 9,0,0,0,2,1,0,0,0,0.7058823529411556,0.0,1.288271395636364,0.0,0.23503207939903267
+real_local_only,shelling_disk_move,topology,ok,9,shelling_disk_move,110,5 7 8 10,1,0,0,2,1,1,0,0,0.7058823529411556,0.0,1.2161149283014197,0.0,0.2680280718682928
+real_local_only,cap_move,response,ok,3,cap_move,44,3 8 11 12,0,0,0,0,1,0,0,0,0.6666666666666464,0.049999999999997505,1.2419105135297908,0.0,0.26564111931091694
+real_local_only,cap_move,topology,ok,3,cap_move,44,3 8 11 12,0,0,0,0,1,0,0,0,0.6666666666666464,0.049999999999997505,1.2419105135297908,0.0,0.26564111931091694
+real_local_only,handle_candidate,response,ok,69,handle_candidate,1,0 3 4 7|0 1 4 7|0 1 2 7,0,2,0,4,1,0,2,0,0.6666666666666495,0.0,1.1093274126320307,0.06305961613225637,0.25944058654372176
+real_local_only,handle_candidate,topology,ok,69,handle_candidate,1,0 3 4 7|0 1 4 7|0 1 2 7,0,2,0,4,1,0,2,0,0.6666666666666495,0.0,1.1093274126320307,0.06305961613225637,0.25944058654372176
+real_local_only,quotient_candidate,response,ok,106,quotient_candidate,16,"{""1"": 7, ""2"": 10, ""4"": 8}",0,0,0,-6,1,0,0,0,0.7272727272726943,0.0,1.2842569451478447,0.0,0.40328085708868194
+real_local_only,quotient_candidate,topology,ok,274,quotient_candidate,137,"{""1"": 9, ""5"": 8, ""6"": 7}",0,2,0,-2,1,0,2,0,0.6666666666666445,0.0,1.1529473707932538,0.1494659644599931,0.28768500242613004

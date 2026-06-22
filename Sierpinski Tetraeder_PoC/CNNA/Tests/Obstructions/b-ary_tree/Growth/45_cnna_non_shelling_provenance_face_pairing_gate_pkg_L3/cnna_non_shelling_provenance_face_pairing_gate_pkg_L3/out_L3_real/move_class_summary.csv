@@ -1,0 +1,6 @@
+move_class,count,best_candidate_id,best_response_score,best_response_rank_legal,best_delta_beta1,best_delta_beta2,best_delta_boundary_faces
+cap_move,30,0,4.550424748177276,235,0,0,0
+handle_candidate,188,151,8.8967002185004,3,0,1,2
+illegal,123,147,9.552116678038697,,0,0,0
+quotient_candidate,218,148,9.552116678038697,1,0,0,-8
+shelling_disk_move,88,2,4.639360604740608,225,0,0,2

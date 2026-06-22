@@ -1,0 +1,4 @@
+birth_events,completed_parents,control,directed_edges,mean_abs_cycle_log_bias,mean_abs_neutral_birth,mean_abs_neutral_current,nodes
+12,4,real_growth,66,1.1415193272507314,0.6522710744236213,0.537191262144539,13
+12,4,symmetrized_birth,54,24.60620557235653,0.026258202919723164,0.05857458171392886,13
+12,4,no_backreaction,66,26.03462955613689,0.5908272712745323,0.5908272712745323,13

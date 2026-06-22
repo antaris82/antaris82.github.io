@@ -1,0 +1,756 @@
+{
+  "A_sg_like_subdivision": {
+    "cochains": {
+      "diagonal_trace_kill": {
+        "K_norm": 0.0,
+        "closed_projection_ratio": 0.0,
+        "closed_residual_ratio": 0.0,
+        "cycle_edge_flux_norm_mean": 0.0,
+        "edge_flux_norm_ratio": 0.0,
+        "exact_residual_ratio": 0.0,
+        "harmonic_projection_ratio": 0.0,
+        "nonzero_face_fraction": 0.0,
+        "weak_local_J_plane_residual": 0.0
+      },
+      "no_backreaction": {
+        "K_norm": 9.258404290157133,
+        "closed_projection_ratio": 0.03807628169376666,
+        "closed_residual_ratio": 2.0190832481515617,
+        "cycle_edge_flux_norm_mean": 0.022916666666666665,
+        "edge_flux_norm_ratio": 0.1077565275500422,
+        "exact_residual_ratio": 0.9992748354543795,
+        "harmonic_projection_ratio": 4.8984424797083024e-17,
+        "nonzero_face_fraction": 0.9615384615384616,
+        "weak_local_J_plane_residual": 2.6006033358747873e-17
+      },
+      "real_growth": {
+        "K_norm": 9.622797610319383,
+        "closed_projection_ratio": 0.05344058011440645,
+        "closed_residual_ratio": 2.050248779363859,
+        "cycle_edge_flux_norm_mean": 0.06503845540676993,
+        "edge_flux_norm_ratio": 0.16144158442001247,
+        "exact_residual_ratio": 0.9985710312226345,
+        "harmonic_projection_ratio": 8.198584655160898e-17,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 2.265800293747922e-16
+      },
+      "symmetrized_birth": {
+        "K_norm": 2.5897490225888684,
+        "closed_projection_ratio": 3.120104178066469e-16,
+        "closed_residual_ratio": 1.3987572123604708,
+        "cycle_edge_flux_norm_mean": 0.0,
+        "edge_flux_norm_ratio": 0.0,
+        "exact_residual_ratio": 1.0000000000000002,
+        "harmonic_projection_ratio": 4.854121311527229e-31,
+        "nonzero_face_fraction": 0.2,
+        "weak_local_J_plane_residual": 0.0
+      }
+    },
+    "description": "inward stellar subdivision of a tetrahedral 3-ball; topology should remain trivial",
+    "provenance_sample": [
+      {
+        "attached_face": [
+          0,
+          1,
+          2
+        ],
+        "birth_id": 21,
+        "depth": 3,
+        "live_weight": 0.3269230769230769,
+        "model_tag": "sg_stellar_child",
+        "parent_birth": 5,
+        "record_weight": 0.25,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          1,
+          2,
+          9
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          1,
+          5
+        ],
+        "birth_id": 22,
+        "depth": 3,
+        "live_weight": 0.40384615384615385,
+        "model_tag": "sg_stellar_child",
+        "parent_birth": 5,
+        "record_weight": 0.25,
+        "sibling_order": 1,
+        "simplex": [
+          0,
+          1,
+          5,
+          9
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          2,
+          5
+        ],
+        "birth_id": 23,
+        "depth": 3,
+        "live_weight": 0.4807692307692308,
+        "model_tag": "sg_stellar_child",
+        "parent_birth": 5,
+        "record_weight": 0.25,
+        "sibling_order": 2,
+        "simplex": [
+          0,
+          2,
+          5,
+          9
+        ]
+      },
+      {
+        "attached_face": [
+          1,
+          2,
+          5
+        ],
+        "birth_id": 24,
+        "depth": 3,
+        "live_weight": 0.5576923076923077,
+        "model_tag": "sg_stellar_child",
+        "parent_birth": 5,
+        "record_weight": 0.25,
+        "sibling_order": 3,
+        "simplex": [
+          1,
+          2,
+          5,
+          9
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          1,
+          4
+        ],
+        "birth_id": 25,
+        "depth": 3,
+        "live_weight": 0.3269230769230769,
+        "model_tag": "sg_stellar_child",
+        "parent_birth": 6,
+        "record_weight": 0.25,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          1,
+          4,
+          10
+        ]
+      }
+    ],
+    "topology": {
+      "betti_z2": {
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 0,
+        "beta3": 0
+      },
+      "boundary_face_count": 4,
+      "boundary_fraction": 0.03076923076923077,
+      "counts": {
+        "edges": 90,
+        "faces": 130,
+        "tets": 64,
+        "vertices": 25
+      },
+      "edge_link_beta1_mean": 0.9333333333333333,
+      "edge_link_cycle_count": 84,
+      "edge_link_cycle_fraction": 0.9333333333333333,
+      "edge_link_degree_error_mean": 0.014814814814814817,
+      "face_occupancy_counts": {
+        "1": 4,
+        "2": 126
+      },
+      "manifold_face_ok_fraction": 1.0,
+      "overfilled_face_count": 0,
+      "regge_regular_tet_defect_abs_mean_all_edges": 2.6529004630313806,
+      "regge_regular_tet_defect_abs_mean_cycle_edges": 2.58778692242315,
+      "saturated_face_count": 126,
+      "saturated_face_fraction": 0.9692307692307692
+    }
+  },
+  "B_naive_outward_ngf": {
+    "cochains": {
+      "diagonal_trace_kill": {
+        "K_norm": 0.0,
+        "closed_projection_ratio": 0.0,
+        "closed_residual_ratio": 0.0,
+        "cycle_edge_flux_norm_mean": 0.0,
+        "edge_flux_norm_ratio": 0.0,
+        "exact_residual_ratio": 0.0,
+        "harmonic_projection_ratio": 0.0,
+        "nonzero_face_fraction": 0.0,
+        "weak_local_J_plane_residual": 0.0
+      },
+      "no_backreaction": {
+        "K_norm": 5.65619577194703,
+        "closed_projection_ratio": 0.09109485125115205,
+        "closed_residual_ratio": 2.2772722333803856,
+        "cycle_edge_flux_norm_mean": 0.0,
+        "edge_flux_norm_ratio": 0.19611997054508895,
+        "exact_residual_ratio": 0.9958422204724654,
+        "harmonic_projection_ratio": 1.2199048619795327e-16,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 1.5594843309981008e-16
+      },
+      "real_growth": {
+        "K_norm": 5.71090465647704,
+        "closed_projection_ratio": 0.09246927015903682,
+        "closed_residual_ratio": 2.272244304327573,
+        "cycle_edge_flux_norm_mean": 0.0,
+        "edge_flux_norm_ratio": 0.20071644276081516,
+        "exact_residual_ratio": 0.9957155387339572,
+        "harmonic_projection_ratio": 1.2520024540382569e-16,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 2.032762729945093e-16
+      },
+      "symmetrized_birth": {
+        "K_norm": 2.1680509406895383,
+        "closed_projection_ratio": 0.11570668271210274,
+        "closed_residual_ratio": 2.102770525669262,
+        "cycle_edge_flux_norm_mean": 0.0,
+        "edge_flux_norm_ratio": 0.2830467215273622,
+        "exact_residual_ratio": 0.9932834256020588,
+        "harmonic_projection_ratio": 1.5464641869807398e-16,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 0.0
+      }
+    },
+    "description": "one tetrahedron attached to one boundary triangle per birth; outward but usually ball-like",
+    "provenance_sample": [
+      {
+        "attached_face": null,
+        "birth_id": 0,
+        "depth": 0,
+        "live_weight": 1.0,
+        "model_tag": "naive_seed",
+        "parent_birth": -1,
+        "record_weight": 1.0,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "attached_face": [
+          1,
+          2,
+          3
+        ],
+        "birth_id": 1,
+        "depth": 1,
+        "live_weight": 1.880280692494256,
+        "model_tag": "naive_outward_ngf_birth",
+        "parent_birth": 0,
+        "record_weight": 1.5469473591609226,
+        "sibling_order": 0,
+        "simplex": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "attached_face": [
+          2,
+          3,
+          4
+        ],
+        "birth_id": 2,
+        "depth": 2,
+        "live_weight": 1.7827654017067949,
+        "model_tag": "naive_outward_ngf_birth",
+        "parent_birth": 1,
+        "record_weight": 1.5327654017067949,
+        "sibling_order": 0,
+        "simplex": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "attached_face": [
+          1,
+          2,
+          4
+        ],
+        "birth_id": 3,
+        "depth": 2,
+        "live_weight": 2.3766333701028897,
+        "model_tag": "naive_outward_ngf_birth",
+        "parent_birth": 1,
+        "record_weight": 1.8766333701028897,
+        "sibling_order": 1,
+        "simplex": [
+          1,
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "attached_face": [
+          1,
+          3,
+          4
+        ],
+        "birth_id": 4,
+        "depth": 2,
+        "live_weight": 2.426004971988084,
+        "model_tag": "naive_outward_ngf_birth",
+        "parent_birth": 1,
+        "record_weight": 1.676004971988084,
+        "sibling_order": 2,
+        "simplex": [
+          1,
+          3,
+          4,
+          7
+        ]
+      }
+    ],
+    "topology": {
+      "betti_z2": {
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 0,
+        "beta3": 0
+      },
+      "boundary_face_count": 50,
+      "boundary_fraction": 0.684931506849315,
+      "counts": {
+        "edges": 75,
+        "faces": 73,
+        "tets": 24,
+        "vertices": 27
+      },
+      "edge_link_beta1_mean": 0.0,
+      "edge_link_cycle_count": 0,
+      "edge_link_cycle_fraction": 0.0,
+      "edge_link_degree_error_mean": 0.7853333333333333,
+      "face_occupancy_counts": {
+        "1": 50,
+        "2": 23
+      },
+      "manifold_face_ok_fraction": 1.0,
+      "overfilled_face_count": 0,
+      "regge_regular_tet_defect_abs_mean_all_edges": 4.044198191976278,
+      "regge_regular_tet_defect_abs_mean_cycle_edges": 0.0,
+      "saturated_face_count": 23,
+      "saturated_face_fraction": 0.3150684931506849
+    }
+  },
+  "C_cqnm_sminus1_saturated_T3": {
+    "cochains": {
+      "diagonal_trace_kill": {
+        "K_norm": 0.0,
+        "closed_projection_ratio": 0.0,
+        "closed_residual_ratio": 0.0,
+        "cycle_edge_flux_norm_mean": 0.0,
+        "edge_flux_norm_ratio": 0.0,
+        "exact_residual_ratio": 0.0,
+        "harmonic_projection_ratio": 0.0,
+        "nonzero_face_fraction": 0.0,
+        "weak_local_J_plane_residual": 0.0
+      },
+      "no_backreaction": {
+        "K_norm": 6.32552336438127,
+        "closed_projection_ratio": 0.1305772038843786,
+        "closed_residual_ratio": 2.113034891450552,
+        "cycle_edge_flux_norm_mean": 0.2809570626394398,
+        "edge_flux_norm_ratio": 0.34132486948273166,
+        "exact_residual_ratio": 0.9916947475523404,
+        "harmonic_projection_ratio": 0.022558335425355895,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 1.4276349094744358e-16
+      },
+      "real_growth": {
+        "K_norm": 6.41499656014701,
+        "closed_projection_ratio": 0.12984021316221822,
+        "closed_residual_ratio": 2.1222932728089106,
+        "cycle_edge_flux_norm_mean": 0.2879665533345566,
+        "edge_flux_norm_ratio": 0.33907701174638444,
+        "exact_residual_ratio": 0.9918035521557345,
+        "harmonic_projection_ratio": 0.02308174652713688,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 2.3023675059371123e-16
+      },
+      "symmetrized_birth": {
+        "K_norm": 2.843921148695934,
+        "closed_projection_ratio": 0.10523188306851454,
+        "closed_residual_ratio": 2.1700309227387886,
+        "cycle_edge_flux_norm_mean": 0.11208333333333333,
+        "edge_flux_norm_ratio": 0.26307658415515767,
+        "exact_residual_ratio": 0.9949691458850053,
+        "harmonic_projection_ratio": 0.03220792569046701,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 0.0
+      }
+    },
+    "description": "closed face-saturated periodic primal 3-complex; T^3 control with nontrivial H1/H2",
+    "provenance_sample": [
+      {
+        "attached_face": null,
+        "birth_id": 0,
+        "depth": 0,
+        "live_weight": 1.7882959684484279,
+        "model_tag": "cqnm_sminus1_saturated_t3_birth",
+        "parent_birth": -1,
+        "record_weight": 1.4549626351150946,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          4,
+          6,
+          7
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          4,
+          7
+        ],
+        "birth_id": 1,
+        "depth": 1,
+        "live_weight": 1.80665133004901,
+        "model_tag": "cqnm_sminus1_saturated_t3_birth",
+        "parent_birth": 0,
+        "record_weight": 1.55665133004901,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          6,
+          7
+        ],
+        "birth_id": 2,
+        "depth": 1,
+        "live_weight": 1.6631575105304683,
+        "model_tag": "cqnm_sminus1_saturated_t3_birth",
+        "parent_birth": 0,
+        "record_weight": 1.1631575105304683,
+        "sibling_order": 1,
+        "simplex": [
+          0,
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          4,
+          6
+        ],
+        "birth_id": 3,
+        "depth": 1,
+        "live_weight": 2.1922766731729806,
+        "model_tag": "cqnm_sminus1_saturated_t3_birth",
+        "parent_birth": 0,
+        "record_weight": 1.4422766731729806,
+        "sibling_order": 2,
+        "simplex": [
+          0,
+          1,
+          4,
+          6
+        ]
+      },
+      {
+        "attached_face": [
+          4,
+          6,
+          7
+        ],
+        "birth_id": 4,
+        "depth": 1,
+        "live_weight": 2.5050164849535452,
+        "model_tag": "cqnm_sminus1_saturated_t3_birth",
+        "parent_birth": 0,
+        "record_weight": 1.5050164849535452,
+        "sibling_order": 3,
+        "simplex": [
+          3,
+          4,
+          6,
+          7
+        ]
+      }
+    ],
+    "topology": {
+      "betti_z2": {
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 4,
+        "beta3": 1
+      },
+      "boundary_face_count": 0,
+      "boundary_fraction": 0.0,
+      "counts": {
+        "edges": 28,
+        "faces": 48,
+        "tets": 24,
+        "vertices": 8
+      },
+      "edge_link_beta1_mean": 1.0,
+      "edge_link_cycle_count": 28,
+      "edge_link_cycle_fraction": 1.0,
+      "edge_link_degree_error_mean": 0.0,
+      "face_occupancy_counts": {
+        "2": 48
+      },
+      "manifold_face_ok_fraction": 1.0,
+      "overfilled_face_count": 0,
+      "regge_regular_tet_defect_abs_mean_all_edges": 1.2126182429871015,
+      "regge_regular_tet_defect_abs_mean_cycle_edges": 1.2126182429871015,
+      "saturated_face_count": 48,
+      "saturated_face_fraction": 1.0
+    }
+  },
+  "D_random_saturation_control": {
+    "cochains": {
+      "diagonal_trace_kill": {
+        "K_norm": 0.0,
+        "closed_projection_ratio": 0.0,
+        "closed_residual_ratio": 0.0,
+        "cycle_edge_flux_norm_mean": 0.0,
+        "edge_flux_norm_ratio": 0.0,
+        "exact_residual_ratio": 0.0,
+        "harmonic_projection_ratio": 0.0,
+        "nonzero_face_fraction": 0.0,
+        "weak_local_J_plane_residual": 0.0
+      },
+      "no_backreaction": {
+        "K_norm": 5.195928754781361,
+        "closed_projection_ratio": 0.09335344314972734,
+        "closed_residual_ratio": 2.234884576261924,
+        "cycle_edge_flux_norm_mean": 0.1834226990703905,
+        "edge_flux_norm_ratio": 0.2288911423642271,
+        "exact_residual_ratio": 0.995633032121821,
+        "harmonic_projection_ratio": 1.2968914171172403e-16,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 1.182168201528243e-16
+      },
+      "real_growth": {
+        "K_norm": 5.2095669930121815,
+        "closed_projection_ratio": 0.09359430946799698,
+        "closed_residual_ratio": 2.233659158224792,
+        "cycle_edge_flux_norm_mean": 0.1843513767159479,
+        "edge_flux_norm_ratio": 0.22931271449397272,
+        "exact_residual_ratio": 0.9956104184043117,
+        "harmonic_projection_ratio": 1.302371187773347e-16,
+        "nonzero_face_fraction": 1.0,
+        "weak_local_J_plane_residual": 1.9592088096445794e-16
+      },
+      "symmetrized_birth": {
+        "K_norm": 2.5531048159354297,
+        "closed_projection_ratio": 0.08669341252305542,
+        "closed_residual_ratio": 2.226153803371844,
+        "cycle_edge_flux_norm_mean": 0.0855429292929293,
+        "edge_flux_norm_ratio": 0.2165798459237775,
+        "exact_residual_ratio": 0.9962350386455533,
+        "harmonic_projection_ratio": 1.3976154552589037e-16,
+        "nonzero_face_fraction": 0.9841269841269841,
+        "weak_local_J_plane_residual": 0.0
+      }
+    },
+    "description": "same size order as C but random closing/outward moves; wrong provenance/control geometry",
+    "provenance_sample": [
+      {
+        "attached_face": null,
+        "birth_id": 0,
+        "depth": 0,
+        "live_weight": 1.0,
+        "model_tag": "random_seed",
+        "parent_birth": -1,
+        "record_weight": 1.0,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          2,
+          3
+        ],
+        "birth_id": 1,
+        "depth": 1,
+        "live_weight": 1.4718465351449508,
+        "model_tag": "random_saturation_control_birth",
+        "parent_birth": 0,
+        "record_weight": 1.3806178581494255,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          2,
+          4
+        ],
+        "birth_id": 2,
+        "depth": 2,
+        "live_weight": 1.4598868398252391,
+        "model_tag": "random_saturation_control_birth",
+        "parent_birth": 1,
+        "record_weight": 1.3117550647378058,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          2,
+          4,
+          5
+        ]
+      },
+      {
+        "attached_face": [
+          2,
+          3,
+          4
+        ],
+        "birth_id": 3,
+        "depth": 2,
+        "live_weight": 2.208255433683877,
+        "model_tag": "random_saturation_control_birth",
+        "parent_birth": 1,
+        "record_weight": 1.8111355665963003,
+        "sibling_order": 1,
+        "simplex": [
+          2,
+          3,
+          4,
+          6
+        ]
+      },
+      {
+        "attached_face": [
+          0,
+          4,
+          5
+        ],
+        "birth_id": 4,
+        "depth": 3,
+        "live_weight": 1.2737754478136434,
+        "model_tag": "random_saturation_control_birth",
+        "parent_birth": 2,
+        "record_weight": 1.1610355168964492,
+        "sibling_order": 0,
+        "simplex": [
+          0,
+          4,
+          5,
+          7
+        ]
+      }
+    ],
+    "topology": {
+      "betti_z2": {
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 0,
+        "beta3": 0
+      },
+      "boundary_face_count": 30,
+      "boundary_fraction": 0.47619047619047616,
+      "counts": {
+        "edges": 56,
+        "faces": 63,
+        "tets": 24,
+        "vertices": 18
+      },
+      "edge_link_beta1_mean": 0.19642857142857142,
+      "edge_link_cycle_count": 11,
+      "edge_link_cycle_fraction": 0.19642857142857142,
+      "edge_link_degree_error_mean": 0.5821428571428572,
+      "face_occupancy_counts": {
+        "1": 30,
+        "2": 33
+      },
+      "manifold_face_ok_fraction": 1.0,
+      "overfilled_face_count": 0,
+      "regge_regular_tet_defect_abs_mean_all_edges": 3.2359937193959936,
+      "regge_regular_tet_defect_abs_mean_cycle_edges": 1.8488447072573597,
+      "saturated_face_count": 33,
+      "saturated_face_fraction": 0.5238095238095238
+    }
+  },
+  "__gates__": {
+    "A_sg_like_subdivision": {
+      "closed_or_saturated": false,
+      "diagonal_trace_kills_K": true,
+      "face_manifold_occupancy_ok": true,
+      "no_overfilled_faces": true,
+      "nontrivial_beta2": false,
+      "nontrivial_link_cycles": true,
+      "real_K_has_harmonic_projection": false
+    },
+    "B_naive_outward_ngf": {
+      "closed_or_saturated": false,
+      "diagonal_trace_kills_K": true,
+      "face_manifold_occupancy_ok": true,
+      "no_overfilled_faces": true,
+      "nontrivial_beta2": false,
+      "nontrivial_link_cycles": false,
+      "real_K_has_harmonic_projection": false
+    },
+    "C_cqnm_sminus1_saturated_T3": {
+      "closed_or_saturated": true,
+      "diagonal_trace_kills_K": true,
+      "face_manifold_occupancy_ok": true,
+      "no_overfilled_faces": true,
+      "nontrivial_beta2": true,
+      "nontrivial_link_cycles": true,
+      "real_K_has_harmonic_projection": true
+    },
+    "D_random_saturation_control": {
+      "closed_or_saturated": false,
+      "diagonal_trace_kills_K": true,
+      "face_manifold_occupancy_ok": true,
+      "no_overfilled_faces": true,
+      "nontrivial_beta2": false,
+      "nontrivial_link_cycles": false,
+      "real_K_has_harmonic_projection": false
+    },
+    "expected_pattern": {
+      "A_B_should_not_be_stage4_positive": true,
+      "C_should_supply_saturated_nontrivial_geometry": true,
+      "D_should_remain_a_control_not_a_clean_positive": true
+    }
+  }
+}

@@ -1,0 +1,5 @@
+variant,growth_rule,interfan_strength,interfan_edge_count,interfan_weight_total,beta0,beta1,beta2,beta3,boundary_fraction,edge_link_cycle_fraction,K_mean,harmonic_ratio,top_handle_rank,top_quotient_rank,topologically_effective_non_shelling_count
+real_local_only,real_growth,0.0,0,0.0,1,0,0,0,0.7096774193548159,0.0,1.171389842576619,0.0,1,16,107
+real_interfan_transport,real_growth,0.16,36,4.5261478463413845,1,0,0,0,0.7096774193548159,0.0,1.171389842576619,0.0,1,7,107
+sym_interfan_transport,symmetrized_birth,0.16,36,3.493704481702861,1,0,0,0,0.7096774193548159,0.0,0.675647006433356,0.0,1,9,106
+no_backreaction_interfan_transport,no_backreaction,0.16,36,4.324325194528824,1,0,0,0,0.7096774193548159,0.0,0.909364093081684,0.0,1,6,107

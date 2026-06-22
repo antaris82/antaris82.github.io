@@ -1,0 +1,67 @@
+{
+  "audit_conclusion_flags": {
+    "script_c_periodic_n2_is_valid_T3_control": false,
+    "script_c_periodic_n3_topology_is_consistent_with_T3": true,
+    "script_reuses_script1_dynamic_growth": false,
+    "script_tests_actual_operator_noncommutativity": false,
+    "script_tests_topological_carrier_for_noncommutativity": true
+  },
+  "source_feature_scan": {
+    "new_script_has_DynamicBirthConductanceModel": false,
+    "new_script_has_birth_environment_load": false,
+    "new_script_has_directed_edges": false,
+    "new_script_has_parent_line_update": false,
+    "new_script_has_synthetic_k_cochain": true,
+    "new_script_has_synthetic_record_vector": true,
+    "script1_has_DynamicBirthConductanceModel": true,
+    "script1_has_birth_environment_load": true,
+    "script1_has_directed_edges": true,
+    "script1_has_parent_line_update": true
+  },
+  "t3_topology_checks": {
+    "periodic_n_2": {
+      "betti_z2": {
+        "beta0": 1,
+        "beta1": 0,
+        "beta2": 4,
+        "beta3": 1
+      },
+      "boundary_face_count": 0,
+      "counts": {
+        "edges": 28,
+        "faces": 48,
+        "tets": 24,
+        "vertices": 8
+      },
+      "edge_link_cycle_fraction": 1.0,
+      "euler_characteristic": 4,
+      "face_occupancy_counts": {
+        "2": 48
+      },
+      "is_consistent_with_T3_betti_over_Z2": false,
+      "is_consistent_with_closed_3_manifold_euler_0": false
+    },
+    "periodic_n_3": {
+      "betti_z2": {
+        "beta0": 1,
+        "beta1": 3,
+        "beta2": 3,
+        "beta3": 1
+      },
+      "boundary_face_count": 0,
+      "counts": {
+        "edges": 189,
+        "faces": 324,
+        "tets": 162,
+        "vertices": 27
+      },
+      "edge_link_cycle_fraction": 1.0,
+      "euler_characteristic": 0,
+      "face_occupancy_counts": {
+        "2": 324
+      },
+      "is_consistent_with_T3_betti_over_Z2": true,
+      "is_consistent_with_closed_3_manifold_euler_0": true
+    }
+  }
+}
