@@ -1,0 +1,5 @@
+variant,baseline_beta0,baseline_beta1,baseline_beta2,baseline_beta3,auto_beta0,auto_beta1,auto_beta2,auto_beta3,auto_boundary_fraction,auto_edge_link_cycle_fraction,auto_K_mean,auto_harmonic_ratio,auto_exact_residual_ratio,automatic_pairings_applied,scans,scans_with_A_gate,auto_growth_opened_beta2,auto_growth_nonexact_K_positive
+real_growth,1,0,0,0,1,0,2,0,0.6666666666666495,0.0,0.9718454835847575,0.17229507983731346,0.271294104049479,1,1,1,True,True
+historical_symmetrized_birth,1,0,0,0,1,0,1,0,0.6315789473684044,0.04166666666666494,0.5770513383141552,0.12891003083062919,0.27043171727800686,1,1,1,True,True
+strict_symmetrized_control,1,0,0,0,1,0,0,0,0.7096774193548159,0.0,0.4081911792679988,0.0,0.2233993731037413,0,7,0,False,False
+no_backreaction,1,0,0,0,1,0,2,0,0.6666666666666495,0.0,0.7558859783450285,0.14859560187301152,0.25914349658447905,1,1,1,True,True

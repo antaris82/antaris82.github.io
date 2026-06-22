@@ -1,0 +1,4 @@
+variant,response_mode,baseline_beta0,baseline_beta1,baseline_beta2,baseline_beta3,nonlinear_beta0,nonlinear_beta1,nonlinear_beta2,nonlinear_beta3,nonlinear_boundary_fraction,nonlinear_edge_link_cycle_fraction,nonlinear_K_mean,nonlinear_harmonic_ratio,nonlinear_exact_residual_ratio,pairings_applied,births_with_cascade_logs,opened_beta2,nonexact_K
+real_growth,power_saturating,1,0,0,0,1,0,2,0,0.545454545454533,0.14814814814814267,0.7146784788084811,0.12161711213082593,0.2750951577609177,2,1,True,True
+strict_symmetrized_control,power_saturating,1,0,0,0,1,0,0,0,0.7096774193548159,0.0,0.32140402279565433,0.0,0.22251224848593212,0,0,False,False
+no_backreaction,power_saturating,1,0,0,0,1,0,2,0,0.545454545454533,0.14814814814814267,0.5412193744434357,0.1289340693873014,0.27778399954302363,2,1,True,True
