@@ -1,0 +1,158 @@
+{
+  "package": "cnna_dynamic_boundary_role_schur_dtn_gate_pkg_L2",
+  "model": "script1/script2 dynamic birth conductance + monodromy, with true Schur/DtN boundary role audit",
+  "created_files": [
+    {
+      "path": "outputs/RESULTS.md",
+      "sha256": "03d17da0fdb5fbf8bd75ff24d39e515aac87549f8931804cc9b852297e791102",
+      "bytes": 4583
+    },
+    {
+      "path": "outputs/SUMMARY.md",
+      "sha256": "03d17da0fdb5fbf8bd75ff24d39e515aac87549f8931804cc9b852297e791102",
+      "bytes": 4583
+    },
+    {
+      "path": "outputs/boundary_role_rows_log_growth_script1_2_true_schur.csv",
+      "sha256": "7cf536973a3950776dabc400c1ef2f9cffb98d1993e095b11bf7e222173ec2c9",
+      "bytes": 12809
+    },
+    {
+      "path": "outputs/boundary_role_rows_real_growth_linear_script1_2_true_schur.csv",
+      "sha256": "746ef17dfa80324fe0adb4c52ff16ca64747520872d82fb03fa13c3533e3ff9d",
+      "bytes": 13114
+    },
+    {
+      "path": "outputs/boundary_role_rows_reverse_birth_label_order_control_true_schur.csv",
+      "sha256": "54d254a61318c2f180ea1f8597143d9520eaf634e8612fa9fc01b2b0197ba77a",
+      "bytes": 13279
+    },
+    {
+      "path": "outputs/boundary_role_rows_saturating_growth_script1_2_true_schur.csv",
+      "sha256": "fcaca08fa39176c7e90f055d48dc5cea96f1b3d8daf2fdc2b3e9c8ecb97b459d",
+      "bytes": 13138
+    },
+    {
+      "path": "outputs/boundary_role_rows_strict_symmetrized_response_control_true_schur.csv",
+      "sha256": "08cc6fa37d694dbb4fabdcd1084ca213d77cdb4e46ccf5c042a716a6010db7d1",
+      "bytes": 10014
+    },
+    {
+      "path": "outputs/dtn_schur_rows_log_growth_script1_2_true_schur.csv",
+      "sha256": "7cf536973a3950776dabc400c1ef2f9cffb98d1993e095b11bf7e222173ec2c9",
+      "bytes": 12809
+    },
+    {
+      "path": "outputs/dtn_schur_rows_real_growth_linear_script1_2_true_schur.csv",
+      "sha256": "746ef17dfa80324fe0adb4c52ff16ca64747520872d82fb03fa13c3533e3ff9d",
+      "bytes": 13114
+    },
+    {
+      "path": "outputs/dtn_schur_rows_reverse_birth_label_order_control_true_schur.csv",
+      "sha256": "54d254a61318c2f180ea1f8597143d9520eaf634e8612fa9fc01b2b0197ba77a",
+      "bytes": 13279
+    },
+    {
+      "path": "outputs/dtn_schur_rows_saturating_growth_script1_2_true_schur.csv",
+      "sha256": "fcaca08fa39176c7e90f055d48dc5cea96f1b3d8daf2fdc2b3e9c8ecb97b459d",
+      "bytes": 13138
+    },
+    {
+      "path": "outputs/dtn_schur_rows_strict_symmetrized_response_control_true_schur.csv",
+      "sha256": "08cc6fa37d694dbb4fabdcd1084ca213d77cdb4e46ccf5c042a716a6010db7d1",
+      "bytes": 10014
+    },
+    {
+      "path": "outputs/events_log_growth_script1_2_true_schur.csv",
+      "sha256": "1f450b0473d2f51989ab80ac9ce47cd6d09b7f261a320eb1b798d3fdd3f35700",
+      "bytes": 5187
+    },
+    {
+      "path": "outputs/events_real_growth_linear_script1_2_true_schur.csv",
+      "sha256": "a4c64c90e68f75e6bccd01e66e609e59c94eae9fc3710006dae805616889f4ce",
+      "bytes": 5199
+    },
+    {
+      "path": "outputs/events_reverse_birth_label_order_control_true_schur.csv",
+      "sha256": "ca344547d6440457f11a1b9fc4eb89033de425820e3bb9b93448928eecd189c6",
+      "bytes": 5259
+    },
+    {
+      "path": "outputs/events_saturating_growth_script1_2_true_schur.csv",
+      "sha256": "5c550c2b95b2444901e4c2faa46b1f955d80feede089a0b7a668da13c9c2f5d5",
+      "bytes": 5232
+    },
+    {
+      "path": "outputs/events_strict_symmetrized_response_control_true_schur.csv",
+      "sha256": "24fb13f2903cd63678d13213d045996706df16555f63f083e7e8451e102471b4",
+      "bytes": 3170
+    },
+    {
+      "path": "outputs/levels_log_growth_script1_2_true_schur.csv",
+      "sha256": "83c617ebf1fccbe927d538f1c86a576d75da8cbab5a38b7efe66b7e5bd162846",
+      "bytes": 1507
+    },
+    {
+      "path": "outputs/levels_real_growth_linear_script1_2_true_schur.csv",
+      "sha256": "1aac5c53c6ef77ba30ad9b61c3ce4792c190b7bebb6b46da4fdd0e9bee21a7c1",
+      "bytes": 1494
+    },
+    {
+      "path": "outputs/levels_reverse_birth_label_order_control_true_schur.csv",
+      "sha256": "7537bfc2cafaa269fe33002260c7303fffaa5cb978462730539a1dbe829b5130",
+      "bytes": 1509
+    },
+    {
+      "path": "outputs/levels_saturating_growth_script1_2_true_schur.csv",
+      "sha256": "8bb2a4ca8dfbfa0d2f61acb60ecded538d1a8b04d81f9d37628ea873e9121e15",
+      "bytes": 1535
+    },
+    {
+      "path": "outputs/levels_strict_symmetrized_response_control_true_schur.csv",
+      "sha256": "65c976e2910a87fd72ff379288ce9d3848df7ca56d1abef3409074b2e272fe05",
+      "bytes": 1222
+    },
+    {
+      "path": "outputs/summary.json",
+      "sha256": "f3acd3f96b40eae41e5f21783adcd53d4f5bef849c2066a2c141d80741e16c22",
+      "bytes": 5706
+    },
+    {
+      "path": "outputs/triples_log_growth_script1_2_true_schur.csv",
+      "sha256": "604e91b0fa82d6ac2ca6af7826b5ea73ad60bd423cf1b69fd5ef760a206158dd",
+      "bytes": 1583
+    },
+    {
+      "path": "outputs/triples_real_growth_linear_script1_2_true_schur.csv",
+      "sha256": "2f0676f17b11b27de6c34c8e17ee1adf196f50e8a9254892daf09061ebd2cd20",
+      "bytes": 1597
+    },
+    {
+      "path": "outputs/triples_reverse_birth_label_order_control_true_schur.csv",
+      "sha256": "04b3703d839d534774fbd6800df1135bbbb4219635c1762b317695d2d258c59f",
+      "bytes": 1617
+    },
+    {
+      "path": "outputs/triples_saturating_growth_script1_2_true_schur.csv",
+      "sha256": "200d24c1e768a1383640630bdc8313270a68df4d6c664bbb9fa2178888f1dfbc",
+      "bytes": 1619
+    },
+    {
+      "path": "outputs/triples_strict_symmetrized_response_control_true_schur.csv",
+      "sha256": "116dcb70c1e2bfa3610dc58eea361672164f26f84f8f85f90c78f0475823d5f4",
+      "bytes": 1143
+    },
+    {
+      "path": "test_dynamic_boundary_role_schur_dtn_gate.py",
+      "sha256": "790a30932cdd909e2b04a9705218199ab8dc24760e5edfa9536b40379d419734",
+      "bytes": 44309
+    }
+  ],
+  "notes": [
+    "Uses true Laplacian Schur-complement DtN maps on boundary={cut_node}+UV-tail leaves.",
+    "Directed incoming/outgoing roles are logged separately; electrical DtN uses symmetrized positive conductances.",
+    "No delta-beta, J, i, Hodge, star, positivity, or Q/P criterion is used as gate."
+  ],
+  "main_script": "test_dynamic_boundary_role_schur_dtn_gate.py",
+  "results": "outputs/RESULTS.md"
+}

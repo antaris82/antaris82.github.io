@@ -1,0 +1,5 @@
+child_birth_g,child_birth_orders,child_birth_times,child_current_g,children_chronological,forward_product,full_markov_eig_class,full_markov_max_imag,log_circulation_forward_vs_reverse,mode,neutral_norm_current,parent,parent_level,path_markov_eig_class,path_markov_max_imag,reverse_product,sym_markov_eig_class,sym_markov_max_imag,time,variant
+1 1 1,1 2 3,1 2 3,1 1 1,1 2 3,1e-36,real_or_degenerate,0.0,0.0,linear,3.510833468576701e-16,0,0,real_or_degenerate,0.0,1e-36,real_or_degenerate,0.0,3,strict_symmetrized_response_control_true_schur
+1 1 1,1 2 3,4 5 6,1 1 1,4 5 6,1e-36,real_or_degenerate,0.0,0.0,linear,3.510833468576701e-16,1,1,real_or_degenerate,0.0,1e-36,real_or_degenerate,0.0,6,strict_symmetrized_response_control_true_schur
+1 1 1,1 2 3,7 8 9,1 1 1,7 8 9,1e-36,real_or_degenerate,0.0,0.0,linear,3.510833468576701e-16,2,1,real_or_degenerate,0.0,1e-36,real_or_degenerate,0.0,9,strict_symmetrized_response_control_true_schur
+1 1 1,1 2 3,10 11 12,1 1 1,10 11 12,1e-36,real_or_degenerate,0.0,0.0,linear,3.510833468576701e-16,3,1,real_or_degenerate,0.0,1e-36,real_or_degenerate,0.0,12,strict_symmetrized_response_control_true_schur
