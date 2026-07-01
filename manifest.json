@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "6c22d61061f438dbd5d41db49c05528a4ee0fc01",
-    "size": 443554,
+    "sha": "d51fb9b36abafc922e944aa728fb33971c96d48d",
+    "size": 444467,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "da660c71f3f0c55177554d144a2e1762899fd54b",
+    "sha": "c04668fa8d76b38956d78a9c0307c5988816fb3c",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -8739,6 +8739,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/test_closed_geometry_holonomy_frustration.py",
     "sha": "38a76f22acee2a9903eb6f01d550d619def2a91b",
     "size": 8445,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/dynamic_birth_two_ended_bulk_inverse_symmetry_pkg_v9.zip",
+    "sha": "956668a92e980d2df1763e942fac6491302f7645",
+    "size": 3530708,
     "type": "blob",
     "mode": "100644"
   },
