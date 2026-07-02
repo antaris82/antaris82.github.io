@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "d51fb9b36abafc922e944aa728fb33971c96d48d",
-    "size": 444467,
+    "sha": "aba48ba45495b01f4369611a3bd4d832103cbcfb",
+    "size": 444732,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "c04668fa8d76b38956d78a9c0307c5988816fb3c",
+    "sha": "e5a200b912c5882dd2a59cf7e4445d5898fab66f",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -8739,6 +8739,20 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/test_closed_geometry_holonomy_frustration.py",
     "sha": "38a76f22acee2a9903eb6f01d550d619def2a91b",
     "size": 8445,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/dynamic_birth_projective_provenance_measure_pkg_v10_2_Bericht.pdf",
+    "sha": "bd196594445573da7ced7371368c597830401765",
+    "size": 359494,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/dynamic_birth_projective_provenance_measure_pkg_v10_2.zip",
+    "sha": "3cbe5980c5cf2dc5fd8f067526d83ce40e7bbdae",
+    "size": 5062329,
     "type": "blob",
     "mode": "100644"
   },
