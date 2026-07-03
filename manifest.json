@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "882291b2d949c034d94e9057cc11c71d9a47be75",
-    "size": 445271,
+    "sha": "81554068d8a864c9463d68577579f8caa116e83a",
+    "size": 445586,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "a0c9d7e4436aecfe75ee1b9d47acd1ad5c9cced2",
+    "sha": "5c309b14fd14e6e34e73e06248a8789e24f95007",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -8739,13 +8739,6 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/9_closed_geometry_holonomy_frustration_test_package/test_closed_geometry_holonomy_frustration.py",
     "sha": "38a76f22acee2a9903eb6f01d550d619def2a91b",
     "size": 8445,
-    "type": "blob",
-    "mode": "100644"
-  },
-  {
-    "path": "Sierpinski Tetraeder_PoC/CNNA/Tests/Obstructions/b-ary_tree/Growth/Direct Regional SchurKron Complement Network LimesBulk_Projectivity Hardeningcsv_outputs_b34_L6_v11_2.zip",
-    "sha": "93f638e638e5811e9c8ecc6b745b3373128d7867",
-    "size": 13387084,
     "type": "blob",
     "mode": "100644"
   },
