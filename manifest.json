@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "091498b630b04ffab6112b4b9f55fff2247b73de",
-    "size": 445586,
+    "sha": "c629591abb3c2cecc88dce71e0f1938683a5645d",
+    "size": 445778,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "8fc69af60ff0953aeb53d655102fecd548b15119",
+    "sha": "f1749e22bbcad8e4cb457c944eee12c35a2274a2",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -612,6 +612,27 @@
     "path": "Sierpinski Tetraeder_PoC/C1/README.md",
     "sha": "12bc697be5b919109a482998747b30cdfc445f68",
     "size": 2420,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20160710/CNNA_arXiv_compiled_preview_2026-07-10_v7_FINAL_r2.pdf",
+    "sha": "640d8ebce380fb968455a2a931e4c2049e64ac10",
+    "size": 798748,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20160710/CNNA_arXiv_source_2026-07-10_v7_FINAL_r2.zip",
+    "sha": "7ca9ffbd3c00e514dd8f100f0652e9822cca66c3",
+    "size": 453808,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20160710/CNNA_arXiv_source_2026-07-10_v7_FINAL_r2.zip.sha256",
+    "sha": "f1c8c4c4f75914bff8e9e296649545ad01353cc6",
+    "size": 111,
     "type": "blob",
     "mode": "100644"
   },
