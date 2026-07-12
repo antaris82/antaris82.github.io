@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "d6c5dc8af2600fac31ce35a0cc9b33cf84c1bddf",
-    "size": 445271,
+    "sha": "091498b630b04ffab6112b4b9f55fff2247b73de",
+    "size": 445586,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "774f8445d75b4bae7273e491d98026f29478a951",
+    "sha": "8fc69af60ff0953aeb53d655102fecd548b15119",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -612,6 +612,13 @@
     "path": "Sierpinski Tetraeder_PoC/C1/README.md",
     "sha": "12bc697be5b919109a482998747b30cdfc445f68",
     "size": 2420,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20160710/test.123",
+    "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+    "size": 1,
     "type": "blob",
     "mode": "100644"
   },
