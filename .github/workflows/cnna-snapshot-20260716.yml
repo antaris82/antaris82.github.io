@@ -21,20 +21,22 @@ jobs:
       - name: Install build tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq unzip zip patch texlive-latex-base texlive-latex-recommended texlive-fonts-recommended poppler-utils
+          sudo apt-get install -y -qq unzip zip patch texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended poppler-utils
 
       - name: Reconstruct and compile snapshot
         shell: bash
         run: |
           set -euo pipefail
           SRC='Sierpinski Tetraeder_PoC/CNNA/Snapshot/20160710/CNNA_arXiv_source_2026-07-10_v7_FINAL_r2.zip'
-          PATCH_B64='Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260716/.build/cnna_v7_to_v11.patch.gz.b64'
+          PATCH_DIR='Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260716/.build'
           WORK='/tmp/cnna_snapshot_20260716'
           OUT='/tmp/cnna_snapshot_outputs_20260716'
           rm -rf "$WORK" "$OUT"
           mkdir -p "$WORK" "$OUT"
           unzip -q "$SRC" -d "$WORK"
-          base64 -d "$PATCH_B64" | gzip -d > /tmp/cnna_v7_to_v11.patch
+          cat "$PATCH_DIR"/patchb64.part00 "$PATCH_DIR"/patchb64.part01 "$PATCH_DIR"/patchb64.part02 "$PATCH_DIR"/patchb64.part03 \
+            | base64 -d | gzip -d > /tmp/cnna_v7_to_v11.patch
+          echo 'f9aa75b584032ef646be2990a583fbd92f45673a10338b631328f8f14ab19bf5  /tmp/cnna_v7_to_v11.patch' | sha256sum -c -
           (
             cd "$WORK"
             patch -p1 --batch --forward < /tmp/cnna_v7_to_v11.patch
