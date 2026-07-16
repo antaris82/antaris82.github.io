@@ -14,6 +14,13 @@
     "mode": "100644"
   },
   {
+    "path": ".github/workflows/cnna-snapshot-20260716.yml",
+    "sha": "83b80d779f3f4a9ec0cee7dfc89e5a34311e1703",
+    "size": 4226,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": ".github/workflows/i18n-md.yml",
     "sha": "766476195dc1a9582d9d2cd258fb0a8660c1b881",
     "size": 11494,
@@ -141,14 +148,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "9ec3835ffe6ce8d542f15dd611e75ae300095b15",
-    "size": 446299,
+    "sha": "88516990ba173b80c29529c70a1bbd8d6f3c2aca",
+    "size": 446521,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "300fbdf823ded2905809842b0d01c78aeb7a0a6b",
+    "sha": "03210717869cddc2f7c0ae220e10ee6906a253b1",
     "size": 120,
     "type": "blob",
     "mode": "100644"
