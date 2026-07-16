@@ -148,14 +148,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "1601f514e15f1bcf8bdce1e71f2482bb2f9676c6",
-    "size": 446913,
+    "sha": "b33ecd4531eedb4f8eed1f493693c097277feb6d",
+    "size": 447122,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "0e73b6ff2ea0a4ec95c2a38567cb911bf07384a6",
+    "sha": "30133291f604570c5ebb50d1f4117850938e2196",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -695,6 +695,13 @@
   {
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260716/.build/patchb64.part01",
     "sha": "ecc5ef6283f22752ec1dfa7c818d6cf73f99a9c3",
+    "size": 4000,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260716/.build/patchb64.part02",
+    "sha": "0da574cacc98279a830479ff41a621fb0920afa3",
     "size": 4000,
     "type": "blob",
     "mode": "100644"
