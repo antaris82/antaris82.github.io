@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/publish-cnna-v12-20260717.yml'
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - '.build/cnna-v12-20260717/TRIGGER'
   workflow_dispatch: {}
 
 permissions:
