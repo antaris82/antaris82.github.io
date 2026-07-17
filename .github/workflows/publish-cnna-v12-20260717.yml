@@ -45,12 +45,15 @@ jobs:
               texlive-latex-base texlive-latex-recommended \
               texlive-latex-extra texlive-fonts-recommended poppler-utils
 
-            cat "$BUILD_INPUT"/patch.b64.part00 \
-                "$BUILD_INPUT"/patch.b64.part01 \
-                "$BUILD_INPUT"/patch.b64.part02 \
-                "$BUILD_INPUT"/patch.b64.part03 \
-                "$BUILD_INPUT"/patch.b64.part04 \
-              | base64 --decode > "$WORK/CNNA_v12_related_work_literature_audit.patch"
+            cat "$BUILD_INPUT"/patch.gz.b64.part00 \
+                "$BUILD_INPUT"/patch.gz.b64.part01 \
+                "$BUILD_INPUT"/patch.gz.b64.part02 \
+                "$BUILD_INPUT"/patch.gz.b64.part03 \
+                "$BUILD_INPUT"/patch.gz.b64.part04 \
+                "$BUILD_INPUT"/patch.gz.b64.part05 \
+              | base64 --decode > "$WORK/CNNA_v12_related_work_literature_audit.patch.gz"
+            echo '42458f5b814521ef38ee40f691c4190cd82207c5fe780a372a3bde724ceb8203  '"$WORK/CNNA_v12_related_work_literature_audit.patch.gz" | sha256sum -c -
+            gzip --decompress --stdout "$WORK/CNNA_v12_related_work_literature_audit.patch.gz" > "$WORK/CNNA_v12_related_work_literature_audit.patch"
             echo 'f68264932e646cd8db504cdd0a1975b756eea4c5dfb4e624e7da7cc86a3e15d8  '"$WORK/CNNA_v12_related_work_literature_audit.patch" | sha256sum -c -
 
             unzip -q "$OLD_SNAPSHOT" -d "$WORK/src"
