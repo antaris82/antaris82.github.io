@@ -106,8 +106,8 @@
   },
   {
     "path": ".github/workflows/publish-cnna-v12-20260717.yml",
-    "sha": "1963d7a0fa24773d7b1a2e9bc18bef60a24e30bf",
-    "size": 4991,
+    "sha": "ea9776245105131f8de1b3c7e624b761b2187db2",
+    "size": 5370,
     "type": "blob",
     "mode": "100644"
   },
@@ -225,14 +225,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "5c23010da1906c415d6a41f8bac1f09c559271c9",
-    "size": 449679,
+    "sha": "f83bef6d0d5288d8995d8f6f5ae85cef342219da",
+    "size": 450044,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "d83548df589eedf70fc5701e07b272ed457fc71f",
+    "sha": "1f65094b35c44932b1c621a9fa8eda8cb8347a3f",
     "size": 120,
     "type": "blob",
     "mode": "100644"
