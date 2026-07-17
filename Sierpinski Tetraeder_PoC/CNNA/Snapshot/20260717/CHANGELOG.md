@@ -46,9 +46,9 @@ All 143 non-documentation files are path- and byte-identical to v11.
 
 ## Files in this snapshot
 
-- `cnna_core_derived_documentation_v12_related_work_literature_audit.pdf`
-- `cnna_core_derived_documentation_v12_related_work_literature_audit.tex`
-- `CNNA_arXiv_source_2026-07-17_v12_related_work_literature_audit.zip`
-- `CNNA_v12_related_work_literature_audit.patch`
-- `SHA256SUMS_v12_related_work_literature_audit.txt`
-- `CHANGELOG_v12_related_work_literature_audit.md`
+- `CNNA_finite_core_snapshot_20260717.pdf`
+- `CNNA_finite_core_snapshot_20260717.tex`
+- `CNNA_finite_core_snapshot_20260717.zip`
+- `CNNA_finite_core_snapshot_20260717.patch`
+- `SHA256SUMS.txt`
+- `CHANGELOG.md`
