@@ -42,6 +42,13 @@
     "mode": "100644"
   },
   {
+    "path": ".build/cnna-v12-20260717/patch.gz.b64.part01",
+    "sha": "ae1af76de27f7675bae84b8a612123274fae8663",
+    "size": 3000,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": ".github/scripts/translate-md.mjs",
     "sha": "548b4012efdcfa369ced8fa45dd76ddca9868108",
     "size": 7455,
@@ -190,14 +197,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "9e83521577b617045fd72f7df8f82c7123436258",
-    "size": 448742,
+    "sha": "2dd2d3062daf7f95dc7d24ff40d6ef11af07968e",
+    "size": 449130,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "0462f49e98a4a73593d7d3c78d8eb06ca70c214c",
+    "sha": "669aee4cf811232aa17faba5dd680f662642c3e1",
     "size": 120,
     "type": "blob",
     "mode": "100644"
