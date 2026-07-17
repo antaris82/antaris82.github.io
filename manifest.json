@@ -35,6 +35,13 @@
     "mode": "100644"
   },
   {
+    "path": ".build/cnna-v12-20260717/patch.gz.b64.part00",
+    "sha": "9eebfee9607fbdb8b913f12f1ccbdd71e9c8f85f",
+    "size": 3000,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": ".github/scripts/translate-md.mjs",
     "sha": "548b4012efdcfa369ced8fa45dd76ddca9868108",
     "size": 7455,
@@ -183,14 +190,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "00d0a0ae8d6003b0de4f376601d454cc9d934c39",
+    "sha": "9e83521577b617045fd72f7df8f82c7123436258",
     "size": 448742,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "9bb9e83853f3435026a1772037d8ea7ce811d350",
+    "sha": "0462f49e98a4a73593d7d3c78d8eb06ca70c214c",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -731,6 +738,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260716/SHA256SUMS.txt",
     "sha": "993f7d927401b3ac155b485102de64bed1af4301",
     "size": 210,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260717/BUILD_FAILURE.log",
+    "sha": "2f545d0e2bddeeb281142f3cc207fe96ebc012ee",
+    "size": 25642,
     "type": "blob",
     "mode": "100644"
   },
