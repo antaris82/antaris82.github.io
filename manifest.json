@@ -64,8 +64,8 @@
   },
   {
     "path": ".github/workflows/publish-cnna-v12-20260717.yml",
-    "sha": "4bbc4330cbbfabe281ac0c07043a1955515cf591",
-    "size": 4230,
+    "sha": "19d5da135d2fae7ca0ec2b657af9946237b6da76",
+    "size": 4295,
     "type": "blob",
     "mode": "100644"
   },
@@ -155,8 +155,8 @@
   },
   {
     "path": "changed.txt",
-    "sha": "53969c1e696d6d21250f779b5847e1f81b9930e8",
-    "size": 374,
+    "sha": "0798e1b36441a7a482ccb1eb2906f9db84b32d3f",
+    "size": 95,
     "type": "blob",
     "mode": "100644"
   },
@@ -183,15 +183,15 @@
   },
   {
     "path": "manifest.json",
-    "sha": "6a2f19e91f00cb7caf3af7e457bb6d732d82e5c1",
-    "size": 447022,
+    "sha": "412e8aa4ea510c1e7569be02cb3302ff3cca5c4b",
+    "size": 448507,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "71742d2eeb6586891624d2f70627ece586df1593",
-    "size": 123,
+    "sha": "b03cd322e35959bc7ebc7a80764f41556d3676da",
+    "size": 120,
     "type": "blob",
     "mode": "100644"
   },
@@ -731,6 +731,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260716/SHA256SUMS.txt",
     "sha": "993f7d927401b3ac155b485102de64bed1af4301",
     "size": 210,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260717/CHANGELOG_v12_related_work_literature_audit.en.md",
+    "sha": "b46f192034b58d36b5d50d3cbfb7b4112fc6f462",
+    "size": 2395,
     "type": "blob",
     "mode": "100644"
   },
