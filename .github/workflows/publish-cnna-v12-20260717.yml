@@ -3,7 +3,7 @@ name: Publish CNNA v12 snapshot 20260717
 on:
   push:
     branches:
-      - publish-cnna-snapshot-20260717
+      - main
     paths:
       - '.github/workflows/publish-cnna-v12-20260717.yml'
 
@@ -14,10 +14,10 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out publication branch
+      - name: Check out main
         uses: actions/checkout@v4
         with:
-          ref: publish-cnna-snapshot-20260717
+          ref: main
           fetch-depth: 0
 
       - name: Install build dependencies
@@ -102,4 +102,4 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           git commit -m 'Publish CNNA v12 snapshot 20260717'
-          git push origin HEAD:publish-cnna-snapshot-20260717
+          git push origin HEAD:main
