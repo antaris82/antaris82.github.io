@@ -1,3 +1,4 @@
+# One-time publisher; self-deletes after successful publication.
 name: Publish CNNA v12 snapshot 20260717
 
 on:
