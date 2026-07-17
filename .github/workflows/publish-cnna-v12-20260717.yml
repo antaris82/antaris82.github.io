@@ -3,10 +3,10 @@ name: Publish CNNA v12 snapshot 20260717
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - '.github/workflows/publish-cnna-v12-20260717.yml'
+  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -23,8 +23,8 @@ jobs:
 
       - name: Install build dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq \
             patch unzip zip \
             texlive-latex-base texlive-latex-recommended \
             texlive-latex-extra texlive-fonts-recommended texlive-science
@@ -76,8 +76,8 @@ jobs:
 
           (
             cd "$WORK/src"
-            zip -X -q -r "$GITHUB_WORKSPACE/$OUT/CNNA_arXiv_source_2026-07-17_v12_related_work_literature_audit.zip" . \
-              -x '*.aux' '*.log' '*.out' '*.toc' '*.pdf'
+            rm -f ./*.aux ./*.log ./*.out ./*.toc ./*.pdf
+            zip -X -q -r "$GITHUB_WORKSPACE/$OUT/CNNA_arXiv_source_2026-07-17_v12_related_work_literature_audit.zip" .
           )
 
           (
@@ -89,6 +89,7 @@ jobs:
               CNNA_v12_related_work_literature_audit.patch \
               CHANGELOG_v12_related_work_literature_audit.md \
               > SHA256SUMS_v12_related_work_literature_audit.txt
+            sha256sum -c SHA256SUMS_v12_related_work_literature_audit.txt
           )
 
       - name: Remove one-time build inputs and workflow
@@ -101,6 +102,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git pull --rebase --autostash origin main
           git add -A
           git commit -m 'Publish CNNA v12 snapshot 20260717'
           git push origin HEAD:main
