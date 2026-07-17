@@ -1,0 +1,105 @@
+name: Publish CNNA v12 snapshot 20260717
+
+on:
+  push:
+    branches:
+      - publish-cnna-snapshot-20260717
+    paths:
+      - '.github/workflows/publish-cnna-v12-20260717.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out publication branch
+        uses: actions/checkout@v4
+        with:
+          ref: publish-cnna-snapshot-20260717
+          fetch-depth: 0
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            patch unzip zip \
+            texlive-latex-base texlive-latex-recommended \
+            texlive-latex-extra texlive-fonts-recommended texlive-science
+
+      - name: Reconstruct and verify v12 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_INPUT='.build/cnna-v12-20260717'
+          OLD_SNAPSHOT='Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260716/CNNA_finite_core_snapshot_20260716.zip'
+          WORK="$RUNNER_TEMP/cnna-v12"
+          mkdir -p "$WORK/src"
+
+          cat "$BUILD_INPUT"/patch.b64.part* | base64 --decode > "$WORK/CNNA_v12_related_work_literature_audit.patch"
+          echo 'f68264932e646cd8db504cdd0a1975b756eea4c5dfb4e624e7da7cc86a3e15d8  '"$WORK/CNNA_v12_related_work_literature_audit.patch" | sha256sum --check
+
+          unzip -q "$OLD_SNAPSHOT" -d "$WORK/src"
+          cd "$WORK/src"
+          mv cnna_core_derived_documentation.tex cnna_core_derived_documentation_v11.tex
+          patch cnna_core_derived_documentation_v11.tex < "$WORK/CNNA_v12_related_work_literature_audit.patch"
+          mv cnna_core_derived_documentation_v11.tex cnna_core_derived_documentation.tex
+          echo '39cbb78f1efef38abaceb297da254172061d39025234fd8fe1effd9be11cb221  cnna_core_derived_documentation.tex' | sha256sum --check
+
+      - name: Compile manuscript
+        shell: bash
+        run: |
+          set -euo pipefail
+          WORK="$RUNNER_TEMP/cnna-v12"
+          cd "$WORK/src"
+          pdflatex -interaction=nonstopmode -halt-on-error cnna_core_derived_documentation.tex
+          pdflatex -interaction=nonstopmode -halt-on-error cnna_core_derived_documentation.tex
+          pdflatex -interaction=nonstopmode -halt-on-error cnna_core_derived_documentation.tex
+          test -s cnna_core_derived_documentation.pdf
+
+      - name: Assemble dated snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          WORK="$RUNNER_TEMP/cnna-v12"
+          OUT='Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260717'
+          mkdir -p "$OUT"
+
+          cp "$WORK/src/cnna_core_derived_documentation.tex" \
+            "$OUT/cnna_core_derived_documentation_v12_related_work_literature_audit.tex"
+          cp "$WORK/src/cnna_core_derived_documentation.pdf" \
+            "$OUT/cnna_core_derived_documentation_v12_related_work_literature_audit.pdf"
+          cp "$WORK/CNNA_v12_related_work_literature_audit.patch" \
+            "$OUT/CNNA_v12_related_work_literature_audit.patch"
+
+          (
+            cd "$WORK/src"
+            zip -X -q -r "$GITHUB_WORKSPACE/$OUT/CNNA_arXiv_source_2026-07-17_v12_related_work_literature_audit.zip" . \
+              -x '*.aux' '*.log' '*.out' '*.toc' '*.pdf'
+          )
+
+          (
+            cd "$OUT"
+            sha256sum \
+              cnna_core_derived_documentation_v12_related_work_literature_audit.tex \
+              cnna_core_derived_documentation_v12_related_work_literature_audit.pdf \
+              CNNA_arXiv_source_2026-07-17_v12_related_work_literature_audit.zip \
+              CNNA_v12_related_work_literature_audit.patch \
+              CHANGELOG_v12_related_work_literature_audit.md \
+              > SHA256SUMS_v12_related_work_literature_audit.txt
+          )
+
+      - name: Remove one-time build inputs and workflow
+        run: |
+          rm -rf '.build/cnna-v12-20260717'
+          rm -f '.github/workflows/publish-cnna-v12-20260717.yml'
+
+      - name: Commit published snapshot
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Publish CNNA v12 snapshot 20260717'
+          git push origin HEAD:publish-cnna-snapshot-20260717
