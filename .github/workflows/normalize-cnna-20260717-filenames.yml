@@ -1,0 +1,71 @@
+name: Normalize CNNA 20260717 filenames
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - '.build/cnna-neutral-names-20260717/TRIGGER'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Rename snapshot files neutrally
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR='Sierpinski Tetraeder_PoC/CNNA/Snapshot/20260717'
+
+          git mv "$DIR/cnna_core_derived_documentation_v12_related_work_literature_audit.pdf" \
+                 "$DIR/CNNA_finite_core_snapshot_20260717.pdf"
+          git mv "$DIR/cnna_core_derived_documentation_v12_related_work_literature_audit.tex" \
+                 "$DIR/CNNA_finite_core_snapshot_20260717.tex"
+          git mv "$DIR/CNNA_arXiv_source_2026-07-17_v12_related_work_literature_audit.zip" \
+                 "$DIR/CNNA_finite_core_snapshot_20260717.zip"
+          git mv "$DIR/CNNA_v12_related_work_literature_audit.patch" \
+                 "$DIR/CNNA_finite_core_snapshot_20260717.patch"
+          git mv "$DIR/CHANGELOG_v12_related_work_literature_audit.md" \
+                 "$DIR/CHANGELOG.md"
+          git mv "$DIR/SHA256SUMS_v12_related_work_literature_audit.txt" \
+                 "$DIR/SHA256SUMS.txt"
+
+          sed -i \
+            -e 's/cnna_core_derived_documentation_v12_related_work_literature_audit\.pdf/CNNA_finite_core_snapshot_20260717.pdf/g' \
+            -e 's/cnna_core_derived_documentation_v12_related_work_literature_audit\.tex/CNNA_finite_core_snapshot_20260717.tex/g' \
+            -e 's/CNNA_arXiv_source_2026-07-17_v12_related_work_literature_audit\.zip/CNNA_finite_core_snapshot_20260717.zip/g' \
+            -e 's/CNNA_v12_related_work_literature_audit\.patch/CNNA_finite_core_snapshot_20260717.patch/g' \
+            -e 's/SHA256SUMS_v12_related_work_literature_audit\.txt/SHA256SUMS.txt/g' \
+            -e 's/CHANGELOG_v12_related_work_literature_audit\.md/CHANGELOG.md/g' \
+            "$DIR/CHANGELOG.md"
+
+          (
+            cd "$DIR"
+            sha256sum \
+              CNNA_finite_core_snapshot_20260717.tex \
+              CNNA_finite_core_snapshot_20260717.pdf \
+              CNNA_finite_core_snapshot_20260717.zip \
+              CNNA_finite_core_snapshot_20260717.patch \
+              CHANGELOG.md \
+              > SHA256SUMS.txt
+            sha256sum -c SHA256SUMS.txt
+          )
+
+          rm -rf '.build/cnna-neutral-names-20260717'
+          rm -f '.github/workflows/normalize-cnna-20260717-filenames.yml'
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git pull --rebase --autostash origin main
+          git add -A
+          git commit -m 'Use neutral filenames for CNNA snapshot 20260717'
+          git push origin HEAD:main
