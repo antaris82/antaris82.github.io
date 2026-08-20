@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "13635827ad13676e8ae16a91aab4e3255768a495",
-    "size": 448452,
+    "sha": "bf42a80cad28d07cc793055b2376f8d0df6fb6fe",
+    "size": 448657,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "dc69a2d7272ff736e6de16fa39abee1c1e19ad38",
+    "sha": "adcf63011251fd012a795e70cec71ea13b4caef2",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -750,8 +750,8 @@
   },
   {
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/2-ary-tree_adress.png",
-    "sha": "924a843f003f88f2ea3a6417280dc45fe04abc1b",
-    "size": 22674,
+    "sha": "0b3b456e2c9ce47c5ea9ad9193817556a7cbe7e3",
+    "size": 23519,
     "type": "blob",
     "mode": "100644"
   },
