@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "e306c34aa0265b153f83eb82740b4431d942213a",
-    "size": 448657,
+    "sha": "b9326e9ea2ee93981797eb866abecfee22ecdba3",
+    "size": 448864,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "9f295b5b356df8cee6263ce03c77aa60e6887932",
+    "sha": "ac31203aee44a3604c92838feb9d272ba51645d8",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -773,6 +773,20 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/b=2_90°_Gauss.png",
     "sha": "bec50326e4ab1912934b28ded840f3fbab05788b",
     "size": 66816,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/ChatGPT Inkognito.pdf",
+    "sha": "927948006ad27308939490ac9587529cd433d7e8",
+    "size": 331340,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/Claude Inkognito.pdf",
+    "sha": "5038f1257221b8c5772f7e601f2a03bdb4f8e4d6",
+    "size": 405324,
     "type": "blob",
     "mode": "100644"
   },
