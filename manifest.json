@@ -141,14 +141,14 @@
   },
   {
     "path": "manifest.json",
-    "sha": "c7bd2f74c6da749a4263db4d2a651aa60c2053a6",
-    "size": 449275,
+    "sha": "cb917a020c6983c9e93628161f158acb69d6f288",
+    "size": 449512,
     "type": "blob",
     "mode": "100644"
   },
   {
     "path": "manifest.version.json",
-    "sha": "ffff7736225c938b18de03efb04f97fa9a2e8f6d",
+    "sha": "fcff4f5f49f5c49368fede73e4cef087a7c074ed",
     "size": 120,
     "type": "blob",
     "mode": "100644"
@@ -777,9 +777,23 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/ChatGPT Inkognito nach Auflösung.pdf",
+    "sha": "c83fa2b455ce6fd7ba3c90a44195f69f3d750431",
+    "size": 682415,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/ChatGPT Inkognito.pdf",
     "sha": "927948006ad27308939490ac9587529cd433d7e8",
     "size": 331340,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/Claude Inkognito nach Auflösung.pdf",
+    "sha": "d2f6cecc9df27bce6d8c66516a6a48be09cf1447",
+    "size": 770358,
     "type": "blob",
     "mode": "100644"
   },
@@ -847,6 +861,13 @@
     "mode": "100644"
   },
   {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/d106598e-da7e-44d1-ad7b-6f37edb3a33a-aristotle 2.tar.gz",
+    "sha": "9271287d4c41a922dd750766dd71007c2d448170",
+    "size": 881535,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/d106598e-da7e-44d1-ad7b-6f37edb3a33a-aristotle.tar.gz",
     "sha": "a6316f1114ab8716fdf31905fa4a33ca22c447f3",
     "size": 24594,
@@ -864,6 +885,13 @@
     "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/g2.png",
     "sha": "418268d44898c192ee5cbcbd12c5922fae80156e",
     "size": 119846,
+    "type": "blob",
+    "mode": "100644"
+  },
+  {
+    "path": "Sierpinski Tetraeder_PoC/CNNA/supplementary/Google AI nach Auflösung.pdf",
+    "sha": "b25d69b78721fef2f19947645ad0ea0ee083b70e",
+    "size": 823443,
     "type": "blob",
     "mode": "100644"
   },
